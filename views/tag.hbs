@@ -1,0 +1,13 @@
+{{!< default}}
+
+<h1>Blog posts tagged with {{tag}}</h1>
+
+{{#each posts}}
+    {{> post-preview}}
+    {{#if @last}}
+    {{else}}
+        <hr>
+    {{/if}}
+{{/each}}
+
+{{pagination}}

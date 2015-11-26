@@ -1,0 +1,300 @@
+// Enables the use of flexbox for layout
+$enable-flex: true;
+
+// Core variables and mixins
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// Includes only Normalize and our Bootstrap's Reboot reset
+@import "bootstrap/scss/bootstrap-reboot";
+@import "bootstrap/scss/print";
+
+// Core CSS
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/code";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+
+// Utility classes
+@import "bootstrap/scss/utilities";
+
+$lightTextColor: #ebebeb;
+$darkBackgroundColor: #3C3C3B;
+$lightBackgroundColor: #565655;
+$twitterBlue: #4099FF;
+$githubBlack: #171515;
+
+@import "josephduffy-icon-font-external";
+
+html, body {
+    min-width: 320px;
+    font-size: 16px;
+}
+
+html, body, #page-header, #page-footer {
+    background-color: $lightBackgroundColor;
+    color: $lightTextColor;
+}
+
+/**
+ * Link styles
+ */
+
+a:link, a:visited {
+    color: rgb(38, 152, 232);
+}
+
+/**
+ * Page header
+ */
+
+#page-header {
+    padding-left: 0;
+
+    a:link, a:visited {
+        color: rgb(38, 152, 232);
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+#page-heading {
+    margin: 0.3em 0 0 0;
+    line-height: 1;
+
+    a {
+        &:link, &:visited {
+            color: $lightTextColor !important;
+        }
+
+        &:hover, &:focus {
+            color: $lightTextColor !important;
+        }
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    #page-heading {
+        font-size: 2.6em;
+    }
+}
+
+#page-header-subtitle {
+    font-size: 0.7em;
+    font-style: italic;
+    margin-bottom: 0.6em;
+}
+
+#page-header-attribution {
+    font-size: 0.9em;
+}
+
+/**
+ * Page navigation
+ */
+
+#page-navigation-container {
+    // width: 102%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#page-navigation {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 0;
+    margin: 0.6em auto;
+    width: auto;
+    white-space: nowrap;
+
+    li {
+        display: inline-block;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    li + li {
+        padding-left: 20px;
+    }
+}
+
+#page-main {
+    background-color: $darkBackgroundColor;
+    color: $lightTextColor;
+    font-size: 1.05rem;
+    padding: 15px 0;
+}
+
+/**
+ * Sticky Footer
+ */
+
+ body {
+     display: -webkit-flex;
+     display: -ms-flexbox;
+     display: flex;
+    min-height: 100vh;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+ }
+
+ #page-main {
+     -webkit-flex: 1;
+         -ms-flex: 1;
+             flex: 1;
+ }
+
+/**
+ * Post styles
+ */
+
+.post {
+    .post-header {
+        margin-bottom: 12px;
+    }
+
+    .post-title {
+        margin: 0;
+    }
+
+    .post-date {
+        color: #898989;
+    }
+
+    .post-content {
+        img {
+            max-width: 100%;
+        }
+    }
+}
+
+.post-preview {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.17em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    h4 {
+        font-size: 0.83em;
+    }
+
+    h5 {
+        font-size: 0.67em;
+    }
+}
+
+.read-more-link {
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.post-permalink {
+    span {
+        -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+    }
+}
+
+#page-footer {
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 14px;
+}
+
+#footer-social-media {
+    ul {
+        padding: 0;
+
+        li {
+            list-style: none;
+            display: inline-block;
+
+            a:before {
+                padding-right: 1.1em;
+            }
+        }
+
+        li + li:before {
+            content: " | ";
+        }
+    }
+}
+
+#footer-twitter-link {
+    color: $twitterBlue;
+    svg {
+        fill: $twitterBlue;
+    }
+}
+
+#footer-github-link {
+    color: $githubBlack;
+    svg {
+        fill: $githubBlack;
+    }
+}
+
+.footer-extra {
+    font-size: 0.8em;
+}
+
+/**
+ * About Page
+ */
+
+.headshot {
+     margin-right: 1em;
+     margin-bottom: 1em;
+ }
+
+@include media-breakpoint-up(sm) {
+    .headshot {
+        float: left;
+    }
+}
+
+/**
+ * Project Page
+ */
+
+.project-link {
+    margin-bottom: 0.6em;
+    display: inline-block;
+}
+
+/**
+ * Extra styles
+ */
+
+code {
+    color: #f92672;
+    background: #272822;
+}
+
+pre {
+    background-color: inherit;
+}
+
+.text-right {
+    text-align: right;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}

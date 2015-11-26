@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-gb" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{#if meta_title}}{{meta_title}}{{else}}It's a Duffy Thing{{/if}}</title>
+    <meta name="description" content="{{meta_description}}">
+
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Joe_Duffy" />
+    <meta name="twitter:creator" content="@Joe_Duffy" />
+
+    {{#if pageTitle}}
+    <meta name="twitter:title" content="{{pageTitle}}" />
+    <meta property="og:title" content="{{pageTitle}}" />
+	{{else}}
+    <meta name="twitter:title" content="Yetii" />
+    <meta property="og:title" content="Yetii" />
+	{{/if}}
+
+    {{#if metaDescription}}
+    <meta name="twitter:description" content="{{metaDescription}}" />
+    <meta property="og:description" content="{{metaDescription}}" />
+    {{/if}}
+
+    {{#if isProduction}}
+    <link rel="stylesheet" href="/css/styles.min.css">
+    {{else}}
+    <link rel="stylesheet" href="/css/styles.css">
+    {{/if}}
+
+    <!--<script src="/js/prism.js" defer></script>-->
+    {{{block "headExtras"}}}
+</head>
+<body class="{{body_class}} container-fluid">
+    <header id="page-header" class="col-md-6 col-md-offset-3 col-sm-12">
+        <div id="page-heading-wrapper">
+            <h1 id="page-heading"><a href="/" id="home-page-anchor">It's a Duffy Thing</a></h1>
+            <div id="page-header-subtitle">...you wouldn't get it</div>
+            <span id="page-header-attribution">Ramblings by Joseph Duffy</span>
+        </div>
+        <nav id="page-navigation-container">
+            <ul id="page-navigation">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About</a>
+                </li>
+                <li>
+                    <a href="/projects">Projects</a>
+                </li>
+                {{!-- <li>
+                    <a href="/connect">Connect</a>
+                </li> --}}
+                <li>
+                    <a href="/rss" title="Blog RSS Feed">RSS</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main id="page-main" class="row">
+        <div id="main-container" class="col-md-8 col-md-offset-2 col-xs-12">
+            {{! Everything else gets inserted here }}
+            {{{body}}}
+        </div>
+    </main>
+    <footer id="page-footer" class="row">
+        <div id="footer-container" class="col-md-8 col-md-offset-2 col-xs-12">
+            <div id="footer-social-media">
+                <ul>
+                    <li>
+                        <a href="https://www.twitter.com/Joe_Duffy" title="Joseph Duffy's Twitter" id="footer-twitter-link" class="icon-twitter">@Joe_Duffy</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/JosephDuffy" title="Joseph Duffy's Github" id="footer-github-link" class="icon-github">JosephDuffy</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-extra">Copyright &copy; 2015 Joseph Duffy</div>
+            <div class="footer-extra">The source code for this website is <a href="https://github.com/JosephDuffy/josephduffy.co.uk" title="Website source code on GitHub">available on GitHub</a></div>
+        </div>
+    </footer>
+</body>
+</html>

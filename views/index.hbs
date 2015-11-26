@@ -1,0 +1,11 @@
+{{!< default}}
+
+{{#each posts}}
+    {{> post-preview}}
+    {{#if @last}}
+    {{else}}
+        <hr>
+    {{/if}}
+{{/each}}
+
+{{pagination}}
