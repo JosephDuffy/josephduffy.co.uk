@@ -11,10 +11,9 @@ module.exports = function(app) {
 	app.use(securedURLs, csp({
 		// Specify directives as normal
 		defaultSrc: ["'self'"],
-		imgSrc: ["'self'"],
+		imgSrc: ["'self'", "https://www.google-analytics.com"],
 		scriptSrc: ["'self'", 'https://www.google-analytics.com'],
 		fontSrc: ["'self'", "data:"],
-		sandbox: ['allow-forms', 'allow-scripts'],
 		// reportUri: '/report-violation',
 
 		// Set to an empty array to allow nothing through
