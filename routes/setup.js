@@ -6,7 +6,8 @@ module.exports = function(app) {
 	// Setup some basic options
 	// Disable /foo and /foo/ being treated the same
 	app.enable('strict routing');
-	app.locals.siteURL = 'https://josephduffy.co.uk';
+	app.locals.isProduction = process.env.NODE_ENV === 'production';
+	app.locals.siteURL = app.locals.isProduction ? 'https://josephduffy.co.uk' : 'http://localhost:' + app.locals.port;
 
 	require('../hbsHelpers')(hbs);
 
