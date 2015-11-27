@@ -56,7 +56,12 @@ module.exports = function(app) {
 				meta_title: `All Blog Posts With The ${tag} Tag - It's a Duffy Thing`
 			});
 		} else {
-			next();
+			res.status(404);
+			res.render('errors/404',
+				{
+					message: `No posts with the ${tag} tag were found. <a href="/tags/">View the full list of tags</a>.`
+				}
+			)
 		}
 	});
 
