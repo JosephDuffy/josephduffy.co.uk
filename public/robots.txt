@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /twitter
+Disallow: /passbook
+Disallow: /josephduffybusiness.pkpass
+Disallow: /github
