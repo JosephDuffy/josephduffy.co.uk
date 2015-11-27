@@ -4,7 +4,7 @@ var csp = require('helmet-csp');
 
 module.exports = function(app) {
 	app.set('x-powered-by', false);
-	
+
 	var securedURLs = /^\/(?!rss|css|fonts|images|js)/;
 
 	app.use(securedURLs, helmet());
@@ -12,6 +12,7 @@ module.exports = function(app) {
 		// Specify directives as normal
 		defaultSrc: ["'self'"],
 		imgSrc: ["'self'"],
+		scriptSrc: ["'self'", 'https://www.google-analytics.com'],
 		fontSrc: ["'self'", "data:"],
 		sandbox: ['allow-forms', 'allow-scripts'],
 		// reportUri: '/report-violation',
