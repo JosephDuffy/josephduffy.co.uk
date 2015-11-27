@@ -12,7 +12,7 @@ module.exports = function(app) {
 			'/categories/:category': 'category'
 		},
 		readMoreLink: function(post) {
-			return `<a href="${post.url}" class="read-more-link">Continue reading ${post.title}</a>`;
+			return `<a href="${post.url}" class="read-more-link" itemprop="url">Continue reading ${post.title}</a>`;
 		}
 	});
 
