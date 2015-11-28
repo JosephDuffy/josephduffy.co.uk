@@ -15,9 +15,18 @@
 // Utility classes
 @import "bootstrap/scss/utilities";
 
-$lightTextColor: #ebebeb;
-$darkBackgroundColor: #3C3C3B;
-$lightBackgroundColor: #565655;
+$backgroundColor: #FCFCFC;
+// Contrast ratio: 16.07:1 (WCAG AAA pass for normal and large text)
+$textColor: #1F1F1F;
+// Contrast ratio: 5.08:1 (WCAG AAA fail for normal text)
+$linkColor: #046dc8;
+// Contrast ratio: 3.73:1 (WCAG AA pass for large text)
+$largeLinkColor: #2B83E5;
+// Used for:
+// - Horizontal rules between blog posts
+// - The header and content divider
+// - The content and footer divider
+$dividerColor: #828282;
 $twitterBlue: #4099FF;
 $githubBlack: #171515;
 
@@ -28,9 +37,9 @@ html, body {
     font-size: 16px;
 }
 
-html, body, #page-header, #page-footer {
-    background-color: $lightBackgroundColor;
-    color: $lightTextColor;
+html, body {
+    background-color: $backgroundColor;
+    color: $textColor;
 }
 
 /**
@@ -38,7 +47,7 @@ html, body, #page-header, #page-footer {
  */
 
 a:link, a:visited {
-    color: rgb(38, 152, 232);
+    color: $linkColor;
 }
 
 /**
@@ -47,10 +56,7 @@ a:link, a:visited {
 
 #page-header {
     padding-left: 0;
-
-    a:link, a:visited {
-        color: rgb(38, 152, 232);
-    }
+    border-bottom: 2px solid $dividerColor;
 
     p {
         margin-top: 0;
@@ -61,14 +67,11 @@ a:link, a:visited {
 #page-heading {
     margin: 0.3em 0 0 0;
     line-height: 1;
+    font-weight: bold;
 
     a {
-        &:link, &:visited {
-            color: $lightTextColor !important;
-        }
-
-        &:hover, &:focus {
-            color: $lightTextColor !important;
+        &:link, &:visited, &:hover, &:focus {
+            color: #4C4C4C !important;
         }
     }
 }
@@ -94,7 +97,6 @@ a:link, a:visited {
  */
 
 #page-navigation-container {
-    // width: 102%;
     width: 100%;
     overflow: hidden;
 }
@@ -105,7 +107,7 @@ a:link, a:visited {
     -webkit-overflow-scrolling: touch;
 
     padding: 0;
-    margin: 0.6em auto;
+    margin: 0 auto 0.6em auto;
     width: auto;
     white-space: nowrap;
 
@@ -113,6 +115,12 @@ a:link, a:visited {
         display: inline-block;
         font-size: 1.2em;
         font-weight: bold;
+
+        a {
+            &:link, &:visited, &:hover, &:focus {
+                color: $largeLinkColor !important;
+            }
+        }
     }
 
     li + li {
@@ -120,11 +128,60 @@ a:link, a:visited {
     }
 }
 
+/**
+ * Page Content
+ */
+
 #page-main {
-    background-color: $darkBackgroundColor;
-    color: $lightTextColor;
     font-size: 1.05rem;
     padding: 15px 0;
+}
+
+h1, h2, h3, h4 {
+    a {
+        &:link, &:visited, &:hover, &:focus {
+            color: $largeLinkColor !important;
+        }
+    }
+}
+
+/**
+ * Page/Footer Diviver
+ * This is heavily based on (read: stolen from) http://stackoverflow.com/a/22603610/657676
+ */
+
+#footer-divider {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: -.9375rem;
+    margin-right: -.9375rem;
+}
+
+#footer-divider > span {
+    position: relative;
+    display: inline-block;
+}
+
+#footer-divider > span:before,
+#footer-divider > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: $dividerColor;
+}
+
+#footer-divider > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+#footer-divider > span:after {
+    left: 100%;
+    margin-left: 15px;
 }
 
 /**
@@ -132,19 +189,13 @@ a:link, a:visited {
  */
 
  body {
-     display: -webkit-flex;
-     display: -ms-flexbox;
-     display: flex;
+    display: flex;
     min-height: 100vh;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
  }
 
  #page-main {
-     -webkit-flex: 1;
-         -ms-flex: 1;
-             flex: 1;
+    flex: 1;
  }
 
 /**
@@ -161,7 +212,8 @@ a:link, a:visited {
     }
 
     .post-date {
-        color: #898989;
+        color: #6F6F6E;
+        font-style: italic;
     }
 
     .post-content {
@@ -253,13 +305,15 @@ a:link, a:visited {
  */
 
 .headshot {
-     margin-right: 1em;
-     margin-bottom: 1em;
+     margin: 0 auto;
+     display: block;
  }
 
 @include media-breakpoint-up(sm) {
     .headshot {
         float: left;
+        margin: 0 1em;
+        display: initial;
     }
 }
 
@@ -293,5 +347,5 @@ hr {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 0;
-    border-top: 1px solid #eee;
+    border-top: 1px solid $dividerColor;
 }

@@ -12,15 +12,17 @@ module.exports = function(app) {
 			'/categories/:category': 'category'
 		},
 		readMoreLink: function(post) {
-			return `<a href="${post.url}" class="read-more-link">Continue reading ${post.title}</a>`;
+			return `<a href="${post.url}" class="read-more-link" itemprop="url">Continue reading ${post.title}</a>`;
 		}
 	});
 
 	app.locals.poet = poet;
 
-	// Initiate the poet watcher (to reload when changes are made to blog posts)
-	// and then init poet itself
-	poet.watch();
+	if (app.locals.isProduction) {
+		// Initiate the poet watcher (to reload when changes are made to blog posts)
+		// and then init poet itself
+		poet.watch();
+	}
 
 	// Override some of the default blog URLs
 

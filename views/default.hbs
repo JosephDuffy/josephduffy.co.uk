@@ -35,16 +35,15 @@
     {{{block "headExtras"}}}
 </head>
 <body class="{{body_class}} container-fluid">
-    <header id="page-header" class="col-md-6 col-md-offset-3 col-sm-12">
+    <header id="page-header" class="col-md-8 col-md-offset-2 col-sm-12">
         <div id="page-heading-wrapper">
-            <h1 id="page-heading"><a href="/" id="home-page-anchor">It's a Duffy Thing</a></h1>
+            <div id="page-heading"><a href="/" id="home-page-anchor">It's a Duffy Thing</a></div>
             <div id="page-header-subtitle">...you wouldn't get it</div>
-            <span id="page-header-attribution">Ramblings by Joseph Duffy</span>
         </div>
         <nav id="page-navigation-container">
             <ul id="page-navigation">
                 <li>
-                    <a href="/">Home</a>
+                    <a href="/" title="Blog posts by Joseph Duffy">Home</a>
                 </li>
                 <li>
                     <a href="/about">About</a>
@@ -52,9 +51,6 @@
                 <li>
                     <a href="/projects">Projects</a>
                 </li>
-                {{!-- <li>
-                    <a href="/connect">Connect</a>
-                </li> --}}
                 <li>
                     <a href="/rss" title="Blog RSS Feed">RSS</a>
                 </li>
@@ -63,10 +59,14 @@
     </header>
     <main id="page-main" class="row">
         <div id="main-container" class="col-md-8 col-md-offset-2 col-xs-12">
-            {{! Everything else gets inserted here }}
+            {{! Everything else (i.e., page content) gets inserted here }}
             {{{body}}}
         </div>
     </main>
+    {{! This isn't really very good semtical-wise, but it's fun :) }}
+    <div id="footer-divider" aria-hidden="true">
+        <span>💩</span>
+    </div>
     <footer id="page-footer" class="row">
         <div id="footer-container" class="col-md-8 col-md-offset-2 col-xs-12">
             <div id="footer-social-media">

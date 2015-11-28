@@ -1,9 +1,8 @@
 {
   "name": "joseph-duffy-co-uk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
-    "start": "node ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./app.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,9 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cssnano": "^2.0.0",
     "gulp-sass": "^2.1.0",
-    "gulp-sourcemaps": "^1.6.0"
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uncss": "^1.0.4",
+    "sitemapper": "0.0.1"
   },
   "license": "MIT"
 }

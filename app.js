@@ -1,6 +1,9 @@
 require('pmx').init();
 var express = require('express');
 var app = express();
+var port = 2368;
+
+app.locals.port = port;
 
 require('./routes/setup')(app);
 require('./routes/security')(app);
@@ -15,9 +18,6 @@ require('./routes/feeds')(app);
 
 require('./routes/errors')(app);
 
-var server = app.listen(2368, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-
-    console.log("Started josephduffy.co.uk at " + host + ":" + port);
+var server = app.listen(port, function () {
+    console.log("Started josephduffy.co.uk on port " + port);
 });
