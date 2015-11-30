@@ -18,7 +18,7 @@ module.exports = function(app) {
 
 	app.locals.poet = poet;
 
-	if (app.locals.isProduction) {
+	if (!app.locals.isProduction) {
 		// Initiate the poet watcher (to reload when changes are made to blog posts)
 		// and then init poet itself
 		poet.watch();
