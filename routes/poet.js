@@ -3,6 +3,8 @@ var Poet = require('poet');
 var _ = require('lodash');
 
 module.exports = function(app) {
+	let postsPerPage = 3;
+
 	var poet = Poet(app, {
 		posts: './posts/',
 		routes: {
@@ -11,6 +13,7 @@ module.exports = function(app) {
 			'/tags/:tag': 'tag',
 			'/categories/:category': 'category'
 		},
+		postsPerPage: postsPerPage,
 		readMoreLink: function(post) {
 			return `<a href="${post.url}" class="read-more-link" itemprop="url">Continue reading ${post.title}</a>`;
 		}
@@ -26,12 +29,48 @@ module.exports = function(app) {
 
 	// Override some of the default blog URLs
 
-	app.get('/', function (req, res) {
+	function renderPage(res, currentPageIndex) {
+		var totalPages = poet.helpers.getPageCount();
+		var currentPage = currentPageIndex + 1;
+		var startingPostIndex = currentPageIndex * postsPerPage;
+		var endingPostIndex = startingPostIndex + postsPerPage;
+		var nextPage;
+		var previousPage;
+
+		if (currentPage > totalPages) {
+			return res.redirect('/');
+		}
+
+		if (totalPages > currentPage) {
+			nextPage = currentPage + 1;
+		}
+		if (currentPage > 1) {
+			previousPage = currentPage - 1;
+		}
+
 		res.render('index', {
 			meta_title: "It's a Duffy Thing - Blog Posts by Joseph Duffy",
 			meta_description: "Blog posts by Joseph Duffy covering everything tech",
-			posts: poet.helpers.getPosts(0, 5)
+			posts: poet.helpers.getPosts(startingPostIndex, endingPostIndex),
+			totalPages: poet.helpers.getPageCount(),
+			currentPage: currentPage,
+			nextPage: nextPage,
+			previousPage: previousPage
 		});
+	}
+
+	app.get('/', function (req, res) {
+		var pageIndex = 0;
+		if (typeof req.query.page !== 'undefined') {
+			var page = parseInt(req.query.page);
+			if (isNaN(page) || page == 1) {
+				return res.redirect('/');
+			}
+			// Page should be an index
+			pageIndex = page - 1;
+		}
+
+		return renderPage(res, pageIndex);
 	});
 
 	poet.addRoute('/:post', function (req, res, next) {

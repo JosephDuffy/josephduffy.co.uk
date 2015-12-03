@@ -7,6 +7,7 @@
 @import "bootstrap/scss/print";
 
 // Core CSS
+@import "bootstrap/scss/type";
 @import "bootstrap/scss/images";
 @import "bootstrap/scss/code";
 @import "bootstrap/scss/grid";
@@ -221,6 +222,24 @@ h1, h2, h3, h4 {
             max-width: 100%;
         }
     }
+
+    // Ensure headings are never next to floated image
+    h1, h2, h3, h4, h6, h6 {
+        clear: both;
+    }
+
+    .opening-image {
+        margin: 0 auto;
+        display: block;
+    }
+
+    @include media-breakpoint-up(sm) {
+        .opening-image {
+            float: left;
+            margin: 0.4em 1em 0.4em 0;
+            display: initial;
+        }
+    }
 }
 
 .post-preview {
@@ -251,9 +270,12 @@ h1, h2, h3, h4 {
 }
 
 .post-permalink {
+    &:before {
+        font-size: 0.9em;
+    }
+
     span {
-        -webkit-transform: rotate(90deg);
-                transform: rotate(90deg);
+        transform: rotate(90deg);
     }
 }
 
@@ -301,23 +323,6 @@ h1, h2, h3, h4 {
 }
 
 /**
- * About Page
- */
-
-.headshot {
-     margin: 0 auto;
-     display: block;
- }
-
-@include media-breakpoint-up(sm) {
-    .headshot {
-        float: left;
-        margin: 0 1em;
-        display: initial;
-    }
-}
-
-/**
  * Project Page
  */
 
@@ -331,8 +336,8 @@ h1, h2, h3, h4 {
  */
 
 code {
-    color: #f92672;
-    background: #272822;
+    color: $backgroundColor;
+    background: $textColor;
 }
 
 pre {
@@ -348,4 +353,17 @@ hr {
     margin-bottom: 20px;
     border: 0;
     border-top: 1px solid $dividerColor;
+}
+
+.opening-image {
+     margin: 0 auto;
+     display: block;
+ }
+
+@include media-breakpoint-up(sm) {
+    .opening-image {
+        float: left;
+        margin: 0 1em;
+        display: initial;
+    }
 }
