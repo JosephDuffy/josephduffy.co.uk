@@ -10,7 +10,14 @@ module.exports = function(app) {
 	});
 
 	app.use(compression());
-	app.use(express.static(path.resolve(`${__dirname}/../public`), {
-		maxAge: 60*60*24*30 * 1000 // 30 days caching (the value is being divided by 1000?)
+	let maxAge = 60*60*24*30 * 1000 // 30 days caching (the value is being divided by 1000?)
+	app.use(express.static(path.resolve('public'), {
+		maxAge: maxAge
+	}));
+
+	// Map the favicon directory to the root of the website
+	// TODO: Redirect/404 requests to /favicon/[file]
+	app.use(express.static(path.resolve('public/favicon'), {
+		maxAge: maxAge
 	}));
 };
