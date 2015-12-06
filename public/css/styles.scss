@@ -2,6 +2,9 @@
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
 
+$bodyFontSize: 1.05rem;
+$blockquote-font-size: $bodyFontSize;
+
 // Includes only Normalize and our Bootstrap's Reboot reset
 @import "bootstrap/scss/bootstrap-reboot";
 @import "bootstrap/scss/print";
@@ -134,7 +137,7 @@ a:link, a:visited {
  */
 
 #page-main {
-    font-size: 1.05rem;
+    font-size: $bodyFontSize;
     padding: 15px 0;
 }
 
