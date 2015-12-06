@@ -24,9 +24,9 @@ This code was in Gathered 1.0, but upon submitting the 1.0.1 update I received t
 <blockquote class="blockquote">
 PLA 3.3.1
 
-Your app uses public APIs in an unapproved manner, which does not comply with section 3.3.1 of the [Apple Developer Program License Agreement](http://developer.apple.com/membercenter/index.action#agreements).
+Your app uses public APIs in an unapproved manner, which does not comply with section 3.3.1 of the <a href="http://developer.apple.com/membercenter/index.action#agreements">Apple Developer Program License Agreement</a>.
 
-Specifically, this app does not meet the requirements of our [UIApplication documentation](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/#//apple_ref/occ/instp/UIApplication/idleTimerDisabled). It would be appropriate to remove this app's use of idleTimerDisabled before resubmitting for review.
+Specifically, this app does not meet the requirements of our <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/#//apple_ref/occ/instp/UIApplication/idleTimerDisabled">UIApplication documentation</a>. It would be appropriate to remove this app's use of idleTimerDisabled before resubmitting for review.
 
 Since there is no accurate way of predicting how an API may be modified and what effects those modifications may have, Apple does not permit unapproved uses of public APIs in App Store apps.
 </blockquote>
@@ -41,7 +41,7 @@ must not use or call any private APIs.
 Looking at the [documentation for the `idleTimerDisabled` property of `UIApplication`](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/#//apple_ref/occ/instp/UIApplication/idleTimerDisabled), it states:
 
 <blockquote class="blockquote">
-You should set this property only if necessary and should be sure to reset it to `false` when the need no longer exists. Most apps should let the system turn off the screen when the idle timer elapses. This includes audio apps. With appropriate use of Audio Session Services, playback and recording proceed uninterrupted when the screen turns off. The only apps that should disable the idle timer are mapping apps, games, or **programs where the app needs to continue displaying content when user interaction is minimal**.
+You should set this property only if necessary and should be sure to reset it to <code>false</code> when the need no longer exists. Most apps should let the system turn off the screen when the idle timer elapses. This includes audio apps. With appropriate use of Audio Session Services, playback and recording proceed uninterrupted when the screen turns off. The only apps that should disable the idle timer are mapping apps, games, or <strong>programs where the app needs to continue displaying content when user interaction is minimal</strong>.
 </blockquote>
 
 *(emphasis is mine)*
