@@ -12,7 +12,8 @@ module.exports = function(app) {
 		// Specify directives as normal
 		defaultSrc: ["'self'"],
 		imgSrc: ["'self'", "https://www.google-analytics.com"],
-		scriptSrc: ["'self'", 'https://www.google-analytics.com'],
+		scriptSrc: ["'self'", 'https://www.google-analytics.com', 'https://cdnjs.cloudflare.com'],
+		styleSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
 		fontSrc: ["'self'", "data:"],
 		// reportUri: '/report-violation',
 

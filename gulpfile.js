@@ -7,10 +7,19 @@ var autoprefixer = require('gulp-autoprefixer');
 var uncss = require('gulp-uncss');
 var nano = require('gulp-cssnano');
 var sitemap = require('sitemapper');
+var gulpif = require('gulp-if');
 
 var compileDirectories = ['./public/css/**/*.scss', '!./public/css/bootstrap/**/*'];
 var watchDirectories = ['./public/css/**/*.scss', './gulpfile.js'];
 var outputDirectory = './public/css';
+
+var runUncss = function() {
+    if (process.argv.indexOf("--no-uncss") > -1) {
+        return false;
+    } else {
+        return true;
+    }
+}();
 
 gulp.task('compile', function(done) {
     // Try and load the URLs from the sitemap.xml file so that uncss can
@@ -28,9 +37,9 @@ gulp.task('compile', function(done) {
                     browsers: ['last 2 versions'],
                     cascade: false
                 }))
-                .pipe(uncss({
+                .pipe(gulpif(runUncss, uncss({
                     html: sites
-                }))
+                })))
                 .pipe(nano())
                 .pipe(sourcemaps.write('../css'))
                 .pipe(gulp.dest(outputDirectory));

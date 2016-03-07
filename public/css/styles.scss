@@ -357,7 +357,7 @@ h1, h2, h3, h4 {
 
 code {
     color: $backgroundColor;
-    background: $textColor;
+    background: #444;
 }
 
 pre {
@@ -386,4 +386,8 @@ hr {
         margin: 0 1em;
         display: initial;
     }
+}
+
+figure.figure.pull-left {
+    margin: 0.5rem 0.5rem 0.5rem 0;
 }

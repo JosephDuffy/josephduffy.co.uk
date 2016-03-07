@@ -26,6 +26,7 @@
     {{/if}}
 
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
 
     {{! Apple Touch Icon }}
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -51,7 +52,6 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <!--<script src="/js/prism.js" defer></script>-->
     {{{block "headExtras"}}}
 </head>
 <body class="{{body_class}} container-fluid">
@@ -103,6 +103,8 @@
             <div class="footer-extra">The source code for this website is <a href="https://github.com/JosephDuffy/josephduffy.co.uk" title="Website source code on GitHub">available on GitHub</a></div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/languages/swift.min.js"></script>
     <script src="/js/footer.js"></script>
 </body>
 </html>
