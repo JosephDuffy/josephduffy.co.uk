@@ -16,6 +16,6 @@ The project was created to give me a way of learning and trying out a few new te
  - HTML5 (including microdata)
  - A custom icon font (using [Fontello](http://fontello.com/))
 
-## Licence
+## Licence
 
 The project is released under the MIT license. View the LICENSE file for the full license.
