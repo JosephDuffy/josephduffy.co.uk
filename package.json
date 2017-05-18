@@ -32,7 +32,7 @@
     "gulp-sass": "^2.1.0",
     "gulp-sourcemaps": "^2.5.2",
     "gulp-uncss": "^1.0.4",
-    "sitemapper": "2.1.7"
+    "sitemapper": "2.1.12"
   },
   "license": "MIT"
 }
