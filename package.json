@@ -2,7 +2,9 @@
   "name": "joseph-duffy-co-uk",
   "version": "1.0.7",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node ./app.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,8 @@
     "lodash": "^4.17.2",
     "moment": "^2.10.6",
     "pmx": "^1.2.0",
-    "poet": "^2.0.1"
+    "poet": "^2.0.1",
+    "snyk": "^1.31.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -30,9 +33,10 @@
     "gulp-cssnano": "^2.0.0",
     "gulp-if": "^2.0.0",
     "gulp-sass": "^2.1.0",
-    "gulp-sourcemaps": "^2.5.2",
+    "gulp-sourcemaps": "^2.6.1",
     "gulp-uncss": "^1.0.4",
     "sitemapper": "2.1.7"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
