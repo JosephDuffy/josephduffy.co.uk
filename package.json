@@ -35,7 +35,7 @@
     "gulp-sass": "^3.2.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uncss": "^1.0.4",
-    "sitemapper": "2.1.12"
+    "sitemapper": "2.1.13"
   },
   "license": "MIT",
   "snyk": true
