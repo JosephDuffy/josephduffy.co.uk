@@ -24,7 +24,7 @@
     "lodash": "^4.17.2",
     "moment": "^2.10.6",
     "pmx": "^1.2.0",
-    "poet": "^2.0.1",
+    "poet": "^2.0.3",
     "snyk": "^1.46.0"
   },
   "devDependencies": {
