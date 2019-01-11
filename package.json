@@ -16,7 +16,7 @@
   "dependencies": {
     "compression": "^1.4.4",
     "express": "^4.12.3",
-    "express-hbs": "^1.0.3",
+    "express-hbs": "^2.0.1",
     "express-slash": "^2.0.1",
     "handlebars-helper": "0.0.12",
     "helmet": "^3.1.0",
