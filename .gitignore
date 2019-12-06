@@ -1,5 +1,10 @@
-# next.js build output
-.next
+# next.js
+
+## Development
+.next/
+
+## Static export
+out/
 
 # NPM Dependencies
 node_modules/
