@@ -1,0 +1,5 @@
+# next.js build output
+.next
+
+# NPM Dependencies
+node_modules/
