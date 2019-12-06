@@ -1,7 +1,0 @@
-{{!< default}}
-
-<h1>All Blog Post Tags</h1>
-
-{{#each tags}}
-    <a href="/tags/{{encode this.name}}" title="All blog posts with the {{this.name}} tag">{{this.name}}</a> ({{this.postsCount}} post{{#ifCond this.postsCount "!=" 1}}s{{/ifCond}}){{#unless @last}}<br>{{/unless}}
-{{/each}}
