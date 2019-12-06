@@ -1,12 +1,10 @@
-import { NextPage } from 'next';
-import Header from '../components/Header';
+import { NextPage } from 'next'
+import Page from '../layouts/main'
 
 const Index: NextPage = () => (
-  <div>
-    <Header />
+  <Page>
     <p>Hello Next.js</p>
-  </div>
+  </Page>
 );
 
-export default Index;
-
+export default Index
