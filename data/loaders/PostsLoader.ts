@@ -3,7 +3,7 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 
-type Posts = { [slug: string]: matter.GrayMatterFile<any> }
+export type Posts = { [slug: string]: matter.GrayMatterFile<any> }
 
 export class PostsLoader {
 
