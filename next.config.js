@@ -2,7 +2,13 @@ const glob = require('glob')
 const path = require('path')
 
 module.exports = ({
-  webpack: function(config) {
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
+
     config.module.rules.push({
       test: /\.md$/,
       use: 'raw-loader',
@@ -19,9 +25,10 @@ module.exports = ({
     const postSlugs = posts.map(post => path.basename(post, path.extname(post)))
 
     postSlugs.forEach(slug => {
-      paths[`/posts/${slug}`] = { page: '/posts/post', query: { slug } };
+      paths[`/posts/${slug}`] = { page: '/posts/[slug]', query: { slug } };
     });
 
     return paths
-  }
+  },
+  useFileSystemPublicRoutes: false,
 });

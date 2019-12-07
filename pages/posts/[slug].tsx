@@ -1,7 +1,9 @@
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import Page from '../../layouts/main'
 import matter from 'gray-matter'
 import ReactMarkdown from 'react-markdown'
+import postsLoader from '../../data/loaders/PostsLoader'
 
 interface Props {
   content: matter.GrayMatterFile<any>
@@ -23,11 +25,18 @@ const Post: NextPage<Props> = ({ content }) => {
 }
 
 Post.getInitialProps = async (context) => {
+  if (context.query.slug instanceof Array) {
+    throw "Need to handle this"
+  }
   const { slug } = context.query
-  const content = (await import(`../../data/posts/${slug}.md`)).default
-  const parsedContent = matter(content)
+  const posts = await postsLoader.getPosts()
+
+  if (!posts[slug]) {
+    throw "Need to handle this"
+  }
+
   return {
-    content: parsedContent,
+    content: posts[slug],
   }
 }
 
