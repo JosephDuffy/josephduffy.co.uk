@@ -25,6 +25,9 @@ const Post: NextPage<Props> = ({ content }) => {
 }
 
 Post.getInitialProps = async (context) => {
+  if (process.browser) {
+    return __NEXT_DATA__.props.pageProps;
+  }
   if (context.query.slug instanceof Array) {
     throw "Need to handle this"
   }
