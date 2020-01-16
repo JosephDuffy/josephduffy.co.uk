@@ -1,25 +1,15 @@
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
+import matter from 'gray-matter'
 import Page from '../../layouts/main'
 import ReactMarkdown from 'react-markdown'
-import { Posts } from '../../data/loaders/PostsLoader'
+import postsLoader from '../../data/loaders/PostsLoader'
 
-// TODO: Migrate to `GlobalProps`
 interface Props {
-  blogPosts: Posts
+  post: matter.GrayMatterFile<any>
 }
 
 const Post: NextPage<Props> = (props) => {
-  const router = useRouter()
-  const slug = router.query.slug
-  if (slug instanceof Array) {
-    return (
-      <Page>
-        <div>Can't handle multiple posts at once</div>
-      </Page>
-    )
-  }
-  const content = props.blogPosts[slug]
+  const content = props.post
   return (
     <Page>
       <article>
@@ -32,6 +22,40 @@ const Post: NextPage<Props> = (props) => {
       </article>
     </Page>
   )
+}
+
+interface StaticParams {
+  params: any,
+}
+
+interface StaticProps {
+  props: Props,
+}
+
+export async function unstable_getStaticProps({ params }: StaticParams): Promise<StaticProps> {
+  const { slug } = params
+  const posts = await postsLoader.getPosts()
+
+  if (!posts[slug]) {
+    throw "Need to handle this"
+  }
+
+  return {
+    props: {
+      post: posts[slug],
+    },
+  }
+}
+export async function unstable_getStaticPaths(): Promise<StaticParams[]> {
+  const posts = await postsLoader.getPosts()
+
+  return Object.keys(posts).map((slug) => {
+    return {
+      params: {
+        'slug': slug
+      }
+    }
+  })
 }
 
 export default Post
