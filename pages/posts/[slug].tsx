@@ -39,7 +39,7 @@ export async function unstable_getStaticProps({ params }: StaticParams): Promise
   const posts = await postsLoader.getPosts()
 
   if (!posts[slug]) {
-    throw "Need to handle this"
+    throw `No post found for slug "${slug}"`
   }
 
   return {
@@ -48,13 +48,14 @@ export async function unstable_getStaticProps({ params }: StaticParams): Promise
     },
   }
 }
+
 export async function unstable_getStaticPaths(): Promise<StaticParams[]> {
   const posts = await postsLoader.getPosts()
 
   return Object.keys(posts).map((slug) => {
     return {
       params: {
-        'slug': slug
+        slug
       }
     }
   })
