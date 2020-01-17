@@ -23,7 +23,9 @@ export class PostsLoader {
       console.debug(`Loading post at ${postPath}`)
       const slug = path.basename(postPath, path.extname(postPath))
       const content = fs.readFileSync(postPath)
-      const parsedContent = matter(content)
+      const parsedContent = matter(content, {
+        excerpt: true,
+      })
       posts[slug] = parsedContent
     }
 

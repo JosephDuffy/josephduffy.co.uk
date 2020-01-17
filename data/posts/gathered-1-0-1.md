@@ -8,7 +8,7 @@ date: 2015-12-06
 
 ---
 
-Gathered 1.0.1 was released a couple of weeks ago and I wanted to write a quick blog post addressing part of the [changelog](https://yetii.net/gathered/changelog "Gathered changelog"):
+Gathered 1.0.1 was released a couple of weeks ago and I wanted to write a quick blog post addressing part of the [changelog](https://yetii.net/gathered/changelog "Gathered changelog")---:
 
 > Removed the "Disable Device Sleep" option (at Apple's request)
 
