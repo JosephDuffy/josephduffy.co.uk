@@ -25,7 +25,9 @@ const Post: NextPage<Props> = (props) => {
 }
 
 interface StaticParams {
-  params: any,
+  params: {
+    slug: string,
+  },
 }
 
 interface StaticProps {
