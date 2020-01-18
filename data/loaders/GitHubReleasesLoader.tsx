@@ -3,6 +3,10 @@ import gql from 'graphql-tag';
 import fetch from 'node-fetch';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { Entry } from './EntriesLoader'
+import { ReactNode } from 'react';
+import Link from 'next/link';
+import { format } from 'date-fns';
 
 const query = gql`
 query {
@@ -48,11 +52,39 @@ interface Release {
   url: string
 }
 
-export interface GitHubRelease {
+export class GitHubRelease implements Entry {
   name: string
   description: string
   date: Date
   url: string
+
+  constructor(name: string, description: string, date: Date, url: string) {
+    this.name = name
+    this.description = description
+    this.date = date
+    this.url = url
+  }
+
+  preview(): ReactNode {
+    // Without `new Date` is will sometimes crash 🤷‍♂️
+    const formattedDate = format(new Date(this.date), 'do MMMM, y')
+
+    return (
+      <article key={this.url}>
+        <header>
+          <Link href={this.url}>
+            <a>
+              <h1>{this.name}</h1>
+            </a>
+          </Link>
+          Released { formattedDate }
+        </header>
+        <div>
+          {this.description}
+        </div>
+      </article>
+    )
+  }
 }
 
 export class GitHubReleasesLoader {
@@ -76,12 +108,12 @@ export class GitHubReleasesLoader {
     const data = result.data as QueryResult
     return data.user.repositories.nodes.flatMap(repository => {
       return repository.releases.nodes.map(release => {
-        return {
-          name: `${repository.name} ${release.tagName}`,
-          description: release.description,
-          date: new Date(release.createdAt),
-          url: release.url,
-        }
+        return new GitHubRelease(
+          `${repository.name} ${release.tagName}`,
+          release.description,
+          new Date(release.createdAt),
+          release.url,
+        )
       })
     }).sort((releaseA, releaseB) => {
       return releaseB.date.getTime() - releaseA.date.getTime()
