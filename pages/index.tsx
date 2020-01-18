@@ -1,37 +1,57 @@
 import { NextPage } from 'next'
-import matter from 'gray-matter'
 import Page from '../layouts/main'
-import postsLoader from '../data/loaders/PostsLoader'
+import postsLoader, { Post } from '../data/loaders/PostsLoader'
+import gitHubReleasesLoader, { GitHubRelease } from '../data/loaders/GitHubReleasesLoader'
 import ReactMarkdown from 'react-markdown'
 import Link from 'next/link'
+import { format, compareDesc } from 'date-fns'
 
 interface Props {
-  entries: {
-    object: matter.GrayMatterFile<any>
-    link: string
-    date: Date
-  }[]
+  entries: (Post | GitHubRelease)[]
 }
 
 const Index: NextPage<Props> = (props) => {
+  const dateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
+  const dateFormatter = new Intl.DateTimeFormat('en-GB', dateFormatOptions)
   return (
     <Page>
       {
         props.entries.map(entry => {
-          return (
-            <article key="entry.link">
-              <header>
-                <Link href={entry.link}>
-                  <a>
-                    <h1>{entry.object.data.title}</h1>
-                  </a>
-                </Link>
-              </header>
-              <div>
-                <ReactMarkdown source={entry.object.excerpt} />
-              </div>
-            </article>
-          )
+          // Without `new Date` is will sometimes crash 🤷‍♂️
+          const formattedDate = format(new Date(entry.date), 'do MMMM, y')
+          if ("slug" in entry) {
+            return (
+              <article key={entry.slug}>
+                <header>
+                  <Link href={entry.url}>
+                    <a>
+                      <h1>{entry.title}</h1>
+                    </a>
+                  </Link>
+                  Released { formattedDate }
+                </header>
+                <div>
+                  <ReactMarkdown source={entry.excerpt} />
+                </div>
+              </article>
+            )
+          } else {
+            return (
+              <article key={entry.url}>
+                <header>
+                  <Link href={entry.url}>
+                    <a>
+                      <h1>{entry.name}</h1>
+                    </a>
+                  </Link>
+                  Released { formattedDate }
+                </header>
+                <div>
+                  {entry.description}
+                </div>
+              </article>
+            )
+          }
         })
       }
     </Page>
@@ -44,17 +64,14 @@ interface StaticProps {
 
 export async function unstable_getStaticProps(): Promise<StaticProps> {
   const posts = await postsLoader.getPosts()
-  let allEntries = Object.entries(posts).map(([slug, post]) => {
-    return {
-      object: post,
-      date: post.data.date,
-      link: `./posts/${slug}`,
-    }
+  const gitHubReleases = await gitHubReleasesLoader.getReleases()
+  const entries = new Array<Post | GitHubRelease>().concat(posts).concat(gitHubReleases).sort((entryA, entryB) => {
+    return compareDesc(entryA.date, entryB.date)
   })
 
   return {
     props: {
-      entries: allEntries,
+      entries: entries,
     },
   }
 }

@@ -3,20 +3,29 @@ import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 
+export interface Post {
+  slug: string
+  title: string,
+  content: string
+  excerpt?: string
+  date: Date
+  url: string
+}
+
 export type Posts = { [slug: string]: matter.GrayMatterFile<any> }
 
 export class PostsLoader {
 
-  private cachedPosts?: Posts
+  private cachedPosts?: Post[]
 
-  async getPosts(forceRefresh: boolean = false): Promise<Posts> {
+  async getPosts(forceRefresh: boolean = false): Promise<Post[]> {
     if (!forceRefresh && this.cachedPosts) {
       return this.cachedPosts
     }
 
     console.debug("Loading posts")
 
-    let posts: Posts = {}
+    let posts: Post[] = []
 
     const postPaths = glob.sync('data/posts/*.md')
     for (const postPath of postPaths) {
@@ -26,7 +35,14 @@ export class PostsLoader {
       const parsedContent = matter(content, {
         excerpt: true,
       })
-      posts[slug] = parsedContent
+      posts.push({
+        slug: slug,
+        title: parsedContent.data.title,
+        content: parsedContent.content,
+        excerpt: parsedContent.excerpt,
+        date: new Date(parsedContent.data.date),
+        url: `/posts/${slug}`,
+      })
     }
 
     this.cachedPosts = posts
