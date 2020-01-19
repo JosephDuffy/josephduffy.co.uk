@@ -1,19 +1,17 @@
 import { NextPage } from 'next'
 import Page from '../../layouts/main'
-import entriesLoader from '../../data/loaders/EntriesLoader'
+import entriesLoader, { Entry } from '../../data/loaders/EntriesLoader'
 import { compareDesc } from 'date-fns'
-import { ReactNode } from 'react'
+import EntryPreviews from '../../components/EntryPreviews'
 
 interface Props {
-  entries: ReactNode[]
+  entries: Entry[]
 }
 
-const TagPage: NextPage<Props> = (props) => {
+const TagPage: NextPage<Props> = ({ entries }) => {
   return (
     <Page>
-      {
-        props.entries
-      }
+      <EntryPreviews entries={ entries } />
     </Page>
   )
 }
@@ -33,21 +31,17 @@ export async function unstable_getStaticProps({ params }: StaticParams): Promise
   const { slug: tag } = params
   const taggedEntries = entries.filter(entry => entry.tags.includes(tag))
 
-  console.log("Entries with tag", tag)
-
   if (taggedEntries.length === 0) {
     throw `No post found with tag "${tag}"`
   }
 
   taggedEntries.sort((entryA, entryB) => {
-    return compareDesc(entryA.date, entryB.date)
+    return compareDesc(new Date(entryA.date), new Date(entryB.date))
   })
-
-  console.log(taggedEntries)
 
   return {
     props: {
-      entries: taggedEntries.map(entry => entry.preview()),
+      entries: taggedEntries,
     },
   }
 }

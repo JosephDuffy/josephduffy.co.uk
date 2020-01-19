@@ -1,19 +1,17 @@
 import { NextPage } from 'next'
 import Page from '../layouts/main'
-import entriesLoader from '../data/loaders/EntriesLoader'
-import { ReactNode } from 'react';
-import { compareDesc } from 'date-fns';
+import entriesLoader, { Entry } from '../data/loaders/EntriesLoader'
+import { compareDesc } from 'date-fns'
+import EntryPreviews from '../components/EntryPreviews'
 
 interface Props {
-  entries: ReactNode[]
+  entries: Entry[]
 }
 
-const Index: NextPage<Props> = (props) => {
+const Index: NextPage<Props> = ({ entries }) => {
   return (
     <Page>
-      {
-        props.entries
-      }
+      <EntryPreviews entries={entries} />
     </Page>
   )
 };
@@ -25,12 +23,12 @@ interface StaticProps {
 export async function unstable_getStaticProps(): Promise<StaticProps> {
   const entries = await entriesLoader.getEntries()
   entries.sort((entryA, entryB) => {
-    return compareDesc(entryA.date, entryB.date)
+    return compareDesc(new Date(entryA.date), new Date(entryB.date))
   })
 
   return {
     props: {
-      entries: entries.map(entry => entry.preview()),
+      entries,
     },
   }
 }

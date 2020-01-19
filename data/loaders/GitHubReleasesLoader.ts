@@ -1,13 +1,9 @@
-import ApolloClient from 'apollo-client';
-import gql from 'graphql-tag';
-import fetch from 'node-fetch';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import ApolloClient from 'apollo-client'
+import gql from 'graphql-tag'
+import fetch from 'node-fetch'
+import { createHttpLink } from 'apollo-link-http'
+import { InMemoryCache, ObjectCache } from 'apollo-cache-inmemory'
 import { Entry } from './EntriesLoader'
-import { ReactNode } from 'react';
-import Link from 'next/link';
-import { format } from 'date-fns';
-import TagsList from '../../components/TagsList';
 
 const query = gql`
 query {
@@ -67,47 +63,20 @@ interface Release {
   url: string
 }
 
-export class GitHubRelease implements Entry {
+export function isGitHubRelease(object: any): object is GitHubRelease {
+  return typeof object.name === "string" &&
+    (typeof object.description === "string" || object.description === null) &&
+    object.hasOwnProperty("date") &&
+    typeof object.url === "string" &&
+    Array.isArray(object.tags)
+}
+
+export interface GitHubRelease extends Entry {
   name: string
   description: string | null
-  date: Date
+  date: string
   url: string
   tags: string[]
-
-  constructor(name: string, description: string, date: Date, url: string, tags: string[]) {
-    this.name = name
-    this.description = description
-    this.date = date
-    this.url = url
-    this.tags = tags
-  }
-
-  preview(): ReactNode {
-    // Without `new Date` is will sometimes crash 🤷‍♂️
-    const formattedDate = format(new Date(this.date), 'do MMMM, y')
-
-    return (
-      <article key={this.url}>
-        <header>
-          <Link href={this.url}>
-            <a>
-              <h1>{this.name}</h1>
-            </a>
-          </Link>
-          Released { formattedDate }
-          {this.tags.length > 0 &&
-            <TagsList tags={this.tags}/>
-          }
-        </header>
-        {this.description && this.description.trim() !== "" &&
-          <div>
-            <h1>Release Notes</h1>
-            {this.description}
-          </div>
-        }
-      </article>
-    )
-  }
 }
 
 export class GitHubReleasesLoader {
@@ -134,16 +103,14 @@ export class GitHubReleasesLoader {
       const repoTags = releaseTags.concat(repository.repositoryTopics.nodes.map(node => node.topic.name))
       return repository.releases.nodes.map(release => {
         const releaseTags = this.tagsForRelease(release, repository)
-        return new GitHubRelease(
-          `${repository.name} ${release.tagName}`,
-          release.description,
-          new Date(release.createdAt),
-          release.url,
-          repoTags.concat(releaseTags),
-        )
+        return {
+          name: `${repository.name} ${release.tagName}`,
+          description: release.description,
+          date: new Date(release.createdAt).toISOString(),
+          url: release.url,
+          tags: repoTags.concat(releaseTags),
+        }
       })
-    }).sort((releaseA, releaseB) => {
-      return releaseB.date.getTime() - releaseA.date.getTime()
     })
   }
 

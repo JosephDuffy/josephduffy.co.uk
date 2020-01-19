@@ -1,10 +1,11 @@
 import { NextPage } from 'next'
 import Page from '../../layouts/main'
 import ReactMarkdown from 'react-markdown'
-import postsLoader, { Post } from '../../data/loaders/PostsLoader'
+import postsLoader from '../../data/loaders/PostsLoader'
+import BlogPost from "../../models/BlogPost"
 
 interface Props {
-  post: Post
+  post: BlogPost
 }
 
 const PostPage: NextPage<Props> = (props) => {

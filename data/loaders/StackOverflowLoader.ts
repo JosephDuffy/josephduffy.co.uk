@@ -1,15 +1,11 @@
 import { Entry } from './EntriesLoader'
 import https from 'https'
-import { ReactNode } from 'react'
-import { format } from 'date-fns'
-import Link from 'next/link'
-import TagsList from '../../components/TagsList'
 import zlib from 'zlib'
 import { AllHtmlEntities } from 'html-entities'
 
 interface StackOverflowAPIPost {
   creation_date: number
-  post_type: "answer" | "question"
+  post_type: StackOverflowPostType
   post_id: number
   link: string
 }
@@ -31,43 +27,21 @@ interface StackOverflowAPIAnswer {
 
 export type StackOverflowPostType = "answer" | "question"
 
-export class StackOverflowEntry implements Entry {
+export function isStackOverflowEntry(object: any): object is StackOverflowEntry {
+  return  typeof object.title === "string" &&
+  object.hasOwnProperty("date") &&
+  typeof object.url === "string" &&
+  Array.isArray(object.tags) &&
+  typeof object.postId === "number"
+}
+
+export interface StackOverflowEntry extends Entry {
   title: string
-  date: Date
+  date: string
   url: string
   tags: string[]
   postType: StackOverflowPostType
   postId: number
-
-  constructor(title: string, date: Date, url: string, tags: string[], postType: StackOverflowPostType, postId: number) {
-    this.title = title
-    this.date = date
-    this.url = url
-    this.tags = tags
-    this.postType = postType
-    this.postId = postId
-  }
-
-  preview(): ReactNode {
-    // Without `new Date` is will sometimes crash 🤷‍♂️
-    const formattedDate = format(new Date(this.date), 'do MMMM, y')
-
-    return (
-      <article key={this.postId}>
-        <header>
-          <Link href={this.url}>
-            <a>
-              <h1>{this.title}</h1>
-            </a>
-          </Link>
-          Posted { formattedDate }
-          {this.tags.length > 0 &&
-            <TagsList tags={this.tags}/>
-          }
-        </header>
-      </article>
-    )
-  }
 }
 
 export class StackOverflowLoader {
@@ -96,30 +70,30 @@ export class StackOverflowLoader {
 
     const entities = new AllHtmlEntities();
 
-    const questions = questionPosts.map(questionPost => {
+    const questions: StackOverflowEntry[] = questionPosts.map(questionPost => {
       const apiQuestion = apiQuestions.find(question => question.question_id === questionPost.post_id)!
       const unescapedTitle = entities.decode(apiQuestion.title)
-      return new StackOverflowEntry(
-        `Posted question to StackOverflow: ${unescapedTitle}`,
-        new Date(apiQuestion.creation_date * 1000),
-        apiQuestion.link,
-        apiQuestion.tags,
-        "question",
-        apiQuestion.question_id,
-      )
+      return {
+        title: `Posted question to StackOverflow: ${unescapedTitle}`,
+        date: new Date(apiQuestion.creation_date * 1000).toISOString(),
+        url: apiQuestion.link,
+        tags: apiQuestion.tags,
+        postType: "question",
+        postId: apiQuestion.question_id,
+      }
     })
-    const answers = answerPosts.map(answerPost => {
+    const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
       const apiAnswer = apiAnswers.find(answer => answer.answer_id === answerPost.post_id)!
       const apiQuestion = apiQuestions.find(question => question.question_id === apiAnswer.question_id)!
       const unescapedTitle = entities.decode(apiQuestion.title)
-      return new StackOverflowEntry(
-        `Provided answer on StackOverflow to the question ${unescapedTitle}`,
-        new Date(apiAnswer.creation_date * 1000),
-        `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
-        apiQuestion.tags,
-        "answer",
-        apiAnswer.answer_id,
-      )
+      return {
+        title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
+        date: new Date(apiAnswer.creation_date * 1000).toISOString(),
+        url: `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
+        tags: apiQuestion.tags,
+        postType: "answer",
+        postId: apiAnswer.answer_id,
+      }
     })
 
     entries = entries.concat(questions).concat(answers)

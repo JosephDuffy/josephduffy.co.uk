@@ -1,14 +1,11 @@
 import gitHubReleasesLoader from './GitHubReleasesLoader'
 import postsLoader from './PostsLoader'
-import { ReactNode } from 'react'
 import stackOverflowLoader from './StackOverflowLoader'
 
 export interface Entry {
-  date: Date
+  date: string
   url: string
   tags: string[]
-
-  preview(): ReactNode
 }
 
 export interface CombinedEntry extends Entry {
