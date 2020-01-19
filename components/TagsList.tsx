@@ -12,7 +12,7 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
         tags.map(tag => {
           const tagURL = `/tags/${tag}`
           return (
-            <li>
+            <li key={tag}>
               <Link href={tagURL}>
                 <a>{ tag }</a>
               </Link>
