@@ -7,6 +7,7 @@ import { ReactNode } from 'react'
 import ReactMarkdown from 'react-markdown'
 import Link from 'next/link'
 import { format } from 'date-fns'
+import TagsList from '../../components/TagsList'
 
 export class Post implements Entry {
   slug: string
