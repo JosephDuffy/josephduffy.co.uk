@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/JosephDuffy/josephduffy.co.uk#readme",
   "dependencies": {
+    "@types/html-entities": "^1.2.16",
     "@types/node-fetch": "^2.5.4",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
@@ -29,6 +30,7 @@
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "gray-matter": "^4.0.2",
+    "html-entities": "^1.2.1",
     "next": "^9.2.0",
     "node-fetch": "^2.6.0",
     "react": "^16.12.0",

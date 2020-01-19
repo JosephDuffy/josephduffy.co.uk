@@ -1,6 +1,7 @@
 import gitHubReleasesLoader from './GitHubReleasesLoader'
 import postsLoader from './PostsLoader'
 import { ReactNode } from 'react'
+import stackOverflowLoader from './StackOverflowLoader'
 
 export interface Entry {
   date: Date
@@ -31,9 +32,11 @@ export class EntriesLoader {
 
     const posts = await postsLoader.getPosts()
     const gitHubReleases = await gitHubReleasesLoader.getReleases()
+    const stackOverflowEntries = await stackOverflowLoader.getEntries()
 
     entries = entries.concat(posts)
     entries = entries.concat(gitHubReleases)
+    entries = entries.concat(stackOverflowEntries)
 
     this.cachedEntries = entries
 
