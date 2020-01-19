@@ -1,7 +1,3 @@
-import matter from 'gray-matter'
-import glob from 'glob'
-import path from 'path'
-import fs from 'fs'
 import { Entry } from './EntriesLoader'
 import https from 'https'
 import { ReactNode } from 'react'
@@ -35,12 +31,7 @@ interface StackOverflowAPIAnswer {
 
 export type StackOverflowPostType = "answer" | "question"
 
-export interface StackOverflowEntry extends Entry {
-  postType: StackOverflowPostType
-  postId: number
-}
-
-export class StackOverflowQuestion implements StackOverflowEntry {
+export class StackOverflowEntry implements Entry {
   title: string
   date: Date
   url: string
@@ -108,7 +99,7 @@ export class StackOverflowLoader {
     const questions = questionPosts.map(questionPost => {
       const apiQuestion = apiQuestions.find(question => question.question_id === questionPost.post_id)!
       const unescapedTitle = entities.decode(apiQuestion.title)
-      return new StackOverflowQuestion(
+      return new StackOverflowEntry(
         `Posted question to StackOverflow: ${unescapedTitle}`,
         new Date(apiQuestion.creation_date * 1000),
         apiQuestion.link,
@@ -121,7 +112,7 @@ export class StackOverflowLoader {
       const apiAnswer = apiAnswers.find(answer => answer.answer_id === answerPost.post_id)!
       const apiQuestion = apiQuestions.find(question => question.question_id === apiAnswer.question_id)!
       const unescapedTitle = entities.decode(apiQuestion.title)
-      return new StackOverflowQuestion(
+      return new StackOverflowEntry(
         `Provided answer on StackOverflow to the question ${unescapedTitle}`,
         new Date(apiAnswer.creation_date * 1000),
         `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
