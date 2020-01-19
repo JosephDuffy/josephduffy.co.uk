@@ -7,6 +7,7 @@ import { Entry } from './EntriesLoader'
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import TagsList from '../../components/TagsList';
 
 const query = gql`
 query {
@@ -14,6 +15,13 @@ query {
     repositories(first: 100, affiliations: [OWNER], isFork: false, privacy: PUBLIC) {
       nodes {
         name
+        repositoryTopics(first: 100) {
+          nodes {
+            topic {
+              name
+            }
+          }
+        }
         releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) {
           nodes {
             name
@@ -39,6 +47,13 @@ interface QueryResult {
 
 interface Repository {
   name: string
+  repositoryTopics: {
+    nodes: {
+      topic: {
+        name: string
+      }
+    }[]
+  }
   releases: {
     nodes: Release[]
   }
@@ -54,15 +69,17 @@ interface Release {
 
 export class GitHubRelease implements Entry {
   name: string
-  description: string
+  description: string | null
   date: Date
   url: string
+  tags: string[]
 
-  constructor(name: string, description: string, date: Date, url: string) {
+  constructor(name: string, description: string, date: Date, url: string, tags: string[]) {
     this.name = name
     this.description = description
     this.date = date
     this.url = url
+    this.tags = tags
   }
 
   preview(): ReactNode {
@@ -78,6 +95,9 @@ export class GitHubRelease implements Entry {
             </a>
           </Link>
           Released { formattedDate }
+          {this.tags.length > 0 &&
+            <TagsList tags={this.tags}/>
+          }
         </header>
         <div>
           {this.description}
@@ -105,19 +125,31 @@ export class GitHubReleasesLoader {
       throw result.errors
     }
 
+    const releaseTags = ["open-source"]
     const data = result.data as QueryResult
     return data.user.repositories.nodes.flatMap(repository => {
+      const repoTags = releaseTags.concat(repository.repositoryTopics.nodes.map(node => node.topic.name))
       return repository.releases.nodes.map(release => {
+        const releaseTags = this.tagsForRelease(release, repository)
         return new GitHubRelease(
           `${repository.name} ${release.tagName}`,
           release.description,
           new Date(release.createdAt),
           release.url,
+          repoTags.concat(releaseTags),
         )
       })
     }).sort((releaseA, releaseB) => {
       return releaseB.date.getTime() - releaseA.date.getTime()
     })
+  }
+
+  private tagsForRelease(release: Release, repository: Repository): string[] {
+    if (repository.name === "GatheredKit") {
+      return ["gathered"]
+    } else {
+      return []
+    }
   }
 }
 

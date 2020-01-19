@@ -15,14 +15,16 @@ export class Post implements Entry {
   excerpt?: string
   date: Date
   url: string
+  tags: string[]
 
-  constructor(slug: string, title: string, content: string, excerpt: string | undefined = undefined, date: Date, url: string) {
+  constructor(slug: string, title: string, content: string, excerpt: string | undefined = undefined, date: Date, url: string, tags: string[]) {
     this.slug = slug
     this.title = title
     this.content = content
     this.excerpt = excerpt
     this.date = date
     this.url = url
+    this.tags = tags
   }
 
   preview(): ReactNode {
@@ -38,6 +40,9 @@ export class Post implements Entry {
             </a>
           </Link>
           Published { formattedDate }
+          {this.tags.length > 0 &&
+            <TagsList tags={this.tags}/>
+          }
         </header>
         <div>
           <ReactMarkdown source={this.excerpt} />
@@ -75,7 +80,8 @@ export class PostsLoader {
         parsedContent.content,
         parsedContent.excerpt,
         new Date(parsedContent.data.date),
-        `/posts/${slug}`
+        `/posts/${slug}`,
+        parsedContent.data.tags,
       )
       posts.push(post)
     }

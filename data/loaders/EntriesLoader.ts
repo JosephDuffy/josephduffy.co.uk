@@ -5,6 +5,7 @@ import { ReactNode } from 'react'
 export interface Entry {
   date: Date
   url: string
+  tags: string[]
 
   preview(): ReactNode
 }
