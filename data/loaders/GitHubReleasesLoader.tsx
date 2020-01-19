@@ -99,9 +99,12 @@ export class GitHubRelease implements Entry {
             <TagsList tags={this.tags}/>
           }
         </header>
-        <div>
-          {this.description}
-        </div>
+        {this.description && this.description.trim() !== "" &&
+          <div>
+            <h1>Release Notes</h1>
+            {this.description}
+          </div>
+        }
       </article>
     )
   }
