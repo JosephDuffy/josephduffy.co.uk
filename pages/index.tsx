@@ -1,8 +1,11 @@
 import { NextPage } from 'next'
 import Page from '../layouts/main'
-import entriesLoader, { Entry } from '../data/loaders/EntriesLoader'
+import entriesLoader from '../data/loaders/EntriesLoader'
+import { Entry } from "../data/loaders/Entry"
 import { compareDesc } from 'date-fns'
 import EntryPreviews from '../components/EntryPreviews'
+import { isGitHubRelease, GitHubRelease } from '../data/loaders/GitHubReleasesLoader'
+import CombinedEntry from '../models/CombinedEntry'
 
 interface Props {
   entries: Entry[]
@@ -21,10 +24,43 @@ interface StaticProps {
 }
 
 export async function unstable_getStaticProps(): Promise<StaticProps> {
-  const entries = await entriesLoader.getEntries()
-  entries.sort((entryA, entryB) => {
+  const allEntries = await entriesLoader.getEntries()
+
+  allEntries.sort((entryA, entryB) => {
     return compareDesc(new Date(entryA.date), new Date(entryB.date))
   })
+
+  let entries: Entry[] = []
+  let entriesToCombine: GitHubRelease[] = []
+
+  for (const entry of allEntries) {
+    const sequentialReleasesCount = entriesToCombine.length
+
+    if (isGitHubRelease(entry)) {
+      if (sequentialReleasesCount === 0 || entriesToCombine[0].repoName === entry.repoName) {
+        entriesToCombine.push(entry)
+        continue
+      }
+    }
+
+    if (sequentialReleasesCount >= 3) {
+      const earliestRelease = entriesToCombine[entriesToCombine.length - 1]
+      const latestRelease = entriesToCombine[0]
+      const combinedEntry: CombinedEntry = {
+        title: `${entriesToCombine[0].repoName} Versions ${earliestRelease.versionNumber} to ${latestRelease.versionNumber}`,
+        date: latestRelease.date,
+        entries: entriesToCombine,
+        tags: Array.from(new Set(entriesToCombine.flatMap(entry => entry.tags))),
+        summary: `${sequentialReleasesCount} releases`
+      }
+      entries.push(combinedEntry)
+    } else {
+      entries = entries.concat(entriesToCombine)
+      entries.push(entry)
+    }
+
+    entriesToCombine = []
+  }
 
   return {
     props: {

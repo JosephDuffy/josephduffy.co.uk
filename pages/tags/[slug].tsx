@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import Page from '../../layouts/main'
-import entriesLoader, { Entry } from '../../data/loaders/EntriesLoader'
+import entriesLoader from '../../data/loaders/EntriesLoader'
+import { Entry } from "../../data/loaders/Entry"
 import { compareDesc } from 'date-fns'
 import EntryPreviews from '../../components/EntryPreviews'
 

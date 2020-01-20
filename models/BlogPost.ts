@@ -1,4 +1,4 @@
-import { Entry } from '../data/loaders/EntriesLoader';
+import { Entry } from "../data/loaders/Entry";
 
 export function isBlogPost(object: any): object is BlogPost {
   return typeof object.slug === "string" &&

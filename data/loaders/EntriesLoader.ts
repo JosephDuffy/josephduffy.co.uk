@@ -1,17 +1,7 @@
 import gitHubReleasesLoader from './GitHubReleasesLoader'
 import postsLoader from './PostsLoader'
 import stackOverflowLoader from './StackOverflowLoader'
-
-export interface Entry {
-  date: string
-  url: string
-  tags: string[]
-}
-
-export interface CombinedEntry extends Entry {
-  entries: Entry[]
-  description: string
-}
+import { Entry } from './Entry'
 
 export class EntriesLoader {
 

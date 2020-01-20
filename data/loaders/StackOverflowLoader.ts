@@ -1,4 +1,4 @@
-import { Entry } from './EntriesLoader'
+import { Entry } from "./Entry"
 import https from 'https'
 import zlib from 'zlib'
 import { AllHtmlEntities } from 'html-entities'
