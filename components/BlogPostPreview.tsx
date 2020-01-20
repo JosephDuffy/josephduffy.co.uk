@@ -26,7 +26,7 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
         }
       </header>
       <div>
-        <ReactMarkdown source={post.excerpt} />
+        <ReactMarkdown source={post.excerpt ?? post.content} />
       </div>
     </article>
   )
