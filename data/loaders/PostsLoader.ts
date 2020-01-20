@@ -24,6 +24,7 @@ export class PostsLoader {
       const content = fs.readFileSync(postPath)
       const parsedContent = matter(content, {
         excerpt: true,
+        excerpt_separator: '<!-- more -->'
       })
       const post = {
         slug,
