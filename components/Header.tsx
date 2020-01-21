@@ -1,21 +1,25 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
+import HorizontalRule from './HorizontalRule'
 
 const Header = () => (
   <Fragment>
     <header>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
-      <Link href="/apps/">
-        <a>Apps</a>
-      </Link>
-      <Link href="/posts/">
-        <a>Posts</a>
-      </Link>
+      <nav>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        <Link href="/apps/">
+          <a>Apps</a>
+        </Link>
+        <Link href="/posts/">
+          <a>Posts</a>
+        </Link>
+      </nav>
+      <HorizontalRule />
     </header>
     <style jsx>{`
-    header {
+    nav {
       display: flex;
       justify-content: center;
     }
