@@ -13,19 +13,39 @@ class MyApp extends App {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-        <body>
+
+        <div>
           <Component {...pageProps} />
-        </body>
+        </div>
+
         <style jsx>{`
+        div {
+          width: 70vw;
+        }
+        `}</style>
+
+        <style jsx global>{`
           body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             background: black;
             color: white;
+          }
+
+          a {
+            color: #ffcc00;
           }
 
           @media (prefers-color-scheme: light) {
             body {
               background: white;
               color: black;
+            }
+
+            a {
+              color: #ff9500;
             }
           }
         `}</style>
