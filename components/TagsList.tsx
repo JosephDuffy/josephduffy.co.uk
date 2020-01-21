@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
+import { Fragment, FunctionComponent } from 'react'
 
 interface Props {
   tags: string[]
@@ -7,7 +7,7 @@ interface Props {
 
 const TagsList: FunctionComponent<Props> = ({ tags }) => {
   return (
-    <div>
+    <Fragment>
       <div>
         <span className="label">Tags:</span>
         <ul>
@@ -52,7 +52,7 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
           display: inline;
         }
       `}</style>
-    </div>
+    </Fragment>
   )
 };
 

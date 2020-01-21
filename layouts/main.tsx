@@ -1,12 +1,13 @@
 import Header from '../components/Header'
+import { Fragment } from 'react'
 
 const Index: React.FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
-  <div>
+  <Fragment>
     <Header />
     <main>
     { children }
     </main>
-  </div>
+  </Fragment>
 );
 
 export default Index
