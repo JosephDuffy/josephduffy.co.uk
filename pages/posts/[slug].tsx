@@ -1,3 +1,4 @@
+import Error from 'next/error'
 import { NextPage } from 'next'
 import Page from '../../layouts/main'
 import ReactMarkdown from 'react-markdown'
@@ -5,11 +6,16 @@ import postsLoader from '../../data/loaders/PostsLoader'
 import BlogPost from "../../models/BlogPost"
 
 interface Props {
-  post: BlogPost
+  post?: BlogPost
 }
 
 const PostPage: NextPage<Props> = (props) => {
   const { post } = props
+
+  if (!post) {
+    return <Error title={"Blog post not found"} statusCode={404}/>
+  }
+
   return (
     <Page>
       <article>
@@ -38,10 +44,6 @@ export async function unstable_getStaticProps({ params }: StaticParams): Promise
   const { slug } = params
   const posts = await postsLoader.getPosts()
   const post = posts.find(post => post.slug === slug)
-
-  if (!post) {
-    throw `No post found for slug "${slug}"`
-  }
 
   return {
     props: {
