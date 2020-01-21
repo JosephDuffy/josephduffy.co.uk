@@ -1,9 +1,10 @@
-import Error from 'next/error'
+import ErrorPage from '../../pages/_error'
 import { NextPage } from 'next'
 import Page from '../../layouts/main'
 import ReactMarkdown from 'react-markdown'
 import postsLoader from '../../data/loaders/PostsLoader'
 import BlogPost from "../../models/BlogPost"
+import Link from 'next/link'
 
 interface Props {
   post?: BlogPost
@@ -13,7 +14,11 @@ const PostPage: NextPage<Props> = (props) => {
   const { post } = props
 
   if (!post) {
-    return <Error title={"Blog post not found"} statusCode={404}/>
+    return (
+      <ErrorPage title={"Blog post not found"} statusCode={404}>
+        <Link href="/posts/"><a>Go back to the index of blog posts</a></Link>.
+      </ErrorPage>
+    )
   }
 
   return (
