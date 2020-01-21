@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { Fragment } from 'react'
 import App, { Container } from 'next/app';
 import Head from 'next/head'
 import 'normalize.css/normalize.css'
@@ -9,7 +9,7 @@ class MyApp extends App {
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
     return (
-      <Container>
+      <Fragment>
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
@@ -49,7 +49,7 @@ class MyApp extends App {
             }
           }
         `}</style>
-      </Container>
+      </Fragment>
     )
   }
 
