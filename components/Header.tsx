@@ -20,6 +20,7 @@ const Header = () => (
     </header>
     <style jsx>{`
     nav {
+      margin-top: 8px;
       display: flex;
       justify-content: center;
     }

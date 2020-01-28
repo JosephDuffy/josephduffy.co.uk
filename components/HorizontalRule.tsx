@@ -5,7 +5,7 @@ const HorizontalRule = () => (
     <hr></hr>
     <style jsx>{`
     hr {
-      margin: 10px;
+      margin: 8px;
       height: 1px;
       border: 0;
       background-image: linear-gradient(to left, rgba(84, 84, 88, 0.35), rgba(84, 84, 88, 1), rgba(84, 84, 88, 0.35));
