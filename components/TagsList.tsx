@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { Fragment, FunctionComponent } from 'react'
+import Link from "next/link"
+import { Fragment, FunctionComponent } from "react"
 
 interface Props {
   tags: string[]
@@ -11,22 +11,18 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
       <div>
         <span className="label">Tags:</span>
         <ul>
-          {
-            Array.from(tags.entries()).map(entry => {
-              const [index, tag] = entry
-              const tagURL = `/tags/${tag}`
-              return (
-                <li key={tag}>
-                  <Link href={tagURL}>
-                    <a>{ tag }</a>
-                  </Link>
-                  {index !== tags.length - 1 &&
-                  <span>,</span>
-                  }
-                </li>
-              )
-            })
-          }
+          {Array.from(tags.entries()).map(entry => {
+            const [index, tag] = entry
+            const tagURL = `/tags/${tag}`
+            return (
+              <li key={tag}>
+                <Link href={tagURL}>
+                  <a>{tag}</a>
+                </Link>
+                {index !== tags.length - 1 && <span>,</span>}
+              </li>
+            )
+          })}
         </ul>
       </div>
       <style jsx>{`
@@ -54,6 +50,6 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
       `}</style>
     </Fragment>
   )
-};
+}
 
-export default TagsList;
+export default TagsList

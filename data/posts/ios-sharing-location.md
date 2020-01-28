@@ -1,6 +1,13 @@
 ---
 title: iOS Share Sheets the Proper Way - Locations
-tags: ["ios", "share-sheet", "UIActivityViewController", "UIActivityItem", "location"]
+tags:
+  [
+    "ios",
+    "share-sheet",
+    "UIActivityViewController",
+    "UIActivityItem",
+    "location",
+  ]
 date: 2016-03-07
 ---
 
@@ -10,7 +17,7 @@ Sharing a location on iOS is something that not a lot of apps need, but after re
 
 ## Sharing on iOS - An Overview
 
-![](/images/ios-share-icon.png "Standard iOS \"Action\" Icon")
+![](/images/ios-share-icon.png 'Standard iOS "Action" Icon')
 
 Sharing on iOS is done using the Share Sheet, which is often opened via the "Action" icon (shown left). When tapping this, the user is presented with a Share Sheet, which provides various options, depending on the item being shared. In the blog post we'll be looking at location exclusively, but there are a various things that can be shared, from images, to URLs, to text files. The full list can be found in [Apple's Documention](https://developer.apple.com/library/ios/documentation/MobileCoreServices/Reference/UTTypeRef/#//apple_ref/doc/uid/TP40008771-CH100-SW2 "UTType Constants").
 
@@ -49,10 +56,10 @@ The primary focus for this blog post is going to be sharing locations. So, witho
 
 When searching Google for "uiactivityviewcontroller share location", the top results (I've not checked all ~150,000) point to a very similar solution:
 
- - Create a VCard containing the location
-    - Note that some solutions suggested creating an contact via the `AddressBook` framework and using that to generate the VCard contents, *crazy*!
- - Write the VCard data to a temperary location on disk
- - Pass in the `NSURL` of the file
+- Create a VCard containing the location
+  - Note that some solutions suggested creating an contact via the `AddressBook` framework and using that to generate the VCard contents, _crazy_!
+- Write the VCard data to a temperary location on disk
+- Pass in the `NSURL` of the file
 
 Here's my example code:
 
@@ -94,17 +101,17 @@ func activityItems(latitude: Double, longitude: Double) -> [AnyObject]? {
 
 While this does technically work for most use cases, when sharing via AirDrop the items is interpreted as a file (as it techncially should). This has some unwanted side effects:
 
- - Some apps that *should* be able to share a location (such as Facebook's Messenger) see the item as a file and refuse to share it
- - When sharing via AirDrop, the item is shared as a contact card, and the user is prompted to add the contact the their contacts, not view the location
- - The information is written to disk, which while not being a big deal, *can* be avoided, so why not just keep it in memory?
+- Some apps that _should_ be able to share a location (such as Facebook's Messenger) see the item as a file and refuse to share it
+- When sharing via AirDrop, the item is shared as a contact card, and the user is prompted to add the contact the their contacts, not view the location
+- The information is written to disk, which while not being a big deal, _can_ be avoided, so why not just keep it in memory?
 
 ## Lead By Example - The Apple way
 
 When trying to figure out the correct way of doing this I created a smalled app for debugging Share Sheet items (hopefully more on this in another blog post). This shows me that Apple's built-in Maps application does things a little differently by sharing:
 
- - A single text item (the title of the location)
- - An Apple Maps `NSURL`
- - The location in the form of a VCard, but simply as NSData (not stored in a file)
+- A single text item (the title of the location)
+- An Apple Maps `NSURL`
+- The location in the form of a VCard, but simply as NSData (not stored in a file)
 
 Doing this is fairly easy. Here's my code to do it:
 
@@ -146,8 +153,8 @@ func activityItems(latitude: Double, longitude: Double) -> [AnyObject]? {
 
 This doesn't require much more code, but has a few other added bonuses:
 
- - When shared via AriDrop, ipens Maps.app
- - Allows sharing via apps that don't support sharing file, such as Facebook's Messenger
- - Allows the user to copy the location to the clipboard in form of "&lt;url&gt; &lt;share title&gt;"
+- When shared via AriDrop, ipens Maps.app
+- Allows sharing via apps that don't support sharing file, such as Facebook's Messenger
+- Allows the user to copy the location to the clipboard in form of "&lt;url&gt; &lt;share title&gt;"
 
 I've been doing a lot of work with Share Sheets lately, so if you've found this post useful and want to see more, check back soon, [subscribe to the RSS feed for this blog](/rss), or [follow me on Twitter](https://www.twitter.com/Joe_Duffy).

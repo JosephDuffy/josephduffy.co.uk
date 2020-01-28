@@ -1,4 +1,4 @@
-import Changelog from './Changelog'
+import Changelog from "./Changelog"
 
 export default interface App {
   name: string

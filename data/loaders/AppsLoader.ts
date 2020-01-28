@@ -1,14 +1,10 @@
-import App from '../../models/App'
-import gathered from '../apps/gathered'
+import App from "../../models/App"
+import gathered from "../apps/gathered"
 
 export class AppsLoader {
-
   getApps(): App[] {
-    return [
-      gathered,
-    ]
+    return [gathered]
   }
-
 }
 
 const loader = new AppsLoader()

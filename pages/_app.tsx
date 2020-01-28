@@ -1,11 +1,10 @@
-import { Fragment } from 'react'
-import App, { Container } from 'next/app';
-import Head from 'next/head'
-import 'normalize.css/normalize.css'
+import { Fragment } from "react"
+import App, { Container } from "next/app"
+import Head from "next/head"
+import "normalize.css/normalize.css"
 
 // A custom app to support importing CSS files globally
 class MyApp extends App {
-
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
     return (
@@ -19,9 +18,9 @@ class MyApp extends App {
         </div>
 
         <style jsx>{`
-        div {
-          width: 70vw;
-        }
+          div {
+            width: 70vw;
+          }
         `}</style>
 
         <style jsx global>{`
@@ -52,7 +51,6 @@ class MyApp extends App {
       </Fragment>
     )
   }
-
 }
 
 export default MyApp

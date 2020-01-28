@@ -1,28 +1,26 @@
-import { NextPage } from 'next'
-import Page from '../../layouts/main'
-import postsLoader from '../../data/loaders/PostsLoader'
+import { NextPage } from "next"
+import Page from "../../layouts/main"
+import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
-import BlogPostPreview from '../../components/BlogPostPreview'
+import BlogPostPreview from "../../components/BlogPostPreview"
 
 interface Props {
   posts: BlogPost[]
 }
 
-const PostPage: NextPage<Props> = (props) => {
+const PostPage: NextPage<Props> = props => {
   const { posts } = props
   return (
     <Page>
-      {
-        posts.map(post => {
-          return <BlogPostPreview post={post} key={post.slug}/>
-        })
-      }
+      {posts.map(post => {
+        return <BlogPostPreview post={post} key={post.slug} />
+      })}
     </Page>
   )
 }
 
 interface StaticProps {
-  props: Props,
+  props: Props
 }
 
 export async function unstable_getStaticProps(): Promise<StaticProps> {

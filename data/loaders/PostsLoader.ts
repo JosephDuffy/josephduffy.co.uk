@@ -1,11 +1,10 @@
-import matter from 'gray-matter'
-import glob from 'glob'
-import path from 'path'
-import fs from 'fs'
-import BlogPost from '../../models/BlogPost'
+import matter from "gray-matter"
+import glob from "glob"
+import path from "path"
+import fs from "fs"
+import BlogPost from "../../models/BlogPost"
 
 export class PostsLoader {
-
   private cachedPosts?: BlogPost[]
 
   async getPosts(forceRefresh: boolean = false): Promise<BlogPost[]> {
@@ -17,14 +16,14 @@ export class PostsLoader {
 
     let posts: BlogPost[] = []
 
-    const postPaths = glob.sync('data/posts/*.md')
+    const postPaths = glob.sync("data/posts/*.md")
     for (const postPath of postPaths) {
       console.debug(`Loading post at ${postPath}`)
       const slug = path.basename(postPath, path.extname(postPath))
       const content = fs.readFileSync(postPath)
       const parsedContent = matter(content, {
         excerpt: true,
-        excerpt_separator: '<!-- more -->'
+        excerpt_separator: "<!-- more -->",
       })
       const post = {
         slug,
@@ -44,7 +43,6 @@ export class PostsLoader {
 
     return posts
   }
-
 }
 
 const loader = new PostsLoader()

@@ -1,10 +1,9 @@
-import gitHubReleasesLoader from './GitHubReleasesLoader'
-import postsLoader from './PostsLoader'
-import stackOverflowLoader from './StackOverflowLoader'
-import { Entry } from './Entry'
+import gitHubReleasesLoader from "./GitHubReleasesLoader"
+import postsLoader from "./PostsLoader"
+import stackOverflowLoader from "./StackOverflowLoader"
+import { Entry } from "./Entry"
 
 export class EntriesLoader {
-
   private cachedEntries?: Entry[]
 
   async getEntries(forceRefresh: boolean = false): Promise<Entry[]> {
@@ -29,7 +28,6 @@ export class EntriesLoader {
 
     return entries
   }
-
 }
 
 const loader = new EntriesLoader()

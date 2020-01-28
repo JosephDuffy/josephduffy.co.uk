@@ -1,7 +1,7 @@
 import { Entry } from "./Entry"
-import https from 'https'
-import zlib from 'zlib'
-import { AllHtmlEntities } from 'html-entities'
+import https from "https"
+import zlib from "zlib"
+import { AllHtmlEntities } from "html-entities"
 
 interface StackOverflowAPIPost {
   creation_date: number
@@ -27,12 +27,16 @@ interface StackOverflowAPIAnswer {
 
 export type StackOverflowPostType = "answer" | "question"
 
-export function isStackOverflowEntry(object: any): object is StackOverflowEntry {
-  return  typeof object.title === "string" &&
-  object.hasOwnProperty("date") &&
-  typeof object.url === "string" &&
-  Array.isArray(object.tags) &&
-  typeof object.postId === "number"
+export function isStackOverflowEntry(
+  object: any,
+): object is StackOverflowEntry {
+  return (
+    typeof object.title === "string" &&
+    object.hasOwnProperty("date") &&
+    typeof object.url === "string" &&
+    Array.isArray(object.tags) &&
+    typeof object.postId === "number"
+  )
 }
 
 export interface StackOverflowEntry extends Entry {
@@ -45,10 +49,11 @@ export interface StackOverflowEntry extends Entry {
 }
 
 export class StackOverflowLoader {
-
   private cachedEntries?: StackOverflowEntry[]
 
-  async getEntries(forceRefresh: boolean = false): Promise<StackOverflowEntry[]> {
+  async getEntries(
+    forceRefresh: boolean = false,
+  ): Promise<StackOverflowEntry[]> {
     if (!forceRefresh && this.cachedEntries) {
       console.debug("Using cached StackOverflow entries")
       return this.cachedEntries
@@ -63,16 +68,20 @@ export class StackOverflowLoader {
 
     const apiAnswers = await this.loadAnswers(answerIds)
 
-    const questionIds = questionPosts.map(question => question.post_id).concat(apiAnswers.map(answer => answer.question_id))
+    const questionIds = questionPosts
+      .map(question => question.post_id)
+      .concat(apiAnswers.map(answer => answer.question_id))
 
     const apiQuestions = await this.loadQuestions(questionIds)
 
     let entries: StackOverflowEntry[] = []
 
-    const entities = new AllHtmlEntities();
+    const entities = new AllHtmlEntities()
 
     const questions: StackOverflowEntry[] = questionPosts.map(questionPost => {
-      const apiQuestion = apiQuestions.find(question => question.question_id === questionPost.post_id)!
+      const apiQuestion = apiQuestions.find(
+        question => question.question_id === questionPost.post_id,
+      )!
       const unescapedTitle = entities.decode(apiQuestion.title)
       return {
         title: `Posted question to StackOverflow: ${unescapedTitle}`,
@@ -84,8 +93,12 @@ export class StackOverflowLoader {
       }
     })
     const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
-      const apiAnswer = apiAnswers.find(answer => answer.answer_id === answerPost.post_id)!
-      const apiQuestion = apiQuestions.find(question => question.question_id === apiAnswer.question_id)!
+      const apiAnswer = apiAnswers.find(
+        answer => answer.answer_id === answerPost.post_id,
+      )!
+      const apiQuestion = apiQuestions.find(
+        question => question.question_id === apiAnswer.question_id,
+      )!
       const unescapedTitle = entities.decode(apiQuestion.title)
       return {
         title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
@@ -107,46 +120,60 @@ export class StackOverflowLoader {
   }
 
   private async loadPosts(): Promise<StackOverflowAPIPost[]> {
-    return this.loadAPI(`/users/657676/posts?order=desc&sort=creation&site=stackoverflow`)
+    return this.loadAPI(
+      `/users/657676/posts?order=desc&sort=creation&site=stackoverflow`,
+    )
   }
 
-  private async loadQuestions(ids: number[]): Promise<StackOverflowAPIQuestion[]> {
-    const idsParameter = ids.join(';')
-    return this.loadAPI(`/questions/${idsParameter}?order=desc&sort=creation&site=stackoverflow`)
+  private async loadQuestions(
+    ids: number[],
+  ): Promise<StackOverflowAPIQuestion[]> {
+    const idsParameter = ids.join(";")
+    return this.loadAPI(
+      `/questions/${idsParameter}?order=desc&sort=creation&site=stackoverflow`,
+    )
   }
 
   private async loadAnswers(ids: number[]): Promise<StackOverflowAPIAnswer[]> {
-    const idsParameter = ids.join(';')
-    return this.loadAPI(`/answers/${idsParameter}?order=desc&sort=creation&site=stackoverflow`)
+    const idsParameter = ids.join(";")
+    return this.loadAPI(
+      `/answers/${idsParameter}?order=desc&sort=creation&site=stackoverflow`,
+    )
   }
 
   private async loadAPI<Response>(path: string): Promise<Response> {
     const url = `https://api.stackexchange.com/2.2${path}`
-    console.debug(`Performing API request to StackExchange API with url: ${url}`)
+    console.debug(
+      `Performing API request to StackExchange API with url: ${url}`,
+    )
     return new Promise<Response>((resolve, reject) => {
-      https.get(url, (response) => {
-        const gunzip = zlib.createGunzip()
-        let buffer: string[] = []
+      https
+        .get(url, response => {
+          const gunzip = zlib.createGunzip()
+          let buffer: string[] = []
 
-        gunzip.on('data', data => {
-          buffer.push(data.toString())
-        }).on("end", () => {
-          const json = buffer.join('')
-          const jsonObject = JSON.parse(json)
-          resolve(jsonObject.items)
-        }).on("error", err => {
-          console.error("Error with StackExchange API response", err)
+          gunzip
+            .on("data", data => {
+              buffer.push(data.toString())
+            })
+            .on("end", () => {
+              const json = buffer.join("")
+              const jsonObject = JSON.parse(json)
+              resolve(jsonObject.items)
+            })
+            .on("error", err => {
+              console.error("Error with StackExchange API response", err)
+              reject(err)
+            })
+
+          response.pipe(gunzip)
+        })
+        .on("error", err => {
+          console.error("Network error with StackExchange API", err)
           reject(err)
         })
-
-        response.pipe(gunzip)
-      }).on("error", (err) => {
-        console.error("Network error with StackExchange API", err)
-        reject(err)
-      })
     })
   }
-
 }
 
 const loader = new StackOverflowLoader()

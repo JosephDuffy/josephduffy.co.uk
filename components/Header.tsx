@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { Fragment } from 'react';
-import HorizontalRule from './HorizontalRule'
+import Link from "next/link"
+import { Fragment } from "react"
+import HorizontalRule from "./HorizontalRule"
 
 const Header = () => (
   <Fragment>
@@ -19,23 +19,24 @@ const Header = () => (
       <HorizontalRule />
     </header>
     <style jsx>{`
-    nav {
-      margin-top: 8px;
-      display: flex;
-      justify-content: center;
-    }
+      nav {
+        margin-top: 8px;
+        display: flex;
+        justify-content: center;
+      }
 
-    a {
-      padding: 8px;
-      font-size: 1.5em;
-      text-decoration: none;
-    }
+      a {
+        padding: 8px;
+        font-size: 1.5em;
+        text-decoration: none;
+      }
 
-    a:hover, a:active {
-      text-decoration: underline;
-    }
+      a:hover,
+      a:active {
+        text-decoration: underline;
+      }
     `}</style>
-    </Fragment>
-);
+  </Fragment>
+)
 
-export default Header;
+export default Header

@@ -1,11 +1,14 @@
-import { NextPage } from 'next'
-import Page from '../layouts/main'
-import entriesLoader from '../data/loaders/EntriesLoader'
+import { NextPage } from "next"
+import Page from "../layouts/main"
+import entriesLoader from "../data/loaders/EntriesLoader"
 import { Entry } from "../data/loaders/Entry"
-import { compareDesc } from 'date-fns'
-import EntryPreviews from '../components/EntryPreviews'
-import { isGitHubRelease, GitHubRelease } from '../data/loaders/GitHubReleasesLoader'
-import CombinedEntry from '../models/CombinedEntry'
+import { compareDesc } from "date-fns"
+import EntryPreviews from "../components/EntryPreviews"
+import {
+  isGitHubRelease,
+  GitHubRelease,
+} from "../data/loaders/GitHubReleasesLoader"
+import CombinedEntry from "../models/CombinedEntry"
 
 interface Props {
   entries: Entry[]
@@ -17,10 +20,10 @@ const Index: NextPage<Props> = ({ entries }) => {
       <EntryPreviews entries={entries} />
     </Page>
   )
-};
+}
 
 interface StaticProps {
-  props: Props,
+  props: Props
 }
 
 export async function unstable_getStaticProps(): Promise<StaticProps> {
@@ -37,7 +40,10 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
     const sequentialReleasesCount = entriesToCombine.length
 
     if (isGitHubRelease(entry)) {
-      if (sequentialReleasesCount === 0 || entriesToCombine[0].repoName === entry.repoName) {
+      if (
+        sequentialReleasesCount === 0 ||
+        entriesToCombine[0].repoName === entry.repoName
+      ) {
         entriesToCombine.push(entry)
         continue
       }
@@ -50,8 +56,10 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
         title: `${entriesToCombine[0].repoName} Versions ${earliestRelease.versionNumber} to ${latestRelease.versionNumber}`,
         date: latestRelease.date,
         entries: entriesToCombine,
-        tags: Array.from(new Set(entriesToCombine.flatMap(entry => entry.tags))),
-        summary: `${sequentialReleasesCount} releases`
+        tags: Array.from(
+          new Set(entriesToCombine.flatMap(entry => entry.tags)),
+        ),
+        summary: `${sequentialReleasesCount} releases`,
       }
       entries.push(combinedEntry)
     } else {

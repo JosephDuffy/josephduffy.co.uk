@@ -57,10 +57,11 @@ try wrapperPartial.setValue(sizePartial, for: \.size) // Will set `size` to `CGS
 ```
 
 This has a few advantages:
- - When unwrapping a `PartialConvertible` type the implementer does not need to check for partial values
- - It is possible to subscribe for changes to a key path on a `PartialBuilder` and only be notified when a valid value has been set
- - Internally `Partial` does need to check for `Partial` values
- - 2 `setValue(_:for:)` and 2 `partialValue(for:)` functions could be removed
+
+- When unwrapping a `PartialConvertible` type the implementer does not need to check for partial values
+- It is possible to subscribe for changes to a key path on a `PartialBuilder` and only be notified when a valid value has been set
+- Internally `Partial` does need to check for `Partial` values
+- 2 `setValue(_:for:)` and 2 `partialValue(for:)` functions could be removed
 
 I do still find the concept of an embedded partial useful, but propose an alternative approach. For example, you may build an instance across multiple screens, setting the values on a single builder by utilising multiple builders.
 
@@ -121,9 +122,9 @@ One of the features I chose not to include in 1.0.0 is support for [Combine](htt
 
 In the past I have found that if I take a break from project a I will often to met with a certain amount of maintenance that needs to be performed before I can start work on the changes I want to make. To combat this I have been making some changes to how I setup my projects to make general maintenance easier:
 
- - Full test coverage
- - Automatic deployment
- - Automatic dependency updates
+- Full test coverage
+- Automatic deployment
+- Automatic dependency updates
 
 Having full test coverage is a no-brainer; I can feel much more confident about changes that are made. This is especially important for smaller projects like Partial because I will likely take larger breaks between chunks of work.
 

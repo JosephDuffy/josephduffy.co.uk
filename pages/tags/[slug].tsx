@@ -1,9 +1,9 @@
-import { NextPage } from 'next'
-import Page from '../../layouts/main'
-import entriesLoader from '../../data/loaders/EntriesLoader'
+import { NextPage } from "next"
+import Page from "../../layouts/main"
+import entriesLoader from "../../data/loaders/EntriesLoader"
 import { Entry } from "../../data/loaders/Entry"
-import { compareDesc } from 'date-fns'
-import EntryPreviews from '../../components/EntryPreviews'
+import { compareDesc } from "date-fns"
+import EntryPreviews from "../../components/EntryPreviews"
 
 interface Props {
   entries: Entry[]
@@ -12,22 +12,24 @@ interface Props {
 const TagPage: NextPage<Props> = ({ entries }) => {
   return (
     <Page>
-      <EntryPreviews entries={ entries } />
+      <EntryPreviews entries={entries} />
     </Page>
   )
 }
 
 interface StaticParams {
   params: {
-    slug: string,
-  },
+    slug: string
+  }
 }
 
 interface StaticProps {
-  props: Props,
+  props: Props
 }
 
-export async function unstable_getStaticProps({ params }: StaticParams): Promise<StaticProps> {
+export async function unstable_getStaticProps({
+  params,
+}: StaticParams): Promise<StaticProps> {
   const entries = await entriesLoader.getEntries()
   const { slug: tag } = params
   const taggedEntries = entries.filter(entry => entry.tags.includes(tag))
@@ -49,17 +51,19 @@ export async function unstable_getStaticProps({ params }: StaticParams): Promise
 
 export async function unstable_getStaticPaths(): Promise<StaticParams[]> {
   const entries = await entriesLoader.getEntries()
-  const tags = new Set(entries.flatMap(entry => {
-    return entry.tags
-  }))
+  const tags = new Set(
+    entries.flatMap(entry => {
+      return entry.tags
+    }),
+  )
 
   let paths: StaticParams[] = []
 
   tags.forEach(tag => {
     paths.push({
       params: {
-        slug: tag
-      }
+        slug: tag,
+      },
     })
   })
 

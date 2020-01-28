@@ -1,13 +1,15 @@
-import { Entry } from "../data/loaders/Entry";
+import { Entry } from "../data/loaders/Entry"
 
 export function isBlogPost(object: any): object is BlogPost {
-  return typeof object.slug === "string" &&
+  return (
+    typeof object.slug === "string" &&
     typeof object.title === "string" &&
     typeof object.content === "string" &&
     typeof object.excerpt === "string" &&
     typeof object.date === "string" &&
     typeof object.url === "string" &&
     Array.isArray(object.tags)
+  )
 }
 
 export default interface BlogPost extends Entry {

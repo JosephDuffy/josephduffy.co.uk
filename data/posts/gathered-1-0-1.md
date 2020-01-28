@@ -38,7 +38,7 @@ Looking at the [documentation for the `idleTimerDisabled` property of `UIApplica
 
 > You should set this property only if necessary and should be sure to reset it to `false` when the need no longer exists. Most apps should let the system turn off the screen when the idle timer elapses. This includes audio apps. With appropriate use of Audio Session Services, playback and recording proceed uninterrupted when the screen turns off. The only apps that should disable the idle timer are mapping apps, games, or **programs where the app needs to continue displaying content when user interaction is minimal**.
 
-*(emphasis is mine)*
+_(emphasis is mine)_
 
 I assumed this was just something that was flagged internally by some sort of automated code scanner and submitted an appeal to the App Review Board, stating that I felt Gathered fell under the category of apps which "[need] to continue displaying content when user interaction is minimal." A few days later I received an email scheduling a phone call, in which I am told that the functionality would not be accepted. I was not give any more of a reason, other than "your app was found to be out of compliance with App Store Review Guidelines" and that I must remove the feature and resubmit my update.
 

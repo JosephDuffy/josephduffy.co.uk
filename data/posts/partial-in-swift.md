@@ -581,7 +581,7 @@ do {
 
 [Shaps][4] helped me a lot with this post, from working with me through the evolution of the implementation to reading drafts of this post. Thanks, Shaps!
 
-[1]:    https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types
-[2]:    https://josephduffy.co.uk/public/Partial.playground.zip
-[3]:    https://gist.github.com/JosephDuffy/66dba40d3d591f83518d0d0d28a0f7f8
-[4]:    https://twitter.com/shaps
+[1]: https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types
+[2]: https://josephduffy.co.uk/public/Partial.playground.zip
+[3]: https://gist.github.com/JosephDuffy/66dba40d3d591f83518d0d0d28a0f7f8
+[4]: https://twitter.com/shaps

@@ -20,11 +20,11 @@ I've liked the idea of Node.js for a while. For simple websites (such as this) t
 
 Using Node has a few other advantages. Ones of those is being able to use [gulp](http://gulpjs.com/). There a lot of workflow automators out there now, and which is "best" seems to change fairly rapidly. I'm happy with my workflow using gulp so that's what I stick to. I use gulp to automate all of the following tasks:
 
- - Compile my SASS files, including Bootstrap
- - Automatically add browser vender prefixes to support the latest 2 versions of major browsers
- - Removed any CSS rules that aren't used anywhere on the website
- - Minify the output CSS
- - Generate sourcemaps for development
+- Compile my SASS files, including Bootstrap
+- Automatically add browser vender prefixes to support the latest 2 versions of major browsers
+- Removed any CSS rules that aren't used anywhere on the website
+- Minify the output CSS
+- Generate sourcemaps for development
 
 This is all done in a single [gulp file](http://gulpjs.com/). I've also added a `watch` task so that changes made to SASS file automatically trigger a recompile. I'll likely extend this to the views directory, too, so that any CSS rules added or removed from the HTML will be add or removed from the compiled CSS.
 
@@ -50,9 +50,9 @@ Along with SASS, Handlebars is probably my favourite things that changed about m
 
 I decided to open source the website for a couple of reasons:
 
- - It makes deployment via PM2 or just the command line a little easier
- - It makes a good portfolio piece
- - It forces me to write slightly better code since people might look at it
+- It makes deployment via PM2 or just the command line a little easier
+- It makes a good portfolio piece
+- It forces me to write slightly better code since people might look at it
 
 I'm happy with my decision to open source the website. I can already see that I'm writing better commit messages and separating my commits up further.
 

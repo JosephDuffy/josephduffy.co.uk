@@ -1,37 +1,45 @@
-import ApolloClient from 'apollo-client'
-import gql from 'graphql-tag'
-import fetch from 'node-fetch'
-import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache, ObjectCache } from 'apollo-cache-inmemory'
+import ApolloClient from "apollo-client"
+import gql from "graphql-tag"
+import fetch from "node-fetch"
+import { createHttpLink } from "apollo-link-http"
+import { InMemoryCache, ObjectCache } from "apollo-cache-inmemory"
 import { Entry } from "./Entry"
-import CombinedEntry from '../../models/CombinedEntry'
+import CombinedEntry from "../../models/CombinedEntry"
 
 const query = gql`
-query {
-  user(login: "josephduffy") {
-    repositories(first: 100, affiliations: [OWNER], isFork: false, privacy: PUBLIC) {
-      nodes {
-        name
-        repositoryTopics(first: 100) {
-          nodes {
-            topic {
-              name
+  query {
+    user(login: "josephduffy") {
+      repositories(
+        first: 100
+        affiliations: [OWNER]
+        isFork: false
+        privacy: PUBLIC
+      ) {
+        nodes {
+          name
+          repositoryTopics(first: 100) {
+            nodes {
+              topic {
+                name
+              }
             }
           }
-        }
-        releases(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) {
-          nodes {
-            name
-            tagName
-            description
-            createdAt
-            url
+          releases(
+            first: 100
+            orderBy: { field: CREATED_AT, direction: DESC }
+          ) {
+            nodes {
+              name
+              tagName
+              description
+              createdAt
+              url
+            }
           }
         }
       }
     }
   }
-}
 `
 
 interface QueryResult {
@@ -67,11 +75,13 @@ interface Release {
 export interface CombinedGitHubRelease extends CombinedEntry {}
 
 export function isGitHubRelease(object: any): object is GitHubRelease {
-  return typeof object.name === "string" &&
+  return (
+    typeof object.name === "string" &&
     (typeof object.description === "string" || object.description === null) &&
     object.hasOwnProperty("date") &&
     typeof object.url === "string" &&
     Array.isArray(object.tags)
+  )
 }
 
 export interface GitHubRelease extends Entry {
@@ -85,7 +95,6 @@ export interface GitHubRelease extends Entry {
 }
 
 export class GitHubReleasesLoader {
-
   private cachedReleases?: GitHubRelease[]
 
   async getReleases(forceRefresh: boolean = false): Promise<GitHubRelease[]> {
@@ -95,16 +104,16 @@ export class GitHubReleasesLoader {
     }
 
     const link = createHttpLink({
-      uri: 'https://api.github.com/graphql',
+      uri: "https://api.github.com/graphql",
       fetch: fetch as any,
       headers: {
-        Authorization: `bearer ${process.env['GITHUB_OAUTH_TOKEN']}`
+        Authorization: `bearer ${process.env["GITHUB_OAUTH_TOKEN"]}`,
       },
-    });
+    })
     const client = new ApolloClient({
       link: link,
       cache: new InMemoryCache(),
-    });
+    })
     console.debug("Loading GitHub releases")
     const result = await client.query({ query })
     if (result.errors) {
@@ -115,7 +124,9 @@ export class GitHubReleasesLoader {
     const releaseTags = ["open-source"]
     const data = result.data as QueryResult
     const releases = data.user.repositories.nodes.flatMap(repository => {
-      const repoTags = releaseTags.concat(repository.repositoryTopics.nodes.map(node => node.topic.name))
+      const repoTags = releaseTags.concat(
+        repository.repositoryTopics.nodes.map(node => node.topic.name),
+      )
       return repository.releases.nodes.map(release => {
         const releaseTags = this.tagsForRelease(release, repository)
         return {

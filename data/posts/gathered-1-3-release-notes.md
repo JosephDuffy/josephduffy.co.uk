@@ -14,17 +14,17 @@ I wasn't very happy removing the Heart Rate data source but Apple weren't very h
 
 ## Full Changelog
 
- - Adds Advertising and Authentication data sources
- - Removes the Heart Rate (via Apple Watch) data source at the request of Apple
- - Data sources can now be reordered
- - Values can now be copied by tapping the cell
- - Adds support for iPhone X
- - Improves layout on iPads
- - Adds drag and drop support for recordings on iPads running iOS 11 or newer
- - Altimeter's "Relative Altitude" value can be reset to zero by tapping the cell
- - Adds "Speed (estimated)" to GPS data source
- - A "Start Recording" Quick Action has been added to the home screen icon
- - Recordings will now always use the update frequency set in the Settings tab
- - Fixes some exported CSV files being invalid
- - Fixes the Microphone data source pausing other audio
- - Fixes a crash that may occur when stopping a recording
+- Adds Advertising and Authentication data sources
+- Removes the Heart Rate (via Apple Watch) data source at the request of Apple
+- Data sources can now be reordered
+- Values can now be copied by tapping the cell
+- Adds support for iPhone X
+- Improves layout on iPads
+- Adds drag and drop support for recordings on iPads running iOS 11 or newer
+- Altimeter's "Relative Altitude" value can be reset to zero by tapping the cell
+- Adds "Speed (estimated)" to GPS data source
+- A "Start Recording" Quick Action has been added to the home screen icon
+- Recordings will now always use the update frequency set in the Settings tab
+- Fixes some exported CSV files being invalid
+- Fixes the Microphone data source pausing other audio
+- Fixes a crash that may occur when stopping a recording
