@@ -50,6 +50,7 @@ export class StackOverflowLoader {
 
   async getEntries(forceRefresh: boolean = false): Promise<StackOverflowEntry[]> {
     if (!forceRefresh && this.cachedEntries) {
+      console.debug("Using cached StackOverflow entries")
       return this.cachedEntries
     }
 
@@ -134,11 +135,13 @@ export class StackOverflowLoader {
           const jsonObject = JSON.parse(json)
           resolve(jsonObject.items)
         }).on("error", err => {
+          console.error("Error with StackExchange API response", err)
           reject(err)
         })
 
         response.pipe(gunzip)
       }).on("error", (err) => {
+        console.error("Network error with StackExchange API", err)
         reject(err)
       })
     })
