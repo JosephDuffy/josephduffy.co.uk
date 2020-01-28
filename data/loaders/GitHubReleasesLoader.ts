@@ -85,7 +85,15 @@ export interface GitHubRelease extends Entry {
 }
 
 export class GitHubReleasesLoader {
-  async getReleases(): Promise<GitHubRelease[]> {
+
+  private cachedReleases?: GitHubRelease[]
+
+  async getReleases(forceRefresh: boolean = false): Promise<GitHubRelease[]> {
+    if (!forceRefresh && this.cachedReleases) {
+      console.debug("Using cached GitHub releases")
+      return this.cachedReleases
+    }
+
     const link = createHttpLink({
       uri: 'https://api.github.com/graphql',
       fetch: fetch as any,
@@ -97,14 +105,16 @@ export class GitHubReleasesLoader {
       link: link,
       cache: new InMemoryCache(),
     });
+    console.debug("Loading GitHub releases")
     const result = await client.query({ query })
     if (result.errors) {
+      console.error("Error loading GitHub releases", result.errors)
       throw result.errors
     }
 
     const releaseTags = ["open-source"]
     const data = result.data as QueryResult
-    return data.user.repositories.nodes.flatMap(repository => {
+    const releases = data.user.repositories.nodes.flatMap(repository => {
       const repoTags = releaseTags.concat(repository.repositoryTopics.nodes.map(node => node.topic.name))
       return repository.releases.nodes.map(release => {
         const releaseTags = this.tagsForRelease(release, repository)
@@ -119,6 +129,8 @@ export class GitHubReleasesLoader {
         }
       })
     })
+    this.cachedReleases = releases
+    return releases
   }
 
   private tagsForRelease(release: Release, repository: Repository): string[] {
