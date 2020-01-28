@@ -64,8 +64,9 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
       entries.push(combinedEntry)
     } else {
       entries = entries.concat(entriesToCombine)
-      entries.push(entry)
     }
+
+    entries.push(entry)
 
     entriesToCombine = []
   }
