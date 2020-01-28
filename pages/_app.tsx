@@ -44,7 +44,7 @@ class MyApp extends App {
             }
 
             a {
-              color: #ff9500;
+              color: #007aff;
             }
           }
         `}</style>
