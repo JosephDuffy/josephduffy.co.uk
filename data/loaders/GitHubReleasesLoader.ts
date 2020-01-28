@@ -3,7 +3,7 @@ import gql from "graphql-tag"
 import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache, ObjectCache } from "apollo-cache-inmemory"
-import { Entry } from "./Entry"
+import { Entry, EntryType } from "./Entry"
 import CombinedEntry from "../../models/CombinedEntry"
 
 const query = gql`
@@ -75,17 +75,10 @@ interface Release {
 export interface CombinedGitHubRelease extends CombinedEntry {}
 
 export function isGitHubRelease(object: any): object is GitHubRelease {
-  return (
-    typeof object.name === "string" &&
-    (typeof object.description === "string" || object.description === null) &&
-    object.hasOwnProperty("date") &&
-    typeof object.url === "string" &&
-    Array.isArray(object.tags)
-  )
+  return object.type === EntryType.GithubRelease
 }
 
 export interface GitHubRelease extends Entry {
-  name: string
   description: string | null
   repoName: string
   versionNumber: string
@@ -130,13 +123,14 @@ export class GitHubReleasesLoader {
       return repository.releases.nodes.map(release => {
         const releaseTags = this.tagsForRelease(release, repository)
         return {
-          name: `${repository.name} ${release.tagName}`,
+          title: `${repository.name} ${release.tagName}`,
           description: release.description,
           repoName: repository.name,
           versionNumber: release.tagName,
           date: new Date(release.createdAt).toISOString(),
           url: release.url,
           tags: repoTags.concat(releaseTags),
+          type: EntryType.GithubRelease,
         }
       })
     })

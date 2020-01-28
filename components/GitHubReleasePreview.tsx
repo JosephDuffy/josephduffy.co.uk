@@ -15,7 +15,7 @@ const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
     <article key={release.url}>
       <header>
         <a href={release.url}>
-          <h1>{release.name}</h1>
+          <h1>{release.title}</h1>
         </a>
         Released {formattedDate}
         {release.tags.length > 0 && <TagsList tags={release.tags} />}

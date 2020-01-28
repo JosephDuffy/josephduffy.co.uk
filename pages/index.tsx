@@ -1,7 +1,7 @@
 import { NextPage } from "next"
 import Page from "../layouts/main"
 import entriesLoader from "../data/loaders/EntriesLoader"
-import { Entry } from "../data/loaders/Entry"
+import { Entry, EntryType } from "../data/loaders/Entry"
 import { compareDesc } from "date-fns"
 import EntryPreviews from "../components/EntryPreviews"
 import {
@@ -50,6 +50,7 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
     }
 
     if (sequentialReleasesCount >= 3) {
+      console.debug(`Combining ${entriesToCombine.map(e => e.title)} because ${entry.title} is not sequential`)
       const earliestRelease = entriesToCombine[entriesToCombine.length - 1]
       const latestRelease = entriesToCombine[0]
       const combinedEntry: CombinedEntry = {
@@ -60,6 +61,7 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
           new Set(entriesToCombine.flatMap(entry => entry.tags)),
         ),
         summary: `${sequentialReleasesCount} releases`,
+        type: EntryType.Combined,
       }
       entries.push(combinedEntry)
     } else {

@@ -3,6 +3,7 @@ import glob from "glob"
 import path from "path"
 import fs from "fs"
 import BlogPost from "../../models/BlogPost"
+import { EntryType } from "./Entry"
 
 export class PostsLoader {
   private cachedPosts?: BlogPost[]
@@ -33,6 +34,7 @@ export class PostsLoader {
         date: new Date(parsedContent.data.date).toISOString(),
         url: `/posts/${slug}`,
         tags: parsedContent.data.tags,
+        type: EntryType.BlogPost,
       }
       posts.push(post)
     }

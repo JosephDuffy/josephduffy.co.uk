@@ -9,6 +9,8 @@ import BlogPostPreview from "./BlogPostPreview"
 import { inspect } from "util"
 import { isCombinedEntry } from "../models/CombinedEntry"
 import CombinedEntryPreview from "./CombinedEntryPreview"
+import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
+import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
 
 interface Props {
   entries: Entry[]
@@ -52,6 +54,8 @@ class EntryPreviews extends Component<Props> {
   private previewForEntry(entry: Entry) {
     if (isCombinedEntry(entry)) {
       return <CombinedEntryPreview entry={entry} />
+    } else if (isGitHubPullRequest(entry)) {
+      return <GitHubPullRequestPreview pullRequest={entry} />
     } else if (isGitHubRelease(entry)) {
       return <GitHubReleasePreview release={entry} />
     } else if (isStackOverflowEntry(entry)) {

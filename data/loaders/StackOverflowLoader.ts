@@ -1,4 +1,4 @@
-import { Entry } from "./Entry"
+import { Entry, EntryType } from "./Entry"
 import https from "https"
 import zlib from "zlib"
 import { AllHtmlEntities } from "html-entities"
@@ -30,13 +30,7 @@ export type StackOverflowPostType = "answer" | "question"
 export function isStackOverflowEntry(
   object: any,
 ): object is StackOverflowEntry {
-  return (
-    typeof object.title === "string" &&
-    object.hasOwnProperty("date") &&
-    typeof object.url === "string" &&
-    Array.isArray(object.tags) &&
-    typeof object.postId === "number"
-  )
+  return object.type === EntryType.StackOverflowEntry
 }
 
 export interface StackOverflowEntry extends Entry {
@@ -90,6 +84,7 @@ export class StackOverflowLoader {
         tags: apiQuestion.tags,
         postType: "question",
         postId: apiQuestion.question_id,
+        type: EntryType.StackOverflowEntry,
       }
     })
     const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
@@ -107,6 +102,7 @@ export class StackOverflowLoader {
         tags: apiQuestion.tags,
         postType: "answer",
         postId: apiAnswer.answer_id,
+        type: EntryType.StackOverflowEntry,
       }
     })
 

@@ -1,4 +1,5 @@
 import gitHubReleasesLoader from "./GitHubReleasesLoader"
+import gitHubPullRequestsLoader from "./GitHubPullRequestsLoader"
 import postsLoader from "./PostsLoader"
 import stackOverflowLoader from "./StackOverflowLoader"
 import { Entry } from "./Entry"
@@ -18,10 +19,12 @@ export class EntriesLoader {
 
     const posts = await postsLoader.getPosts()
     const gitHubReleases = await gitHubReleasesLoader.getReleases()
+    const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()
     const stackOverflowEntries = await stackOverflowLoader.getEntries()
 
     entries = entries.concat(posts)
     entries = entries.concat(gitHubReleases)
+    entries = entries.concat(gitHubPullRequests)
     entries = entries.concat(stackOverflowEntries)
 
     this.cachedEntries = entries

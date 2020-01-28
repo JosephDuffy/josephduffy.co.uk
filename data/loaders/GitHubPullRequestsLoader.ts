@@ -3,7 +3,7 @@ import gql from "graphql-tag"
 import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache, ObjectCache } from "apollo-cache-inmemory"
-import { Entry } from "./Entry"
+import { Entry, EntryType } from "./Entry"
 
 const query = gql`
   query {
@@ -62,17 +62,10 @@ interface PullRequest {
 }
 
 export function isGitHubPullRequest(object: any): object is GitHubPullRequest {
-  return (
-    typeof object.name === "string" &&
-    (typeof object.description === "string" || object.description === null) &&
-    object.hasOwnProperty("date") &&
-    typeof object.url === "string" &&
-    Array.isArray(object.tags)
-  )
+  return object.type === EntryType.GitHubPullRequest
 }
 
 export interface GitHubPullRequest extends Entry {
-  name: string
   description: string
   url: string
   repoName: string
@@ -110,16 +103,17 @@ export class GitHubPullRequestLoader {
     const pullRequestTags = ["open-source"]
     const data = result.data as QueryResult
     const pullRequests = data.user.pullRequests.nodes.filter(pullRequest => pullRequest.repository.owner.login !== "JosephDuffy").flatMap(pullRequest => {
-      const repoTags = pullRequestTags.concat(
+      const tags = pullRequestTags.concat(
         pullRequest.repository.repositoryTopics.nodes.map(node => node.topic.name),
       )
       return {
-        name: pullRequest.title,
+        title: pullRequest.title,
         description: pullRequest.body,
         url: pullRequest.url,
         repoName: pullRequest.repository.nameWithOwner,
         date: pullRequest.createdAt,
-        tags: pullRequestTags.concat(pullRequest.repository.repositoryTopics.nodes.map(node => node.topic.name)),
+        tags,
+        type: EntryType.GitHubPullRequest,
       }
     })
     this.cachedPullRequests = pullRequests
