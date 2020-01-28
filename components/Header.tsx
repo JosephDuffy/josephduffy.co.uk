@@ -27,6 +27,12 @@ const Header = () => (
 
     a {
       padding: 8px;
+      font-size: 1.5em;
+      text-decoration: none;
+    }
+
+    a:hover, a:active {
+      text-decoration: underline;
     }
     `}</style>
     </Fragment>
