@@ -19,7 +19,19 @@ class MyApp extends App {
 
         <style jsx>{`
           div {
-            width: 70vw;
+            width: calc(100vw - 32px);
+          }
+
+          @media (min-width: 480px) {
+            div {
+              width: 90vw;
+            }
+          }
+
+          @media (min-width: 1024px) {
+            div {
+              width: 70vw;
+            }
           }
         `}</style>
 
