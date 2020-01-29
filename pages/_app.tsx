@@ -41,6 +41,7 @@ class MyApp extends App {
             justify-content: center;
             align-items: center;
 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             background: black;
             color: white;
           }
