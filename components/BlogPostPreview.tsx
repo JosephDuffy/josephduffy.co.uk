@@ -4,6 +4,7 @@ import TagsList from "./TagsList"
 import { format } from "date-fns"
 import BlogPost from "../models/BlogPost"
 import ReactMarkdown from "react-markdown"
+import CodeBlock from "./CodeBlock"
 
 interface Props {
   post: BlogPost
@@ -24,7 +25,7 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <div>
-        <ReactMarkdown source={post.excerpt ?? post.content} />
+        <ReactMarkdown source={post.excerpt ?? post.content} renderers={{ code: CodeBlock }} />
         {post.excerpt && (
           <Link href={post.url}>
             <a>Read More</a>

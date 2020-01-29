@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown"
 import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
+import CodeBlock from "../../components/CodeBlock"
 
 interface Props {
   post?: BlogPost
@@ -31,7 +32,7 @@ const PostPage: NextPage<Props> = props => {
           <h1>{post.title}</h1>
         </header>
         <div>
-          <ReactMarkdown source={post.content} />
+          <ReactMarkdown source={post.content} renderers={{ code: CodeBlock }} />
         </div>
       </article>
     </Page>
