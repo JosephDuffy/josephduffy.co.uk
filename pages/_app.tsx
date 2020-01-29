@@ -49,6 +49,12 @@ class MyApp extends App {
             color: #ffcc00;
           }
 
+          code {
+            padding: .1em .4em;
+            border-radius: 3px;
+            background-color: #7878805b;
+          }
+
           @media (prefers-color-scheme: light) {
             body {
               background: white;
@@ -57,6 +63,10 @@ class MyApp extends App {
 
             a {
               color: #007aff;
+            }
+
+            code {
+              background-color: #78788033;
             }
           }
         `}</style>
