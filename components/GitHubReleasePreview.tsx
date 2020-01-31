@@ -8,7 +8,6 @@ interface Props {
 }
 
 const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
-  // Without `new Date` is will sometimes crash 🤷‍♂️
   const formattedDate = format(new Date(release.date), "do MMMM, y")
   return (
     <article key={release.url}>

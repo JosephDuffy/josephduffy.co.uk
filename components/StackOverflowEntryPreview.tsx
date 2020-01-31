@@ -8,7 +8,6 @@ interface Props {
 }
 
 const StackOverflowEntryPreview: FunctionComponent<Props> = ({ entry }) => {
-  // Without `new Date` is will sometimes crash 🤷‍♂️
   const formattedDate = format(new Date(entry.date), "do MMMM, y")
   return (
     <article key={entry.postId}>

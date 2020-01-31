@@ -11,7 +11,6 @@ interface Props {
 }
 
 const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
-  // Without `new Date` is will sometimes crash 🤷‍♂️
   const formattedDate = format(new Date(post.date), "do MMMM, y")
   return (
     <article key={post.slug}>
