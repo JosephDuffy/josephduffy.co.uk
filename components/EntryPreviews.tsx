@@ -11,6 +11,7 @@ import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesE
 import CombinedGitHubReleasesPreview from "./CombinedGitHubReleasesPreview"
 import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
+import { compareDesc } from "date-fns"
 
 interface Props {
   entries: Entry[]
@@ -18,7 +19,9 @@ interface Props {
 
 class EntryPreviews extends Component<Props> {
   render() {
-    const { entries } = this.props
+    const entries = this.props.entries.sort((entryA, entryB) => {
+      return compareDesc(new Date(entryA.date), new Date(entryB.date))
+    })
     return (
       <Fragment>
         {entries.map(entry => {
