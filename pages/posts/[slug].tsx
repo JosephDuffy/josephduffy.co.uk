@@ -6,36 +6,16 @@ import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
 import CodeBlock from "../../components/CodeBlock"
+import ReactDOMServer from "react-dom/server"
 
 interface Props {
   post?: BlogPost
+  htmlContent: string
 }
 
 const PostPage: NextPage<Props> = props => {
-  const { post } = props
-
-  if (!post) {
-    return (
-      <ErrorPage title={"Blog post not found"} statusCode={404}>
-        <Link href="/posts/">
-          <a>Go back to the index of blog posts</a>
-        </Link>
-        .
-      </ErrorPage>
-    )
-  }
-
   return (
-    <Page>
-      <article>
-        <header>
-          <h1>{post.title}</h1>
-        </header>
-        <div>
-          <ReactMarkdown source={post.content} renderers={{ code: CodeBlock }} />
-        </div>
-      </article>
-    </Page>
+    <div dangerouslySetInnerHTML={{ __html: props.htmlContent }}></div>
   )
 }
 
@@ -56,10 +36,46 @@ export async function unstable_getStaticProps({
   const posts = await postsLoader.getPosts()
   const post = posts.find(post => post.slug === slug)
 
-  return {
-    props: {
-      post,
-    },
+  if (post) {
+    const htmlContent = ReactDOMServer.renderToString(
+      <Page>
+        <article>
+          <header>
+            <h1>{post.title}</h1>
+          </header>
+          <div>
+            <ReactMarkdown source={post.content} renderers={{ code: CodeBlock }} />
+            <style jsx global>{`
+              blockquote {
+                background-color: aquamarine;
+              }
+            `}</style>
+          </div>
+        </article>
+      </Page>
+    )
+
+    return {
+      props: {
+        post,
+        htmlContent,
+      },
+    }
+  } else {
+    const htmlContent = ReactDOMServer.renderToString(
+      <ErrorPage title={"Blog post not found"} statusCode={404}>
+        <Link href="/posts/">
+          <a>Go back to the index of blog posts</a>
+        </Link>
+        .
+      </ErrorPage>
+    )
+
+    return {
+      props: {
+        htmlContent
+      }
+    }
   }
 }
 
