@@ -1,13 +1,13 @@
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import { format } from "date-fns"
-import CombinedEntry from "../models/CombinedEntry"
+import CombinedGitHubReleasesEntry from "../models/CombinedGitHubReleasesEntry"
 
 interface Props {
-  entry: CombinedEntry
+  entry: CombinedGitHubReleasesEntry
 }
 
-const CombinedEntryPreview: FunctionComponent<Props> = ({ entry }) => {
+const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({ entry }) => {
   const earliestEntry = entry.entries[entry.entries.length - 1]
   const latestEntry = entry.entries[0]
   const formattedEarliestDate = format(
@@ -33,4 +33,4 @@ const CombinedEntryPreview: FunctionComponent<Props> = ({ entry }) => {
   )
 }
 
-export default CombinedEntryPreview
+export default CombinedGitHubReleasesPreview

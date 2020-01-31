@@ -7,7 +7,7 @@ export interface Entry {
 }
 
 export enum EntryType {
-  Combined,
+  CombinedGitHubReleases,
   GitHubPullRequest,
   GithubRelease,
   StackOverflowEntry,

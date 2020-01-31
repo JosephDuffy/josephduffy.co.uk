@@ -7,8 +7,8 @@ import GitHubReleasePreview from "./GitHubReleasePreview"
 import StackOverflowEntryPreview from "./StackOverflowEntryPreview"
 import BlogPostPreview from "./BlogPostPreview"
 import { inspect } from "util"
-import { isCombinedEntry } from "../models/CombinedEntry"
-import CombinedEntryPreview from "./CombinedEntryPreview"
+import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesEntry"
+import CombinedGitHubReleasesPreview from "./CombinedGitHubReleasesPreview"
 import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
 
@@ -25,7 +25,7 @@ class EntryPreviews extends Component<Props> {
           let key: string
           if (entry.url) {
             key = entry.url
-          } else if (isCombinedEntry(entry)) {
+          } else if (isCombinedGitHubReleasesEntry(entry)) {
             key = entry.title
           } else {
             // TODO: Create a better key
@@ -61,8 +61,8 @@ class EntryPreviews extends Component<Props> {
   }
 
   private previewForEntry(entry: Entry) {
-    if (isCombinedEntry(entry)) {
-      return <CombinedEntryPreview entry={entry} />
+    if (isCombinedGitHubReleasesEntry(entry)) {
+      return <CombinedGitHubReleasesPreview entry={entry} />
     } else if (isGitHubPullRequest(entry)) {
       return <GitHubPullRequestPreview pullRequest={entry} />
     } else if (isGitHubRelease(entry)) {

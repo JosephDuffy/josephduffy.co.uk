@@ -4,7 +4,7 @@ import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache, ObjectCache } from "apollo-cache-inmemory"
 import { Entry, EntryType } from "./Entry"
-import CombinedEntry from "../../models/CombinedEntry"
+import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
 
 const query = gql`
   query {
@@ -72,7 +72,7 @@ interface Release {
   url: string
 }
 
-export interface CombinedGitHubRelease extends CombinedEntry {}
+export interface CombinedGitHubRelease extends CombinedGitHubReleasesEntry {}
 
 export function isGitHubRelease(object: any): object is GitHubRelease {
   return object.type === EntryType.GithubRelease

@@ -8,7 +8,7 @@ import {
   isGitHubRelease,
   GitHubRelease,
 } from "../data/loaders/GitHubReleasesLoader"
-import CombinedEntry from "../models/CombinedEntry"
+import CombinedGitHubReleasesEntry from "../models/CombinedGitHubReleasesEntry"
 
 interface Props {
   entries: Entry[]
@@ -53,7 +53,7 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
       console.debug(`Combining ${entriesToCombine.map(e => e.title)} because ${entry.title} is not sequential`)
       const earliestRelease = entriesToCombine[entriesToCombine.length - 1]
       const latestRelease = entriesToCombine[0]
-      const combinedEntry: CombinedEntry = {
+      const combinedEntry: CombinedGitHubReleasesEntry = {
         title: `${entriesToCombine[0].repoName} Versions ${earliestRelease.versionNumber} to ${latestRelease.versionNumber}`,
         date: latestRelease.date,
         entries: entriesToCombine,
@@ -61,7 +61,7 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
           new Set(entriesToCombine.flatMap(entry => entry.tags)),
         ),
         summary: `${sequentialReleasesCount} releases`,
-        type: EntryType.Combined,
+        type: EntryType.CombinedGitHubReleases,
       }
       entries.push(combinedEntry)
     } else {
