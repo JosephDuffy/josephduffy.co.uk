@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { StackOverflowEntry } from "../data/loaders/StackOverflowLoader"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"

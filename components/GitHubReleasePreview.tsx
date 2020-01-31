@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import { format } from "date-fns"
