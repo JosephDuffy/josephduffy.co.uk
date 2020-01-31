@@ -21,15 +21,19 @@ export class PostsLoader {
     for (const postPath of postPaths) {
       console.debug(`Loading post at ${postPath}`)
       const slug = path.basename(postPath, path.extname(postPath))
-      const content = fs.readFileSync(postPath)
-      const parsedContent = matter(content, {
+      const fileBuffer = fs.readFileSync(postPath)
+      const excerptSeparator = "<!-- more -->"
+      const parsedContent = matter(fileBuffer, {
         excerpt: true,
-        excerpt_separator: "<!-- more -->",
+        excerpt_separator: excerptSeparator,
       })
+      const excerptRegex = /<!-- more -->/g
+      const markdownContent = parsedContent.content.replace(excerptRegex, "")
+
       const post = {
         slug,
         title: parsedContent.data.title,
-        content: parsedContent.content,
+        content: markdownContent,
         excerpt: parsedContent.excerpt,
         date: new Date(parsedContent.data.date).toISOString(),
         url: `/posts/${slug}`,
