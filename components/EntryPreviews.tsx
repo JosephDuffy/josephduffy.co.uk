@@ -12,6 +12,7 @@ import CombinedGitHubReleasesPreview from "./CombinedGitHubReleasesPreview"
 import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
 import { compareDesc } from "date-fns"
+import Card from "./Card"
 
 interface Props {
   entries: Entry[]
@@ -35,28 +36,15 @@ class EntryPreviews extends Component<Props> {
             key = entry.date + entry.tags.concat("")
           }
           return (
-            <div className="entry-preview" key={key}>
+            <Card key={key}>
               {this.previewForEntry(entry)}
-            </div>
+            </Card>
           )
         })}
         <style jsx>{`
-          div :global(h1) {
+          :global(h1) {
             margin: 0;
             font-size: 1.7em;
-          }
-
-          div.entry-preview {
-            margin-top: 12px;
-            background: #1c1c1e;
-            border-radius: 8px;
-            padding: 12px;
-          }
-
-          @media (prefers-color-scheme: light) {
-            div.entry-preview {
-              background: #f2f2f7;
-            }
           }
         `}</style>
       </Fragment>
