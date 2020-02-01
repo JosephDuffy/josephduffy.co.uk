@@ -22,6 +22,8 @@ jobs:
         run: |
           npm run build
           npm run export
+        env:
+          GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_OAUTH_TOKEN }}
 
       - name: Run Lighthouse CI
         run: |
