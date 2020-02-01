@@ -1,21 +1,20 @@
 import { StackOverflowEntry } from "../data/loaders/StackOverflowLoader"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
-import { format } from "date-fns"
+import FormattedDate from "./FormattedDate"
 
 interface Props {
   entry: StackOverflowEntry
 }
 
 const StackOverflowEntryPreview: FunctionComponent<Props> = ({ entry }) => {
-  const formattedDate = format(new Date(entry.date), "do MMMM, y")
   return (
     <article key={entry.postId}>
       <header>
         <a href={entry.url}>
           <h1>{entry.title}</h1>
         </a>
-        Posted {formattedDate}
+        <FormattedDate date={entry.date} verb="Posted" />
         {entry.tags.length > 0 && <TagsList tags={entry.tags} />}
       </header>
     </article>
