@@ -2,6 +2,7 @@ import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import { GitHubRelease } from "../data/loaders/GitHubReleasesLoader"
 import FormattedDate from "./FormattedDate"
+import ReactMarkdown from "react-markdown"
 
 interface Props {
   release: GitHubRelease
@@ -19,8 +20,8 @@ const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
       </header>
       {release.description && release.description.trim() !== "" && (
         <div>
-          <h1>Release Notes</h1>
-          {release.description}
+          <h2>Release Notes</h2>
+          <ReactMarkdown source={release.description} />
         </div>
       )}
     </article>

@@ -49,6 +49,16 @@ class MyApp extends App {
           h1 {
             margin: 0;
             font-size: 1.7em;
+            padding-bottom: 2px;
+          }
+
+          h2 {
+            margin: 12px 0;
+            font-size: 1.4em;
+          }
+
+          ul {
+            margin: 8px 0;
           }
 
           a {

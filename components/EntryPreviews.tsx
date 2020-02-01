@@ -41,12 +41,6 @@ class EntryPreviews extends Component<Props> {
             </Card>
           )
         })}
-        <style jsx>{`
-          :global(h1) {
-            margin: 0;
-            font-size: 1.7em;
-          }
-        `}</style>
       </Fragment>
     )
   }

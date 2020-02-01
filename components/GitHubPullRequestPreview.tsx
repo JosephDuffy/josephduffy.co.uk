@@ -23,6 +23,11 @@ const GitHubPullRequestPreview: FunctionComponent<Props> = ({ pullRequest }) => 
           <ReactMarkdown source={pullRequest.description}/>
         </div>
       )}
+      <style jsx>{`
+        :global(p) {
+          margin: 8px 0;
+        }
+      `}</style>
     </article>
   )
 }

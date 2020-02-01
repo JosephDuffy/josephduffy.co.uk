@@ -29,10 +29,12 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
         div {
           display: flex;
           flex-wrap: wrap;
+          font-size: 0.8em;
+          padding-bottom: 4px;
         }
 
         span.label {
-          margin-right: 8px;
+          margin-right: 4px;
         }
 
         ul {

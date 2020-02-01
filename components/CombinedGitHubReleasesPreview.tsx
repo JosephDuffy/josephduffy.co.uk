@@ -18,6 +18,11 @@ const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({ entry }) => {
         {entry.tags.length > 0 && <TagsList tags={entry.tags} />}
       </header>
       {entry.summary && <div>{entry.summary}</div>}
+      <style jsx>{`
+        div {
+          padding-top: 8px;
+        }
+      `}</style>
     </article>
   )
 }
