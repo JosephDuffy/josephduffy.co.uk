@@ -11,3 +11,7 @@ node_modules/
 
 # macOS
 .DS_Store
+
+# Lighthouse CI
+
+.lighthouseci/
