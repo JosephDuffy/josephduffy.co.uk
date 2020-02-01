@@ -6,7 +6,7 @@ const gathered: App = {
   shortDescription:
     "Gathered is an app that facilitates the viewing, recording, and sharing of over 25 sources of data available on iOS and iPadOS devices, from the GPS and accelerometer to the advertising identifier and the WiFi. Gathered is the perfect app to enable the recording of all the data required to calulcate position, acceleration, and ambient conditions of the device.",
   fullDescription: "",
-  url: "https://itunes.apple.com/us/app/apple-store/id929726748?mt=8",
+  url: "https://geo.itunes.apple.com/app/apple-store/id929726748?mt=8",
   tags: ["gathered"],
   changelogs: [
     {
