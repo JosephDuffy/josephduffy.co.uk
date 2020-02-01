@@ -49,9 +49,7 @@ export async function unstable_getStaticProps({
             {post.tags.length > 0 && <TagsList tags={post.tags} />}
           </header>
           <div>
-            <Markdown
-              source={post.content}
-            />
+            <Markdown source={post.content} />
             <style jsx>{`
               :global(blockquote) {
                 border-left: 0.25em solid #7878805b;

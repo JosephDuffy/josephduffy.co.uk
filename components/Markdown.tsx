@@ -7,12 +7,7 @@ interface Props {
 }
 
 const Markdown: FunctionComponent<Props> = ({ source }) => {
-  return (
-    <ReactMarkdown
-      source={source}
-      renderers={{ code: CodeBlock }}
-    />
-  )
+  return <ReactMarkdown source={source} renderers={{ code: CodeBlock }} />
 }
 
 export default Markdown
