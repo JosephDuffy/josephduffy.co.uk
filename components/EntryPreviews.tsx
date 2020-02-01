@@ -47,7 +47,7 @@ class EntryPreviews extends Component<Props> {
 
   private previewForEntry(entry: Entry) {
     if (isCombinedGitHubReleasesEntry(entry)) {
-      return <CombinedGitHubReleasesPreview entry={entry} />
+      return <CombinedGitHubReleasesPreview combinedReleases={entry} />
     } else if (isGitHubPullRequest(entry)) {
       return <GitHubPullRequestPreview pullRequest={entry} />
     } else if (isGitHubRelease(entry)) {

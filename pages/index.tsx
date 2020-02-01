@@ -60,11 +60,10 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
       const combinedEntry: CombinedGitHubReleasesEntry = {
         title: `${entriesToCombine[0].repoName} Versions ${earliestRelease.versionNumber} to ${latestRelease.versionNumber}`,
         date: latestRelease.date,
-        entries: entriesToCombine,
+        releases: entriesToCombine,
         tags: Array.from(
           new Set(entriesToCombine.flatMap(entry => entry.tags)),
         ),
-        summary: `${sequentialReleasesCount} releases`,
         type: EntryType.CombinedGitHubReleases,
       }
       entries.push(combinedEntry)

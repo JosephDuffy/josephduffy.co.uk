@@ -1,4 +1,5 @@
 import { Entry, EntryType } from "../data/loaders/Entry"
+import { GitHubRelease } from "../data/loaders/GitHubReleasesLoader"
 
 export function isCombinedGitHubReleasesEntry(object: any): object is CombinedGitHubReleasesEntry {
   return object.type === EntryType.CombinedGitHubReleases
@@ -6,6 +7,5 @@ export function isCombinedGitHubReleasesEntry(object: any): object is CombinedGi
 
 export default interface CombinedGitHubReleasesEntry extends Entry {
   title: string
-  summary?: string
-  entries: Entry[]
+  releases: GitHubRelease[]
 }

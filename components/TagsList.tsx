@@ -1,56 +1,19 @@
-import Link from "next/link"
-import { Fragment, FunctionComponent } from "react"
+import { FunctionComponent } from "react"
+import ItemsList from "./ItemsList"
 
 interface Props {
   tags: string[]
 }
 
 const TagsList: FunctionComponent<Props> = ({ tags }) => {
+  const items = tags.map(tag => {
+    return {
+      title: tag,
+      url: `/tags/${tag}`,
+    }
+  })
   return (
-    <Fragment>
-      <div>
-        <span className="label">Tags:</span>
-        <ul>
-          {Array.from(tags.entries()).map(entry => {
-            const [index, tag] = entry
-            const tagURL = `/tags/${tag}`
-            return (
-              <li key={tag}>
-                <Link href={tagURL}>
-                  <a>{tag}</a>
-                </Link>
-                {index !== tags.length - 1 && <span>,</span>}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-      <style jsx>{`
-        div {
-          display: flex;
-          flex-wrap: wrap;
-          font-size: 0.8em;
-          padding-bottom: 4px;
-        }
-
-        span.label {
-          margin-right: 4px;
-        }
-
-        ul {
-          display: flex;
-          flex-wrap: wrap;
-          list-style-type: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        li {
-          margin-right: 8px;
-          display: inline;
-        }
-      `}</style>
-    </Fragment>
+    <ItemsList items={items} verb="Tags" showCount={false} />
   )
 }
 
