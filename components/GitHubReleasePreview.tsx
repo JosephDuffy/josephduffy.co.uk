@@ -1,21 +1,20 @@
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
-import { format } from "date-fns"
 import { GitHubRelease } from "../data/loaders/GitHubReleasesLoader"
+import FormattedDate from "./FormattedDate"
 
 interface Props {
   release: GitHubRelease
 }
 
 const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
-  const formattedDate = format(new Date(release.date), "do MMMM, y")
   return (
     <article key={release.url}>
       <header>
         <a href={release.url}>
           <h1>{release.title}</h1>
         </a>
-        Released {formattedDate}
+        <FormattedDate date={release.date} verb="Released" />
         {release.tags.length > 0 && <TagsList tags={release.tags} />}
       </header>
       {release.description && release.description.trim() !== "" && (

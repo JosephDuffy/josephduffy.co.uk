@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
-import { format } from "date-fns"
 import CombinedGitHubReleasesEntry from "../models/CombinedGitHubReleasesEntry"
+import FormattedDate from "./FormattedDate"
 
 interface Props {
   entry: CombinedGitHubReleasesEntry
@@ -10,22 +10,11 @@ interface Props {
 const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({ entry }) => {
   const earliestEntry = entry.entries[entry.entries.length - 1]
   const latestEntry = entry.entries[0]
-  const formattedEarliestDate = format(
-    new Date(earliestEntry.date),
-    "do MMMM, y",
-  )
-  const formattedLatestDate = format(new Date(latestEntry.date), "do MMMM, y")
-  let formattedDate: string
-  if (formattedEarliestDate === formattedLatestDate) {
-    formattedDate = formattedEarliestDate
-  } else {
-    formattedDate = `between ${formattedEarliestDate} and ${formattedLatestDate}`
-  }
   return (
     <article key={entry.title}>
       <header>
         <h1>{entry.title}</h1>
-        Published {formattedDate}
+        <FormattedDate date={earliestEntry.date} secondDate={latestEntry.date} verb="Published" />
         {entry.tags.length > 0 && <TagsList tags={entry.tags} />}
       </header>
       {entry.summary && <div>{entry.summary}</div>}

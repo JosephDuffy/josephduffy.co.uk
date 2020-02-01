@@ -1,17 +1,16 @@
 import Link from "next/link"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
-import { format } from "date-fns"
 import BlogPost from "../models/BlogPost"
 import ReactMarkdown from "react-markdown"
 import CodeBlock from "./CodeBlock"
+import FormattedDate from "./FormattedDate"
 
 interface Props {
   post: BlogPost
 }
 
 const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
-  const formattedDate = format(new Date(post.date), "do MMMM, y")
   return (
     <article key={post.slug}>
       <header>
@@ -20,7 +19,7 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
             <h1>{post.title}</h1>
           </a>
         </Link>
-        Published {formattedDate}
+        <FormattedDate date={post.date} verb="Published" />
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <div>
