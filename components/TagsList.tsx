@@ -12,9 +12,7 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
       url: `/tags/${tag}`,
     }
   })
-  return (
-    <ItemsList items={items} verb="Tags" showCount={false} rel="tag" />
-  )
+  return <ItemsList items={items} verb="Tags" showCount={false} rel="tag" />
 }
 
 export default TagsList

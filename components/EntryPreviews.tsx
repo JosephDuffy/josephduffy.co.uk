@@ -35,11 +35,7 @@ class EntryPreviews extends Component<Props> {
             // TODO: Create a better key
             key = entry.date + entry.tags.concat("")
           }
-          return (
-            <Card key={key}>
-              {this.previewForEntry(entry)}
-            </Card>
-          )
+          return <Card key={key}>{this.previewForEntry(entry)}</Card>
         })}
       </Fragment>
     )

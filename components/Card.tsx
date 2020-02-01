@@ -2,9 +2,7 @@ import { FunctionComponent, Fragment } from "react"
 
 const Card: FunctionComponent = ({ children }) => (
   <Fragment>
-    <div>
-      {children}
-    </div>
+    <div>{children}</div>
     <style jsx>{`
       div {
         margin-top: 12px;

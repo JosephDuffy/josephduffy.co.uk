@@ -11,14 +11,22 @@ interface Props {
 }
 
 function datesAreTheSame(dateA: Date, dateB: Date): boolean {
-  return dateA.getDay() === dateB.getDay() && dateA.getMonth() === dateB.getMonth() && dateA.getFullYear() === dateB.getFullYear()
+  return (
+    dateA.getDay() === dateB.getDay() &&
+    dateA.getMonth() === dateB.getMonth() &&
+    dateA.getFullYear() === dateB.getFullYear()
+  )
 }
 
-const FormattedDate: FunctionComponent<Props> = (props) => {
+const FormattedDate: FunctionComponent<Props> = props => {
   const { verb } = props
   const date = new Date(props.date)
   const formattedDate = format(new Date(date), "do MMMM, y")
-  const formattedSecondDate = props.secondDate !== undefined && !datesAreTheSame(date, new Date(props.secondDate)) ? format(new Date(props.secondDate), "do MMMM, y") : undefined
+  const formattedSecondDate =
+    props.secondDate !== undefined &&
+    !datesAreTheSame(date, new Date(props.secondDate))
+      ? format(new Date(props.secondDate), "do MMMM, y")
+      : undefined
 
   return (
     <Fragment>

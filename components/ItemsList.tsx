@@ -11,24 +11,34 @@ interface Props {
   rel?: string
 }
 
-const ItemsList: FunctionComponent<Props> = ({ items, verb, showCount, rel }) => {
+const ItemsList: FunctionComponent<Props> = ({
+  items,
+  verb,
+  showCount,
+  rel,
+}) => {
   return (
     <Fragment>
       <div>
-        <span className="label">{showCount && `${items.length} `}{verb}:</span>
+        <span className="label">
+          {showCount && `${items.length} `}
+          {verb}:
+        </span>
         <ul>
           {Array.from(items.entries()).map(item => {
             const [index, tag] = item
             return (
               <li key={tag.title}>
-                {tag.url && tag.url.startsWith("/") &&
+                {tag.url && tag.url.startsWith("/") && (
                   <Link href={tag.url}>
                     <a rel={rel}>{tag.title}</a>
                   </Link>
-                }
-                {tag.url && tag.url.startsWith("http") &&
-                  <a href={tag.url} rel={rel}>{tag.title}</a>
-                }
+                )}
+                {tag.url && tag.url.startsWith("http") && (
+                  <a href={tag.url} rel={rel}>
+                    {tag.title}
+                  </a>
+                )}
                 {!tag.url && tag.title}
                 {index !== items.length - 1 && <span>,</span>}
               </li>

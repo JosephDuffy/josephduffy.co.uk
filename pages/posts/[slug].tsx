@@ -17,9 +17,7 @@ interface Props {
 }
 
 const PostPage: NextPage<Props> = props => {
-  return (
-    <div dangerouslySetInnerHTML={{ __html: props.htmlContent }}></div>
-  )
+  return <div dangerouslySetInnerHTML={{ __html: props.htmlContent }}></div>
 }
 
 interface StaticParams {
@@ -52,10 +50,13 @@ export async function unstable_getStaticProps({
             {post.tags.length > 0 && <TagsList tags={post.tags} />}
           </header>
           <div>
-            <ReactMarkdown source={post.content} renderers={{ code: CodeBlock }} />
+            <ReactMarkdown
+              source={post.content}
+              renderers={{ code: CodeBlock }}
+            />
             <style jsx>{`
               :global(blockquote) {
-                border-left: .25em solid #7878805b;
+                border-left: 0.25em solid #7878805b;
                 color: #ebebf591;
                 padding: 0 1em;
                 margin: 0;
@@ -63,14 +64,14 @@ export async function unstable_getStaticProps({
 
               @media (prefers-color-scheme: light) {
                 :global(blockquote) {
-                  border-left: .25em solid #78788033;
+                  border-left: 0.25em solid #78788033;
                   color: #6a737d;
                 }
               }
             `}</style>
           </div>
         </article>
-      </Page>
+      </Page>,
     )
 
     return {
@@ -86,13 +87,13 @@ export async function unstable_getStaticProps({
           <a>Go back to the index of blog posts</a>
         </Link>
         .
-      </ErrorPage>
+      </ErrorPage>,
     )
 
     return {
       props: {
-        htmlContent
-      }
+        htmlContent,
+      },
     }
   }
 }

@@ -7,8 +7,11 @@ import { Entry, EntryType } from "./Entry"
 
 const query = gql`
   query {
-    user(login: "josephduffy"){
-      pullRequests(first: 100, orderBy: { field: CREATED_AT, direction: DESC }) {
+    user(login: "josephduffy") {
+      pullRequests(
+        first: 100
+        orderBy: { field: CREATED_AT, direction: DESC }
+      ) {
         nodes {
           title
           body
@@ -76,7 +79,9 @@ export interface GitHubPullRequest extends Entry {
 export class GitHubPullRequestLoader {
   private cachedPullRequests?: GitHubPullRequest[]
 
-  async getPullRequests(forceRefresh: boolean = false): Promise<GitHubPullRequest[]> {
+  async getPullRequests(
+    forceRefresh: boolean = false,
+  ): Promise<GitHubPullRequest[]> {
     if (!forceRefresh && this.cachedPullRequests) {
       console.debug("Using cached GitHub pull requests")
       return this.cachedPullRequests
@@ -102,20 +107,26 @@ export class GitHubPullRequestLoader {
 
     const pullRequestTags = ["open-source"]
     const data = result.data as QueryResult
-    const pullRequests = data.user.pullRequests.nodes.filter(pullRequest => pullRequest.repository.owner.login !== "JosephDuffy").flatMap(pullRequest => {
-      const tags = pullRequestTags.concat(
-        pullRequest.repository.repositoryTopics.nodes.map(node => node.topic.name),
+    const pullRequests = data.user.pullRequests.nodes
+      .filter(
+        pullRequest => pullRequest.repository.owner.login !== "JosephDuffy",
       )
-      return {
-        title: pullRequest.title,
-        description: pullRequest.body,
-        url: pullRequest.url,
-        repoName: pullRequest.repository.nameWithOwner,
-        date: pullRequest.createdAt,
-        tags,
-        type: EntryType.GitHubPullRequest,
-      }
-    })
+      .flatMap(pullRequest => {
+        const tags = pullRequestTags.concat(
+          pullRequest.repository.repositoryTopics.nodes.map(
+            node => node.topic.name,
+          ),
+        )
+        return {
+          title: pullRequest.title,
+          description: pullRequest.body,
+          url: pullRequest.url,
+          repoName: pullRequest.repository.nameWithOwner,
+          date: pullRequest.createdAt,
+          tags,
+          type: EntryType.GitHubPullRequest,
+        }
+      })
     this.cachedPullRequests = pullRequests
     return pullRequests
   }

@@ -23,7 +23,10 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <div>
-        <ReactMarkdown source={post.excerpt ?? post.content} renderers={{ code: CodeBlock }} />
+        <ReactMarkdown
+          source={post.excerpt ?? post.content}
+          renderers={{ code: CodeBlock }}
+        />
         {post.excerpt && (
           <Link href={post.url}>
             <a>Read More</a>

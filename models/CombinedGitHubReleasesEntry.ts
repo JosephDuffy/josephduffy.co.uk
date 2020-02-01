@@ -1,7 +1,9 @@
 import { Entry, EntryType } from "../data/loaders/Entry"
 import { GitHubRelease } from "../data/loaders/GitHubReleasesLoader"
 
-export function isCombinedGitHubReleasesEntry(object: any): object is CombinedGitHubReleasesEntry {
+export function isCombinedGitHubReleasesEntry(
+  object: any,
+): object is CombinedGitHubReleasesEntry {
   return object.type === EntryType.CombinedGitHubReleases
 }
 

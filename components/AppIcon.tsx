@@ -22,7 +22,7 @@ const AppIcon: FunctionComponent<Props> = ({ appName, iconURL }) => {
           mask: url("/images/ios7-icon-mask.svg");
         }
 
-        @media(min-width: 319px) {
+        @media (min-width: 319px) {
           img {
             width: 128px;
             height: 128px;

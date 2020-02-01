@@ -41,7 +41,8 @@ class MyApp extends App {
             justify-content: center;
             align-items: center;
 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             background: black;
             color: white;
           }
@@ -70,7 +71,7 @@ class MyApp extends App {
           }
 
           code {
-            padding: .1em .4em;
+            padding: 0.1em 0.4em;
             border-radius: 3px;
             background-color: #7878805b;
           }

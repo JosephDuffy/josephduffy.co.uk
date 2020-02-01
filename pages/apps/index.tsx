@@ -19,7 +19,8 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
       </Head>
       <h1>Apps I've Made</h1>
       <p>
-        My current iOS apps. I welcome feedback via Twitter at <a href="https://twitter.com/Joe_Duffy">@Joe_Duffy</a>.
+        My current iOS apps. I welcome feedback via Twitter at{" "}
+        <a href="https://twitter.com/Joe_Duffy">@Joe_Duffy</a>.
       </p>
       {apps.map(app => {
         return (
@@ -43,7 +44,11 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         )
       })}
       <p>
-        All of my apps are released in my company's name, <Link href="/yetii/"><a>Yetii Ltd</a></Link>.
+        All of my apps are released in my company's name,{" "}
+        <Link href="/yetii/">
+          <a>Yetii Ltd</a>
+        </Link>
+        .
       </p>
       <style jsx>{`
         p {

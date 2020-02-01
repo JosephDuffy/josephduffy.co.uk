@@ -54,7 +54,11 @@ export async function unstable_getStaticProps(): Promise<StaticProps> {
     }
 
     if (sequentialReleasesCount >= 3) {
-      console.debug(`Combining ${entriesToCombine.map(e => e.title)} because ${entry.title} is not sequential`)
+      console.debug(
+        `Combining ${entriesToCombine.map(e => e.title)} because ${
+          entry.title
+        } is not sequential`,
+      )
       const earliestRelease = entriesToCombine[entriesToCombine.length - 1]
       const latestRelease = entriesToCombine[0]
       const combinedEntry: CombinedGitHubReleasesEntry = {

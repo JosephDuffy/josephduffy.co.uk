@@ -12,7 +12,9 @@ const ErrorPage: NextPage<Props> = ({ statusCode, title, children }) => {
   return (
     <Page>
       <Head>
-        <title>{statusCode} - {title}</title>
+        <title>
+          {statusCode} - {title}
+        </title>
       </Head>
       <Error statusCode={statusCode} title={title} />
       {children}
