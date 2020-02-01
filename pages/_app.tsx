@@ -50,6 +50,10 @@ class MyApp extends App {
             color: #ffcc00;
           }
 
+          pre {
+            overflow: scroll;
+          }
+
           code {
             padding: .1em .4em;
             border-radius: 3px;
