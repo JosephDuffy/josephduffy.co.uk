@@ -2,7 +2,8 @@ import Changelog from "./Changelog"
 
 export default interface App {
   name: string
-  description: string
+  shortDescription: string
+  fullDescription: string,
   logoURL: string
   url: string
   tags: string[]
