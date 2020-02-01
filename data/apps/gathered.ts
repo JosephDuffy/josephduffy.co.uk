@@ -1,8 +1,9 @@
 import App from "../../models/App"
+import Icon from "../../public/images/gathered/icon.svg"
 
 const gathered: App = {
   name: "Gathered",
-  logoURL: "/images/gathered/icon.svg",
+  logoURL: Icon,
   shortDescription:
     "Gathered is an app that facilitates the viewing, recording, and sharing of over 25 sources of data available on iOS and iPadOS devices, from the GPS and accelerometer to the advertising identifier and the WiFi. Gathered is the perfect app to enable the recording of all the data required to calulcate position, acceleration, and ambient conditions of the device.",
   fullDescription: "",

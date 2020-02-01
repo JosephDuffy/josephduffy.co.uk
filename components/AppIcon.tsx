@@ -2,30 +2,39 @@ import { Fragment, FunctionComponent } from "react"
 
 interface Props {
   appName: string
-  iconURL: string
+  iconURL: string | React.FunctionComponent<React.SVGAttributes<SVGElement>>
 }
 
 const AppIcon: FunctionComponent<Props> = ({ appName, iconURL }) => {
+  let imageElement: JSX.Element
+
+  if (typeof iconURL === "string") {
+    imageElement = <img src={iconURL} alt={`${appName} Icon`} />
+  } else {
+    const Icon = iconURL
+    imageElement = <Icon />
+  }
+
   return (
     <Fragment>
       <div>
-        <img src={iconURL} alt={`${appName} Icon`} />
+        {imageElement}
       </div>
       <style jsx>{`
         div {
-          filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.75));
+          filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.75));
         }
 
-        img {
-          width: 96px;
-          height: 96px;
+        div > :global(svg), div > :global(img) {
+          width: 128px;
+          height: 128px;
           mask: url("/images/ios7-icon-mask.svg");
         }
 
-        @media (min-width: 319px) {
-          img {
-            width: 128px;
-            height: 128px;
+        @media (max-width: 320px) {
+          div > :global(svg), div > :global(img) {
+            width: 96px;
+            height: 96px;
           }
         }
       `}</style>
