@@ -28,12 +28,14 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
           <Card key={app.name}>
             <h2>{app.name}</h2>
             <div className="screenshots"></div>
-            <p>
+            <div className="summary">
               <div className="appIcon">
                 <AppIcon iconURL={app.logoURL} appName={app.name} />
               </div>
-              {app.shortDescription}
-            </p>
+              <p>
+                {app.shortDescription}
+              </p>
+            </div>
             <a href={app.url}>
               <img
                 className="app-store-badge"
@@ -52,16 +54,24 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         .
       </p>
       <style jsx>{`
-        p {
+        .summary {
           display: flow-root;
         }
-        p div {
-          float: left;
-          padding-right: 8px;
+
+        .summary p {
+          margin-top: 0;
         }
+
+        .appIcon {
+          float: left;
+          margin-bottom: 8px;
+          margin-right: 8px;
+        }
+
         h2 {
           margin-top: 0;
         }
+
         .app-store-badge {
           height: 40px;
         }
