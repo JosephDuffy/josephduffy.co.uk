@@ -46,6 +46,11 @@ class MyApp extends App {
             color: white;
           }
 
+          h1 {
+            margin: 0;
+            font-size: 1.7em;
+          }
+
           a {
             color: #ffcc00;
           }
