@@ -8,9 +8,10 @@ interface Props {
   }[]
   verb: string
   showCount: boolean
+  rel?: string
 }
 
-const ItemsList: FunctionComponent<Props> = ({ items, verb, showCount }) => {
+const ItemsList: FunctionComponent<Props> = ({ items, verb, showCount, rel }) => {
   return (
     <Fragment>
       <div>
@@ -22,11 +23,11 @@ const ItemsList: FunctionComponent<Props> = ({ items, verb, showCount }) => {
               <li key={tag.title}>
                 {tag.url && tag.url.startsWith("/") &&
                   <Link href={tag.url}>
-                    <a>{tag.title}</a>
+                    <a rel={rel}>{tag.title}</a>
                   </Link>
                 }
                 {tag.url && tag.url.startsWith("http") &&
-                  <a href={tag.url}>{tag.title}</a>
+                  <a href={tag.url} rel={rel}>{tag.title}</a>
                 }
                 {!tag.url && tag.title}
                 {index !== items.length - 1 && <span>,</span>}
@@ -39,6 +40,7 @@ const ItemsList: FunctionComponent<Props> = ({ items, verb, showCount }) => {
         div {
           display: flex;
           flex-wrap: wrap;
+          flex-direction: row;
           font-size: 0.8em;
           padding-bottom: 4px;
         }
@@ -49,6 +51,7 @@ const ItemsList: FunctionComponent<Props> = ({ items, verb, showCount }) => {
 
         ul {
           display: flex;
+          flex-direction: row;
           flex-wrap: wrap;
           list-style-type: none;
           padding: 0;

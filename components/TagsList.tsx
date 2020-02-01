@@ -13,7 +13,7 @@ const TagsList: FunctionComponent<Props> = ({ tags }) => {
     }
   })
   return (
-    <ItemsList items={items} verb="Tags" showCount={false} />
+    <ItemsList items={items} verb="Tags" showCount={false} rel="tag" />
   )
 }
 
