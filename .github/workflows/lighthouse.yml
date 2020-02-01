@@ -27,6 +27,6 @@ jobs:
 
       - name: Run Lighthouse CI
         run: |
-          npx lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
+          npx @lhci/cli@0.3.x autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
