@@ -51,21 +51,6 @@ export async function unstable_getStaticProps({
           </header>
           <div>
             <Markdown source={post.content} />
-            <style jsx>{`
-              :global(blockquote) {
-                border-left: 0.25em solid #7878805b;
-                color: #ebebf591;
-                padding: 0 1em;
-                margin: 0;
-              }
-
-              @media (prefers-color-scheme: light) {
-                :global(blockquote) {
-                  border-left: 0.25em solid #78788033;
-                  color: #6a737d;
-                }
-              }
-            `}</style>
           </div>
         </article>
       </Page>,

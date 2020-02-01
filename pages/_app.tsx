@@ -75,6 +75,12 @@ class MyApp extends App {
             border-radius: 3px;
             background-color: #7878805b;
           }
+          blockquote {
+            border-left: 0.25em solid #7878805b;
+            color: #ebebf591;
+            padding: 0 1em;
+            margin: 0;
+          }
 
           img {
             max-width: 100%;
@@ -92,6 +98,11 @@ class MyApp extends App {
 
             code {
               background-color: #78788033;
+            }
+
+            blockquote {
+              border-left: 0.25em solid #78788033;
+              color: #6a737d;
             }
           }
         `}</style>
