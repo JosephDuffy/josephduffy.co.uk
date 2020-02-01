@@ -9,6 +9,7 @@ import {
   GitHubRelease,
 } from "../data/loaders/GitHubReleasesLoader"
 import CombinedGitHubReleasesEntry from "../models/CombinedGitHubReleasesEntry"
+import Head from "next/head"
 
 interface Props {
   entries: Entry[]
@@ -17,6 +18,9 @@ interface Props {
 const Index: NextPage<Props> = ({ entries }) => {
   return (
     <Page>
+      <Head>
+        <title>Joseph Duffy :: iOS Developer</title>
+      </Head>
       <EntryPreviews entries={entries} />
     </Page>
   )

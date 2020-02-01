@@ -2,6 +2,7 @@ import { NextPage } from "next"
 import Page from "../../layouts/main"
 import appsLoader from "../../data/loaders/AppsLoader"
 import App from "../../models/App"
+import Head from "next/head"
 
 interface Props {
   apps: App[]
@@ -10,6 +11,9 @@ interface Props {
 const AppsPage: NextPage<Props> = ({ apps }) => {
   return (
     <Page>
+      <Head>
+        <title>Apps I've Made</title>
+      </Head>
       <h1>Apps I've Made</h1>
       {apps.map(app => {
         return (

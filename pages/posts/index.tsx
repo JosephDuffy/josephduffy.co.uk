@@ -3,6 +3,7 @@ import Page from "../../layouts/main"
 import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import EntryPreviews from "../../components/EntryPreviews"
+import Head from "next/head"
 
 interface Props {
   posts: BlogPost[]
@@ -12,6 +13,9 @@ const PostPage: NextPage<Props> = props => {
   const { posts } = props
   return (
     <Page>
+      <Head>
+        <title>Blog posts</title>
+      </Head>
       <EntryPreviews entries={posts} />
     </Page>
   )

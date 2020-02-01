@@ -4,14 +4,19 @@ import entriesLoader from "../../data/loaders/EntriesLoader"
 import { Entry } from "../../data/loaders/Entry"
 import { compareDesc } from "date-fns"
 import EntryPreviews from "../../components/EntryPreviews"
+import Head from "next/head"
 
 interface Props {
+  tag: string
   entries: Entry[]
 }
 
-const TagPage: NextPage<Props> = ({ entries }) => {
+const TagPage: NextPage<Props> = ({ tag, entries }) => {
   return (
     <Page>
+      <Head>
+        <title>Entries with the {tag} tag</title>
+      </Head>
       <EntryPreviews entries={entries} />
     </Page>
   )
@@ -44,6 +49,7 @@ export async function unstable_getStaticProps({
 
   return {
     props: {
+      tag,
       entries: taggedEntries,
     },
   }

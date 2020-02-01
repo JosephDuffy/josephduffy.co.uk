@@ -1,6 +1,7 @@
 import Page from "../layouts/main"
 import { NextPage, NextPageContext } from "next"
 import Error from "../components/Error"
+import Head from "next/head"
 
 interface Props {
   statusCode: number
@@ -10,6 +11,9 @@ interface Props {
 const ErrorPage: NextPage<Props> = ({ statusCode, title, children }) => {
   return (
     <Page>
+      <Head>
+        <title>{statusCode} - {title}</title>
+      </Head>
       <Error statusCode={statusCode} title={title} />
       {children}
     </Page>

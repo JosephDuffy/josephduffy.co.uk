@@ -7,6 +7,7 @@ import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
 import CodeBlock from "../../components/CodeBlock"
 import ReactDOMServer from "react-dom/server"
+import Head from "next/head"
 
 interface Props {
   post?: BlogPost
@@ -39,6 +40,9 @@ export async function unstable_getStaticProps({
   if (post) {
     const htmlContent = ReactDOMServer.renderToString(
       <Page>
+        <Head>
+          <title>{post.title}</title>
+        </Head>
         <article>
           <header>
             <h1>{post.title}</h1>
