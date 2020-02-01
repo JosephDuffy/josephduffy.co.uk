@@ -2,8 +2,7 @@ import Link from "next/link"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import BlogPost from "../models/BlogPost"
-import ReactMarkdown from "react-markdown"
-import CodeBlock from "./CodeBlock"
+import Markdown from "./Markdown"
 import FormattedDate from "./FormattedDate"
 
 interface Props {
@@ -23,9 +22,8 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <div>
-        <ReactMarkdown
+        <Markdown
           source={post.excerpt ?? post.content}
-          renderers={{ code: CodeBlock }}
         />
         {post.excerpt && (
           <Link href={post.url}>

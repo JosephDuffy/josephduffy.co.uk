@@ -1,15 +1,14 @@
 import ErrorPage from "../../pages/_error"
 import { NextPage } from "next"
 import Page from "../../layouts/main"
-import ReactMarkdown from "react-markdown"
 import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
-import CodeBlock from "../../components/CodeBlock"
 import ReactDOMServer from "react-dom/server"
 import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
+import Markdown from "../../components/Markdown"
 
 interface Props {
   post?: BlogPost
@@ -50,9 +49,8 @@ export async function unstable_getStaticProps({
             {post.tags.length > 0 && <TagsList tags={post.tags} />}
           </header>
           <div>
-            <ReactMarkdown
+            <Markdown
               source={post.content}
-              renderers={{ code: CodeBlock }}
             />
             <style jsx>{`
               :global(blockquote) {
