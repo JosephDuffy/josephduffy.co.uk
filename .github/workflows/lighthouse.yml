@@ -1,0 +1,28 @@
+name: Build project and Run Lighthouse CI
+
+on: [push]
+
+jobs:
+  lhci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Read .node-version
+        id: node-version
+        run: echo ::set-output name=version::$(cat .node-version)
+      - name: Setup Node.js ${{ steps.node-version.outputs.version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+
+      - run: npm ci
+      - name: build
+        run: |
+          npm run build
+          npm run export
+
+      - name: Run Lighthouse CI
+        run: |
+          npx lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
