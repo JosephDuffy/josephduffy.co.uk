@@ -8,6 +8,7 @@ import Link from "next/link"
 import CodeBlock from "../../components/CodeBlock"
 import ReactDOMServer from "react-dom/server"
 import Head from "next/head"
+import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
 
 interface Props {
@@ -48,6 +49,7 @@ export async function unstable_getStaticProps({
           <header>
             <h1>{post.title}</h1>
             <FormattedDate date={post.date} />
+            {post.tags.length > 0 && <TagsList tags={post.tags} />}
           </header>
           <div>
             <ReactMarkdown source={post.content} renderers={{ code: CodeBlock }} />
