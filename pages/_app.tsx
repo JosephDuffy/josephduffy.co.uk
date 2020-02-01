@@ -56,6 +56,10 @@ class MyApp extends App {
             background-color: #7878805b;
           }
 
+          img {
+            max-width: 100%;
+          }
+
           @media (prefers-color-scheme: light) {
             body {
               background: white;
