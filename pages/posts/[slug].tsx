@@ -41,6 +41,7 @@ export async function unstable_getStaticProps({
       <Page>
         <Head>
           <title>{post.title}</title>
+          <meta name="description" content={post.excerpt ?? `${post.title}`} />
         </Head>
         <article>
           <header>

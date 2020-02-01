@@ -16,6 +16,7 @@ const TagPage: NextPage<Props> = ({ tag, entries }) => {
     <Page>
       <Head>
         <title>Entries with the {tag} tag</title>
+        <meta name="description" content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy with the {tag} tag" />
       </Head>
       <EntryPreviews entries={entries} />
     </Page>

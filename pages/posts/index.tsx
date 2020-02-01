@@ -15,6 +15,7 @@ const PostPage: NextPage<Props> = props => {
     <Page>
       <Head>
         <title>Blog posts</title>
+        <meta name="description" content="Blog posts by Joseph Duffy" />
       </Head>
       <EntryPreviews entries={posts} />
     </Page>

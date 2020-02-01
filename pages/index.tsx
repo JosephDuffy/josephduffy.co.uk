@@ -20,6 +20,7 @@ const Index: NextPage<Props> = ({ entries }) => {
     <Page>
       <Head>
         <title>Joseph Duffy :: iOS Developer</title>
+        <meta name="description" content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy" />
       </Head>
       <EntryPreviews entries={entries} />
     </Page>
