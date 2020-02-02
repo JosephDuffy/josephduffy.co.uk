@@ -36,6 +36,10 @@ class MyApp extends App {
         `}</style>
 
         <style jsx global>{`
+          html {
+            line-height: 1.15;
+          }
+
           body {
             display: flex;
             justify-content: center;
