@@ -4,7 +4,6 @@ import Page from "../../layouts/main"
 import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
-import ReactDOMServer from "react-dom/server"
 import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
@@ -12,33 +11,12 @@ import Markdown from "../../components/Markdown"
 
 interface Props {
   post?: BlogPost
-  htmlContent: string
 }
 
-const PostPage: NextPage<Props> = props => {
-  return <div dangerouslySetInnerHTML={{ __html: props.htmlContent }}></div>
-}
-
-interface StaticParams {
-  params: {
-    slug: string
-  }
-}
-
-interface StaticProps {
-  props: Props
-}
-
-export async function unstable_getStaticProps({
-  params,
-}: StaticParams): Promise<StaticProps> {
-  const { slug } = params
-  const posts = await postsLoader.getPosts()
-  const post = posts.find(post => post.slug === slug)
-
+const PostPage: NextPage<Props> = ({ post }) => {
   if (post) {
     const iso8601Date = new Date(post.date).toISOString()
-    const htmlContent = ReactDOMServer.renderToString(
+    return (
       <Page>
         <Head>
           <title>{post.title}</title>
@@ -69,30 +47,41 @@ export async function unstable_getStaticProps({
             <Markdown source={post.content} />
           </div>
         </article>
-      </Page>,
+      </Page>
     )
-
-    return {
-      props: {
-        post,
-        htmlContent,
-      },
-    }
   } else {
-    const htmlContent = ReactDOMServer.renderToString(
+    return (
       <ErrorPage title={"Blog post not found"} statusCode={404}>
         <Link href="/posts/">
           <a>Go back to the index of blog posts</a>
         </Link>
         .
-      </ErrorPage>,
+      </ErrorPage>
     )
+  }
+}
 
-    return {
-      props: {
-        htmlContent,
-      },
-    }
+interface StaticParams {
+  params: {
+    slug: string
+  }
+}
+
+interface StaticProps {
+  props: Props
+}
+
+export async function unstable_getStaticProps({
+  params,
+}: StaticParams): Promise<StaticProps> {
+  const { slug } = params
+  const posts = await postsLoader.getPosts()
+  const post = posts.find(post => post.slug === slug)
+
+  return {
+    props: {
+      post,
+    },
   }
 }
 
