@@ -10,13 +10,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Wait for the Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1
-        id: wait-for-netflify
+        uses: josephduffy/wait-for-netlify-action@v1
+        id: wait-for-netflify-preview
         with:
           site_name: "josephduffynextjs"
 
       - name: Run Lighthouse CI
         run: |
-          npx @lhci/cli@0.3.x autorun --upload.target=temporary-public-storage --collect.url=${{ steps.wait-for-netflify.outputs.url }} || echo "LHCI failed!"
+          npx @lhci/cli@0.3.x autorun --upload.target=temporary-public-storage --collect.url=${{ steps.wait-for-netflify-preview.outputs.url }} || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
