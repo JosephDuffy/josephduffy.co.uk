@@ -37,11 +37,27 @@ export async function unstable_getStaticProps({
   const post = posts.find(post => post.slug === slug)
 
   if (post) {
+    const iso8601Date = new Date(post.date).toISOString()
     const htmlContent = ReactDOMServer.renderToString(
       <Page>
         <Head>
           <title>{post.title}</title>
           <meta name="description" content={post.excerpt ?? `${post.title}`} />
+          <script type="application/ld+json">{`
+            {
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "@id": "https://josephduffy.co.uk${post.url}",
+              "headline": "${post.title}",
+              "keywords": "${post.tags.join("")}",
+              "datePublished": "${iso8601Date}",
+              "dateCreated": "${iso8601Date}",
+              "author": {
+                "@type": "Person",
+                "name": "Joseph Duffy"
+              }
+            }
+          `}</script>
         </Head>
         <article>
           <header>
