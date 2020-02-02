@@ -66,6 +66,15 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
           float: left;
           margin-bottom: 8px;
           margin-right: 8px;
+          width: 128px;
+          height: 128px;
+        }
+
+        @media (max-width: 320px) {
+          .appIcon {
+            width: 96px;
+            height: 96px;
+          }
         }
 
         h2 {
