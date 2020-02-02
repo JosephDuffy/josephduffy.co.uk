@@ -40,6 +40,7 @@ class MyApp extends App {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0;
 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
               Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
