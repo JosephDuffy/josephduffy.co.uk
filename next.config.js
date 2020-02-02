@@ -1,4 +1,6 @@
-module.exports = {
+const withOffline = require('next-offline')
+
+const config = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -13,3 +15,5 @@ module.exports = {
     return config;
   }
 }
+
+module.exports = withOffline(config)
