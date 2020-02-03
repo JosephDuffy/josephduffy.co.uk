@@ -9,30 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Read .node-version
-        id: node-version
-        run: echo ::set-output name=version::$(cat .node-version)
-      - name: Setup Node.js ${{ steps.node-version.outputs.version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ steps.node-version.outputs.version }}
-
-      - run: npm ci
-      - name: build
-        run: |
-          npm run build
-          npm run export
-        env:
-          GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_OAUTH_TOKEN }}
-
-      - name: Wait for the Netlify Preview
-        uses: josephduffy/wait-for-netlify-action@v1
-        id: wait-for-netflify-preview
-        with:
-          site_name: "josephduffynextjs"
-
       - name: Run Lighthouse CI
         run: |
           npx @lhci/cli@0.3.x autorun --upload.target=temporary-public-storage --collect.url=${{ steps.wait-for-netflify-preview.outputs.url }} || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          GITHUB_OAUTH_TOKEN: ${{ secrets.GITHUB_OAUTH_TOKEN }}
