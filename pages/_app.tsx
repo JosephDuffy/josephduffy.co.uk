@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import App, { Container } from "next/app"
+import App from "next/app"
 import Head from "next/head"
 import "normalize.css/normalize.css"
 
