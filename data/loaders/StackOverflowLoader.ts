@@ -155,7 +155,13 @@ export class StackOverflowLoader {
             .on("end", () => {
               const json = buffer.join("")
               const jsonObject = JSON.parse(json)
-              resolve(jsonObject.items)
+              if ("error_id" in jsonObject) {
+                reject(jsonObject)
+              } else if ("items" in jsonObject) {
+                resolve(jsonObject.items)
+              } else {
+                reject("Unknown response type")
+              }
             })
             .on("error", err => {
               console.error("Error with StackExchange API response", err)
