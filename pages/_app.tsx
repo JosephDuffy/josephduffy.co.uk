@@ -80,6 +80,11 @@ class MyApp extends App {
             border-radius: 3px;
             background-color: #7878805b;
           }
+
+          pre code {
+            padding: unset;
+          }
+
           blockquote {
             border-left: 0.25em solid #7878805b;
             color: #ebebf591;
