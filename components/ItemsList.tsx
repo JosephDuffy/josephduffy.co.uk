@@ -30,7 +30,7 @@ const ItemsList: FunctionComponent<Props> = ({
             return (
               <li key={tag.title}>
                 {tag.url && tag.url.startsWith("/") && (
-                  <Link href={tag.url}>
+                  <Link href="/tags/[slug]" as={tag.url}>
                     <a rel={rel}>{tag.title}</a>
                   </Link>
                 )}
