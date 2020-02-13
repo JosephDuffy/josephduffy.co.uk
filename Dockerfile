@@ -38,27 +38,13 @@ COPY next.config.js .
 COPY tsconfig.json .
 
 RUN npm run build
-
 RUN npm run export
 
 FROM nginx:alpine
 
 COPY --from=build /app/out/ /var/www/
-
-RUN ls -al /var/www/
-
-RUN ls -al /var/www/images/
-
 COPY --from=certs /certs /etc/nginx/certs/
-
-RUN ls -al /etc/nginx/certs/
-
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-RUN mkdir /certs
-RUN ls -al /certs
-RUN cp /etc/nginx/certs/* /certs
-RUN ls -al /certs
 
 EXPOSE 80
 EXPOSE 443
