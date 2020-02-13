@@ -1,9 +1,8 @@
 import App from "../../models/App"
-import Icon from "../../public/images/four-squares/icon.svg"
 
 const fourSquares: App = {
   name: "Four Squares",
-  logoURL: Icon,
+  logoURL: "/images/four-squares/icon.svg",
   shortDescription:
     "Four Squares for iOS and Apple Watch is a take on an classic electronic memory game. Four Squares stays true to the original, while adding a modern feel and feature set to the game. It supports the iPhone, iPad, and Apple Watch.",
   fullDescription: "",

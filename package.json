@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/JosephDuffy/josephduffy.co.uk#readme",
   "dependencies": {
-    "@svgr/webpack": "^5.1.0",
     "@types/html-entities": "^1.2.16",
     "@types/node-fetch": "^2.5.4",
     "@types/react-syntax-highlighter": "^11.0.4",
@@ -42,7 +41,6 @@
     "prettier": "1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-inlinesvg": "^1.2.0",
     "react-markdown": "^4.2.2",
     "react-syntax-highlighter": "^12.2.1"
   },

@@ -1,7 +1,6 @@
 import { NextPage } from "next"
 import Page from "../../layouts/main"
 import appsLoader from "../../data/loaders/AppsLoader"
-import ReactDOMServer from "react-dom/server"
 import Head from "next/head"
 import Link from "next/link"
 import Card from "../../components/Card"
@@ -10,7 +9,7 @@ import AppIcon from "../../components/AppIcon"
 interface Props {
   apps: {
     name: string,
-    iconHTML: string,
+    logoURL: string,
     description: string,
     url: string
   }[]
@@ -34,7 +33,9 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
             <h2>{app.name}</h2>
             <div className="screenshots"></div>
             <div className="summary">
-              <div className="appIcon" dangerouslySetInnerHTML={{ __html: app.iconHTML }}></div>
+              <div className="appIcon">
+                <AppIcon iconURL={app.logoURL} appName={app.name} />
+              </div>
               <p>
                 {app.description}
               </p>
@@ -104,7 +105,7 @@ export function unstable_getStaticProps(): StaticProps {
       apps: apps.map(app => {
         return {
           name: app.name,
-          iconHTML: ReactDOMServer.renderToString(<AppIcon iconURL={app.logoURL} appName={app.name} />),
+          logoURL: app.logoURL,
           description: app.shortDescription,
           url: app.url,
         }
