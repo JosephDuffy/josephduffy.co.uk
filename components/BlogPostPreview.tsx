@@ -13,7 +13,7 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
   return (
     <article key={post.slug}>
       <header>
-        <Link href="/posts/[slug]" as={post.url}>
+        <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
           <a>
             <h1>{post.title}</h1>
           </a>
@@ -24,7 +24,7 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
       <div>
         <Markdown source={post.excerpt ?? post.content} />
         {post.excerpt && (
-          <Link href="/posts/[slug]" as={post.url}>
+          <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
             <a>Read More</a>
           </Link>
         )}
