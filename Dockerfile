@@ -32,7 +32,6 @@ COPY layouts layouts
 COPY models models
 COPY pages pages
 COPY public public
-COPY custom.d.ts .
 COPY next-env.d.ts .
 COPY next.config.js .
 COPY tsconfig.json .
