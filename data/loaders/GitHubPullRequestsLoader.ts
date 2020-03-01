@@ -87,6 +87,13 @@ export class GitHubPullRequestLoader {
       return this.cachedPullRequests
     }
 
+    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+      console.warn(
+        "GITHUB_ACCESS_TOKEN is not set; GitHub pull requests will not be loaded",
+      )
+      return []
+    }
+
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
       fetch: fetch as any,

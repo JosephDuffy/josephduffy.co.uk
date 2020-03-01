@@ -96,6 +96,13 @@ export class GitHubReleasesLoader {
       return this.cachedReleases
     }
 
+    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+      console.warn(
+        "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
+      )
+      return []
+    }
+
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
       fetch: fetch as any,
