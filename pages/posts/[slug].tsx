@@ -1,5 +1,5 @@
 import ErrorPage from "../../pages/_error"
-import { NextPage, GetStaticPaths } from "next"
+import { NextPage } from "next"
 import Page from "../../layouts/main"
 import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
@@ -7,7 +7,6 @@ import Link from "next/link"
 import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
-import Markdown from "../../components/Markdown"
 
 interface Props {
   post?: BlogPost
@@ -20,7 +19,6 @@ const PostPage: NextPage<Props> = ({ post }) => {
       <Page>
         <Head>
           <title>{post.title}</title>
-          <meta name="description" content={post.excerpt ?? `${post.title}`} />
           <script type="application/ld+json">{`
             {
               "@context": "https://schema.org",
@@ -43,9 +41,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
             <FormattedDate date={post.date} />
             {post.tags.length > 0 && <TagsList tags={post.tags} />}
           </header>
-          <div>
-            <Markdown source={post.content} />
-          </div>
+          <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
         </article>
       </Page>
     )

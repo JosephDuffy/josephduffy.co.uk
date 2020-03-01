@@ -4,6 +4,8 @@ import path from "path"
 import fs from "fs"
 import BlogPost from "../../models/BlogPost"
 import { EntryType } from "./Entry"
+import ReactDOMServer from "react-dom/server"
+import Markdown from "../../components/Markdown"
 
 export class PostsLoader {
   private cachedPosts?: BlogPost[]
@@ -29,12 +31,14 @@ export class PostsLoader {
       })
       const excerptRegex = /<!-- more -->/g
       const markdownContent = parsedContent.content.replace(excerptRegex, "")
+      const contentHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={markdownContent} />)
+      const excerptHTML = parsedContent.excerpt ? ReactDOMServer.renderToStaticMarkup(<Markdown source={parsedContent.excerpt} />) : undefined
 
       const post = {
         slug,
         title: parsedContent.data.title,
-        content: markdownContent,
-        excerpt: parsedContent.excerpt,
+        contentHTML,
+        excerptHTML,
         date: new Date(parsedContent.data.date).toISOString(),
         url: `/posts/${slug}`,
         tags: parsedContent.data.tags,

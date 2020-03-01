@@ -7,8 +7,8 @@ export function isBlogPost(object: any): object is BlogPost {
 export default interface BlogPost extends Entry {
   slug: string
   title: string
-  content: string
-  excerpt?: string
+  contentHTML: string
+  excerptHTML?: string
   date: string
   url: string
   tags: string[]

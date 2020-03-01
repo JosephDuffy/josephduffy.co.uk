@@ -2,7 +2,6 @@ import Link from "next/link"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import BlogPostPreview from "../models/BlogPostPreview"
-import Markdown from "./Markdown"
 import FormattedDate from "./FormattedDate"
 
 interface Props {
@@ -22,7 +21,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <div>
-        <Markdown source={post.excerpt} />
+        <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
         <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
           <a>Read More</a>
         </Link>

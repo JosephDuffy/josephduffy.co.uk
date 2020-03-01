@@ -2,7 +2,6 @@ import { FunctionComponent, Fragment } from "react"
 import TagsList from "./TagsList"
 import { GitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import FormattedDate from "./FormattedDate"
-import Markdown from "./Markdown"
 
 interface Props {
   pullRequest: GitHubPullRequest
@@ -23,10 +22,8 @@ const GitHubPullRequestPreview: FunctionComponent<Props> = ({
           <FormattedDate date={pullRequest.date} verb="Opened" />
           {pullRequest.tags.length > 0 && <TagsList tags={pullRequest.tags} />}
         </header>
-        {pullRequest.description && pullRequest.description.trim() !== "" && (
-          <div>
-            <Markdown source={pullRequest.description} />
-          </div>
+        {pullRequest.descriptionHTML && pullRequest.descriptionHTML.trim() !== "" && (
+          <div dangerouslySetInnerHTML={{ __html: pullRequest.descriptionHTML }} />
         )}
       </article>
       <style jsx>{`

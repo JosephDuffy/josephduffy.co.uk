@@ -7,7 +7,7 @@ export function isBlogPostPreview(object: any): object is BlogPostPreview {
 export default interface BlogPostPreview extends Entry {
   slug: string
   title: string
-  excerpt: string
+  contentHTML: string
   date: string
   url: string
   tags: string[]

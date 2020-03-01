@@ -2,9 +2,11 @@ import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
 import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
-import { InMemoryCache, ObjectCache } from "apollo-cache-inmemory"
+import { InMemoryCache } from "apollo-cache-inmemory"
 import { Entry, EntryType } from "./Entry"
 import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
+import ReactDOMServer from "react-dom/server"
+import Markdown from "../../components/Markdown"
 
 const query = gql`
   query {
@@ -79,7 +81,7 @@ export function isGitHubRelease(object: any): object is GitHubRelease {
 }
 
 export interface GitHubRelease extends Entry {
-  description: string | null
+  descriptionHTML: string | null
   repoName: string
   versionNumber: string
   date: string
@@ -129,9 +131,10 @@ export class GitHubReleasesLoader {
       )
       return repository.releases.nodes.map(release => {
         const releaseTags = this.tagsForRelease(release, repository)
+        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={release.description} />)
         return {
           title: `${repository.name} ${release.tagName}`,
-          description: release.description,
+          descriptionHTML,
           repoName: repository.name,
           versionNumber: release.tagName,
           date: new Date(release.createdAt).toISOString(),

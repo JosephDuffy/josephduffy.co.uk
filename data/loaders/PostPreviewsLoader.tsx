@@ -16,7 +16,7 @@ export class PostPreviewsLoader {
       return {
         slug: post.slug,
         title: post.title,
-        excerpt: post.excerpt ?? post.content,
+        contentHTML: post.excerptHTML ?? post.contentHTML,
         date: post.date,
         url: post.url,
         tags: post.tags,

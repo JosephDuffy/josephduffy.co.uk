@@ -2,8 +2,10 @@ import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
 import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
-import { InMemoryCache, ObjectCache } from "apollo-cache-inmemory"
+import { InMemoryCache } from "apollo-cache-inmemory"
 import { Entry, EntryType } from "./Entry"
+import Markdown from "../../components/Markdown"
+import ReactDOMServer from "react-dom/server"
 
 const query = gql`
   query {
@@ -69,7 +71,7 @@ export function isGitHubPullRequest(object: any): object is GitHubPullRequest {
 }
 
 export interface GitHubPullRequest extends Entry {
-  description: string
+  descriptionHTML: string
   url: string
   repoName: string
   date: string
@@ -124,9 +126,10 @@ export class GitHubPullRequestLoader {
             node => node.topic.name,
           ),
         )
+        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={pullRequest.body} />)
         return {
           title: pullRequest.title,
-          description: pullRequest.body,
+          descriptionHTML,
           url: pullRequest.url,
           repoName: pullRequest.repository.nameWithOwner,
           date: pullRequest.createdAt,
