@@ -100,7 +100,7 @@ export class GitHubReleasesLoader {
       uri: "https://api.github.com/graphql",
       fetch: fetch as any,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_OAUTH_TOKEN"]}`,
+        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
       },
     })
     const client = new ApolloClient({
