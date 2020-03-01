@@ -111,7 +111,7 @@ export class EntriesLoader {
             sequentialReleasesCount === 0 ||
             entriesToCombine[0].repoName === entry.repoName
           ) {
-            entriesToCombine.push(entry)
+            entriesToCombine.unshift(entry)
             continue
           }
         }
@@ -122,8 +122,8 @@ export class EntriesLoader {
               entry.title
             } is not sequential`,
           )
-          const earliestRelease = entriesToCombine[entriesToCombine.length - 1]
-          const latestRelease = entriesToCombine[0]
+          const earliestRelease = entriesToCombine[0]
+          const latestRelease = entriesToCombine[entriesToCombine.length - 1]
           const combinedEntry: CombinedGitHubReleasesEntry = {
             title: `${entriesToCombine[0].repoName} Versions ${earliestRelease.versionNumber} to ${latestRelease.versionNumber}`,
             date: latestRelease.date,

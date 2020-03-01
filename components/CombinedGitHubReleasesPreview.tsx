@@ -12,9 +12,9 @@ const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({
   combinedReleases,
 }) => {
   const { releases } = combinedReleases
-  const earliestEntry = releases[combinedReleases.releases.length - 1]
-  const latestEntry = releases[0]
-  const items = releases.reverse().map(release => {
+  const earliestEntry = releases[0]
+  const latestEntry = releases[combinedReleases.releases.length - 1]
+  const items = releases.map(release => {
     return { title: release.versionNumber, url: release.url }
   })
   return (
