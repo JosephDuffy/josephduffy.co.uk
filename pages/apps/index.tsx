@@ -8,9 +8,9 @@ import AppIcon from "../../components/AppIcon"
 
 interface Props {
   apps: {
-    name: string,
-    logoURL: string,
-    description: string,
+    name: string
+    logoURL: string
+    description: string
     url: string
   }[]
 }
@@ -20,7 +20,10 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
     <Page>
       <Head>
         <title>Apps I've Made</title>
-        <meta name="description" content="iOS apps by Joseph Duffy, including Gathered, which enables the recording and sharing of over 25 sensors and data sources available on iOS devices" />
+        <meta
+          name="description"
+          content="iOS apps by Joseph Duffy, including Gathered, which enables the recording and sharing of over 25 sensors and data sources available on iOS devices"
+        />
       </Head>
       <h1>Apps I've Made</h1>
       <p>
@@ -36,9 +39,7 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
               <div className="appIcon">
                 <AppIcon iconURL={app.logoURL} appName={app.name} />
               </div>
-              <p>
-                {app.description}
-              </p>
+              <p>{app.description}</p>
             </div>
             <a href={app.url}>
               <img
@@ -97,7 +98,7 @@ interface StaticProps {
   props: Props
 }
 
-export function unstable_getStaticProps(): StaticProps {
+export function getStaticProps(): StaticProps {
   const apps = appsLoader.getApps()
 
   return {

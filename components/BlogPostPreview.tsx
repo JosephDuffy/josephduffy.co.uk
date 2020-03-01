@@ -1,15 +1,15 @@
 import Link from "next/link"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
-import BlogPost from "../models/BlogPost"
+import BlogPostPreview from "../models/BlogPostPreview"
 import Markdown from "./Markdown"
 import FormattedDate from "./FormattedDate"
 
 interface Props {
-  post: BlogPost
+  post: BlogPostPreview
 }
 
-const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
+const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
   return (
     <article key={post.slug}>
       <header>
@@ -22,15 +22,13 @@ const BlogPostPreview: FunctionComponent<Props> = ({ post }) => {
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <div>
-        <Markdown source={post.excerpt ?? post.content} />
-        {post.excerpt && (
-          <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
-            <a>Read More</a>
-          </Link>
-        )}
+        <Markdown source={post.excerpt} />
+        <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
+          <a>Read More</a>
+        </Link>
       </div>
     </article>
   )
 }
 
-export default BlogPostPreview
+export default BlogPostPreviewComponent

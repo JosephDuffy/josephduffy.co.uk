@@ -8,7 +8,10 @@ const YetiiPage: NextPage = () => {
     <Page>
       <Head>
         <title>Yetii Ltd. :: Joseph Duffy, iOS Developer</title>
-        <meta name="description" content="Yetii Ltd. is a private limited company used to publish iOS apps created by Joseph Duffy" />
+        <meta
+          name="description"
+          content="Yetii Ltd. is a private limited company used to publish iOS apps created by Joseph Duffy"
+        />
       </Head>
       <h1>Yetii Ltd.</h1>
       <p>

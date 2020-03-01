@@ -12,4 +12,5 @@ export enum EntryType {
   GithubRelease,
   StackOverflowEntry,
   BlogPost,
+  BlogPostPreview,
 }

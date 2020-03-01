@@ -13,11 +13,7 @@ const Error: FunctionComponent<Props> = ({ statusCode, title, message }) => {
         {statusCode}
         {title && ` - ${title}`}
       </h1>
-      {message &&
-        <p>
-          {message}
-        </p>
-      }
+      {message && <p>{message}</p>}
     </Fragment>
   )
 }

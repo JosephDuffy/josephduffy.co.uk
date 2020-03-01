@@ -1,5 +1,5 @@
 import ErrorPage from "../../pages/_error"
-import { NextPage } from "next"
+import { NextPage, GetStaticPaths } from "next"
 import Page from "../../layouts/main"
 import postsLoader from "../../data/loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
@@ -71,7 +71,7 @@ interface StaticProps {
   props: Props
 }
 
-export async function unstable_getStaticProps({
+export async function getStaticProps({
   params,
 }: StaticParams): Promise<StaticProps> {
   const { slug } = params
@@ -85,16 +85,15 @@ export async function unstable_getStaticProps({
   }
 }
 
-export async function unstable_getStaticPaths(): Promise<StaticParams[]> {
+export async function getStaticPaths() {
   const posts = await postsLoader.getPosts()
 
-  return posts.map(post => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    }
-  })
+  return {
+    fallback: false,
+    paths: posts.map(post => {
+      return `/posts/${post.slug}`
+    }),
+  }
 }
 
 export default PostPage

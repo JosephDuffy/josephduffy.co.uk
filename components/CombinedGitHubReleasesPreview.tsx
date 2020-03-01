@@ -3,7 +3,6 @@ import ItemsList from "./ItemsList"
 import CombinedGitHubReleasesEntry from "../models/CombinedGitHubReleasesEntry"
 import FormattedDate from "./FormattedDate"
 import TagsList from "./TagsList"
-import { compareDesc } from "date-fns"
 
 interface Props {
   combinedReleases: CombinedGitHubReleasesEntry
@@ -12,14 +11,10 @@ interface Props {
 const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({
   combinedReleases,
 }) => {
-  const sortedReleases = combinedReleases.releases.sort(
-    (releaseA, releaseB) => {
-      return compareDesc(new Date(releaseA.date), new Date(releaseB.date))
-    },
-  )
-  const earliestEntry = sortedReleases[combinedReleases.releases.length - 1]
-  const latestEntry = sortedReleases[0]
-  const items = sortedReleases.reverse().map(release => {
+  const { releases } = combinedReleases
+  const earliestEntry = releases[combinedReleases.releases.length - 1]
+  const latestEntry = releases[0]
+  const items = releases.reverse().map(release => {
     return { title: release.versionNumber, url: release.url }
   })
   return (
