@@ -19,6 +19,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
       <Page>
         <Head>
           <title>{post.title}</title>
+          <meta
+            name="description"
+            content={`Blog post by Joseph Duffy about ${post.title}`}
+          />
           <script type="application/ld+json">{`
             {
               "@context": "https://schema.org",
