@@ -7,6 +7,7 @@ import Link from "next/link"
 import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
+import Card from "../../components/Card"
 
 interface Props {
   post?: BlogPost
@@ -39,14 +40,16 @@ const PostPage: NextPage<Props> = ({ post }) => {
             }
           `}</script>
         </Head>
-        <article>
-          <header>
-            <h1>{post.title}</h1>
-            <FormattedDate date={post.date} />
-            {post.tags.length > 0 && <TagsList tags={post.tags} />}
-          </header>
-          <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
-        </article>
+        <Card>
+          <article>
+            <header>
+              <h1>{post.title}</h1>
+              <FormattedDate date={post.date} />
+              {post.tags.length > 0 && <TagsList tags={post.tags} />}
+            </header>
+            <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
+          </article>
+        </Card>
       </Page>
     )
   } else {
