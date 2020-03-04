@@ -30,27 +30,31 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         My current iOS apps. I welcome feedback via Twitter at{" "}
         <a href="https://twitter.com/Joe_Duffy">@Joe_Duffy</a>.
       </p>
-      {apps.map(app => {
-        return (
-          <Card key={app.name}>
-            <h2>{app.name}</h2>
-            <div className="screenshots"></div>
-            <div className="summary">
-              <div className="appIcon">
-                <AppIcon iconURL={app.logoURL} appName={app.name} />
-              </div>
-              <p>{app.description}</p>
+      <div className="apps">
+        {apps.map(app => {
+          return (
+            <div className="app">
+              <Card key={app.name}>
+                <h2>{app.name}</h2>
+                <div className="screenshots"></div>
+                <div className="summary">
+                  <div className="appIcon">
+                    <AppIcon iconURL={app.logoURL} appName={app.name} />
+                  </div>
+                  <p>{app.description}</p>
+                </div>
+                <a href={app.url}>
+                  <img
+                    className="app-store-badge"
+                    src="/images/app-store-download-badge.svg"
+                    alt={`Download ${app.name} on the App Store`}
+                  />
+                </a>
+              </Card>
             </div>
-            <a href={app.url}>
-              <img
-                className="app-store-badge"
-                src="/images/app-store-download-badge.svg"
-                alt={`Download ${app.name} on the App Store`}
-              />
-            </a>
-          </Card>
-        )
-      })}
+          )
+        })}
+      </div>
       <p>
         All of my apps are released in my company's name,{" "}
         <Link href="/yetii/">
@@ -59,12 +63,28 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         .
       </p>
       <style jsx>{`
+        div.apps {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+        }
+
+        div.app {
+          display: flex;
+        }
+
+        @media (min-width: 1024px) {
+            div.app {
+              width: calc(50% - 4px);
+            }
+        }
+
         .summary {
           display: flow-root;
         }
 
         .summary p {
-          margin-top: 0;
+          margin: 0;
         }
 
         .appIcon {
