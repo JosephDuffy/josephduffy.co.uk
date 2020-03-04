@@ -22,6 +22,9 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
           content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy"
         />
       </Head>
+      <p className="intro">
+        Hi! 👋 I'm Joseph Duffy. I enjoying making iOS apps and websites. This website contains information about my iOS apps, open-source projects, and blog posts.
+      </p>
       <Favourites entries={favourites} />
       <h1>Recent Entries</h1>
       <EntryPreviews
@@ -30,6 +33,11 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
         paginationHREF="/entries/[page]"
         currentPage={1}
       />
+      <style jsx>{`
+        p.intro {
+          padding: 8px;
+        }
+      `}</style>
     </Page>
   )
 }
