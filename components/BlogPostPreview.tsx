@@ -3,6 +3,7 @@ import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import BlogPostPreview from "../models/BlogPostPreview"
 import FormattedDate from "./FormattedDate"
+import HorizontalRule from "./HorizontalRule"
 
 interface Props {
   post: BlogPostPreview
@@ -20,6 +21,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
         <FormattedDate date={post.date} verb="Published" />
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
+      <HorizontalRule/>
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
         <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>

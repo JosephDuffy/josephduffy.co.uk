@@ -20,15 +20,17 @@ const ItemsList: FunctionComponent<Props> = ({
   return (
     <Fragment>
       <div>
-        <span className="label">
-          {showCount && `${items.length} `}
-          {verb}:
-        </span>
         <ul>
+          <li key="labels-count">
+            <span className="label">
+              {showCount && `${items.length} `}
+              {verb}:
+            </span>
+          </li>
           {Array.from(items.entries()).map(item => {
             const [index, tag] = item
             return (
-              <li key={tag.title}>
+              <li className="list-item" key={tag.title}>
                 {tag.url && tag.url.startsWith("/") && (
                   <Link href="/tags/[slug]" as={`/tags/${tag.title}`}>
                     <a rel={rel}>{tag.title}</a>
@@ -52,11 +54,11 @@ const ItemsList: FunctionComponent<Props> = ({
           flex-wrap: wrap;
           flex-direction: row;
           font-size: 0.8em;
-          padding-bottom: 4px;
         }
 
         span.label {
           margin-right: 4px;
+          color: var(--secondary-label)
         }
 
         ul {
@@ -69,8 +71,13 @@ const ItemsList: FunctionComponent<Props> = ({
         }
 
         li {
-          margin-right: 8px;
+          padding-bottom: 4px;
           display: inline;
+          opacity: 90%;
+        }
+
+        li.list-item {
+          margin-right: 8px;
         }
       `}</style>
     </Fragment>

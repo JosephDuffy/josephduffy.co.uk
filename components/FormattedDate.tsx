@@ -41,13 +41,7 @@ const FormattedDate: FunctionComponent<Props> = props => {
         div {
           font-size: 0.8em;
           padding-bottom: 4px;
-          color: #ebebf591;
-        }
-
-        @media (prefers-color-scheme: light) {
-          div {
-            color: #6a737d;
-          }
+          color: var(--secondary-label);
         }
       `}</style>
     </Fragment>

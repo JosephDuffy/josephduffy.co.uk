@@ -30,12 +30,26 @@ class MyApp extends App {
 
           @media (min-width: 1024px) {
             div {
-              width: 70vw;
+              width: 80vw;
             }
           }
         `}</style>
 
         <style jsx global>{`
+          :root {
+            --primary-label: white;
+            --secondary-label: #ebebf599;
+            --tertiary-label: #ebebf57f;
+          }
+
+          @media (prefers-color-scheme: light) {
+            :root {
+              --primary-label: black;
+              --secondary-label: #3c3c4399;
+              --tertiary-label: #3c3c434c;
+            }
+          }
+
           html {
             line-height: 1.15;
           }
@@ -49,18 +63,22 @@ class MyApp extends App {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
               Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             background: black;
-            color: white;
+            color: var(--primary-label);
           }
 
           h1 {
             margin: 0;
             font-size: 1.7em;
-            padding-bottom: 2px;
+            margin-bottom: 0.3em;
           }
 
           h2 {
             margin: 12px 0;
             font-size: 1.4em;
+          }
+
+          p {
+            margin: 0 0 16px 0;
           }
 
           ul {
@@ -99,7 +117,6 @@ class MyApp extends App {
           @media (prefers-color-scheme: light) {
             body {
               background: white;
-              color: black;
             }
 
             a {
