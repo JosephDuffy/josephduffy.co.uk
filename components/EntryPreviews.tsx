@@ -1,16 +1,8 @@
 import { Fragment, Component } from "react"
-import { isGitHubRelease } from "../data/loaders/GitHubReleasesLoader"
-import { isStackOverflowEntry } from "../data/loaders/StackOverflowLoader"
-import GitHubReleasePreview from "./GitHubReleasePreview"
-import StackOverflowEntryPreview from "./StackOverflowEntryPreview"
-import BlogPostPreview from "./BlogPostPreview"
-import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesEntry"
-import CombinedGitHubReleasesPreview from "./CombinedGitHubReleasesPreview"
-import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
-import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
-import Card from "./Card"
 import { PossibleEntries } from "../data/loaders/EntriesLoader"
 import Link from "next/link"
+import EntryPreview from "./EntryPreview"
+import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesEntry"
 
 interface Props {
   entries: PossibleEntries[]
@@ -34,7 +26,7 @@ class EntryPreviews extends Component<Props> {
             // TODO: Create a better key
             key = entry.date + entry.tags.concat("")
           }
-          return <Card key={key}>{this.previewForEntry(entry)}</Card>
+          return <EntryPreview key={key} entry={entry} />
         })}
         {pageCount > 1 && (
           <div>
@@ -63,26 +55,6 @@ class EntryPreviews extends Component<Props> {
         <a>{title}</a>
       </Link>
     )
-  }
-
-  private previewForEntry(entry: PossibleEntries): JSX.Element {
-    if (isCombinedGitHubReleasesEntry(entry)) {
-      return <CombinedGitHubReleasesPreview combinedReleases={entry} />
-    }
-
-    if (isGitHubPullRequest(entry)) {
-      return <GitHubPullRequestPreview pullRequest={entry} />
-    }
-
-    if (isGitHubRelease(entry)) {
-      return <GitHubReleasePreview release={entry} />
-    }
-
-    if (isStackOverflowEntry(entry)) {
-      return <StackOverflowEntryPreview entry={entry} />
-    }
-
-    return <BlogPostPreview post={entry} />
   }
 }
 
