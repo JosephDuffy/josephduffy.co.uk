@@ -4,6 +4,7 @@ import postPreviewsLoader from "../../data/loaders/PostPreviewsLoader"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
 import BlogPostPreview from "../../models/BlogPostPreview"
+import { compareDesc } from "date-fns"
 
 interface Props {
   posts: BlogPostPreview[]
@@ -33,6 +34,9 @@ interface StaticProps {
 
 export async function getStaticProps(): Promise<StaticProps> {
   const posts = await postPreviewsLoader.getPostsPreviews()
+  posts.sort((postA, postB) => {
+    return compareDesc(new Date(postA.date), new Date(postB.date))
+  })
 
   return {
     props: {
