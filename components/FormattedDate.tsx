@@ -21,7 +21,7 @@ function datesAreTheSame(dateA: Date, dateB: Date): boolean {
 const FormattedDate: FunctionComponent<Props> = props => {
   const { verb } = props
   const date = new Date(props.date)
-  const formattedDate = format(new Date(date), "do MMMM, y")
+  const formattedDate = format(date, "do MMMM, y")
   const formattedSecondDate =
     props.secondDate !== undefined &&
     !datesAreTheSame(date, new Date(props.secondDate))
