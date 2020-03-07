@@ -18,7 +18,7 @@ class MyApp extends App {
             --primary-label: white;
             --secondary-label: #ebebf599;
             --tertiary-label: #ebebf57f;
-            --content-padding-x: 18px;
+            --content-padding-x: 8px;
             --content-width: calc(100vw - var(--content-padding-x) - var(--content-padding-x));
           }
 
