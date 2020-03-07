@@ -7,7 +7,7 @@ tags:
 date: 2015-12-06
 ---
 
-Gathered 1.0.1 was released a couple of weeks ago and I wanted to write a quick blog post addressing part of the [changelog](https://yetii.net/gathered/changelog "Gathered changelog")<!-- more -->:
+Gathered 1.0.1 was released a couple of weeks ago and I wanted to write a quick blog post addressing part of the [changelog](https://josephduffy.co.uk/apps/gathered/changelog "Gathered changelog")<!-- more -->:
 
 > Removed the "Disable Device Sleep" option (at Apple's request)
 
@@ -42,7 +42,7 @@ _(emphasis is mine)_
 
 I assumed this was just something that was flagged internally by some sort of automated code scanner and submitted an appeal to the App Review Board, stating that I felt Gathered fell under the category of apps which "[need] to continue displaying content when user interaction is minimal." A few days later I received an email scheduling a phone call, in which I am told that the functionality would not be accepted. I was not give any more of a reason, other than "your app was found to be out of compliance with App Store Review Guidelines" and that I must remove the feature and resubmit my update.
 
-At this point I had no choice but to remove the feature. I removed it, and submitted an update with the changelog as shown on [Gathered's changelog page](https://yetii.net/gathered/changelog). However, this was rejected due to the meta data with the following message:
+At this point I had no choice but to remove the feature. I removed it, and submitted an update with the changelog as shown on [Gathered's changelog page](https://josephduffy.co.uk/apps/gathered/changelog). However, this was rejected due to the meta data with the following message:
 
 > We noticed that your app's metadata includes the following information, which is not relevant to the application content and functionality:
 >
