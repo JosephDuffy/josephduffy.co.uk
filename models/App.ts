@@ -9,4 +9,5 @@ export default interface App {
   url: string
   tags: string[]
   changelogs: Changelog[]
+  privacyPolicy: string
 }

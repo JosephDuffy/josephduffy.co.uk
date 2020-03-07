@@ -38,6 +38,19 @@ iPhone and iPad app features:
 `,
     },
   ],
+  privacyPolicy: `
+Four Squares does not collect any private or sensitive data itself. It does, however, contain an SDK provided by a third party that does collect and record user data.
+
+## Fabric
+
+Fabric is used to integrate Crashlytics. Crashlytics is used to collect crashes that occur within the app. For more information visit [Fabric's Privacy and Security page](https://docs.fabric.io/apple/fabric/data-privacy.html).
+
+Four Squares 1.0.0 uses the Crashlytics 2.2.9 and Fabric 1.1.1 SDKs.
+
+## Google Analytics
+
+Google Analytics is used to collect analytics about the usage of the app. For more information visit [Google's help page](http://www.google.com/policies/privacy/partners/).
+`,
 }
 
 export default fourSquares

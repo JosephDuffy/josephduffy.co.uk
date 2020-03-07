@@ -72,6 +72,15 @@ Version 1.1 updates Scanula to utilise some of the latest iOS features.
 `,
     },
   ],
+  privacyPolicy: `
+Scanula contains SDKs that are provided by third parties that collect and record data. There third party SDKs are shown below.
+
+## Fabric
+
+Fabric is used to integrate Crashlytics and Answers. Crashlytics is used to collect crashes that occur within the app. Some basic non-user-identifiable information is collected via Answers. For more information visit [Fabric's Privacy and Security page](https://docs.fabric.io/apple/fabric/data-privacy.html).
+
+Scanula 1.1.2 uses the Crashlytics 3.10.1 and Fabric 1.7.6 SDKs.
+`,
 }
 
 export default scanula

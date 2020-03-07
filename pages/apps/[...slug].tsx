@@ -11,7 +11,7 @@ import FormattedDate from "../../components/FormattedDate"
 
 export interface Props {
   app?: App
-  page: "metadata" | "changelog"
+  page: "metadata" | "changelog" | "privacy"
 }
 
 const EntriesPage: NextPage<Props> = ({ app, page }) => {
@@ -53,6 +53,12 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
               <Link href="/apps/[...slug]" as={`/apps/${app.slug}/changelog`}>
                 <a>
                   Changelog
+                </a>
+              </Link>
+              <span className="divider">•</span>
+              <Link href="/apps/[...slug]" as={`/apps/${app.slug}/privacy`}>
+                <a>
+                  Privacy Policy
                 </a>
               </Link>
               <span className="divider">•</span>
@@ -102,6 +108,27 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             padding: 0 4px;
           }
         `}</style>
+      </Page>
+    )
+  } else if (page === "privacy") {
+    return (
+      <Page>
+        <Head>
+          <title>{app.name} Changelog :: iOS App by Joseph Duffy</title>
+          <meta
+            name="description"
+            content={`Privacy policy for ${app.name} iOS App`}
+          />
+        </Head>
+        <h1>{app.name} Privacy Policy</h1>
+        <span>
+        <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+          <a>
+            Back to information about {app.name}
+          </a>
+        </Link>
+        </span>
+        <Markdown source={app.privacyPolicy} />
       </Page>
     )
   } else {
@@ -182,6 +209,13 @@ export async function getStaticProps({
           props: {
             app,
             page: "changelog",
+          },
+        }
+      } else if (pageSlug === "privacy") {
+        return {
+          props: {
+            app,
+            page: "privacy",
           },
         }
       } else {

@@ -177,6 +177,21 @@ Various bugs have been destroyed and other small improvements have been made, in
 `,
     },
   ],
+  privacyPolicy: `
+Gathered contains SDKs that are provided by third parties that collect and record data. There third party SDKs are shown below.
+
+## Fabric
+
+Fabric is used to integrate Crashlytics and Answers. Crashlytics is used to collect crashes that occur within the app. Some basic non-user-identifiable information is collected via Answers. For more information visit [Fabric's Privacy and Security page](https://docs.fabric.io/apple/fabric/data-privacy.html).
+
+Gathered 1.3.0 uses the Crashlytics 3.10.1 and Fabric 1.7.5 SDKs.
+
+## AdMob
+
+AdMob network is used to provide adverts within Gathered. AdMob adverts are provided Google. For more information visit [Google's help page](http://www.google.com/policies/privacy/partners/). Gathered does not share your location with AdMob.
+
+Gathered 1.3.0 uses the AdMob 7.29.0 SDK.
+`,
 }
 
 export default gathered
