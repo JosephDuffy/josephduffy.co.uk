@@ -47,9 +47,14 @@ const PostPage: NextPage<Props> = ({ post }) => {
               <FormattedDate date={post.date} prefix="Published" />
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
-            <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
+            <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
           </article>
         </Card>
+        <style jsx>{`
+          .post-content {
+            padding-top: 16px;
+          }
+        `}</style>
       </Page>
     )
   } else {
