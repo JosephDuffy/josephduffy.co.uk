@@ -10,9 +10,13 @@ import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
 import Card from "./Card"
 import { PossibleEntries } from "../data/loaders/EntriesLoader"
+import { isAppRelease } from "../models/AppRelease"
+import AppReleasePreview from "./AppReleasePreview"
+import AppPreview, { isAppPreview } from "../models/AppPreview"
+import { default as AppPreviewComponent} from "./AppPreview"
 
 interface Props {
-  entry: PossibleEntries
+  entry: PossibleEntries | AppPreview
 }
 
 class EntryPreview extends Component<Props> {
@@ -25,7 +29,7 @@ class EntryPreview extends Component<Props> {
     )
   }
 
-  private previewForEntry(entry: PossibleEntries): JSX.Element {
+  private previewForEntry(entry: PossibleEntries | AppPreview): JSX.Element {
     if (isCombinedGitHubReleasesEntry(entry)) {
       return <CombinedGitHubReleasesPreview combinedReleases={entry} />
     }
@@ -40,6 +44,14 @@ class EntryPreview extends Component<Props> {
 
     if (isStackOverflowEntry(entry)) {
       return <StackOverflowEntryPreview entry={entry} />
+    }
+
+    if (isAppRelease(entry)) {
+      return <AppReleasePreview release={entry} />
+    }
+
+    if (isAppPreview(entry)) {
+      return <AppPreviewComponent app={entry} />
     }
 
     return <BlogPostPreview post={entry} />

@@ -3,16 +3,11 @@ import Page from "../../layouts/main"
 import appsLoader from "../../data/loaders/AppsLoader"
 import Head from "next/head"
 import Link from "next/link"
-import Card from "../../components/Card"
-import AppIcon from "../../components/AppIcon"
+import { default as AppPreviewModel } from "../../models/AppPreview"
+import EntriesPreviewsGrid from "../../components/EntriesPreviewsGrid"
 
 interface Props {
-  apps: {
-    name: string
-    logoURL: string
-    description: string
-    url: string
-  }[]
+  apps: AppPreviewModel[]
 }
 
 const AppsPage: NextPage<Props> = ({ apps }) => {
@@ -30,31 +25,7 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         My current iOS apps. I welcome feedback via Twitter at{" "}
         <a href="https://twitter.com/Joe_Duffy">@Joe_Duffy</a>.
       </p>
-      <div className="apps">
-        {apps.map(app => {
-          return (
-            <div className="app">
-              <Card key={app.name}>
-                <h2>{app.name}</h2>
-                <div className="screenshots"></div>
-                <div className="summary">
-                  <div className="appIcon">
-                    <AppIcon iconURL={app.logoURL} appName={app.name} />
-                  </div>
-                  <p>{app.description}</p>
-                </div>
-                <a href={app.url}>
-                  <img
-                    className="app-store-badge"
-                    src="/images/app-store-download-badge.svg"
-                    alt={`Download ${app.name} on the App Store`}
-                  />
-                </a>
-              </Card>
-            </div>
-          )
-        })}
-      </div>
+      <EntriesPreviewsGrid entries={apps} />
       <p>
         All of my apps are released in my company's name,{" "}
         <Link href="/yetii/">
@@ -62,54 +33,6 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         </Link>
         .
       </p>
-      <style jsx>{`
-        div.apps {
-          display: flex;
-          flex-flow: row wrap;
-          justify-content: space-between;
-        }
-
-        div.app {
-          display: flex;
-        }
-
-        @media (min-width: 1024px) {
-            div.app {
-              width: calc(50% - 4px);
-            }
-        }
-
-        .summary {
-          display: flow-root;
-        }
-
-        .summary p {
-          margin: 0;
-        }
-
-        .appIcon {
-          float: left;
-          margin-bottom: 8px;
-          margin-right: 8px;
-          width: 128px;
-          height: 128px;
-        }
-
-        @media (max-width: 320px) {
-          .appIcon {
-            width: 96px;
-            height: 96px;
-          }
-        }
-
-        h2 {
-          margin-top: 0;
-        }
-
-        .app-store-badge {
-          height: 40px;
-        }
-      `}</style>
     </Page>
   )
 }
@@ -119,18 +42,11 @@ interface StaticProps {
 }
 
 export function getStaticProps(): StaticProps {
-  const apps = appsLoader.getApps()
+  const apps = appsLoader.getAppsPreviews()
 
   return {
     props: {
-      apps: apps.map(app => {
-        return {
-          name: app.name,
-          logoURL: app.logoURL,
-          description: app.shortDescription,
-          url: app.url,
-        }
-      }),
+      apps,
     },
   }
 }

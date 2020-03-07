@@ -1,17 +1,15 @@
 import { FunctionComponent, Fragment } from "react"
 import { PossibleEntries } from "../data/loaders/EntriesLoader"
-import Card from "./Card"
-import EntryPreviews from "./EntryPreviews"
+import AppPreview from "../models/AppPreview"
 import EntryPreview from "./EntryPreview"
 
 interface Props {
-  entries: PossibleEntries[]
+  entries: (PossibleEntries | AppPreview)[]
 }
 
-const Favourites: FunctionComponent<Props> = ({ entries }) => {
+const EntriesPreviewsGrid: FunctionComponent<Props> = ({ entries }) => {
   return (
     <Fragment>
-      <h1>★ My Favourites</h1>
       <div className="entries">
         {entries.map(entry => {
           return (
@@ -46,4 +44,4 @@ const Favourites: FunctionComponent<Props> = ({ entries }) => {
   )
 }
 
-export default Favourites
+export default EntriesPreviewsGrid

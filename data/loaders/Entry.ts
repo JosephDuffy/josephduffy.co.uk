@@ -13,4 +13,6 @@ export enum EntryType {
   StackOverflowEntry,
   BlogPost,
   BlogPostPreview,
+  AppPreview,
+  AppRelease,
 }

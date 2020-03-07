@@ -3,8 +3,9 @@ import Page from "../layouts/main"
 import EntryPreviews from "../components/EntryPreviews"
 import entriesLoader, { PossibleEntries } from "../data/loaders/EntriesLoader"
 import postPreviewsLoader from "../data/loaders/PostPreviewsLoader"
+import appsLoader from "../data/loaders/AppsLoader"
 import Head from "next/head"
-import Favourites from "../components/Favourites"
+import EntriesPreviewsGrid from "../components/EntriesPreviewsGrid"
 
 interface Props {
   entries: PossibleEntries[]
@@ -25,7 +26,8 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
       <p className="intro">
         Hi! 👋 I'm Joseph Duffy. I enjoying making iOS apps and websites. This website contains information about my iOS apps, open-source projects, and blog posts.
       </p>
-      <Favourites entries={favourites} />
+      <h1>★ My Favourites</h1>
+      <EntriesPreviewsGrid entries={favourites} />
       <h1>Recent Entries</h1>
       <EntryPreviews
         entries={entries}
@@ -52,6 +54,13 @@ export async function getStaticProps() {
   const iosShareSheetLocation = blogPostPreviews.find(entry => {
     return entry.slug === "ios-sharing-location"
   })
+  const appPreviews = appsLoader.getAppsPreviews()
+  const gatheredAppPreview = appPreviews.find(app => {
+    return app.slug === "gathered"
+  })
+  const scanulaAppPreview = appPreviews.find(app => {
+    return app.slug === "scanula"
+  })
 
   return {
     props: {
@@ -59,7 +68,9 @@ export async function getStaticProps() {
       pageCount,
       favourites: [
         partialBlogPost,
+        gatheredAppPreview,
         iosShareSheetLocation,
+        scanulaAppPreview,
       ],
     },
   }

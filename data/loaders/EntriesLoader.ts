@@ -2,6 +2,7 @@ import gitHubReleasesLoader from "./GitHubReleasesLoader"
 import gitHubPullRequestsLoader, {
   GitHubPullRequest,
 } from "./GitHubPullRequestsLoader"
+import appsLoader from "./AppsLoader"
 import postsLoader from "./PostPreviewsLoader"
 import stackOverflowLoader, { StackOverflowEntry } from "./StackOverflowLoader"
 import { EntryType } from "./Entry"
@@ -12,6 +13,7 @@ import {
 } from "../../data/loaders/GitHubReleasesLoader"
 import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
 import BlogPostPreview from "../../models/BlogPostPreview"
+import AppRelease from "../../models/AppRelease"
 
 export type PossibleEntries =
   | BlogPostPreview
@@ -19,6 +21,7 @@ export type PossibleEntries =
   | GitHubPullRequest
   | StackOverflowEntry
   | CombinedGitHubReleasesEntry
+  | AppRelease
 
 export class EntriesLoader {
   private cachedCombinedEntries?: PossibleEntries[]
@@ -82,14 +85,16 @@ export class EntriesLoader {
     const posts = await postsLoader.getPostsPreviews()
     const gitHubReleases = await gitHubReleasesLoader.getReleases()
     const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()
-    // const stackOverflowEntries = await stackOverflowLoader.getEntries()
+    const stackOverflowEntries = await stackOverflowLoader.getEntries()
+    const appReleaseEntries = appsLoader.getAppsReleases()
 
     entries = entries.concat(posts)
     entries = entries.concat(gitHubReleases)
     entries = entries.concat(gitHubPullRequests)
-    // entries = entries.concat(stackOverflowEntries)
+    entries = entries.concat(stackOverflowEntries)
+    entries = entries.concat(appReleaseEntries)
 
-    entries.sort((entryA, entryB) => {
+    entries = entries.sort((entryA, entryB) => {
       return compareDesc(new Date(entryA.date), new Date(entryB.date))
     })
 
