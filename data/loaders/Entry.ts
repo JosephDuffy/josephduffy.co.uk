@@ -10,6 +10,7 @@ export enum EntryType {
   CombinedGitHubReleases,
   GitHubPullRequest,
   GithubRelease,
+  GithubRepository,
   StackOverflowEntry,
   BlogPost,
   BlogPostPreview,
