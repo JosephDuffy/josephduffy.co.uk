@@ -12,29 +12,19 @@ Four Squares is a game of memory, skill and concentration. Watch what happens ea
 Apple Watch app features:
 
 - Multiple themes: Classic and Colourblind
-
 - Multiple difficulties: Easy, Normal and Hard
-
 - Local leaderboards
-
 - Game pauses when interruptions occur and via Force Touch
 
 iPhone and iPad app features:
 
 - Multiple themes: Classic and Colourblind
-
 - Classic sounds
-
 - Multiple difficulties: Easy, Normal and Hard
-
 - Dark and light UI modes
-
 - Game pauses when interruptions occur
-
 - Listen to your own music while playing
-
 - Game Center leaderboards
-
 - Portrait and landscape support
 `,
   url: "https://geo.itunes.apple.com/app/apple-store/id982796319?mt=8",

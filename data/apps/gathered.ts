@@ -30,69 +30,38 @@ Gathered is an app to help you monitor, record, and export information from your
 Gathered offers a fast and simple interface to monitor, record, and export all of the data your device offers. All features are offered for free with the option to pay to remove adverts. With Gathered you can:
 
 - Monitor data sources in real-time
-
 - Easily copy values
-
 - Record the data from every data source
-
   - View previous recordings
-
   - Export via Document Picker
-
   - Share via standard Share Sheet
-
   - Drag-and-drop support on iPads
-
   - Copy using iTunes File Sharing
-
   - Pick between exporting to JSON or CSV
-
 - Easily enable, disable, and reorder the data sources being displayed or recorded
-
 - Adjustable update frequency (0.1 - 120 seconds)
-
 - Portrait and landscape support
-
 
 Gathered features over 20 data sources (where available), including:
 
-
 - GPS
-
 - WiFi
-
 - Microphone
-
 - Cell Radio
-
 - Advertising
-
 - Authentication
-
 - Memory (RAM)
-
 - Barometer (altitude and pressure)
-
 - Accelerometer
-
 - Storage
-
 - Gyroscope
-
 - Magnetometer (compass)
-
 - Apple Watch Accelerometer
-
 - Bluetooth
-
 - Battery
-
 - The screen
-
 - The device itself
-
 - Proximity
-
 `,
   url: "https://geo.itunes.apple.com/app/apple-store/id929726748?mt=8",
   tags: ["gathered"],

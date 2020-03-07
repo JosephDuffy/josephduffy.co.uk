@@ -10,9 +10,7 @@ const scanula: App = {
 Scanula is a clean, modern, and fast QR code, data matrix, and barcode scanner. There are 3 ways of detecting QR codes:
 
 - Use the Scan tab and point the device’s camera at a QR code
-
 - Tap the photos icon on the top right and of the Scan tab and pick a photo from your photo library*
-
 - Use the share sheet with a URL, webpage, or image, and choose the "Scan for QR Codes" action*
 
 When using the camera Scanula will also detect barcodes, data matrices, and many other scannable codes. Scan results show detailed information about the scanned object and is customised for various types of scanned content, such as displaying a scanned location on a map, getting the balance of a bitcoin address, or showing the details of a contact card.
@@ -24,33 +22,19 @@ Scanula also makes it easy to find, share, and view previous scan results from t
 Features:
 
 - Scan QR codes via:
-
   - The camera
-
   - Saved images
-
   - Any shareable URL or image, including in Safari - Scan a webpage for QR codes
-
 - Scan and detect over 10 different object types, including:
-
   - URLs
-
   - Bitcoin Addresses
-
   - Locations
-
   - Contact Cards
-
   - Calendar Events
-
   - Barcodes
-
   - WiFi Access Points
-
 - Share scanned objects using the built-in share sheet
-
 - Quickly scan using the camera, or via a saved photo or screenshot, directly from the home screen using Quick Actions via 3D Touch
-
 - Handoff Support - Scan a URL on your iOS device and load the URL on your Mac
 
 * Detection of QR codes via images requires an iPhone 5s, iPad Air, iPad Mini 2, or newer
