@@ -43,6 +43,15 @@ Features:
   tags: ["scanula"],
   changelogs: [
     {
+      version: "1.1.2",
+      releaseDate: "2018-05-06",
+      content: `
+Version 1.1.2 improves the reliability of animating the screen brightness when viewing QR codes.
+
+Thank you for using Scanula!
+`,
+    },
+    {
       version: "1.1.1",
       releaseDate: "2018-04-26",
       content: `
