@@ -16,6 +16,18 @@ const HorizontalRule = () => (
         );
       }
 
+      @media (min-resolution: 2dppx) {
+        hr {
+          height: 0.5px;
+        }
+      }
+
+      @media (min-resolution: 3dppx) {
+        hr {
+          height: calc(1/3)px;
+        }
+      }
+
       @media (prefers-color-scheme: light) {
         hr {
           background-image: linear-gradient(
