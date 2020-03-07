@@ -1,6 +1,6 @@
 ---
 title: Partial framework release 1.0.0
-tags: ["swift"]
+tags: ["swift", "partial"]
 date: 2019-07-10
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Partial in Swift
-tags: ["swift"]
+tags: ["swift", "partial"]
 date: 2018-07-10
 ---
 
