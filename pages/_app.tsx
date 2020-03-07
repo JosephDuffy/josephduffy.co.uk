@@ -12,34 +12,14 @@ class MyApp extends App {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-
-        <div>
-          <Component {...pageProps} />
-        </div>
-
-        <style jsx>{`
-          div {
-            width: calc(100vw - 32px);
-          }
-
-          @media (min-width: 480px) {
-            div {
-              width: 90vw;
-            }
-          }
-
-          @media (min-width: 1024px) {
-            div {
-              width: 80vw;
-            }
-          }
-        `}</style>
-
+        <Component {...pageProps} />
         <style jsx global>{`
           :root {
             --primary-label: white;
             --secondary-label: #ebebf599;
             --tertiary-label: #ebebf57f;
+            --content-padding-x: 16px;
+            --content-width: calc(100vw - var(--content-padding-x) - var(--content-padding-x));
           }
 
           @media (prefers-color-scheme: light) {
@@ -47,6 +27,18 @@ class MyApp extends App {
               --primary-label: black;
               --secondary-label: #3c3c4399;
               --tertiary-label: #3c3c434c;
+            }
+          }
+
+          @media (min-width: 480px) {
+            :root {
+              --content-padding-x: calc(5vw);
+            }
+          }
+
+          @media (min-width: 1024px) {
+            :root {
+              --content-padding-x: calc(10vw);
             }
           }
 
@@ -87,6 +79,11 @@ class MyApp extends App {
 
           a {
             color: #ffcc00;
+            text-decoration: none;
+          }
+
+          a:hover {
+            text-decoration: underline !important;
           }
 
           pre {

@@ -7,6 +7,12 @@ const Index: React.FunctionComponent<{ children: React.ReactNode }> = ({
   <Fragment>
     <Header />
     <main>{children}</main>
+    <style jsx>{`
+      main {
+        width: var(--content-width);
+        margin: 0 auto;
+      }
+    `}</style>
   </Fragment>
 )
 

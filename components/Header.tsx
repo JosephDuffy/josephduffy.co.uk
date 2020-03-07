@@ -16,24 +16,42 @@ const Header = () => (
           <a>Posts</a>
         </Link>
       </nav>
-      <HorizontalRule />
+      <div className="horizontal-rule-container">
+        <HorizontalRule />
+      </div>
     </header>
     <style jsx>{`
-      nav {
-        margin-top: 8px;
+      header {
+        width: 100vw;
+        padding-top: 8px;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+      }
+
+      nav {
+        display: inline-flex;
+        align-self: center;
+        overflow-x: scroll;
+        max-width: 100%;
+      }
+
+      nav a:first-child {
+        margin-left: var(--content-padding-x);
+      }
+
+      nav a:last-child {
+        margin-right: var(--content-padding-x);
       }
 
       a {
         padding: 8px;
         font-size: 1.5em;
-        text-decoration: none;
+        white-space: nowrap;
       }
 
-      a:hover,
-      a:active {
-        text-decoration: underline;
+      .horizontal-rule-container {
+        width: var(--content-width);
+        margin: 0 auto;
       }
     `}</style>
   </Fragment>
