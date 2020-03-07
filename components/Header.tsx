@@ -47,7 +47,7 @@ const Header = () => (
       }
 
       a {
-        padding: 8px;
+        padding: 8px 16px;
         font-size: 1.5em;
         white-space: nowrap;
       }
