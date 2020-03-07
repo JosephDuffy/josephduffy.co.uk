@@ -15,6 +15,9 @@ const Header = () => (
         <Link href="/posts">
           <a>Posts</a>
         </Link>
+        <Link href="/open-source">
+          <a>Open Source</a>
+        </Link>
       </nav>
       <div className="horizontal-rule-container">
         <HorizontalRule />
