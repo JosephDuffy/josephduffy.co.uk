@@ -20,7 +20,7 @@ const GitHubPullRequestPreview: FunctionComponent<Props> = ({
               Pull request {pullRequest.title} on {pullRequest.repoName}
             </h1>
           </a>
-          <FormattedDate date={pullRequest.date} verb="Opened" />
+          <FormattedDate date={pullRequest.date} prefix="Opened" />
           {pullRequest.tags.length > 0 && <TagsList tags={pullRequest.tags} />}
         </header>
         {pullRequest.descriptionHTML && pullRequest.descriptionHTML.trim() !== "" && [

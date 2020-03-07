@@ -18,7 +18,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
             <h1>{post.title}</h1>
           </a>
         </Link>
-        <FormattedDate date={post.date} verb="Published" />
+        <FormattedDate date={post.date} prefix="Published" />
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <HorizontalRule/>

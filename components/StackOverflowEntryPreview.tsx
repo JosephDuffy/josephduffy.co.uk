@@ -14,7 +14,7 @@ const StackOverflowEntryPreview: FunctionComponent<Props> = ({ entry }) => {
         <a href={entry.url}>
           <h1>{entry.title}</h1>
         </a>
-        <FormattedDate date={entry.date} verb="Posted" />
+        <FormattedDate date={entry.date} prefix="Posted" />
         {entry.tags.length > 0 && <TagsList tags={entry.tags} />}
       </header>
     </article>

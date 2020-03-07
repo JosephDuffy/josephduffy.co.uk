@@ -16,7 +16,7 @@ const AppReleasePreview: FunctionComponent<Props> = ({ release }) => {
         <a href={release.url}>
           <h1>{release.title}</h1>
         </a>
-        <FormattedDate date={release.date} verb="Released" />
+        <FormattedDate date={release.date} prefix="Released" />
         {release.tags.length > 0 && <TagsList tags={release.tags} />}
       </header>
       <HorizontalRule />

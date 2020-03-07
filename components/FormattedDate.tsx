@@ -1,13 +1,10 @@
 import { FunctionComponent, Fragment } from "react"
 import { format } from "date-fns"
 
-type Formatter = (dates: Date[], verb?: string) => string
-
 interface Props {
   date: string | Date
   secondDate?: string | Date
-  verb?: string
-  formatter?: Formatter
+  prefix?: string
 }
 
 function datesAreTheSame(dateA: Date, dateB: Date): boolean {
@@ -19,7 +16,7 @@ function datesAreTheSame(dateA: Date, dateB: Date): boolean {
 }
 
 const FormattedDate: FunctionComponent<Props> = props => {
-  const { verb } = props
+  const { prefix } = props
   const date = new Date(props.date)
   const formattedDate = format(date, "do MMMM, y")
   const formattedSecondDate =
@@ -31,11 +28,11 @@ const FormattedDate: FunctionComponent<Props> = props => {
   return (
     <Fragment>
       <div>
-        {verb && `${verb} `}
-        {verb && formattedSecondDate && `between `}
+        {prefix && `${prefix} `}
+        {prefix && formattedSecondDate && `between `}
         {formattedDate}
-        {verb && formattedSecondDate && ` and ${formattedSecondDate}`}
-        {!verb && formattedSecondDate && ` to ${formattedSecondDate}`}
+        {prefix && formattedSecondDate && ` and ${formattedSecondDate}`}
+        {!prefix && formattedSecondDate && ` to ${formattedSecondDate}`}
       </div>
       <style jsx>{`
         div {

@@ -38,7 +38,7 @@ const OpenSourcePage: NextPage<Props> = ({ repositories }) => {
                 <a href={repository.url}>
                   <h2>{repository.owner}/{repository.name}</h2>
                 </a>
-                <FormattedDate date={repository.mostRecentContribution.date} verb={datePrefix} />
+                <FormattedDate date={repository.mostRecentContribution.date} prefix={datePrefix} />
                 {repository.description &&
                   <p className="description">
                     {repository.description}

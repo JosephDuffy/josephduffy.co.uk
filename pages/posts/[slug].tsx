@@ -44,7 +44,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
           <article>
             <header>
               <h1>{post.title}</h1>
-              <FormattedDate date={post.date} verb="Published" />
+              <FormattedDate date={post.date} prefix="Published" />
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
             <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
