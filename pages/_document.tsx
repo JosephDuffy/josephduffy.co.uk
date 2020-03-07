@@ -1,6 +1,7 @@
-import Document, { Html, Head, Main, NextScript } from "next/document"
+import { default as NextDocument, Html, Head, Main, NextScript } from "next/document"
 
-class MyDocument extends Document {
+/// A custom `Document` that sets the `lang` attribute on the HTML element
+class Document extends NextDocument {
   render() {
     return (
       <Html lang="en-GB">
@@ -14,4 +15,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument
+export default Document
