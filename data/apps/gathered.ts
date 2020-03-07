@@ -2,10 +2,98 @@ import App from "../../models/App"
 
 const gathered: App = {
   name: "Gathered",
+  slug: "gathered",
   logoURL: "/images/gathered/icon.svg",
   shortDescription:
     "Gathered is an app that facilitates the viewing, recording, and sharing of over 25 sources of data available on iOS and iPadOS devices, from the GPS and accelerometer to the advertising identifier and the WiFi. Gathered is the perfect app to enable the recording of all the data required to calulcate position, acceleration, and ambient conditions of the device.",
-  fullDescription: "",
+  fullDescription: `
+  Gathered is an app to help you monitor, record, and export information from your iOS device. If you've ever wondered what sensors your device possesses, what information can be determined from them, or what an app can know about your device, then Gathered is for you.
+
+  <div class="screenshots">
+    <a href="/images/gathered/screenshots/monitor-tab.png">
+      <img src="/images/gathered/screenshots/monitor-tab.png" width="270" height="464">
+    </a>
+    <a href="/images/gathered/screenshots/record-tab.png">
+      <img src="/images/gathered/screenshots/record-tab.png" width="270" height="464">
+    </a>
+    <a href="/images/gathered/screenshots/complete-recording.png">
+      <img src="/images/gathered/screenshots/complete-recording.png" width="270" height="464">
+    </a>
+    <a href="/images/gathered/screenshots/settings-tab.png">
+      <img src="/images/gathered/screenshots/settings-tab.png" width="270" height="464">
+    </a>
+    <a href="/images/gathered/screenshots/apple-watch-app.png">
+      <img src="/images/gathered/screenshots/apple-watch-app.png" width="270" height="450">
+    </a>
+  </ul>
+
+  Gathered offers a fast and simple interface to monitor, record, and export all of the data your device offers. All features are offered for free with the option to pay to remove adverts. With Gathered you can:
+
+  - Monitor data sources in real-time
+
+  - Easily copy values
+
+  - Record the data from every data source
+
+    - View previous recordings
+
+    - Export via Document Picker
+
+    - Share via standard Share Sheet
+
+    - Drag-and-drop support on iPads
+
+    - Copy using iTunes File Sharing
+
+    - Pick between exporting to JSON or CSV
+
+  - Easily enable, disable, and reorder the data sources being displayed or recorded
+
+  - Adjustable update frequency (0.1 - 120 seconds)
+
+  - Portrait and landscape support
+
+
+  Gathered features over 20 data sources (where available), including:
+
+
+  - GPS
+
+  - WiFi
+
+  - Microphone
+
+  - Cell Radio
+
+  - Advertising
+
+  - Authentication
+
+  - Memory (RAM)
+
+  - Barometer (altitude and pressure)
+
+  - Accelerometer
+
+  - Storage
+
+  - Gyroscope
+
+  - Magnetometer (compass)
+
+  - Apple Watch Accelerometer
+
+  - Bluetooth
+
+  - Battery
+
+  - The screen
+
+  - The device itself
+
+  - Proximity
+
+  `,
   url: "https://geo.itunes.apple.com/app/apple-store/id929726748?mt=8",
   tags: ["gathered"],
   changelogs: [
