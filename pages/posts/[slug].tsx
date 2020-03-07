@@ -24,21 +24,25 @@ const PostPage: NextPage<Props> = ({ post }) => {
             name="description"
             content={`Blog post by Joseph Duffy about ${post.title}`}
           />
-          <script type="application/ld+json">{`
+          <script type="application/ld+json" dangerouslySetInnerHTML={ { __html: `
             {
               "@context": "https://schema.org",
               "@type": "BlogPosting",
               "@id": "https://josephduffy.co.uk${post.url}",
               "headline": "${post.title}",
-              "keywords": "${post.tags.join("")}",
+              "keywords": "${post.tags.join(",")}",
               "datePublished": "${iso8601Date}",
               "dateCreated": "${iso8601Date}",
               "author": {
                 "@type": "Person",
                 "name": "Joseph Duffy"
+              },
+              "publisher": {
+                "@type": "Person",
+                "name": "Joseph Duffy"
               }
             }
-          `}</script>
+          `} }></script>
         </Head>
         <Card>
           <article>
