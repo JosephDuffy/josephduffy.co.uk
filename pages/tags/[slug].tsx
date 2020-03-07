@@ -23,6 +23,7 @@ const TagPage: NextPage<Props> = ({ tag, entries }) => {
           content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy with the {tag} tag"
         />
       </Head>
+      <h1>Entries with the {tag} tag</h1>
       <EntryPreviews
         entries={entries}
         pageCount={1}
@@ -49,10 +50,6 @@ export async function getStaticProps({
   const entries = await entriesLoader.getEntries(false)
   const { slug: tag } = params
   const taggedEntries = entries.filter(entry => entry.tags.includes(tag))
-
-  // if (taggedEntries.length === 0) {
-  //   throw `No post found with tag "${tag}"`
-  // }
 
   taggedEntries.sort((entryA, entryB) => {
     return compareDesc(new Date(entryA.date), new Date(entryB.date))
