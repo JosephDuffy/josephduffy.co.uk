@@ -13,7 +13,7 @@ const Header = () => (
           <a>Apps</a>
         </Link>
         <Link href="/posts">
-          <a>Posts</a>
+          <a>Blog Posts</a>
         </Link>
         <Link href="/open-source">
           <a>Open Source</a>
