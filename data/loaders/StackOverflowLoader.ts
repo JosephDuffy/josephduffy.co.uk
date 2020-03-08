@@ -55,64 +55,73 @@ export class StackOverflowLoader {
 
     console.debug("Loading StackOverflow posts")
 
-    const posts = await this.loadPosts()
-    const questionPosts = posts.filter(post => post.post_type === "question")
-    const answerPosts = posts.filter(post => post.post_type === "answer")
-    const answerIds = answerPosts.map(answer => answer.post_id)
+    try {
+      const posts = await this.loadPosts()
+      const questionPosts = posts.filter(post => post.post_type === "question")
+      const answerPosts = posts.filter(post => post.post_type === "answer")
+      const answerIds = answerPosts.map(answer => answer.post_id)
 
-    const apiAnswers = await this.loadAnswers(answerIds)
+      const apiAnswers = await this.loadAnswers(answerIds)
 
-    const questionIds = questionPosts
-      .map(question => question.post_id)
-      .concat(apiAnswers.map(answer => answer.question_id))
+      const questionIds = questionPosts
+        .map(question => question.post_id)
+        .concat(apiAnswers.map(answer => answer.question_id))
 
-    const apiQuestions = await this.loadQuestions(questionIds)
+      const apiQuestions = await this.loadQuestions(questionIds)
 
-    let entries: StackOverflowEntry[] = []
+      let entries: StackOverflowEntry[] = []
 
-    const entities = new AllHtmlEntities()
+      const entities = new AllHtmlEntities()
 
-    const questions: StackOverflowEntry[] = questionPosts.map(questionPost => {
-      const apiQuestion = apiQuestions.find(
-        question => question.question_id === questionPost.post_id,
-      )!
-      const unescapedTitle = entities.decode(apiQuestion.title)
-      return {
-        title: `Posted question to StackOverflow: ${unescapedTitle}`,
-        date: new Date(apiQuestion.creation_date * 1000).toISOString(),
-        url: apiQuestion.link,
-        tags: apiQuestion.tags,
-        postType: "question",
-        postId: apiQuestion.question_id,
-        type: EntryType.StackOverflowEntry,
+      const questions: StackOverflowEntry[] = questionPosts.map(questionPost => {
+        const apiQuestion = apiQuestions.find(
+          question => question.question_id === questionPost.post_id,
+        )!
+        const unescapedTitle = entities.decode(apiQuestion.title)
+        return {
+          title: `Posted question to StackOverflow: ${unescapedTitle}`,
+          date: new Date(apiQuestion.creation_date * 1000).toISOString(),
+          url: apiQuestion.link,
+          tags: apiQuestion.tags,
+          postType: "question",
+          postId: apiQuestion.question_id,
+          type: EntryType.StackOverflowEntry,
+        }
+      })
+      const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
+        const apiAnswer = apiAnswers.find(
+          answer => answer.answer_id === answerPost.post_id,
+        )!
+        const apiQuestion = apiQuestions.find(
+          question => question.question_id === apiAnswer.question_id,
+        )!
+        const unescapedTitle = entities.decode(apiQuestion.title)
+        return {
+          title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
+          date: new Date(apiAnswer.creation_date * 1000).toISOString(),
+          url: `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
+          tags: apiQuestion.tags,
+          postType: "answer",
+          postId: apiAnswer.answer_id,
+          type: EntryType.StackOverflowEntry,
+        }
+      })
+
+      entries = entries.concat(questions).concat(answers)
+
+      this.cachedEntries = entries
+
+      console.debug("Loaded StackOverflow entries")
+
+      return entries
+    } catch (error) {
+      if (error["error_id"] === 502) {
+        console.warn("StackOverflow API is throttling:", error["error_message"])
+        return []
+      } else {
+        throw error
       }
-    })
-    const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
-      const apiAnswer = apiAnswers.find(
-        answer => answer.answer_id === answerPost.post_id,
-      )!
-      const apiQuestion = apiQuestions.find(
-        question => question.question_id === apiAnswer.question_id,
-      )!
-      const unescapedTitle = entities.decode(apiQuestion.title)
-      return {
-        title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
-        date: new Date(apiAnswer.creation_date * 1000).toISOString(),
-        url: `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
-        tags: apiQuestion.tags,
-        postType: "answer",
-        postId: apiAnswer.answer_id,
-        type: EntryType.StackOverflowEntry,
-      }
-    })
-
-    entries = entries.concat(questions).concat(answers)
-
-    this.cachedEntries = entries
-
-    console.debug("Loaded StackOverflow entries")
-
-    return entries
+    }
   }
 
   private async loadPosts(): Promise<StackOverflowAPIPost[]> {
