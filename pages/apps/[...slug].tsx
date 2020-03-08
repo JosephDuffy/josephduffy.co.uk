@@ -42,7 +42,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </div>
           <div className="header-content">
             <h1>{app.name}</h1>
-            <a href={app.url}>
+            <a href={app.url} className="download-link">
               <img
                 className="app-store-badge"
                 src="/images/app-store-download-badge.svg"
@@ -80,7 +80,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           .header-content {
             display: flex;
             flex-direction: column;
-            flex: 1;
+            justify-content: space-between;
           }
 
           .appIcon {
@@ -100,12 +100,16 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           .meta-links {
             padding-top: 8px;
             font-size: 0.8em;
-            margin-top: auto;
             padding-bottom: 8px;
           }
 
           .meta-links .divider {
             padding: 0 4px;
+          }
+
+          .download-link {
+            line-height: 0;
+            align-self: flex-start;
           }
         `}</style>
       </Page>

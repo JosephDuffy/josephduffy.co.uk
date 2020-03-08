@@ -66,8 +66,9 @@ const AppPreview: FunctionComponent<Props> = ({ app }) => {
         }
 
         .download-link {
-          padding-top: 8px;
+          margin-top: 8px;
           line-height: 0;
+          align-self: flex-start;
         }
 
         .app-store-badge {
