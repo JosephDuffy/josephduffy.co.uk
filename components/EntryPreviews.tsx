@@ -42,7 +42,7 @@ class EntryPreviews extends Component<Props> {
               </div>
             </div>
             <style jsx>{`
-              :root {
+              .pagination {
                 --border: 1px grey solid;
               }
 
@@ -60,20 +60,20 @@ class EntryPreviews extends Component<Props> {
                 border: var(--border);
               }
 
-              .link {
+              .pagination :global(.link) {
                 padding: 16px;
               }
 
-              .link:not(:last-child) {
+              .pagination :global(.link:not(:last-child)) {
                 border-right: var(--border);
               }
 
-              a.link:hover {
+              .pagination :global(a.link:hover) {
                 background: var(--secondary-background);
                 text-decoration: none !important;
               }
 
-              span.link {
+              .pagination :global(span.link) {
                 background: var(--secondary-background);
               }
             `}</style>
