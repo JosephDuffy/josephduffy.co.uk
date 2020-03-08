@@ -10,6 +10,7 @@ const Card: FunctionComponent = ({ children }) => {
           border-radius: 8px;
           padding: 12px;
           margin-bottom: 8px;
+          flex: 1;
         }
       `}</style>
     </Fragment>
