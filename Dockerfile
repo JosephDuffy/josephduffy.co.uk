@@ -1,28 +1,14 @@
-FROM golang:1.13 as certs
+FROM node:alpine
 
-RUN apt-get update && apt-get install libnss3-tools -y
-
-RUN git clone https://github.com/FiloSottile/mkcert && \
-    cd mkcert && \
-    go build -ldflags "-X main.Version=$(git describe --tags)" -o /bin/mkcert
-
-WORKDIR /certs
-ENV CAROOT /certs
-
-RUN mkcert -install
-RUN mkcert -key-file key.pem -cert-file cert.pem josephduffy.local
-
-RUN ls -al /certs
-RUN mkcert -CAROOT
-
-FROM node:12 AS build
-
-ARG GITHUB_ACCESS_TOKEN
-ENV NEXT_TELEMETRY_DISABLED 1
+RUN mkdir /app
+ENV NODE_ENV production
+EXPOSE 80
 
 WORKDIR /app
 
 COPY package*.json ./
+
+ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm ci
 
@@ -36,14 +22,9 @@ COPY next-env.d.ts .
 COPY next.config.js .
 COPY tsconfig.json .
 
+ARG GITHUB_ACCESS_TOKEN
+ENV GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
+
 RUN npm run build
-RUN npm run export
 
-FROM nginx:alpine
-
-COPY --from=build /app/out/ /var/www/
-COPY --from=certs /certs /etc/nginx/certs/
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-EXPOSE 443
+CMD [ "npm", "run", "start", "--", "-p", "80" ]
