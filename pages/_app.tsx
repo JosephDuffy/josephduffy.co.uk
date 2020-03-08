@@ -34,6 +34,7 @@ class MyApp extends App {
             --tertiary-label: #ebebf57f;
             --primary-background: black;
             --secondary-background: #1c1c1e;
+            --tint-color: #ffcc00;
             --content-padding-x: 8px;
             --content-width: calc(100vw - var(--content-padding-x) - var(--content-padding-x));
           }
@@ -41,10 +42,11 @@ class MyApp extends App {
           @media (prefers-color-scheme: light) {
             :root {
               --primary-label: black;
-              --secondary-label: #3c3c4399;
-              --tertiary-label: #3c3c434c;
+              --secondary-label: #3c3c43;
+              --tertiary-label: #3c3c4399;
               --primary-background: white;
               --secondary-background: #f2f2f7;
+              --tint-color: #006bdf;
             }
           }
 
@@ -96,7 +98,7 @@ class MyApp extends App {
           }
 
           a {
-            color: #ffcc00;
+            color: var(--tint-color);
             text-decoration: none;
           }
 
@@ -130,14 +132,6 @@ class MyApp extends App {
           }
 
           @media (prefers-color-scheme: light) {
-            body {
-              background: white;
-            }
-
-            a {
-              color: #007aff;
-            }
-
             code {
               background-color: #78788033;
             }

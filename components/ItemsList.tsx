@@ -73,7 +73,6 @@ const ItemsList: FunctionComponent<Props> = ({
         li {
           padding-bottom: 4px;
           display: inline;
-          opacity: 90%;
         }
 
         li.list-item {
