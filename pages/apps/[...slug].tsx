@@ -251,6 +251,7 @@ export async function getStaticPaths() {
       return [
         `/apps/${app.slug}`,
         `/apps/${app.slug}/changelog`,
+        `/apps/${app.slug}/privacy`,
       ]
     }),
   }
