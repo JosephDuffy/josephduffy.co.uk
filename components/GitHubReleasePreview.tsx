@@ -19,8 +19,8 @@ const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
         {release.tags.length > 0 && <TagsList tags={release.tags} />}
       </header>
       {release.descriptionHTML && release.descriptionHTML.trim() !== "" && [
-        <HorizontalRule />,
-        <div>
+        <HorizontalRule key="hr" />,
+        <div key="release-notes">
           <h2>Release Notes</h2>
           <div dangerouslySetInnerHTML={{ __html: release.descriptionHTML }} />
         </div>,

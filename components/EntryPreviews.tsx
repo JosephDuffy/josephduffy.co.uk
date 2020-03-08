@@ -28,55 +28,57 @@ class EntryPreviews extends Component<Props> {
           }
           return <EntryPreview key={key} entry={entry} />
         })}
-        {pageCount > 1 && [
-          <div className="pagination">
-            <div className="links">
-              { this.linkForPage(currentPage - 1, "← Previous", currentPage > 1) }
-              {Array.from(Array(pageCount + 1).keys())
-                .slice(1)
-                .map(page => {
-                  return this.linkForPage(page, page.toString(), page !== currentPage)
-                })}
-              { this.linkForPage(currentPage + 1, "Next →", currentPage < pageCount - 1) }
+        {pageCount > 1 && (
+          <Fragment>
+            <div className="pagination">
+              <div className="links">
+                { this.linkForPage(currentPage - 1, "← Previous", currentPage > 1) }
+                {Array.from(Array(pageCount + 1).keys())
+                  .slice(1)
+                  .map(page => {
+                    return this.linkForPage(page, page.toString(), page !== currentPage)
+                  })}
+                { this.linkForPage(currentPage + 1, "Next →", currentPage < pageCount - 1) }
+              </div>
             </div>
-          </div>,
-          <style jsx>{`
-            :root {
-              --border: 1px grey solid;
-            }
+            <style jsx>{`
+              :root {
+                --border: 1px grey solid;
+              }
 
-            .pagination {
-              display: flex;
-              justify-content: center;
-              margin: 16px 0;
-            }
+              .pagination {
+                display: flex;
+                justify-content: center;
+                margin: 16px 0;
+              }
 
-            .links {
-              display: flex;
-              align-self: flex-start;
-              overflow: hidden;
-              border-radius: 8px;
-              border: var(--border);
-            }
+              .links {
+                display: flex;
+                align-self: flex-start;
+                overflow: hidden;
+                border-radius: 8px;
+                border: var(--border);
+              }
 
-            .link {
-              padding: 16px;
-            }
+              .link {
+                padding: 16px;
+              }
 
-            .link:not(:last-child) {
-              border-right: var(--border);
-            }
+              .link:not(:last-child) {
+                border-right: var(--border);
+              }
 
-            a.link:hover {
-              background: var(--secondary-background);
-              text-decoration: none !important;
-            }
+              a.link:hover {
+                background: var(--secondary-background);
+                text-decoration: none !important;
+              }
 
-            span.link {
-              background: var(--secondary-background);
-            }
-          `}</style>,
-        ]}
+              span.link {
+                background: var(--secondary-background);
+              }
+            `}</style>
+          </Fragment>
+        )}
       </Fragment>
     )
   }
@@ -84,7 +86,7 @@ class EntryPreviews extends Component<Props> {
   private linkForPage(page: number, title: string, enabled: boolean): JSX.Element {
     if (!enabled) {
       return (
-        <span className="link">{title}</span>
+        <span className="link" key={title}>{title}</span>
       )
     }
 

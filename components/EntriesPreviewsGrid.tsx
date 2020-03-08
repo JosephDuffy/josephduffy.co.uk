@@ -13,7 +13,7 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({ entries }) => {
       <div className="entries">
         {entries.map(entry => {
           return (
-            <div className="preview">
+            <div className="preview" key={`${entry.type}-${entry.url}`}>
               <EntryPreview entry={entry} />
             </div>
           )

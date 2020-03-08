@@ -24,8 +24,8 @@ const GitHubPullRequestPreview: FunctionComponent<Props> = ({
           {pullRequest.tags.length > 0 && <TagsList tags={pullRequest.tags} />}
         </header>
         {pullRequest.descriptionHTML && pullRequest.descriptionHTML.trim() !== "" && [
-          <HorizontalRule />,
-          <div dangerouslySetInnerHTML={{ __html: pullRequest.descriptionHTML }} />,
+          <HorizontalRule key="hr" />,
+          <div key="description" dangerouslySetInnerHTML={{ __html: pullRequest.descriptionHTML }} />,
         ]}
       </article>
       <style jsx>{`
