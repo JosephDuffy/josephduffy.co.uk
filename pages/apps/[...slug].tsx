@@ -128,7 +128,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
         <span>
         <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
           <a>
-            Back to information about {app.name}
+            ← Back to information about {app.name}
           </a>
         </Link>
         </span>
@@ -149,7 +149,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
         <span>
         <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
           <a>
-            Back to information about {app.name}
+            ← Back to information about {app.name}
           </a>
         </Link>
         </span>
