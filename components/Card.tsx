@@ -6,16 +6,10 @@ const Card: FunctionComponent = ({ children }) => {
       <div className="card-container">{children}</div>
       <style jsx>{`
         div.card-container {
-          background: #1c1c1e;
+          background: var(--secondary-background);
           border-radius: 8px;
           padding: 12px;
           margin-bottom: 8px;
-        }
-
-        @media (prefers-color-scheme: light) {
-          div.card-container {
-            background: #f2f2f7;
-          }
         }
       `}</style>
     </Fragment>

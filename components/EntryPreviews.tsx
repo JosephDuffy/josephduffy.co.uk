@@ -28,23 +28,66 @@ class EntryPreviews extends Component<Props> {
           }
           return <EntryPreview key={key} entry={entry} />
         })}
-        {pageCount > 1 && (
-          <div>
-            {currentPage > 1 && this.linkForPage(currentPage - 1, "Previous")}
-            {Array.from(Array(pageCount + 1).keys())
-              .slice(1)
-              .map(page => {
-                return this.linkForPage(page, page.toString())
-              })}
-            {currentPage < pageCount - 1 &&
-              this.linkForPage(currentPage + 1, "Next")}
-          </div>
-        )}
+        {pageCount > 1 && [
+          <div className="pagination">
+            <div className="links">
+              { this.linkForPage(currentPage - 1, "← Previous", currentPage > 1) }
+              {Array.from(Array(pageCount + 1).keys())
+                .slice(1)
+                .map(page => {
+                  return this.linkForPage(page, page.toString(), page !== currentPage)
+                })}
+              { this.linkForPage(currentPage + 1, "Next →", currentPage < pageCount - 1) }
+            </div>
+          </div>,
+          <style jsx>{`
+            :root {
+              --border: 1px grey solid;
+            }
+
+            .pagination {
+              display: flex;
+              justify-content: center;
+              margin: 16px 0;
+            }
+
+            .links {
+              display: flex;
+              align-self: flex-start;
+              overflow: hidden;
+              border-radius: 8px;
+              border: var(--border);
+            }
+
+            .link {
+              padding: 16px;
+            }
+
+            .link:not(:last-child) {
+              border-right: var(--border);
+            }
+
+            a.link:hover {
+              background: var(--secondary-background);
+              text-decoration: none !important;
+            }
+
+            span.link {
+              background: var(--secondary-background);
+            }
+          `}</style>,
+        ]}
       </Fragment>
     )
   }
 
-  private linkForPage(page: number, title: string): JSX.Element {
+  private linkForPage(page: number, title: string, enabled: boolean): JSX.Element {
+    if (!enabled) {
+      return (
+        <span className="link">{title}</span>
+      )
+    }
+
     const { paginationHREF } = this.props
     const paginationURL = paginationHREF.replace(
       /(.*)(\[.*\])(.*)/,
@@ -52,7 +95,7 @@ class EntryPreviews extends Component<Props> {
     )
     return (
       <Link href={paginationHREF} as={paginationURL} key={title}>
-        <a>{title}</a>
+        <a className="link">{title}</a>
       </Link>
     )
   }

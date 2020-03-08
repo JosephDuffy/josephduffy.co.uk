@@ -18,6 +18,8 @@ class MyApp extends App {
             --primary-label: white;
             --secondary-label: #ebebf599;
             --tertiary-label: #ebebf57f;
+            --primary-background: black;
+            --secondary-background: #1c1c1e;
             --content-padding-x: 8px;
             --content-width: calc(100vw - var(--content-padding-x) - var(--content-padding-x));
           }
@@ -27,6 +29,8 @@ class MyApp extends App {
               --primary-label: black;
               --secondary-label: #3c3c4399;
               --tertiary-label: #3c3c434c;
+              --primary-background: white;
+              --secondary-background: #f2f2f7;
             }
           }
 
@@ -54,7 +58,7 @@ class MyApp extends App {
 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
               Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            background: black;
+            background: var(--primary-background);
             color: var(--primary-label);
           }
 
