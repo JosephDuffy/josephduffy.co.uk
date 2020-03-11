@@ -1,1 +1,17 @@
-node_modules
+# next.js
+
+## Development
+.next/
+
+## Static export
+out/
+
+# NPM Dependencies
+node_modules/
+
+# macOS
+.DS_Store
+
+# Lighthouse CI
+
+.lighthouseci/

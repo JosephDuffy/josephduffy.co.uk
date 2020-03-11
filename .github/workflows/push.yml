@@ -1,0 +1,19 @@
+name: Trigger Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  lhci:
+    name: Trigger Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          repository: JosephDuffy/webserver-deploy
+          event-type: deploy
+

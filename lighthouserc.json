@@ -1,0 +1,35 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "./start-server.sh",
+      "url": [
+        "https://localhost/",
+        "https://localhost/open-source",
+        "https://localhost/yetii",
+        "https://localhost/apps/",
+        "https://localhost/posts/",
+        "https://localhost/posts/exploiting-university-security-for-my-own-convenience",
+        "https://localhost/posts/partial-in-swift",
+        "https://localhost/posts/partial-framework-release-1-0-0",
+        "https://localhost/tags/open-source",
+        "https://localhost/tags/swift"
+      ],
+      "numberOfRuns": 3,
+      "staticDistDir": "out",
+      "settings": {
+        "chromeFlags": "--ignore-certificate-errors"
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "offscreen-images": "off",
+        "uses-webp-images": "off",
+        "uses-http2": "off"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

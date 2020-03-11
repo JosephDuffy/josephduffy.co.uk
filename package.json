@@ -1,42 +1,53 @@
 {
-  "name": "joseph-duffy-co-uk",
-  "version": "1.0.7",
+  "name": "josephduffy.co.uk",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./app.js",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "dev": "next",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
+    "prettier": "prettier --check '{components,data,layouts,models,pages}/**/*'",
+    "prettier:fix": "prettier --write '{components,data,layouts,models,pages}/**/*'"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JosephDuffy/josephduffy.co.uk/"
+    "url": "git+https://github.com/JosephDuffy/josephduffy.co.uk.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/JosephDuffy/josephduffy.co.uk/issues"
   },
+  "homepage": "https://github.com/JosephDuffy/josephduffy.co.uk#readme",
   "dependencies": {
-    "compression": "^1.4.4",
-    "express": "^4.12.3",
-    "express-hbs": "^1.0.3",
-    "express-slash": "^2.0.1",
-    "handlebars-helper": "0.0.12",
-    "helmet": "^3.1.0",
-    "helmet-csp": "^2.1.0",
-    "lodash": "^4.17.2",
-    "moment": "^2.10.6",
-    "pmx": "^1.2.0",
-    "poet": "^2.0.1",
-    "snyk": "^1.46.0"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-cssnano": "^2.0.0",
-    "gulp-if": "^2.0.0",
-    "gulp-sass": "^3.2.0",
-    "gulp-sourcemaps": "^2.6.1",
-    "gulp-uncss": "^1.0.4",
-    "sitemapper": "2.1.12"
-  },
-  "license": "MIT",
-  "snyk": true
+    "@types/glob": "^7.1.1",
+    "@types/html-entities": "^1.2.16",
+    "@types/node": "^12.12.14",
+    "@types/node-fetch": "^2.5.4",
+    "@types/react": "^16.9.15",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-syntax-highlighter": "^11.0.4",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "date-fns": "^2.9.0",
+    "feed": "^4.1.0",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "gray-matter": "^4.0.2",
+    "html-entities": "^1.2.1",
+    "next": "9.3.1-canary.0",
+    "next-offline": "^5.0.0",
+    "node-fetch": "^2.6.0",
+    "normalize.css": "^8.0.1",
+    "prettier": "1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-markdown": "^4.2.2",
+    "react-syntax-highlighter": "^12.2.1",
+    "typescript": "^3.8.3"
+  }
 }
