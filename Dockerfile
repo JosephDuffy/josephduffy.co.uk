@@ -22,6 +22,10 @@ COPY next-env.d.ts .
 COPY next.config.js .
 COPY tsconfig.json .
 
+ARG GITHUB_ACCESS_TOKEN
+
 RUN npm run build
+
+ENV GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
 
 CMD [ "npm", "run", "start", "--", "-p", "80" ]
