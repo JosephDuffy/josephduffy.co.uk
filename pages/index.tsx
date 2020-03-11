@@ -52,7 +52,7 @@ export async function getStaticProps() {
     return entry.slug === "partial-framework-release-1-0-0"
   })
   const iosShareSheetLocation = blogPostPreviews.find(entry => {
-    return entry.slug === "ios-sharing-location"
+    return entry.slug === "ios-share-sheets-the-proper-way-locations"
   })
   const appPreviews = appsLoader.getAppsPreviews()
   const gatheredAppPreview = appPreviews.find(app => {
