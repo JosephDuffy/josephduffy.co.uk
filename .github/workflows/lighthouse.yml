@@ -14,4 +14,4 @@ jobs:
           npx @lhci/cli@0.3.x autorun --upload.target=temporary-public-storage --collect.url=${{ steps.wait-for-netflify-preview.outputs.url }} || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_OAUTH_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
