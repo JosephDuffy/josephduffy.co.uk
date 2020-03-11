@@ -136,6 +136,7 @@ export class EntriesLoader {
             tags: Array.from(
               new Set(entriesToCombine.flatMap(entry => entry.tags)),
             ),
+            slug: entriesToCombine.map(entry => entry.slug).join("-"),
             type: EntryType.CombinedGitHubReleases,
           }
           combinedEntries.push(combinedEntry)

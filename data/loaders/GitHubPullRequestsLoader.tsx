@@ -18,6 +18,7 @@ const query = gql`
           title
           body
           url
+          permalink
           createdAt
           repository {
             nameWithOwner
@@ -50,6 +51,7 @@ interface PullRequest {
   title: string
   body: string
   url: string
+  permalink: string
   createdAt: string
   repository: {
     nameWithOwner: string
@@ -131,6 +133,7 @@ export class GitHubPullRequestLoader {
           title: pullRequest.title,
           descriptionHTML,
           url: pullRequest.url,
+          slug: pullRequest.permalink,
           repoName: pullRequest.repository.nameWithOwner,
           date: pullRequest.createdAt,
           tags,

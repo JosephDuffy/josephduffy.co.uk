@@ -12,4 +12,5 @@ export default interface BlogPost extends Entry {
   date: string
   url: string
   tags: string[]
+  type: EntryType.BlogPost
 }

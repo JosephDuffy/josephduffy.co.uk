@@ -14,7 +14,7 @@ export class AppsLoader {
   getAppsPreviews(): AppPreview[] {
     return [gathered, scanula, fourSquares].map(app => {
       return {
-        name: app.name,
+        title: app.name,
         slug: app.slug,
         logoURL: app.logoURL,
         description: app.shortDescription,
@@ -33,6 +33,7 @@ export class AppsLoader {
           date: changelog.releaseDate,
           content: changelog.content,
           url: `/apps/${app.slug}/changelog`,
+          slug: app.slug,
           tags: [app.slug],
           type: EntryType.AppRelease,
         }

@@ -10,16 +10,16 @@ interface Props {
 const AppPreview: FunctionComponent<Props> = ({ app }) => {
   return (
     <Fragment>
-      <div key={app.name} className="app">
+      <div key={app.title} className="app">
         <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
-          <a title={`Read more about ${app.name}`}>
-            <h2>{app.name}</h2>
+          <a title={`Read more about ${app.title}`}>
+            <h2>{app.title}</h2>
           </a>
         </Link>
         <div className="screenshots"></div>
         <div className="summary">
           <div className="appIcon">
-            <AppIcon iconURL={app.logoURL} appName={app.name} />
+            <AppIcon iconURL={app.logoURL} appName={app.title} />
           </div>
           <p>{app.description}</p>
         </div>
@@ -27,7 +27,7 @@ const AppPreview: FunctionComponent<Props> = ({ app }) => {
           <img
             className="app-store-badge"
             src="/images/app-store-download-badge.svg"
-            alt={`Download ${app.name} on the App Store`}
+            alt={`Download ${app.title} on the App Store`}
           />
         </a>
       </div>

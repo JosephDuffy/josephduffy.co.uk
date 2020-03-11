@@ -2,7 +2,6 @@ import { Fragment, Component } from "react"
 import { PossibleEntries } from "../data/loaders/EntriesLoader"
 import Link from "next/link"
 import EntryPreview from "./EntryPreview"
-import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesEntry"
 
 interface Props {
   entries: PossibleEntries[]
@@ -17,16 +16,7 @@ class EntryPreviews extends Component<Props> {
     return (
       <Fragment>
         {entries.map(entry => {
-          let key: string
-          if (entry.url) {
-            key = entry.url
-          } else if (isCombinedGitHubReleasesEntry(entry)) {
-            key = entry.title
-          } else {
-            // TODO: Create a better key
-            key = entry.date + entry.tags.concat("")
-          }
-          return <EntryPreview key={key} entry={entry} />
+          return <EntryPreview key={`${entry.type}-${entry.slug}`} entry={entry} />
         })}
         {pageCount > 1 && (
           <Fragment>

@@ -1,6 +1,7 @@
 export interface Entry {
   title: string
   date: string
+  slug: string
   url?: string
   tags: string[]
   type: EntryType

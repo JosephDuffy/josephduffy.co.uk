@@ -17,10 +17,8 @@ export class PostsLoader {
 
     console.debug("Loading posts")
 
-    let posts: BlogPost[] = []
-
     const postPaths = glob.sync("data/posts/*.md")
-    for (const postPath of postPaths) {
+    const posts: BlogPost[] = postPaths.map((postPath => {
       console.debug(`Loading post at ${postPath}`)
       const slug = path.basename(postPath, path.extname(postPath))
       const fileBuffer = fs.readFileSync(postPath)
@@ -34,18 +32,17 @@ export class PostsLoader {
       const contentHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={markdownContent} />)
       const excerptHTML = parsedContent.excerpt ? ReactDOMServer.renderToStaticMarkup(<Markdown source={parsedContent.excerpt} />) : undefined
 
-      const post = {
+      return {
         slug,
         title: parsedContent.data.title,
         contentHTML,
         excerptHTML,
         date: new Date(parsedContent.data.date).toISOString(),
         url: `/posts/${slug}`,
-        tags: parsedContent.data.tags,
+        tags: parsedContent.data.tags ?? [],
         type: EntryType.BlogPost,
       }
-      posts.push(post)
-    }
+    }))
 
     this.cachedPosts = posts
 

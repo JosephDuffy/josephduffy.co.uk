@@ -139,6 +139,7 @@ export class GitHubReleasesLoader {
           versionNumber: release.tagName,
           date: new Date(release.createdAt).toISOString(),
           url: release.url,
+          slug: release.url,
           tags: repoTags.concat(releaseTags),
           type: EntryType.GithubRelease,
         }

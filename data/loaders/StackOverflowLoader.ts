@@ -85,6 +85,7 @@ export class StackOverflowLoader {
           tags: apiQuestion.tags,
           postType: "question",
           postId: apiQuestion.question_id,
+          slug: `question-${apiQuestion.question_id}`,
           type: EntryType.StackOverflowEntry,
         }
       })
@@ -103,6 +104,7 @@ export class StackOverflowLoader {
           tags: apiQuestion.tags,
           postType: "answer",
           postId: apiAnswer.answer_id,
+          slug: `answer-${apiAnswer.answer_id}`,
           type: EntryType.StackOverflowEntry,
         }
       })

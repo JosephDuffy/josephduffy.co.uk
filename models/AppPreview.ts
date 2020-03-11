@@ -6,7 +6,7 @@ export function isAppPreview(object: any): object is AppPreview {
 
 // Does not conform to Entry but kind of is an entry (it's missing a date)
 export default interface AppPreview {
-  name: string
+  title: string
   slug: string
   logoURL: string
   description: string
