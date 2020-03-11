@@ -34,7 +34,7 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
         />
       </Head>
       <p className="intro">
-        Hi! 👋 I'm Joseph Duffy. I enjoying making iOS apps and websites. This website contains information about my iOS apps, open-source projects, and blog posts. Welcome to my corner of the internet!
+        Hi! 👋 I'm Joseph Duffy. I enjoy making iOS apps and websites. This website contains information about my iOS apps, open-source projects, and blog posts. Welcome to my corner of the internet!
       </p>
       <h1>★ My Favourites</h1>
       <EntriesPreviewsGrid entries={favouriteEntries} />
