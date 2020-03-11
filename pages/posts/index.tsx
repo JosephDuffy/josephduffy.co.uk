@@ -17,6 +17,9 @@ const PostPage: NextPage<Props> = props => {
       <Head>
         <title>Blog Posts</title>
         <meta name="description" content="Blog posts by Joseph Duffy" />
+        <link rel="alternate" type="application/rss+xml" title="RSS feed for blog posts" href="https://josephduffy.co.uk/rss.xml" />
+        <link rel="alternate" type="application/atom+xml" title="Atom feed for blog posts" href="https://josephduffy.co.uk/atom.xml" />
+        <link rel="alternate" type="application/json" title="JSON feed for blog posts" href="https://josephduffy.co.uk/feed.json" />
       </Head>
       <EntryPreviews
         entries={posts}
