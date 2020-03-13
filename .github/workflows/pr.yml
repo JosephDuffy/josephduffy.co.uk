@@ -1,0 +1,17 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+
+jobs:
+  docker_build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Build
+        run: docker build --build-arg GITHUB_ACCESS_TOKEN .
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
