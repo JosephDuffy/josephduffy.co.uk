@@ -118,7 +118,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} Changelog :: iOS App by Joseph Duffy</title>
+          <title>{app.name} Privacy Policy :: iOS App by Joseph Duffy</title>
           <meta
             name="description"
             content={`Privacy policy for ${app.name} iOS App`}
