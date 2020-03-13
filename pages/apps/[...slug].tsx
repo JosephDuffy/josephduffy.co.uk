@@ -124,14 +124,14 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             content={`Privacy policy for ${app.name} iOS App`}
           />
         </Head>
+        <p>
+          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+            <a>
+              ← Back to information about {app.name}
+            </a>
+          </Link>
+        </p>
         <h1>{app.name} Privacy Policy</h1>
-        <span>
-        <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
-          <a>
-            ← Back to information about {app.name}
-          </a>
-        </Link>
-        </span>
         <Markdown source={app.privacyPolicy} />
       </Page>
     )
@@ -145,14 +145,14 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             content={`Full changelog for ${app.name} iOS App`}
           />
         </Head>
+        <p>
+          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+            <a>
+              ← Back to information about {app.name}
+            </a>
+          </Link>
+        </p>
         <h1>{app.name} Changelog</h1>
-        <span>
-        <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
-          <a>
-            ← Back to information about {app.name}
-          </a>
-        </Link>
-        </span>
         {
           app.changelogs.map(changelog => {
             return (
