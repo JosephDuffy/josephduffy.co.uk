@@ -39,7 +39,7 @@ Features:
 
 * Detection of QR codes via images requires an iPhone 5s, iPad Air, iPad Mini 2, or newer
 `,
-  url: "https://geo.itunes.apple.com/app/apple-store/id1063048919?mt=8",
+  url: "https://apps.apple.com/app/apple-store/id1063048919",
   tags: ["scanula"],
   changelogs: [
     {

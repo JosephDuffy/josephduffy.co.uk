@@ -17,19 +17,20 @@ import { default as AppPreviewComponent} from "./AppPreview"
 
 interface Props {
   entry: PossibleEntries | AppPreview
+  appCampaignName?: string
 }
 
 class EntryPreview extends Component<Props> {
   render() {
-    const { entry } = this.props
+    const { entry, appCampaignName } = this.props
     return (
       <Fragment>
-        <Card>{this.previewForEntry(entry)}</Card>
+        <Card>{this.previewForEntry(entry, appCampaignName)}</Card>
       </Fragment>
     )
   }
 
-  private previewForEntry(entry: PossibleEntries | AppPreview): JSX.Element {
+  private previewForEntry(entry: PossibleEntries | AppPreview, appCampaignName?: string): JSX.Element {
     if (isCombinedGitHubReleasesEntry(entry)) {
       return <CombinedGitHubReleasesPreview combinedReleases={entry} />
     }
@@ -51,7 +52,7 @@ class EntryPreview extends Component<Props> {
     }
 
     if (isAppPreview(entry)) {
-      return <AppPreviewComponent app={entry} />
+      return <AppPreviewComponent app={entry} campaignName={appCampaignName} />
     }
 
     return <BlogPostPreview post={entry} />

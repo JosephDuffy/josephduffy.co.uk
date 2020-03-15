@@ -27,6 +27,7 @@ const EntriesPage: NextPage<Props> = ({ entries, pageNumber, totalPages }) => {
         pageCount={totalPages}
         paginationHREF="/entries/[page]"
         currentPage={pageNumber}
+        appCampaignName="entries"
       />
     </Page>
   )

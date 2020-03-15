@@ -5,16 +5,17 @@ import EntryPreview from "./EntryPreview"
 
 interface Props {
   entries: (PossibleEntries | AppPreview)[]
+  appCampaignName?: string
 }
 
-const EntriesPreviewsGrid: FunctionComponent<Props> = ({ entries }) => {
+const EntriesPreviewsGrid: FunctionComponent<Props> = ({ entries, appCampaignName }) => {
   return (
     <Fragment>
       <div className="entries">
         {entries.map(entry => {
           return (
             <div className="preview" key={`${entry.type}-${entry.url}`}>
-              <EntryPreview entry={entry} />
+              <EntryPreview entry={entry} appCampaignName={appCampaignName} />
             </div>
           )
         })}

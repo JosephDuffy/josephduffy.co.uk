@@ -5,9 +5,11 @@ import Link from "next/link"
 
 interface Props {
   app: AppPreviewModel
+  campaignName?: string
 }
 
-const AppPreview: FunctionComponent<Props> = ({ app }) => {
+const AppPreview: FunctionComponent<Props> = ({ app, campaignName }) => {
+  const urlQueryString = campaignName !== undefined ? `?pt=96178896&ct=${campaignName}&mt=8` : '?mt=8'
   return (
     <Fragment>
       <div key={app.title} className="app">
@@ -23,7 +25,7 @@ const AppPreview: FunctionComponent<Props> = ({ app }) => {
           </div>
           <p>{app.description}</p>
         </div>
-        <a href={app.url} className="download-link">
+        <a href={app.url + urlQueryString} className="download-link">
           <img
             className="app-store-badge"
             src="/images/app-store-download-badge.svg"

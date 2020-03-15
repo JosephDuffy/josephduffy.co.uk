@@ -8,15 +8,16 @@ interface Props {
   paginationHREF: string
   pageCount: number
   currentPage: number
+  appCampaignName?: string
 }
 
 class EntryPreviews extends Component<Props> {
   render() {
-    const { entries, pageCount, currentPage } = this.props
+    const { entries, pageCount, currentPage, appCampaignName } = this.props
     return (
       <Fragment>
         {entries.map(entry => {
-          return <EntryPreview key={`${entry.type}-${entry.slug}`} entry={entry} />
+          return <EntryPreview key={`${entry.type}-${entry.slug}`} entry={entry} appCampaignName={appCampaignName} />
         })}
         {pageCount > 1 && (
           <Fragment>

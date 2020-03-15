@@ -29,6 +29,7 @@ const TagPage: NextPage<Props> = ({ tag, entries }) => {
         pageCount={1}
         paginationHREF="/tags/[slug]"
         currentPage={1}
+        appCampaignName={`tag-${tag}`}
       />
     </Page>
   )

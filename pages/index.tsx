@@ -37,13 +37,14 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
         Hi! 👋 I'm Joseph Duffy. I enjoy making iOS apps and websites. This website contains information about my iOS apps, open-source projects, and blog posts. Welcome to my corner of the internet!
       </p>
       <h1>★ My Favourites</h1>
-      <EntriesPreviewsGrid entries={favouriteEntries} />
+      <EntriesPreviewsGrid entries={favouriteEntries} appCampaignName="home-favourites" />
       <h1>Recent Entries</h1>
       <EntryPreviews
         entries={entries}
         pageCount={pageCount}
         paginationHREF="/entries/[page]"
         currentPage={1}
+        appCampaignName="home-entries"
       />
       <style jsx>{`
         p.intro {

@@ -42,7 +42,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </div>
           <div className="header-content">
             <h1>{app.name}</h1>
-            <a href={app.url} className="download-link">
+            <a href={app.url + "?pt=96178896&ct=app-page&mt=8"} className="download-link">
               <img
                 className="app-store-badge"
                 src="/images/app-store-download-badge.svg"

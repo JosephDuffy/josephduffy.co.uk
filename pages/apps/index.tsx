@@ -25,7 +25,7 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
         My current iOS apps. I welcome feedback via Twitter at{" "}
         <a href="https://twitter.com/Joe_Duffy">@Joe_Duffy</a>.
       </p>
-      <EntriesPreviewsGrid entries={apps} />
+      <EntriesPreviewsGrid entries={apps} appCampaignName="apps-page" />
       <p>
         All of my apps are released in my company's name,{" "}
         <Link href="/yetii/">

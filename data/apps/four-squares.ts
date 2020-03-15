@@ -27,7 +27,7 @@ iPhone and iPad app features:
 - Game Center leaderboards
 - Portrait and landscape support
 `,
-  url: "https://geo.itunes.apple.com/app/apple-store/id982796319?mt=8",
+  url: "https://apps.apple.com/app/apple-store/id982796319",
   tags: ["four-squares"],
   changelogs: [
     {
