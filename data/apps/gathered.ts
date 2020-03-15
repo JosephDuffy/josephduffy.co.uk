@@ -85,7 +85,7 @@ Gathered 1.3 adds 2 new data sources, app-wide improvements, and support for var
 - Fixes some exported CSV files being invalid
 - Fixes the Microphone data source pausing other audio
 - Fixes a crash that may occur when stopping a recording
-`
+`,
     },
     {
       version: "1.2.0",

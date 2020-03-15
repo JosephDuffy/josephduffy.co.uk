@@ -18,13 +18,16 @@ const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
         <FormattedDate date={release.date} prefix="Released" />
         {release.tags.length > 0 && <TagsList tags={release.tags} />}
       </header>
-      {release.descriptionHTML && release.descriptionHTML.trim() !== "" && [
-        <HorizontalRule key="hr" />,
-        <div key="release-notes">
-          <h2>Release Notes</h2>
-          <div dangerouslySetInnerHTML={{ __html: release.descriptionHTML }} />
-        </div>,
-      ]}
+      {release.descriptionHTML &&
+        release.descriptionHTML.trim() !== "" && [
+          <HorizontalRule key="hr" />,
+          <div key="release-notes">
+            <h2>Release Notes</h2>
+            <div
+              dangerouslySetInnerHTML={{ __html: release.descriptionHTML }}
+            />
+          </div>,
+        ]}
     </article>
   )
 }

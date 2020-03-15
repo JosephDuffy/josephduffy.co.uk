@@ -8,7 +8,13 @@ interface Props {
 }
 
 const Markdown: FunctionComponent<Props> = ({ source, escapeHtml }) => {
-  return <ReactMarkdown source={source} escapeHtml={escapeHtml} renderers={{ code: CodeBlock }} />
+  return (
+    <ReactMarkdown
+      source={source}
+      escapeHtml={escapeHtml}
+      renderers={{ code: CodeBlock }}
+    />
+  )
 }
 
 export default Markdown

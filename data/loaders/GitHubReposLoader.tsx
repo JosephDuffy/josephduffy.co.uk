@@ -76,7 +76,9 @@ export interface GitHubRepository {
 export class GitHubRepositoriesLoader {
   private cachedRepositories?: GitHubRepository[]
 
-  async getRepositories(forceRefresh: boolean = false): Promise<GitHubRepository[]> {
+  async getRepositories(
+    forceRefresh: boolean = false,
+  ): Promise<GitHubRepository[]> {
     if (!forceRefresh && this.cachedRepositories) {
       console.debug("Using cached GitHub repositories")
       return this.cachedRepositories
@@ -108,27 +110,33 @@ export class GitHubRepositoriesLoader {
     }
 
     const data = result.data as QueryResult
-    const repositories: GitHubRepository[] = data.user.contributionsCollection.commitContributionsByRepository.map(contributionByRepository => {
-      const mostRecentContribution = contributionByRepository.contributions.nodes[0]
+    const repositories: GitHubRepository[] = data.user.contributionsCollection.commitContributionsByRepository
+      .map(contributionByRepository => {
+        const mostRecentContribution =
+          contributionByRepository.contributions.nodes[0]
 
-      if (!mostRecentContribution) {
-        console.warn("Got a repository with no recent contribution:", contributionByRepository)
-        return
-      }
+        if (!mostRecentContribution) {
+          console.warn(
+            "Got a repository with no recent contribution:",
+            contributionByRepository,
+          )
+          return
+        }
 
-      return {
-        description: contributionByRepository.repository.description,
-        name: contributionByRepository.repository.name,
-        url: contributionByRepository.repository.url,
-        owner: contributionByRepository.repository.owner.login,
-        allContributionsURL: `${contributionByRepository.repository.url}/commits?author=JosephDuffy`,
-        mostRecentContribution: {
-          date: mostRecentContribution.occurredAt,
-          commitCount: mostRecentContribution.commitCount,
-        },
-        type: EntryType.GithubRepository,
-      }
-    }).filter(repo => repo !== undefined) as GitHubRepository[]
+        return {
+          description: contributionByRepository.repository.description,
+          name: contributionByRepository.repository.name,
+          url: contributionByRepository.repository.url,
+          owner: contributionByRepository.repository.owner.login,
+          allContributionsURL: `${contributionByRepository.repository.url}/commits?author=JosephDuffy`,
+          mostRecentContribution: {
+            date: mostRecentContribution.occurredAt,
+            commitCount: mostRecentContribution.commitCount,
+          },
+          type: EntryType.GithubRepository,
+        }
+      })
+      .filter(repo => repo !== undefined) as GitHubRepository[]
     this.cachedRepositories = repositories
     return repositories
   }

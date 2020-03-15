@@ -24,7 +24,7 @@ const HorizontalRule = () => (
 
       @media (min-resolution: 3dppx) {
         hr {
-          height: calc(1/3)px;
+          height: calc(1 / 3) px;
         }
       }
 

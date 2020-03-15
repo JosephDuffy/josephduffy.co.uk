@@ -17,19 +17,37 @@ class EntryPreviews extends Component<Props> {
     return (
       <Fragment>
         {entries.map(entry => {
-          return <EntryPreview key={`${entry.type}-${entry.slug}`} entry={entry} appCampaignName={appCampaignName} />
+          return (
+            <EntryPreview
+              key={`${entry.type}-${entry.slug}`}
+              entry={entry}
+              appCampaignName={appCampaignName}
+            />
+          )
         })}
         {pageCount > 1 && (
           <Fragment>
             <div className="pagination">
               <div className="links">
-                { this.linkForPage(currentPage - 1, "← Previous", currentPage > 1) }
+                {this.linkForPage(
+                  currentPage - 1,
+                  "← Previous",
+                  currentPage > 1,
+                )}
                 {Array.from(Array(pageCount + 1).keys())
                   .slice(1)
                   .map(page => {
-                    return this.linkForPage(page, page.toString(), page !== currentPage)
+                    return this.linkForPage(
+                      page,
+                      page.toString(),
+                      page !== currentPage,
+                    )
                   })}
-                { this.linkForPage(currentPage + 1, "Next →", currentPage < pageCount - 1) }
+                {this.linkForPage(
+                  currentPage + 1,
+                  "Next →",
+                  currentPage < pageCount - 1,
+                )}
               </div>
             </div>
             <style jsx>{`
@@ -74,10 +92,16 @@ class EntryPreviews extends Component<Props> {
     )
   }
 
-  private linkForPage(page: number, title: string, enabled: boolean): JSX.Element {
+  private linkForPage(
+    page: number,
+    title: string,
+    enabled: boolean,
+  ): JSX.Element {
     if (!enabled) {
       return (
-        <span className="link" key={title}>{title}</span>
+        <span className="link" key={title}>
+          {title}
+        </span>
       )
     }
 

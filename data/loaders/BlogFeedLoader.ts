@@ -3,10 +3,7 @@ import postsLoader from "./PostsLoader"
 import { compareDesc } from "date-fns"
 
 export class BlogFeedLoader {
-
-  async getFeed(
-    forceRefresh: boolean = false,
-  ): Promise<Feed> {
+  async getFeed(forceRefresh: boolean = false): Promise<Feed> {
     const posts = await postsLoader.getPosts(forceRefresh)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
@@ -28,8 +25,8 @@ export class BlogFeedLoader {
       },
       author: {
         name: "Joseph Duffy",
-        link: "https://josephduffy.co.uk"
-      }
+        link: "https://josephduffy.co.uk",
+      },
     })
     posts.forEach(post => {
       feed.addItem({
@@ -41,12 +38,12 @@ export class BlogFeedLoader {
         author: [
           {
             name: "Joseph Duffy",
-            link: "https://josephduffy.co.uk"
-          }
+            link: "https://josephduffy.co.uk",
+          },
         ],
-        date: new Date(post.date)
-      });
-    });
+        date: new Date(post.date),
+      })
+    })
     return feed
   }
 }

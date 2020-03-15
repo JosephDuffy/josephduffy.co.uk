@@ -131,7 +131,9 @@ export class GitHubReleasesLoader {
       )
       return repository.releases.nodes.map(release => {
         const releaseTags = this.tagsForRelease(release, repository)
-        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={release.description} />)
+        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(
+          <Markdown source={release.description} />,
+        )
         return {
           title: `${repository.name} ${release.tagName}`,
           descriptionHTML,

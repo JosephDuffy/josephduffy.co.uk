@@ -73,22 +73,24 @@ export class StackOverflowLoader {
 
       const entities = new AllHtmlEntities()
 
-      const questions: StackOverflowEntry[] = questionPosts.map(questionPost => {
-        const apiQuestion = apiQuestions.find(
-          question => question.question_id === questionPost.post_id,
-        )!
-        const unescapedTitle = entities.decode(apiQuestion.title)
-        return {
-          title: `Posted question to StackOverflow: ${unescapedTitle}`,
-          date: new Date(apiQuestion.creation_date * 1000).toISOString(),
-          url: apiQuestion.link,
-          tags: apiQuestion.tags,
-          postType: "question",
-          postId: apiQuestion.question_id,
-          slug: `question-${apiQuestion.question_id}`,
-          type: EntryType.StackOverflowEntry,
-        }
-      })
+      const questions: StackOverflowEntry[] = questionPosts.map(
+        questionPost => {
+          const apiQuestion = apiQuestions.find(
+            question => question.question_id === questionPost.post_id,
+          )!
+          const unescapedTitle = entities.decode(apiQuestion.title)
+          return {
+            title: `Posted question to StackOverflow: ${unescapedTitle}`,
+            date: new Date(apiQuestion.creation_date * 1000).toISOString(),
+            url: apiQuestion.link,
+            tags: apiQuestion.tags,
+            postType: "question",
+            postId: apiQuestion.question_id,
+            slug: `question-${apiQuestion.question_id}`,
+            type: EntryType.StackOverflowEntry,
+          }
+        },
+      )
       const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
         const apiAnswer = apiAnswers.find(
           answer => answer.answer_id === answerPost.post_id,

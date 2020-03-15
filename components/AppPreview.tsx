@@ -9,7 +9,10 @@ interface Props {
 }
 
 const AppPreview: FunctionComponent<Props> = ({ app, campaignName }) => {
-  const urlQueryString = campaignName !== undefined ? `?pt=96178896&ct=${campaignName}&mt=8` : '?mt=8'
+  const urlQueryString =
+    campaignName !== undefined
+      ? `?pt=96178896&ct=${campaignName}&mt=8`
+      : "?mt=8"
   return (
     <Fragment>
       <div key={app.title} className="app">

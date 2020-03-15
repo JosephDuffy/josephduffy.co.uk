@@ -24,10 +24,28 @@ const PostPage: NextPage<Props> = ({ post }) => {
             name="description"
             content={`Blog post by Joseph Duffy about ${post.title}`}
           />
-          <link rel="alternate" type="application/rss+xml" title="RSS feed for blog posts" href="https://josephduffy.co.uk/rss.xml" />
-          <link rel="alternate" type="application/atom+xml" title="Atom feed for blog posts" href="https://josephduffy.co.uk/atom.xml" />
-          <link rel="alternate" type="application/json" title="JSON feed for blog posts" href="https://josephduffy.co.uk/feed.json" />
-          <script type="application/ld+json" dangerouslySetInnerHTML={ { __html: `
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS feed for blog posts"
+            href="https://josephduffy.co.uk/rss.xml"
+          />
+          <link
+            rel="alternate"
+            type="application/atom+xml"
+            title="Atom feed for blog posts"
+            href="https://josephduffy.co.uk/atom.xml"
+          />
+          <link
+            rel="alternate"
+            type="application/json"
+            title="JSON feed for blog posts"
+            href="https://josephduffy.co.uk/feed.json"
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: `
             {
               "@context": "https://schema.org",
               "@type": "BlogPosting",
@@ -45,7 +63,9 @@ const PostPage: NextPage<Props> = ({ post }) => {
                 "name": "Joseph Duffy"
               }
             }
-          `} }></script>
+          `,
+            }}
+          ></script>
         </Head>
         <Card>
           <article>
@@ -54,7 +74,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
               <FormattedDate date={post.date} prefix="Published" />
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
-            <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
+            <div
+              className="post-content"
+              dangerouslySetInnerHTML={{ __html: post.contentHTML }}
+            />
           </article>
         </Card>
         <style jsx>{`

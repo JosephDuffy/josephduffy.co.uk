@@ -13,7 +13,7 @@ import { PossibleEntries } from "../data/loaders/EntriesLoader"
 import { isAppRelease } from "../models/AppRelease"
 import AppReleasePreview from "./AppReleasePreview"
 import AppPreview, { isAppPreview } from "../models/AppPreview"
-import { default as AppPreviewComponent} from "./AppPreview"
+import { default as AppPreviewComponent } from "./AppPreview"
 
 interface Props {
   entry: PossibleEntries | AppPreview
@@ -30,7 +30,10 @@ class EntryPreview extends Component<Props> {
     )
   }
 
-  private previewForEntry(entry: PossibleEntries | AppPreview, appCampaignName?: string): JSX.Element {
+  private previewForEntry(
+    entry: PossibleEntries | AppPreview,
+    appCampaignName?: string,
+  ): JSX.Element {
     if (isCombinedGitHubReleasesEntry(entry)) {
       return <CombinedGitHubReleasesPreview combinedReleases={entry} />
     }

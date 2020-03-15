@@ -128,7 +128,9 @@ export class GitHubPullRequestLoader {
             node => node.topic.name,
           ),
         )
-        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={pullRequest.body} />)
+        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(
+          <Markdown source={pullRequest.body} />,
+        )
         return {
           title: pullRequest.title,
           descriptionHTML,

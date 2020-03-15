@@ -8,7 +8,10 @@ interface Props {
   appCampaignName?: string
 }
 
-const EntriesPreviewsGrid: FunctionComponent<Props> = ({ entries, appCampaignName }) => {
+const EntriesPreviewsGrid: FunctionComponent<Props> = ({
+  entries,
+  appCampaignName,
+}) => {
   return (
     <Fragment>
       <div className="entries">
@@ -36,9 +39,9 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({ entries, appCampaignNam
         }
 
         @media (min-width: 1024px) {
-            div.preview {
-              width: calc(50% - 4px);
-            }
+          div.preview {
+            width: calc(50% - 4px);
+          }
         }
       `}</style>
     </Fragment>

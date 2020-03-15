@@ -58,7 +58,7 @@ const ItemsList: FunctionComponent<Props> = ({
 
         span.label {
           margin-right: 4px;
-          color: var(--secondary-label)
+          color: var(--secondary-label);
         }
 
         ul {

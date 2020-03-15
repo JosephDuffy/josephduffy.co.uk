@@ -23,10 +23,14 @@ const GitHubPullRequestPreview: FunctionComponent<Props> = ({
           <FormattedDate date={pullRequest.date} prefix="Opened" />
           {pullRequest.tags.length > 0 && <TagsList tags={pullRequest.tags} />}
         </header>
-        {pullRequest.descriptionHTML && pullRequest.descriptionHTML.trim() !== "" && [
-          <HorizontalRule key="hr" />,
-          <div key="description" dangerouslySetInnerHTML={{ __html: pullRequest.descriptionHTML }} />,
-        ]}
+        {pullRequest.descriptionHTML &&
+          pullRequest.descriptionHTML.trim() !== "" && [
+            <HorizontalRule key="hr" />,
+            <div
+              key="description"
+              dangerouslySetInnerHTML={{ __html: pullRequest.descriptionHTML }}
+            />,
+          ]}
       </article>
       <style jsx>{`
         article > :global(p) {

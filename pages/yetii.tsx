@@ -31,7 +31,7 @@ const YetiiPage: NextPage = () => {
           </a>{" "}
           but has been collated on to this website.
         </p>
-        </Card>
+      </Card>
     </Page>
   )
 }
