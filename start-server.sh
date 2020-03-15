@@ -5,7 +5,7 @@ if [[ -z "${GITHUB_ACCESS_TOKEN}" ]]; then
   exit 1
 fi
 
-docker build -t josephduffy:latest --build-arg GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN .
+docker build -t josephduffy:latest --build-arg GITHUB_ACCESS_TOKEN .
 echo "Starting server listening on port 80 (http)"
 docker run -p 80:80 -it josephduffy:latest
 echo "Server stopped"
