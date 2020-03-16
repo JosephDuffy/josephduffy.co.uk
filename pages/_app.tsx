@@ -91,7 +91,7 @@ class MyApp extends App {
             --primary-background: black;
             --secondary-background: #1c1c1e;
             --tint-color: #ffcc00;
-            --content-padding-x: 8px;
+            --content-padding-x: 12px;
             --content-width: calc(
               100vw - var(--content-padding-x) - var(--content-padding-x)
             );
