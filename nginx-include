@@ -47,3 +47,7 @@ location = /feeds {
 location = /atom {
 	return 301 https://$server_name/atom.xml;
 }
+
+location = /github {
+	return 301 https://github.com/JosephDuffy;
+}
