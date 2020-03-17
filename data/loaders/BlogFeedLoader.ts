@@ -29,10 +29,11 @@ export class BlogFeedLoader {
       },
     })
     posts.forEach(post => {
+      const url = "https://josephduffy.co.uk" + post.url
       feed.addItem({
         title: post.title,
-        id: post.url,
-        link: "https://josephduffy.co.uk" + post.url,
+        id: url,
+        link: url,
         description: post.excerptHTML,
         content: post.contentHTML,
         author: [
