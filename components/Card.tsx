@@ -11,6 +11,7 @@ const Card: FunctionComponent = ({ children }) => {
           padding: 12px;
           margin-bottom: 8px;
           flex: 1;
+          overflow-wrap: break-word;
         }
       `}</style>
     </Fragment>
