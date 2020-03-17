@@ -13,6 +13,7 @@ const Index: React.FunctionComponent<{ children: React.ReactNode }> = ({
       main {
         width: var(--content-width);
         margin: 0 auto;
+        flex: 1;
       }
     `}</style>
   </Fragment>

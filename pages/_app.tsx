@@ -125,15 +125,19 @@ class MyApp extends App {
           }
 
           body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             margin: 0;
 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
               Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             background: var(--primary-background);
             color: var(--primary-label);
+          }
+
+          #__next {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
           }
 
           h1 {
