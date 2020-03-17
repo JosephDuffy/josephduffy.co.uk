@@ -55,8 +55,8 @@ const Header = () => (
         margin-left: calc(var(--content-padding-x) + 4px);
       }
 
-      nav a:last-child::after {
-        padding-right: calc(var(--content-padding-x) + 4px);
+      nav a:last-child {
+        margin-right: calc(var(--content-padding-x) + 4px);
       }
 
       .horizontal-rule-container {
