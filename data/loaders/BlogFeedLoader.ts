@@ -36,13 +36,14 @@ export class BlogFeedLoader {
         link: url,
         description: post.excerptHTML,
         content: post.contentHTML,
+        date: new Date(post.date),
+        published: new Date(post.date),
         author: [
           {
             name: "Joseph Duffy",
             link: "https://josephduffy.co.uk",
           },
         ],
-        date: new Date(post.date),
       })
     })
     return feed
