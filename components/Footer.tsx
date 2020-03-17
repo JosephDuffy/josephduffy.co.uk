@@ -17,9 +17,6 @@ const Footer = () => (
           <Link href="/privacy">
             <a>Privacy</a>
           </Link>
-          <Link href="/blog-rss">
-            <a>Blog RSS</a>
-          </Link>
           <Link href="/yetii">
             <a>Yetii Ltd.</a>
           </Link>

@@ -5,6 +5,7 @@ import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
 import BlogPostPreview from "../../models/BlogPostPreview"
 import { compareDesc } from "date-fns"
+import Link from "next/link"
 
 interface Props {
   posts: BlogPostPreview[]
@@ -36,6 +37,10 @@ const PostPage: NextPage<Props> = props => {
           href="https://josephduffy.co.uk/feed.json"
         />
       </Head>
+      <h1>Blog Posts</h1>
+      <p>
+        Below are the blog posts I have published since 2015. You can also <Link href="/blog-feeds"><a>subscribe to new posts with your favourite news reader</a></Link>.
+      </p>
       <EntryPreviews
         entries={posts}
         pageCount={1}
