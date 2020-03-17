@@ -1,5 +1,6 @@
 import Header from "../components/Header"
 import { Fragment } from "react"
+import Footer from "../components/Footer"
 
 const Index: React.FunctionComponent<{ children: React.ReactNode }> = ({
   children,
@@ -7,6 +8,7 @@ const Index: React.FunctionComponent<{ children: React.ReactNode }> = ({
   <Fragment>
     <Header />
     <main>{children}</main>
+    <Footer />
     <style jsx>{`
       main {
         width: var(--content-width);
