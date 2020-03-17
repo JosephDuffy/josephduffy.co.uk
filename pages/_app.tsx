@@ -91,6 +91,7 @@ class MyApp extends App {
             --primary-background: black;
             --secondary-background: #1c1c1e;
             --tint-color: #ffcc00;
+            --hairline: 1px;
             --content-padding-x: 12px;
             --content-width: calc(
               100vw - var(--content-padding-x) - var(--content-padding-x)
@@ -117,6 +118,18 @@ class MyApp extends App {
           @media (min-width: 1024px) {
             :root {
               --content-padding-x: calc(10vw);
+            }
+          }
+
+          @media (min-resolution: 2dppx) {
+            :root {
+              --hairline: 0.5px;
+            }
+          }
+
+          @media (min-resolution: 3dppx) {
+            :root {
+              --hairline: 0.33px;
             }
           }
 
