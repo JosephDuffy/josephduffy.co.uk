@@ -12,7 +12,7 @@ export class BlogFeedLoader {
     const feed = new Feed({
       title: "Joseph Duffy",
       description: "Blog posts written by Joseph Duffy",
-      id: "https://josephduffy.co.uk",
+      id: "https://josephduffy.co.uk/",
       link: "https://josephduffy.co.uk",
       language: "en-GB",
       favicon: "https://josephduffy.co.uk/favicon.ico",
