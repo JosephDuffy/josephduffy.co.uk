@@ -7,7 +7,7 @@ const PrivacyPage: NextPage = () => {
   return (
     <Page>
       <Head>
-        <title>Website Privacy Policy</title>
+        <title>Privacy Policy - Joseph Duffy</title>
         <meta
           name="description"
           content="Privacy policy for browsing the website"

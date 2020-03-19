@@ -2,13 +2,12 @@ import { NextPage } from "next"
 import Head from "next/head"
 import Page from "../layouts/main"
 import Link from "next/link"
-import Card from "../components/Card"
 
 const YetiiPage: NextPage = () => {
   return (
     <Page>
       <Head>
-        <title>Yetii Ltd. :: Joseph Duffy, iOS Developer</title>
+        <title>Yetii Ltd. - Joseph Duffy</title>
         <meta
           name="description"
           content="Yetii Ltd. is a private limited company used to publish iOS apps created by Joseph Duffy"

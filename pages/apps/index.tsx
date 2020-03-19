@@ -14,7 +14,7 @@ const AppsPage: NextPage<Props> = ({ apps }) => {
   return (
     <Page>
       <Head>
-        <title>Apps I've Made</title>
+        <title>Apps I've Made - Joseph Duffy</title>
         <meta
           name="description"
           content="iOS apps by Joseph Duffy, including Gathered, which enables the recording and sharing of over 25 sensors and data sources available on iOS devices"

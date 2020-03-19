@@ -19,7 +19,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
     return (
       <Page>
         <Head>
-          <title>{post.title}</title>
+          <title>{post.title} - Joseph Duffy</title>
           <meta
             name="description"
             content={`Blog post by Joseph Duffy about ${post.title}`}

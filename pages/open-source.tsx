@@ -15,7 +15,7 @@ const OpenSourcePage: NextPage<Props> = ({ repositories }) => {
   return (
     <Page>
       <Head>
-        <title>Open Source :: Joseph Duffy, iOS Developer</title>
+        <title>Open Source - Joseph Duffy</title>
         <meta
           name="description"
           content="Open source projects created or contributed to by Joseph Duffy"
