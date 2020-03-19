@@ -3,9 +3,7 @@ import { Fragment, FunctionComponent } from "react"
 const HorizontalScrollContainer: FunctionComponent = ({ children }) => (
   <Fragment>
     <div className="wrapper">
-      <div className="container">
-        { children }
-      </div>
+      <div className="container">{children}</div>
     </div>
     <style jsx>{`
       .wrapper {

@@ -20,7 +20,7 @@ const TagPage: NextPage<Props> = ({ tag, entries }) => {
         <title>Entries with the {tag} tag - Joseph Duffy</title>
         <meta
           name="description"
-          content={ `Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy with the ${tag} tag` }
+          content={`Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy with the ${tag} tag`}
         />
       </Head>
       <h1>Entries with the {tag} tag</h1>

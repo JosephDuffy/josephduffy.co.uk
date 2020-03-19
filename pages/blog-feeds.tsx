@@ -16,7 +16,9 @@ const YetiiPage: NextPage = () => {
       </Head>
       <h1>Blog RSS Feeds</h1>
       <p>
-        Multiple RSS feeds are available that will be updated with blog posts as they are published. All feeds contain the same data provided in a different format.
+        Multiple RSS feeds are available that will be updated with blog posts as
+        they are published. All feeds contain the same data provided in a
+        different format.
       </p>
       <table>
         <thead>
@@ -56,16 +58,17 @@ const YetiiPage: NextPage = () => {
           </tr>
         </tbody>
       </table>
-    <style jsx>{`
-      table {
-        border-collapse: collapse;
-      }
+      <style jsx>{`
+        table {
+          border-collapse: collapse;
+        }
 
-      td, th {
-        border: var(--hairline) solid var(--separator-color);
-        padding: 8px;
-      }
-    `}</style>
+        td,
+        th {
+          border: var(--hairline) solid var(--separator-color);
+          padding: 8px;
+        }
+      `}</style>
     </Page>
   )
 }

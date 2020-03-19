@@ -15,8 +15,8 @@ const PrivacyPage: NextPage = () => {
       </Head>
       <h1>Privacy Policy</h1>
       <p>
-        This website does not include any third-party scripts. It is possible
-        to browse the website with JavaScript disabled.
+        This website does not include any third-party scripts. It is possible to
+        browse the website with JavaScript disabled.
       </p>
       <p>
         <a href="https://nginx.org/">NGINX</a> is used to serve the content of

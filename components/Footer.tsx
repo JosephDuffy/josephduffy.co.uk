@@ -10,7 +10,8 @@ const Footer = () => (
     </div>
     <footer>
       <div className="copyright">
-        © Joseph Duffy. Blog posts published under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.
+        © Joseph Duffy. Blog posts published under{" "}
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.
       </div>
       <HorizontalScrollContainer>
         <nav>
@@ -22,11 +23,17 @@ const Footer = () => (
           </Link>
         </nav>
       </HorizontalScrollContainer>
-      {process.env["GIT_COMMIT"] && process.env["BUILD_DATE"] &&
+      {process.env["GIT_COMMIT"] && process.env["BUILD_DATE"] && (
         <div className="build-metadata">
-          Built at { process.env["BUILD_DATE"] } from commit <a href={`https://github.com/JosephDuffy/josephduffy.co.uk/tree/${process.env["GIT_COMMIT"]}`}>{process.env["GIT_COMMIT"]}</a>.
+          Built at {process.env["BUILD_DATE"]} from commit{" "}
+          <a
+            href={`https://github.com/JosephDuffy/josephduffy.co.uk/tree/${process.env["GIT_COMMIT"]}`}
+          >
+            {process.env["GIT_COMMIT"]}
+          </a>
+          .
         </div>
-      }
+      )}
     </footer>
     <style jsx>{`
       footer {

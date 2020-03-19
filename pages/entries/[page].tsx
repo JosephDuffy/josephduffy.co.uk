@@ -16,7 +16,7 @@ const EntriesPage: NextPage<Props> = ({ entries, pageNumber, totalPages }) => {
   return (
     <Page>
       <Head>
-        <title>{ `Entries page ${pageNumber} - Joseph Duffy` }</title>
+        <title>{`Entries page ${pageNumber} - Joseph Duffy`}</title>
         <meta
           name="description"
           content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy"
