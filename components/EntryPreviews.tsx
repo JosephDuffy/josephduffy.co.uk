@@ -33,6 +33,7 @@ class EntryPreviews extends Component<Props> {
                   currentPage - 1,
                   "← Previous",
                   currentPage > 1,
+                  "prev",
                 )}
                 {Array.from(Array(pageCount + 1).keys())
                   .slice(1)
@@ -41,12 +42,18 @@ class EntryPreviews extends Component<Props> {
                       page,
                       page.toString(),
                       page !== currentPage,
+                      page === currentPage - 1
+                        ? "prev"
+                        : page === currentPage + 1
+                        ? "next"
+                        : undefined,
                     )
                   })}
                 {this.linkForPage(
                   currentPage + 1,
                   "Next →",
                   currentPage < pageCount - 1,
+                  "next",
                 )}
               </div>
             </div>
@@ -96,6 +103,7 @@ class EntryPreviews extends Component<Props> {
     page: number,
     title: string,
     enabled: boolean,
+    rel?: string,
   ): JSX.Element {
     if (!enabled) {
       return (
@@ -112,7 +120,9 @@ class EntryPreviews extends Component<Props> {
     )
     return (
       <Link href={paginationHREF} as={paginationURL} key={title}>
-        <a className="link">{title}</a>
+        <a className="link" rel={rel}>
+          {title}
+        </a>
       </Link>
     )
   }
