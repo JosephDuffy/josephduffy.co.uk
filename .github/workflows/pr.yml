@@ -15,11 +15,11 @@ jobs:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
       - name: Docker Build
-        run: DOCKER_BUILDKIT=1 docker build . -t josephduffy:${GITHUB_SHA} --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
+        run: DOCKER_BUILDKIT=1 docker build . -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/josephduffy.co.uk:$GITHUB_SHA --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
 
       - name: Docker Login
         run: docker login docker.pkg.github.com -u "JosephDuffy" --password "${GITHUB_TOKEN}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/josephduffy.co.uk:${GITHUB_SHA}
+      - run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/josephduffy.co.uk:$GITHUB_SHA
