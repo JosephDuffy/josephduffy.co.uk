@@ -22,4 +22,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: docker push josephduffy:${GITHUB_SHA}
+      - run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/josephduffy.co.uk:${GITHUB_SHA}
