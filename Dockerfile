@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:experimental
+
 FROM node:12
 
 RUN mkdir /app
@@ -22,10 +24,6 @@ COPY next-env.d.ts .
 COPY next.config.js .
 COPY tsconfig.json .
 
-ARG GITHUB_ACCESS_TOKEN
-
-RUN npm run build
-
-ENV GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
+RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
 
 CMD [ "npm", "run", "start", "--", "-p", "80" ]
