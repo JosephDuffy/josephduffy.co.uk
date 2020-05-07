@@ -6,6 +6,8 @@ import { InMemoryCache } from "apollo-cache-inmemory"
 import { Entry, EntryType } from "./Entry"
 import Markdown from "../../components/Markdown"
 import ReactDOMServer from "react-dom/server"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { GitHubRepository } from "./GitHubReposLoader"
 
 const query = gql`
   query {
@@ -81,16 +83,30 @@ export interface GitHubPullRequest extends Entry {
 }
 
 export class GitHubPullRequestLoader {
-  private cachedPullRequests?: GitHubPullRequest[]
+  private cache: LoaderEntriesCache<GitHubPullRequest>
 
-  async getPullRequests(
-    forceRefresh: boolean = false,
-  ): Promise<GitHubPullRequest[]> {
-    if (!forceRefresh && this.cachedPullRequests) {
-      console.debug("Using cached GitHub pull requests")
-      return this.cachedPullRequests
+  constructor() {
+    if (process.env["GITHUB_PULL_REQUESTS_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadPullRequests.bind(this),
+        parseInt(process.env["GITHUB_PULL_REQUESTS_TIMEOUT"]),
+      )
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadPullRequests.bind(this),
+        parseInt(process.env["CACHE_TIMEOUT"]),
+      )
+    } else {
+      this.cache = new LoaderEntriesCache(
+        this.loadPullRequests.bind(this))
     }
+  }
 
+  getPullRequests(): Promise<GitHubPullRequest[]> {
+    return this.cache.entries
+  }
+
+  private async loadPullRequests(): Promise<GitHubPullRequest[]> {
     if (!process.env["GITHUB_ACCESS_TOKEN"]) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub pull requests will not be loaded",
@@ -142,7 +158,6 @@ export class GitHubPullRequestLoader {
           type: EntryType.GitHubPullRequest,
         }
       })
-    this.cachedPullRequests = pullRequests
     return pullRequests
   }
 }

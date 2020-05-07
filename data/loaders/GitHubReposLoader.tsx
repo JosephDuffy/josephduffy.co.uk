@@ -4,6 +4,7 @@ import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { EntryType } from "./Entry"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
 
 const query = gql`
   query {
@@ -74,16 +75,29 @@ export interface GitHubRepository {
 }
 
 export class GitHubRepositoriesLoader {
-  private cachedRepositories?: GitHubRepository[]
+  private cache: LoaderEntriesCache<GitHubRepository>
 
-  async getRepositories(
-    forceRefresh: boolean = false,
-  ): Promise<GitHubRepository[]> {
-    if (!forceRefresh && this.cachedRepositories) {
-      console.debug("Using cached GitHub repositories")
-      return this.cachedRepositories
+  constructor() {
+    if (process.env["GITHUB_REPOS_CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        parseInt(process.env["GITHUB_REPOS_CACHE_TIMEOUT"]),
+      )
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        parseInt(process.env["CACHE_TIMEOUT"]),
+      )
+    } else {
+      this.cache = new LoaderEntriesCache(this.loadReleases.bind(this))
     }
+  }
 
+  async getRepositories(): Promise<GitHubRepository[]> {
+    return this.cache.entries
+  }
+
+  private async loadReleases(): Promise<GitHubRepository[]> {
     if (!process.env["GITHUB_ACCESS_TOKEN"]) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
@@ -137,7 +151,7 @@ export class GitHubRepositoriesLoader {
         }
       })
       .filter(repo => repo !== undefined) as GitHubRepository[]
-    this.cachedRepositories = repositories
+
     return repositories
   }
 }
