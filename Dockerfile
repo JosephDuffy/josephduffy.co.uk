@@ -1,12 +1,10 @@
 # syntax=docker/dockerfile:experimental
 
-FROM node:12
+FROM node:12 as builder
 
 RUN mkdir /app
 ENV NODE_ENV production
-EXPOSE 80
-
-WORKDIR /app
+WORKDIR /build
 
 COPY package*.json ./
 
@@ -25,5 +23,16 @@ COPY next.config.js .
 COPY tsconfig.json .
 
 RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
+
+FROM node:12-alpine
+
+RUN mkdir /app
+ENV NODE_ENV production
+EXPOSE 80
+WORKDIR /app
+
+COPY --from=builder /build/.next .next
+COPY --from=builder /build/node_modules node_modules
+COPY --from=builder /build/package.json .
 
 CMD [ "npm", "run", "start", "--", "-p", "80" ]
