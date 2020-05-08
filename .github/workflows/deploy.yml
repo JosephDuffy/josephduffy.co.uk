@@ -27,3 +27,14 @@ jobs:
       - name: Docker Push
         run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest
 
+  trigger_update:
+    name: Trigger Update
+    needs: build_image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          repository: JosephDuffy/webserver-deploy
+          event-type: update_josephduffy-co-uk
