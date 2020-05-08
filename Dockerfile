@@ -32,6 +32,7 @@ EXPOSE 80
 WORKDIR /app
 
 COPY --from=builder /build/.next .next
+COPY --from=builder /build/public public
 COPY --from=builder /build/node_modules node_modules
 COPY --from=builder /build/package.json .
 COPY nginx-include .
