@@ -1,10 +1,10 @@
-FROM node:12
+# syntax=docker/dockerfile:experimental
+
+FROM node:12 as builder
 
 RUN mkdir /app
 ENV NODE_ENV production
-EXPOSE 80
-
-WORKDIR /app
+WORKDIR /build
 
 COPY package*.json ./
 
@@ -22,10 +22,18 @@ COPY next-env.d.ts .
 COPY next.config.js .
 COPY tsconfig.json .
 
-ARG GITHUB_ACCESS_TOKEN
+RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
 
-RUN npm run build
+FROM node:12-alpine
 
-ENV GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
+RUN mkdir /app
+ENV NODE_ENV production
+EXPOSE 80
+WORKDIR /app
+
+COPY --from=builder /build/.next .next
+COPY --from=builder /build/node_modules node_modules
+COPY --from=builder /build/package.json .
+COPY nginx-include .
 
 CMD [ "npm", "run", "start", "--", "-p", "80" ]

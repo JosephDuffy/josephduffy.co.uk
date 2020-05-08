@@ -4,18 +4,25 @@ on:
   push:
     branches:
       - master
-  schedule:
-    - cron: '0 */6 * * *'
 
 jobs:
-  lhci:
-    name: Trigger Deploy
+  build_image:
+    name: Build Image
     runs-on: ubuntu-latest
     steps:
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          repository: JosephDuffy/webserver-deploy
-          event-type: deploy
+      - uses: actions/checkout@v2
+
+      - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+      - name: Docker Build
+        run: DOCKER_BUILDKIT=1 docker build . -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
+
+      - name: Docker Login
+        run: docker login docker.pkg.github.com -u "JosephDuffy" --password "${GITHUB_TOKEN}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          - run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest
 

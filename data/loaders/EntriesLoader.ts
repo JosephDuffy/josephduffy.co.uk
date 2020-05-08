@@ -14,6 +14,7 @@ import {
 import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
 import BlogPostPreview from "../../models/BlogPostPreview"
 import AppRelease from "../../models/AppRelease"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
 
 export type PossibleEntries =
   | BlogPostPreview
@@ -24,18 +25,31 @@ export type PossibleEntries =
   | AppRelease
 
 export class EntriesLoader {
-  private cachedCombinedEntries?: PossibleEntries[]
-  private cachedNonCombinedEntries?: PossibleEntries[]
+  private cachedCombinedEntries: LoaderEntriesCache<PossibleEntries>
+  private cachedNonCombinedEntries: LoaderEntriesCache<PossibleEntries>
 
   readonly pageSize = 10
 
+  constructor() {
+    if (process.env["ENTRIES_CACHE_TIMEOUT"] !== undefined) {
+      const timeout = parseInt(process.env["ENTRIES_CACHE_TIMEOUT"])
+      this.cachedCombinedEntries = new LoaderEntriesCache(this.loadEntries.bind(this, true), timeout)
+      this.cachedNonCombinedEntries = new LoaderEntriesCache(this.loadEntries.bind(this, true), timeout)
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      const timeout = parseInt(process.env["CACHE_TIMEOUT"])
+      this.cachedCombinedEntries = new LoaderEntriesCache(this.loadEntries.bind(this, true), timeout)
+      this.cachedNonCombinedEntries = new LoaderEntriesCache(this.loadEntries.bind(this, true), timeout)
+    } else {
+      this.cachedCombinedEntries = new LoaderEntriesCache(this.loadEntries.bind(this, true))
+      this.cachedNonCombinedEntries = new LoaderEntriesCache(this.loadEntries.bind(this, true))
+    }
+  }
+
   async getPageCount(
     combineSequencialEntries: boolean,
-    forceRefresh: boolean = false,
   ): Promise<number> {
     const entries = await this.getEntries(
       combineSequencialEntries,
-      forceRefresh,
     )
     return Math.ceil(entries.length / this.pageSize)
   }
@@ -43,11 +57,9 @@ export class EntriesLoader {
   async getPage(
     page: number,
     combineSequencialEntries: boolean,
-    forceRefresh: boolean = false,
   ): Promise<PossibleEntries[]> {
     const entries = await this.getEntries(
       combineSequencialEntries,
-      forceRefresh,
     )
     const pagesCount = Math.ceil(entries.length / this.pageSize)
 
@@ -65,19 +77,16 @@ export class EntriesLoader {
   }
 
   async getEntries(
-    combineSequencialEntries: boolean,
-    forceRefresh: boolean = false,
+    combineSequencialEntries: boolean
   ): Promise<PossibleEntries[]> {
-    if (!forceRefresh) {
-      if (combineSequencialEntries && this.cachedCombinedEntries) {
-        console.debug("Using cached entries")
-        return this.cachedCombinedEntries
-      } else if (!combineSequencialEntries && this.cachedNonCombinedEntries) {
-        console.debug("Using cached entries")
-        return this.cachedNonCombinedEntries
-      }
+    if (combineSequencialEntries) {
+      return this.cachedCombinedEntries.entries
+    } else {
+      return this.cachedNonCombinedEntries.entries
     }
+  }
 
+  private async loadEntries(combineSequencialEntries: boolean): Promise<PossibleEntries[]> {
     console.debug("Loading all entries")
 
     let entries: PossibleEntries[] = []
@@ -99,8 +108,6 @@ export class EntriesLoader {
     })
 
     if (!combineSequencialEntries) {
-      this.cachedNonCombinedEntries = entries
-
       return entries
     } else {
       console.debug("Combining entries")
@@ -148,8 +155,6 @@ export class EntriesLoader {
 
         entriesToCombine = []
       }
-
-      this.cachedCombinedEntries = combinedEntries
 
       return combinedEntries
     }

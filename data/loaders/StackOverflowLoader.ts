@@ -2,6 +2,7 @@ import { Entry, EntryType } from "./Entry"
 import https from "https"
 import zlib from "zlib"
 import { AllHtmlEntities } from "html-entities"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
 
 interface StackOverflowAPIPost {
   creation_date: number
@@ -43,16 +44,30 @@ export interface StackOverflowEntry extends Entry {
 }
 
 export class StackOverflowLoader {
-  private cachedEntries?: StackOverflowEntry[]
+  private cache: LoaderEntriesCache<StackOverflowEntry>
 
-  async getEntries(
-    forceRefresh: boolean = false,
-  ): Promise<StackOverflowEntry[]> {
-    if (!forceRefresh && this.cachedEntries) {
-      console.debug("Using cached StackOverflow entries")
-      return this.cachedEntries
+  constructor() {
+    if (process.env["STACK_OVERFLOW_CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadEntries.bind(this),
+        parseInt(process.env["STACK_OVERFLOW_CACHE_TIMEOUT"]),
+      )
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadEntries.bind(this),
+        parseInt(process.env["CACHE_TIMEOUT"]),
+      )
+    } else {
+      this.cache = new LoaderEntriesCache(
+        this.loadEntries.bind(this))
     }
+  }
 
+  getEntries(): Promise<StackOverflowEntry[]> {
+    return this.cache.entries
+  }
+
+  private async loadEntries(): Promise<StackOverflowEntry[]> {
     console.debug("Loading StackOverflow posts")
 
     try {
@@ -112,8 +127,6 @@ export class StackOverflowLoader {
       })
 
       entries = entries.concat(questions).concat(answers)
-
-      this.cachedEntries = entries
 
       console.debug("Loaded StackOverflow entries")
 

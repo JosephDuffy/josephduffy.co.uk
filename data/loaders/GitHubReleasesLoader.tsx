@@ -7,6 +7,7 @@ import { Entry, EntryType } from "./Entry"
 import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
 import ReactDOMServer from "react-dom/server"
 import Markdown from "../../components/Markdown"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
 
 const query = gql`
   query {
@@ -90,15 +91,32 @@ export interface GitHubRelease extends Entry {
 }
 
 export class GitHubReleasesLoader {
-  private cachedReleases?: GitHubRelease[]
 
-  async getReleases(forceRefresh: boolean = false): Promise<GitHubRelease[]> {
-    if (!forceRefresh && this.cachedReleases) {
-      console.debug("Using cached GitHub releases")
-      return this.cachedReleases
+  private cache: LoaderEntriesCache<GitHubRelease>
+
+  constructor() {
+    if (process.env["GITHUB_RELEASES_CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        parseInt(process.env["GITHUB_RELEASES_CACHE_TIMEOUT"]),
+      )
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        parseInt(process.env["CACHE_TIMEOUT"]),
+      )
+    } else {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this))
     }
+  }
 
-    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+  async getReleases(): Promise<GitHubRelease[]> {
+    return this.cache.entries
+  }
+
+  private async loadReleases(): Promise<GitHubRelease[]> {
+    if (process.env["GITHUB_ACCESS_TOKEN"] === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
       )
@@ -147,7 +165,6 @@ export class GitHubReleasesLoader {
         }
       })
     })
-    this.cachedReleases = releases
     return releases
   }
 
