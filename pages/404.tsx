@@ -13,7 +13,11 @@ const PrivacyPage: NextPage = () => {
           content="Privacy policy for browsing the website"
         />
       </Head>
-      <Error statusCode={404} title="Page Not Found" message="The page you were looking for could not be found." />
+      <Error
+        statusCode={404}
+        title="Page Not Found"
+        message="The page you were looking for could not be found."
+      />
     </Page>
   )
 }

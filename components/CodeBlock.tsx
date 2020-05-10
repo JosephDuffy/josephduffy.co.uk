@@ -3,7 +3,7 @@ import { PrismLight } from "react-syntax-highlighter"
 import swift from "react-syntax-highlighter/dist/cjs/languages/prism/swift"
 import tomorrow from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow"
 
-PrismLight.registerLanguage('swift', swift)
+PrismLight.registerLanguage("swift", swift)
 
 interface Props {
   value: string

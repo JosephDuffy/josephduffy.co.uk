@@ -85,8 +85,7 @@ export class GitHubPullRequestLoader {
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(
-        this.loadPullRequests.bind(this))
+      this.cache = new LoaderEntriesCache(this.loadPullRequests.bind(this))
     }
   }
 

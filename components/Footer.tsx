@@ -24,17 +24,21 @@ const Footer = () => (
         © Joseph Duffy. Blog posts published under{" "}
         <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>.
       </div>
-      {process.env["NEXT_PUBLIC_GIT_COMMIT"] && process.env["NEXT_PUBLIC_BUILD_DATE"] && Date.parse(process.env["NEXT_PUBLIC_BUILD_DATE"]) !== NaN && (
-        <div className="build-metadata">
-          Built at {format(new Date(process.env["NEXT_PUBLIC_BUILD_DATE"]!), "PPpp")} from commit{" "}
-          <a
-            href={`https://github.com/JosephDuffy/josephduffy.co.uk/tree/${process.env["NEXT_PUBLIC_GIT_COMMIT"]}`}
-          >
-            {process.env["NEXT_PUBLIC_GIT_COMMIT"]}
-          </a>
-          .
-        </div>
-      )}
+      {process.env["NEXT_PUBLIC_GIT_COMMIT"] &&
+        process.env["NEXT_PUBLIC_BUILD_DATE"] &&
+        Date.parse(process.env["NEXT_PUBLIC_BUILD_DATE"]) !== NaN && (
+          <div className="build-metadata">
+            Built at{" "}
+            {format(new Date(process.env["NEXT_PUBLIC_BUILD_DATE"]!), "PPpp")}{" "}
+            from commit{" "}
+            <a
+              href={`https://github.com/JosephDuffy/josephduffy.co.uk/tree/${process.env["NEXT_PUBLIC_GIT_COMMIT"]}`}
+            >
+              {process.env["NEXT_PUBLIC_GIT_COMMIT"]}
+            </a>
+            .
+          </div>
+        )}
     </footer>
     <style jsx>{`
       footer {
@@ -45,7 +49,8 @@ const Footer = () => (
         font-size: 0.8em;
       }
 
-      .copyright, .build-metadata {
+      .copyright,
+      .build-metadata {
         width: var(--content-width);
         margin: 0 auto;
         color: var(--secondary-label);

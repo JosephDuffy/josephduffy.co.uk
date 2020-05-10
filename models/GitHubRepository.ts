@@ -1,4 +1,4 @@
-import { EntryType } from "./Entry";
+import { EntryType } from "./Entry"
 
 export function isGitHubRepository(object: any): object is GitHubRepository {
   return object.type === EntryType.GithubRelease

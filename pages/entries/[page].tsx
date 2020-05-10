@@ -1,8 +1,6 @@
 import { NextPage } from "next"
 import Page from "../../layouts/main"
-import entriesLoader, {
-  PossibleEntries,
-} from "../../loaders/EntriesLoader"
+import entriesLoader, { PossibleEntries } from "../../loaders/EntriesLoader"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
 

@@ -76,7 +76,6 @@ interface Release {
 }
 
 export class GitHubReleasesLoader {
-
   private cache: LoaderEntriesCache<GitHubRelease>
 
   constructor() {
@@ -91,8 +90,7 @@ export class GitHubReleasesLoader {
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(
-        this.loadReleases.bind(this))
+      this.cache = new LoaderEntriesCache(this.loadReleases.bind(this))
     }
   }
 

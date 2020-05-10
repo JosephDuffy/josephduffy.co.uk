@@ -1,7 +1,6 @@
 export type EntriesReloader<Entry> = () => Promise<Entry[]>
 
 export class LoaderEntriesCache<Entry> {
-
   get entries(): Promise<Entry[]> {
     return this.getEntries()
   }
@@ -18,7 +17,10 @@ export class LoaderEntriesCache<Entry> {
    *
    * @param timeout The time in ms for cached values to be valid for. Defaults to 6 hours.
    */
-  constructor(entriesReloader: EntriesReloader<Entry>, timeout: number = 6 * 60 * 1000) {
+  constructor(
+    entriesReloader: EntriesReloader<Entry>,
+    timeout: number = 6 * 60 * 1000,
+  ) {
     this.entriesReloader = entriesReloader
     this.timeout = timeout
   }
@@ -44,5 +46,4 @@ export class LoaderEntriesCache<Entry> {
 
     return entries
   }
-
 }

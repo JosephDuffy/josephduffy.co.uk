@@ -19,15 +19,15 @@ const ErrorPage: NextPage<Props> = ({
     <Page>
       <Head>
         <title>
-          {title &&
-            title
-          }
-          {!title &&
-            `${statusCode} Error`
-          }
+          {title && title}
+          {!title && `${statusCode} Error`}
         </title>
       </Head>
-      <Error statusCode={statusCode} title={title ?? `${statusCode} Error`} message={message} />
+      <Error
+        statusCode={statusCode}
+        title={title ?? `${statusCode} Error`}
+        message={message}
+      />
       {children}
     </Page>
   )

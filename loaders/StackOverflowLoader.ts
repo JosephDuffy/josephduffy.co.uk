@@ -3,7 +3,10 @@ import https from "https"
 import zlib from "zlib"
 import { AllHtmlEntities } from "html-entities"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
-import { StackOverflowEntry, StackOverflowPostType } from "../models/StackOverflowEntry"
+import {
+  StackOverflowEntry,
+  StackOverflowPostType,
+} from "../models/StackOverflowEntry"
 
 interface StackOverflowAPIPost {
   creation_date: number
@@ -42,8 +45,7 @@ export class StackOverflowLoader {
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(
-        this.loadEntries.bind(this))
+      this.cache = new LoaderEntriesCache(this.loadEntries.bind(this))
     }
   }
 
