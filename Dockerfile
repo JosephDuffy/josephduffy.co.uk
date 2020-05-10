@@ -14,6 +14,7 @@ RUN npm ci
 COPY components components
 COPY data data
 COPY layouts layouts
+COPY loaders loaders
 COPY models models
 COPY pages pages
 COPY public public
