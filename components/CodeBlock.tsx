@@ -1,6 +1,9 @@
 import React, { PureComponent } from "react"
-import { Prism } from "react-syntax-highlighter"
+import { PrismLight } from "react-syntax-highlighter"
+import swift from "react-syntax-highlighter/dist/cjs/languages/prism/swift"
 import tomorrow from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow"
+
+PrismLight.registerLanguage('swift', swift)
 
 interface Props {
   value: string
@@ -11,9 +14,9 @@ class CodeBlock extends PureComponent<Props> {
   render() {
     const { language, value } = this.props
     return (
-      <Prism language={language} style={tomorrow}>
+      <PrismLight language={language} style={tomorrow}>
         {value}
-      </Prism>
+      </PrismLight>
     )
   }
 }
