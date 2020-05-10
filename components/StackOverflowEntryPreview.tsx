@@ -1,7 +1,7 @@
-import { StackOverflowEntry } from "../data/loaders/StackOverflowLoader"
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
 import FormattedDate from "./FormattedDate"
+import { StackOverflowEntry } from "../models/StackOverflowEntry"
 
 interface Props {
   entry: StackOverflowEntry

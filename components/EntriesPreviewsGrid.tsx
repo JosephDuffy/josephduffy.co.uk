@@ -1,5 +1,5 @@
 import { FunctionComponent, Fragment } from "react"
-import { PossibleEntries } from "../data/loaders/EntriesLoader"
+import { PossibleEntries } from "../loaders/EntriesLoader"
 import AppPreview from "../models/AppPreview"
 import EntryPreview from "./EntryPreview"
 

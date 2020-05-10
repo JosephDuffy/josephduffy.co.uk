@@ -1,11 +1,11 @@
 import { NextPage, GetStaticProps } from "next"
 import Page from "../layouts/main"
 import EntryPreviews from "../components/EntryPreviews"
-import entriesLoader, { PossibleEntries } from "../data/loaders/EntriesLoader"
-import appsLoader from "../data/loaders/AppsLoader"
+import entriesLoader, { PossibleEntries } from "../loaders/EntriesLoader"
+import appsLoader from "../loaders/AppsLoader"
 import Head from "next/head"
 import EntriesPreviewsGrid from "../components/EntriesPreviewsGrid"
-import { EntryType } from "../data/loaders/Entry"
+import { EntryType } from "../models/Entry"
 
 interface Props {
   entries: PossibleEntries[]

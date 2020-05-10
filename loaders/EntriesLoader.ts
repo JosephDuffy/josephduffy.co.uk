@@ -1,20 +1,20 @@
 import gitHubReleasesLoader from "./GitHubReleasesLoader"
-import gitHubPullRequestsLoader, {
-  GitHubPullRequest,
-} from "./GitHubPullRequestsLoader"
+import gitHubPullRequestsLoader from "./GitHubPullRequestsLoader"
 import appsLoader from "./AppsLoader"
 import postsLoader from "./PostPreviewsLoader"
-import stackOverflowLoader, { StackOverflowEntry } from "./StackOverflowLoader"
-import { EntryType } from "./Entry"
+import stackOverflowLoader from "./StackOverflowLoader"
+import { EntryType } from "../models/Entry"
 import { compareDesc } from "date-fns"
 import {
   isGitHubRelease,
   GitHubRelease,
-} from "../../data/loaders/GitHubReleasesLoader"
-import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
-import BlogPostPreview from "../../models/BlogPostPreview"
-import AppRelease from "../../models/AppRelease"
+} from "../models/GitHubRelease"
+import CombinedGitHubReleasesEntry from "../models/CombinedGitHubReleasesEntry"
+import BlogPostPreview from "../models/BlogPostPreview"
+import AppRelease from "../models/AppRelease"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { GitHubPullRequest } from "../models/GitHubPullRequest"
+import { StackOverflowEntry } from "../models/StackOverflowEntry"
 
 export type PossibleEntries =
   | BlogPostPreview

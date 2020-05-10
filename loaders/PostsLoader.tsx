@@ -2,10 +2,10 @@ import matter from "gray-matter"
 import glob from "glob"
 import path from "path"
 import fs from "fs"
-import BlogPost from "../../models/BlogPost"
-import { EntryType } from "./Entry"
+import BlogPost from "../models/BlogPost"
+import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
-import Markdown from "../../components/Markdown"
+import Markdown from "../components/Markdown"
 
 export class PostsLoader {
   private cachedPosts?: BlogPost[]

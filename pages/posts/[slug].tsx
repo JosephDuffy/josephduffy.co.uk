@@ -1,7 +1,7 @@
 import ErrorPage from "../../pages/_error"
 import { NextPage } from "next"
 import Page from "../../layouts/main"
-import postsLoader from "../../data/loaders/PostsLoader"
+import postsLoader from "../../loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
 import Head from "next/head"

@@ -3,8 +3,9 @@ import gql from "graphql-tag"
 import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
-import { EntryType } from "./Entry"
+import { EntryType } from "../models/Entry"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { GitHubRepository } from "../models/GitHubRepository"
 
 const query = gql`
   query {
@@ -55,23 +56,6 @@ interface ContributionByRepository {
       commitCount: number
     }[]
   }
-}
-
-export function isGitHubRepository(object: any): object is GitHubRepository {
-  return object.type === EntryType.GithubRelease
-}
-
-export interface GitHubRepository {
-  description?: string
-  name: string
-  url: string
-  owner: string
-  allContributionsURL: string
-  mostRecentContribution: {
-    date: string
-    commitCount: number
-  }
-  type: EntryType.GithubRepository
 }
 
 export class GitHubRepositoriesLoader {

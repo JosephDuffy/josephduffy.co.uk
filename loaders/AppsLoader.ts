@@ -1,10 +1,10 @@
-import App from "../../models/App"
-import gathered from "../apps/gathered"
-import scanula from "../apps/scanula"
-import fourSquares from "../apps/four-squares"
-import AppPreview from "../../models/AppPreview"
-import { EntryType } from "./Entry"
-import AppRelease from "../../models/AppRelease"
+import App from "../models/App"
+import gathered from "../data/apps/gathered"
+import scanula from "../data/apps/scanula"
+import fourSquares from "../data/apps/four-squares"
+import AppPreview from "../models/AppPreview"
+import { EntryType } from "../models/Entry"
+import AppRelease from "../models/AppRelease"
 
 export class AppsLoader {
   getApps(): App[] {

@@ -1,6 +1,6 @@
-import BlogPostPreview from "../../models/BlogPostPreview"
+import BlogPostPreview from "../models/BlogPostPreview"
 import postsLoader from "./PostsLoader"
-import { EntryType } from "./Entry"
+import { EntryType } from "../models/Entry"
 
 export class PostPreviewsLoader {
   private cachedPosts?: BlogPostPreview[]

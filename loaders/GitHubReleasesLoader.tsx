@@ -3,11 +3,11 @@ import gql from "graphql-tag"
 import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
-import { Entry, EntryType } from "./Entry"
-import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
+import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
-import Markdown from "../../components/Markdown"
+import Markdown from "../components/Markdown"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { GitHubRelease } from "../models/GitHubRelease"
 
 const query = gql`
   query {
@@ -73,21 +73,6 @@ interface Release {
   description: string
   createdAt: Date
   url: string
-}
-
-export interface CombinedGitHubRelease extends CombinedGitHubReleasesEntry {}
-
-export function isGitHubRelease(object: any): object is GitHubRelease {
-  return object.type === EntryType.GithubRelease
-}
-
-export interface GitHubRelease extends Entry {
-  descriptionHTML: string | null
-  repoName: string
-  versionNumber: string
-  date: string
-  url: string
-  tags: string[]
 }
 
 export class GitHubReleasesLoader {

@@ -1,6 +1,6 @@
 import { NextPage } from "next"
 import Page from "../../layouts/main"
-import appsLoader from "../../data/loaders/AppsLoader"
+import appsLoader from "../../loaders/AppsLoader"
 import Head from "next/head"
 import App from "../../models/App"
 import ErrorPage from "../_error"

@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react"
 import TagsList from "./TagsList"
-import { GitHubRelease } from "../data/loaders/GitHubReleasesLoader"
 import FormattedDate from "./FormattedDate"
 import HorizontalRule from "./HorizontalRule"
+import { GitHubRelease } from "../models/GitHubRelease"
 
 interface Props {
   release: GitHubRelease

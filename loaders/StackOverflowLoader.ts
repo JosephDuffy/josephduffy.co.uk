@@ -1,8 +1,9 @@
-import { Entry, EntryType } from "./Entry"
+import { Entry, EntryType } from "../models/Entry"
 import https from "https"
 import zlib from "zlib"
 import { AllHtmlEntities } from "html-entities"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { StackOverflowEntry, StackOverflowPostType } from "../models/StackOverflowEntry"
 
 interface StackOverflowAPIPost {
   creation_date: number
@@ -24,23 +25,6 @@ interface StackOverflowAPIAnswer {
   creation_date: number
   answer_id: number
   question_id: number
-}
-
-export type StackOverflowPostType = "answer" | "question"
-
-export function isStackOverflowEntry(
-  object: any,
-): object is StackOverflowEntry {
-  return object.type === EntryType.StackOverflowEntry
-}
-
-export interface StackOverflowEntry extends Entry {
-  title: string
-  date: string
-  url: string
-  tags: string[]
-  postType: StackOverflowPostType
-  postId: number
 }
 
 export class StackOverflowLoader {

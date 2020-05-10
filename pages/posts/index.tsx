@@ -1,6 +1,6 @@
 import { NextPage } from "next"
 import Page from "../../layouts/main"
-import postPreviewsLoader from "../../data/loaders/PostPreviewsLoader"
+import postPreviewsLoader from "../../loaders/PostPreviewsLoader"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
 import BlogPostPreview from "../../models/BlogPostPreview"

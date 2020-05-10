@@ -1,8 +1,8 @@
 import { FunctionComponent, Fragment } from "react"
 import TagsList from "./TagsList"
-import { GitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import FormattedDate from "./FormattedDate"
 import HorizontalRule from "./HorizontalRule"
+import { GitHubPullRequest } from "../models/GitHubPullRequest"
 
 interface Props {
   pullRequest: GitHubPullRequest

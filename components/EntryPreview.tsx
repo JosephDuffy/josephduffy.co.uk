@@ -1,19 +1,19 @@
 import { Fragment, Component } from "react"
-import { isGitHubRelease } from "../data/loaders/GitHubReleasesLoader"
-import { isStackOverflowEntry } from "../data/loaders/StackOverflowLoader"
 import GitHubReleasePreview from "./GitHubReleasePreview"
 import StackOverflowEntryPreview from "./StackOverflowEntryPreview"
 import BlogPostPreview from "./BlogPostPreview"
 import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesEntry"
 import CombinedGitHubReleasesPreview from "./CombinedGitHubReleasesPreview"
-import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
 import Card from "./Card"
-import { PossibleEntries } from "../data/loaders/EntriesLoader"
+import { PossibleEntries } from "../loaders/EntriesLoader"
 import { isAppRelease } from "../models/AppRelease"
 import AppReleasePreview from "./AppReleasePreview"
 import AppPreview, { isAppPreview } from "../models/AppPreview"
 import { default as AppPreviewComponent } from "./AppPreview"
+import { isGitHubPullRequest } from "../models/GitHubPullRequest"
+import { isGitHubRelease } from "../models/GitHubRelease"
+import { isStackOverflowEntry } from "../models/StackOverflowEntry"
 
 interface Props {
   entry: PossibleEntries | AppPreview

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next"
-import blogFeedLoader from "../data/loaders/BlogFeedLoader"
+import blogFeedLoader from "../loaders/BlogFeedLoader"
 import React from "react"
 
 export default class RSS extends React.Component {}

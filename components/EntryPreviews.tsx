@@ -1,5 +1,5 @@
 import { Fragment, Component } from "react"
-import { PossibleEntries } from "../data/loaders/EntriesLoader"
+import { PossibleEntries } from "../loaders/EntriesLoader"
 import Link from "next/link"
 import EntryPreview from "./EntryPreview"
 

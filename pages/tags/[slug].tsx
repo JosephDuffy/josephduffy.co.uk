@@ -2,7 +2,7 @@ import { NextPage } from "next"
 import Page from "../../layouts/main"
 import entriesLoader, {
   PossibleEntries,
-} from "../../data/loaders/EntriesLoader"
+} from "../../loaders/EntriesLoader"
 import { compareDesc } from "date-fns"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"

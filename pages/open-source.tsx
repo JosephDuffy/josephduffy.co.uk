@@ -1,11 +1,10 @@
 import { NextPage } from "next"
 import Head from "next/head"
 import Page from "../layouts/main"
-import gitHubRepositoryLoader, {
-  GitHubRepository,
-} from "../data/loaders/GitHubReposLoader"
+import gitHubRepositoryLoader from "../loaders/GitHubReposLoader"
 import FormattedDate from "../components/FormattedDate"
 import Card from "../components/Card"
+import { GitHubRepository } from "../models/GitHubRepository"
 
 interface Props {
   repositories: GitHubRepository[]

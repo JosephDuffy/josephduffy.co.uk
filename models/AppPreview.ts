@@ -1,4 +1,4 @@
-import { EntryType } from "../data/loaders/Entry"
+import { EntryType } from "./Entry"
 
 export function isAppPreview(object: any): object is AppPreview {
   return object.type === EntryType.AppPreview
