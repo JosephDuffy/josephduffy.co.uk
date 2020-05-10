@@ -18,3 +18,19 @@ jobs:
       - name: Docker Build
         run: DOCKER_BUILDKIT=1 docker build . -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:$GITHUB_SHA --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
 
+  check_format:
+    name: Check for formatting errors using on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install node version from .node-version
+      shell: bash -l {0}
+      run: nvm install
+
+    - run: npm install
+    - run: npm run format:check

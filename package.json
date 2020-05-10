@@ -8,8 +8,8 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "prettier": "prettier --check '{components,data,layouts,models,pages}/**/*'",
-    "prettier:fix": "prettier --write '{components,data,layouts,models,pages}/**/*'"
+    "format:check": "prettier --check '{components,data,layouts,loaders,models,pages}/**/*'",
+    "format": "prettier --write '{components,data,layouts,loaders,models,pages}/**/*'"
   },
   "repository": {
     "type": "git",
