@@ -3,7 +3,6 @@
 FROM node:12 as builder
 
 RUN mkdir /app
-ENV NODE_ENV production
 WORKDIR /build
 
 COPY package*.json ./
@@ -26,6 +25,7 @@ ARG GIT_COMMIT
 ENV NEXT_PUBLIC_GIT_COMMIT=$GIT_COMMIT
 ARG BUILD_DATE
 ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
+ENV NODE_ENV production
 
 RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
 
