@@ -34,6 +34,10 @@ class EntryPreview extends Component<Props> {
     entry: PossibleEntries | AppPreview,
     appCampaignName?: string,
   ): JSX.Element {
+    if (isAppPreview(entry)) {
+      return <AppPreviewComponent app={entry} campaignName={appCampaignName} />
+    }
+
     if (isCombinedGitHubReleasesEntry(entry)) {
       return <CombinedGitHubReleasesPreview combinedReleases={entry} />
     }
@@ -52,10 +56,6 @@ class EntryPreview extends Component<Props> {
 
     if (isAppRelease(entry)) {
       return <AppReleasePreview release={entry} />
-    }
-
-    if (isAppPreview(entry)) {
-      return <AppPreviewComponent app={entry} campaignName={appCampaignName} />
     }
 
     return <BlogPostPreview post={entry} />
