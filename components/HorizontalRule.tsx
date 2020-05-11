@@ -1,6 +1,6 @@
-import { Fragment } from "react"
+import { Fragment, FunctionComponent } from "react"
 
-const HorizontalRule = () => (
+const HorizontalRule: FunctionComponent = () => (
   <Fragment>
     <hr></hr>
     <style jsx>{`

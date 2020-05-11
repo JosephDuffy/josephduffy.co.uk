@@ -1,6 +1,6 @@
 import { Entry, EntryType } from "./Entry"
 
-export function isBlogPostPreview(object: any): object is BlogPostPreview {
+export function isBlogPostPreview(object: Entry): object is BlogPostPreview {
   return object.type === EntryType.BlogPostPreview
 }
 

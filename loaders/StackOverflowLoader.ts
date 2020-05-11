@@ -1,4 +1,4 @@
-import { Entry, EntryType } from "../models/Entry"
+import { EntryType } from "../models/Entry"
 import https from "https"
 import zlib from "zlib"
 import { AllHtmlEntities } from "html-entities"
@@ -74,13 +74,18 @@ export class StackOverflowLoader {
 
       const entities = new AllHtmlEntities()
 
-      const questions: StackOverflowEntry[] = questionPosts.map(
-        questionPost => {
+      const questions: StackOverflowEntry[] = questionPosts.reduce(
+        (questions: StackOverflowEntry[], questionPost) => {
           const apiQuestion = apiQuestions.find(
             question => question.question_id === questionPost.post_id,
-          )!
+          )
+
+          if (!apiQuestion) {
+            return questions
+          }
+
           const unescapedTitle = entities.decode(apiQuestion.title)
-          return {
+          questions.push({
             title: `Posted question to StackOverflow: ${unescapedTitle}`,
             date: new Date(apiQuestion.creation_date * 1000).toISOString(),
             url: apiQuestion.link,
@@ -89,28 +94,47 @@ export class StackOverflowLoader {
             postId: apiQuestion.question_id,
             slug: `question-${apiQuestion.question_id}`,
             type: EntryType.StackOverflowEntry,
-          }
+          })
+
+          return questions
         },
+        [],
       )
-      const answers: StackOverflowEntry[] = answerPosts.map(answerPost => {
-        const apiAnswer = apiAnswers.find(
-          answer => answer.answer_id === answerPost.post_id,
-        )!
-        const apiQuestion = apiQuestions.find(
-          question => question.question_id === apiAnswer.question_id,
-        )!
-        const unescapedTitle = entities.decode(apiQuestion.title)
-        return {
-          title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
-          date: new Date(apiAnswer.creation_date * 1000).toISOString(),
-          url: `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
-          tags: apiQuestion.tags,
-          postType: "answer",
-          postId: apiAnswer.answer_id,
-          slug: `answer-${apiAnswer.answer_id}`,
-          type: EntryType.StackOverflowEntry,
-        }
-      })
+
+      const answers: StackOverflowEntry[] = answerPosts.reduce(
+        (answers: StackOverflowEntry[], answerPost) => {
+          const apiAnswer = apiAnswers.find(
+            answer => answer.answer_id === answerPost.post_id,
+          )
+
+          if (!apiAnswer) {
+            return answers
+          }
+
+          const apiQuestion = apiQuestions.find(
+            question => question.question_id === apiAnswer.question_id,
+          )
+
+          if (!apiQuestion) {
+            return answers
+          }
+
+          const unescapedTitle = entities.decode(apiQuestion.title)
+          answers.push({
+            title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
+            date: new Date(apiAnswer.creation_date * 1000).toISOString(),
+            url: `${apiQuestion.link}/${apiAnswer.answer_id}#${apiAnswer.answer_id}`,
+            tags: apiQuestion.tags,
+            postType: "answer",
+            postId: apiAnswer.answer_id,
+            slug: `answer-${apiAnswer.answer_id}`,
+            type: EntryType.StackOverflowEntry,
+          })
+
+          return answers
+        },
+        [],
+      )
 
       entries = entries.concat(questions).concat(answers)
 
@@ -158,7 +182,7 @@ export class StackOverflowLoader {
       https
         .get(url, response => {
           const gunzip = zlib.createGunzip()
-          let buffer: string[] = []
+          const buffer: string[] = []
 
           gunzip
             .on("data", data => {

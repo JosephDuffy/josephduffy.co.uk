@@ -1,6 +1,6 @@
 import { EntryType, Entry } from "./Entry"
 
-export function isGitHubRelease(object: any): object is GitHubRelease {
+export function isGitHubRelease(object: Entry): object is GitHubRelease {
   return object.type === EntryType.GithubRelease
 }
 

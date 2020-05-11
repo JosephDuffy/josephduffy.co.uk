@@ -11,7 +11,7 @@ interface Props {
   posts: BlogPostPreview[]
 }
 
-const PostPage: NextPage<Props> = props => {
+const PostPage: NextPage<Props> = (props: Props) => {
   const { posts } = props
   return (
     <Page>

@@ -8,7 +8,7 @@ interface Props {
   campaignName?: string
 }
 
-const AppPreview: FunctionComponent<Props> = ({ app, campaignName }) => {
+const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
   const urlQueryString =
     campaignName !== undefined
       ? `?pt=96178896&ct=${campaignName}&mt=8`

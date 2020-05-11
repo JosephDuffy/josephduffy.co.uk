@@ -7,7 +7,9 @@ interface Props {
   entry: StackOverflowEntry
 }
 
-const StackOverflowEntryPreview: FunctionComponent<Props> = ({ entry }) => {
+const StackOverflowEntryPreview: FunctionComponent<Props> = ({
+  entry,
+}: Props) => {
   return (
     <article key={entry.postId}>
       <header>

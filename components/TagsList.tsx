@@ -5,7 +5,7 @@ interface Props {
   tags: string[]
 }
 
-const TagsList: FunctionComponent<Props> = ({ tags }) => {
+const TagsList: FunctionComponent<Props> = ({ tags }: Props) => {
   const items = tags.map(tag => {
     return {
       title: tag,

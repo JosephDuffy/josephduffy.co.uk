@@ -1,7 +1,6 @@
 import { NextPage } from "next"
 import Head from "next/head"
 import Page from "../layouts/main"
-import Card from "../components/Card"
 
 const PrivacyPage: NextPage = () => {
   return (

@@ -8,6 +8,7 @@ import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
 import Card from "../../components/Card"
+import { GetStaticPaths } from "next/types"
 
 interface Props {
   post?: BlogPost
@@ -123,7 +124,7 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await postsLoader.getPosts()
 
   return {

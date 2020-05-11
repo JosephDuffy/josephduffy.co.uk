@@ -10,7 +10,7 @@ interface Props {
 
 const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({
   combinedReleases,
-}) => {
+}: Props) => {
   const { releases } = combinedReleases
   const earliestEntry = releases[0]
   const latestEntry = releases[combinedReleases.releases.length - 1]

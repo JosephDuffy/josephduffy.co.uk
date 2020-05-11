@@ -9,7 +9,9 @@ interface Props {
   post: BlogPostPreview
 }
 
-const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
+const BlogPostPreviewComponent: FunctionComponent<Props> = ({
+  post,
+}: Props) => {
   return (
     <article key={post.slug}>
       <header>

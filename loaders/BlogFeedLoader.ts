@@ -3,7 +3,7 @@ import postsLoader from "./PostsLoader"
 import { compareDesc } from "date-fns"
 
 export class BlogFeedLoader {
-  async getFeed(forceRefresh: boolean = false): Promise<Feed> {
+  async getFeed(forceRefresh = false): Promise<Feed> {
     const posts = await postsLoader.getPosts(forceRefresh)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))

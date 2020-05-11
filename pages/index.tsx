@@ -13,7 +13,7 @@ interface Props {
   pageCount: number
 }
 
-const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
+const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
   const favouriteEntries = favourites
     .map(favourite => {
       if ("title" in favourite) {
@@ -36,7 +36,7 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
         />
       </Head>
       <p className="intro">
-        Hi! 👋 I'm Joseph Duffy. I enjoy making iOS apps and websites. This
+        Hi! 👋 I&apos;m Joseph Duffy. I enjoy making iOS apps and websites. This
         website contains information about my iOS apps, open-source projects,
         and blog posts. Welcome to my corner of the internet!
       </p>
@@ -62,7 +62,7 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps: GetStaticProps = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)

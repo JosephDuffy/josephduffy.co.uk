@@ -8,7 +8,7 @@ interface Props {
   release: GitHubRelease
 }
 
-const GitHubReleasePreview: FunctionComponent<Props> = ({ release }) => {
+const GitHubReleasePreview: FunctionComponent<Props> = ({ release }: Props) => {
   return (
     <article key={release.url}>
       <header>

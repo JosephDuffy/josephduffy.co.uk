@@ -1,9 +1,9 @@
 import Link from "next/link"
-import { Fragment } from "react"
+import { Fragment, FunctionComponent } from "react"
 import HorizontalRule from "./HorizontalRule"
 import HorizontalScrollContainer from "./HorizontalScrollContainer"
 
-const Header = () => (
+const Header: FunctionComponent = () => (
   <Fragment>
     <header>
       <HorizontalScrollContainer>

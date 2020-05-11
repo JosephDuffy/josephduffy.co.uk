@@ -21,7 +21,7 @@ interface Props {
 }
 
 class EntryPreview extends Component<Props> {
-  render() {
+  render(): JSX.Element {
     const { entry, appCampaignName } = this.props
     return (
       <Fragment>

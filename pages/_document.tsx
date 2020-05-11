@@ -8,7 +8,7 @@ import {
 
 /// A custom `Document` that sets the `lang` attribute on the HTML element
 class Document extends NextDocument {
-  render() {
+  render(): JSX.Element {
     return (
       <Html lang="en-GB">
         <Head />

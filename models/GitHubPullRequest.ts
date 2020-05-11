@@ -1,6 +1,8 @@
 import { EntryType, Entry } from "./Entry"
 
-export function isGitHubPullRequest(object: any): object is GitHubPullRequest {
+export function isGitHubPullRequest(
+  object: Entry,
+): object is GitHubPullRequest {
   return object.type === EntryType.GitHubPullRequest
 }
 

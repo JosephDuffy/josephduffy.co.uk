@@ -10,7 +10,7 @@ import Markdown from "../components/Markdown"
 export class PostsLoader {
   private cachedPosts?: BlogPost[]
 
-  async getPosts(forceRefresh: boolean = false): Promise<BlogPost[]> {
+  async getPosts(forceRefresh = false): Promise<BlogPost[]> {
     if (!forceRefresh && this.cachedPosts) {
       return this.cachedPosts
     }
@@ -25,6 +25,7 @@ export class PostsLoader {
       const excerptSeparator = "<!-- more -->"
       const parsedContent = matter(fileBuffer, {
         excerpt: true,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         excerpt_separator: excerptSeparator,
       })
       const excerptRegex = /<!-- more -->/g

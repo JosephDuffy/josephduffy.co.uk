@@ -3,7 +3,7 @@ import { EntryType, Entry } from "./Entry"
 export type StackOverflowPostType = "answer" | "question"
 
 export function isStackOverflowEntry(
-  object: any,
+  object: Entry,
 ): object is StackOverflowEntry {
   return object.type === EntryType.StackOverflowEntry
 }

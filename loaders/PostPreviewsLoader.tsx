@@ -5,9 +5,7 @@ import { EntryType } from "../models/Entry"
 export class PostPreviewsLoader {
   private cachedPosts?: BlogPostPreview[]
 
-  async getPostsPreviews(
-    forceRefresh: boolean = false,
-  ): Promise<BlogPostPreview[]> {
+  async getPostsPreviews(forceRefresh = false): Promise<BlogPostPreview[]> {
     if (!forceRefresh && this.cachedPosts) {
       return this.cachedPosts
     }

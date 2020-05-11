@@ -1,10 +1,8 @@
 import Header from "../components/Header"
-import { Fragment } from "react"
+import { Fragment, PropsWithChildren, FunctionComponent } from "react"
 import Footer from "../components/Footer"
 
-const Index: React.FunctionComponent<{ children: React.ReactNode }> = ({
-  children,
-}) => (
+const Index: FunctionComponent = ({ children }: PropsWithChildren<{}>) => (
   <Fragment>
     <Header />
     <main>{children}</main>

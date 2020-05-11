@@ -1,4 +1,4 @@
-import { NextPage } from "next"
+import { NextPage, GetStaticProps } from "next"
 import Page from "../../layouts/main"
 import appsLoader from "../../loaders/AppsLoader"
 import Head from "next/head"
@@ -8,6 +8,8 @@ import Link from "next/link"
 import AppIcon from "../../components/AppIcon"
 import Markdown from "../../components/Markdown"
 import FormattedDate from "../../components/FormattedDate"
+import { GetStaticPaths } from "next/types"
+import { ParsedUrlQuery } from "querystring"
 
 export interface Props {
   app?: App
@@ -157,20 +159,15 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
   }
 }
 
-export interface StaticProps {
-  props: Props
+interface StaticParams extends ParsedUrlQuery {
+  slug: string[]
 }
 
-interface StaticParams {
-  params: {
-    slug: string[]
-  }
-}
-
-export async function getStaticProps({
+export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   params,
-}: StaticParams): Promise<StaticProps> {
-  const { slug } = params
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const slug = params!.slug
   const appSlug = slug[0]
   const apps = appsLoader.getApps()
   const app = apps.find(app => app.slug === appSlug)
@@ -230,7 +227,7 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const apps = appsLoader.getApps()
 
   return {

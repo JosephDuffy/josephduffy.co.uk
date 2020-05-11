@@ -1,4 +1,4 @@
-import { NextPage } from "next"
+import { NextPage, GetStaticProps } from "next"
 import Head from "next/head"
 import Page from "../layouts/main"
 import gitHubRepositoryLoader from "../loaders/GitHubReposLoader"
@@ -10,7 +10,9 @@ interface Props {
   repositories: GitHubRepository[]
 }
 
-const OpenSourcePage: NextPage<Props> = ({ repositories }) => {
+const OpenSourcePage: NextPage<Props> = ({
+  repositories,
+}: Props): JSX.Element => {
   return (
     <Page>
       <Head>
@@ -70,7 +72,7 @@ const OpenSourcePage: NextPage<Props> = ({ repositories }) => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const repositories = await gitHubRepositoryLoader.getRepositories()
 
   return {

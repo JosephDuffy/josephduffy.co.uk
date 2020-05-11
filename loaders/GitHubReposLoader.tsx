@@ -91,6 +91,7 @@ export class GitHubRepositoriesLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fetch: fetch as any,
       headers: {
         Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,

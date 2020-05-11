@@ -10,7 +10,7 @@ interface Props {
 
 const GitHubPullRequestPreview: FunctionComponent<Props> = ({
   pullRequest,
-}) => {
+}: Props) => {
   return (
     <Fragment>
       <article key={pullRequest.url}>

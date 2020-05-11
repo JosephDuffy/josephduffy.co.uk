@@ -9,7 +9,7 @@ interface Props {
   release: AppRelease
 }
 
-const AppReleasePreview: FunctionComponent<Props> = ({ release }) => {
+const AppReleasePreview: FunctionComponent<Props> = ({ release }: Props) => {
   return (
     <article key={release.url}>
       <header>

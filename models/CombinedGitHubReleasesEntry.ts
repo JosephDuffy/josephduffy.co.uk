@@ -2,7 +2,7 @@ import { Entry, EntryType } from "./Entry"
 import { GitHubRelease } from "./GitHubRelease"
 
 export function isCombinedGitHubReleasesEntry(
-  object: any,
+  object: Entry,
 ): object is CombinedGitHubReleasesEntry {
   return object.type === EntryType.CombinedGitHubReleases
 }

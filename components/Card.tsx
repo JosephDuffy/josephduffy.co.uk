@@ -1,6 +1,6 @@
-import { FunctionComponent, Fragment } from "react"
+import { FunctionComponent, Fragment, PropsWithChildren } from "react"
 
-const Card: FunctionComponent = ({ children }) => {
+const Card: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
   return (
     <Fragment>
       <div className="card-container">{children}</div>

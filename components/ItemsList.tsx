@@ -16,7 +16,7 @@ const ItemsList: FunctionComponent<Props> = ({
   verb,
   showCount,
   rel,
-}) => {
+}: Props) => {
   return (
     <Fragment>
       <div>

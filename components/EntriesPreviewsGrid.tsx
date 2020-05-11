@@ -11,7 +11,7 @@ interface Props {
 const EntriesPreviewsGrid: FunctionComponent<Props> = ({
   entries,
   appCampaignName,
-}) => {
+}: Props) => {
   return (
     <Fragment>
       <div className="entries">

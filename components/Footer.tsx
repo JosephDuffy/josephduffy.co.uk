@@ -4,7 +4,7 @@ import HorizontalRule from "./HorizontalRule"
 import HorizontalScrollContainer from "./HorizontalScrollContainer"
 import { format } from "date-fns"
 
-const Footer = () => (
+const Footer: FunctionComponent = () => (
   <Fragment>
     <div className="horizontal-rule-container">
       <HorizontalRule />
@@ -26,10 +26,10 @@ const Footer = () => (
       </div>
       {process.env["NEXT_PUBLIC_GIT_COMMIT"] &&
         process.env["NEXT_PUBLIC_BUILD_DATE"] &&
-        Date.parse(process.env["NEXT_PUBLIC_BUILD_DATE"]) !== NaN && (
+        !isNaN(Date.parse(process.env["NEXT_PUBLIC_BUILD_DATE"])) && (
           <div className="build-metadata">
             Built at{" "}
-            {format(new Date(process.env["NEXT_PUBLIC_BUILD_DATE"]!), "PPpp")}{" "}
+            {format(new Date(process.env["NEXT_PUBLIC_BUILD_DATE"]), "PPpp")}{" "}
             from commit{" "}
             <a
               href={`https://github.com/JosephDuffy/josephduffy.co.uk/tree/${process.env["NEXT_PUBLIC_GIT_COMMIT"]}`}

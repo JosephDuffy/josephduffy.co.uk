@@ -11,7 +11,7 @@ interface Props {
   entries: PossibleEntries[]
 }
 
-const TagPage: NextPage<Props> = ({ tag, entries }) => {
+const TagPage: NextPage<Props> = ({ tag, entries }: Props) => {
   return (
     <Page>
       <Head>
@@ -62,7 +62,7 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const entries = await entriesLoader.getEntries(false)
   const tags = new Set(
     entries.flatMap(entry => {

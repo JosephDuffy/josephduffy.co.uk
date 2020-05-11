@@ -11,7 +11,7 @@ interface Props {
 }
 
 class CodeBlock extends PureComponent<Props> {
-  render() {
+  render(): JSX.Element {
     const { language, value } = this.props
     return (
       <PrismLight language={language} style={tomorrow}>

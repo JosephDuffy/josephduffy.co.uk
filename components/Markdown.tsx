@@ -7,7 +7,7 @@ interface Props {
   escapeHtml?: boolean
 }
 
-const Markdown: FunctionComponent<Props> = ({ source, escapeHtml }) => {
+const Markdown: FunctionComponent<Props> = ({ source, escapeHtml }: Props) => {
   return (
     <ReactMarkdown
       source={source}

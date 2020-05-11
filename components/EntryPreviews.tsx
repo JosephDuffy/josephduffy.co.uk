@@ -12,7 +12,7 @@ interface Props {
 }
 
 class EntryPreviews extends Component<Props> {
-  render() {
+  render(): JSX.Element {
     const { entries, pageCount, currentPage, appCampaignName } = this.props
     return (
       <Fragment>
