@@ -41,7 +41,7 @@ interface StaticProps {
   props: Props
 }
 
-export const getStaticProps: GetStaticProps = (): StaticProps => {
+export const getStaticProps: GetStaticProps = async (): Promise<StaticProps> => {
   const apps = appsLoader.getAppsPreviews()
 
   return {
