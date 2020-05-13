@@ -18,6 +18,7 @@ const Footer: FunctionComponent = () => (
           <Link href="/yetii">
             <a>Yetii Ltd.</a>
           </Link>
+          <a href="https://twitter.com/Joe_Duffy">Twitter</a>
         </nav>
       </HorizontalScrollContainer>
       <div className="copyright">
