@@ -94,7 +94,7 @@ export class GitHubReleasesLoader {
     }
   }
 
-  async getReleases(): Promise<GitHubRelease[]> {
+  getReleases(): Promise<GitHubRelease[]> {
     return this.cache.entries
   }
 

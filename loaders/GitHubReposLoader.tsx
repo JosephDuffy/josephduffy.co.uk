@@ -77,7 +77,7 @@ export class GitHubRepositoriesLoader {
     }
   }
 
-  async getRepositories(): Promise<GitHubRepository[]> {
+  getRepositories(): Promise<GitHubRepository[]> {
     return this.cache.entries
   }
 
