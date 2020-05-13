@@ -41,6 +41,7 @@ COPY package*.json ./
 RUN npm ci
 COPY --from=builder /build/.next .next
 COPY --from=builder /build/public public
+COPY --from=builder /build/data data
 COPY nginx-include .
 
 ARG GIT_COMMIT
