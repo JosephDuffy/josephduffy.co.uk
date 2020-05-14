@@ -115,7 +115,11 @@ export class GitHubRepositoriesLoader {
 
     const data = result.data as QueryResult
     const repositories = data.user.contributionsCollection.commitContributionsByRepository
-      .filter(repo => !repo.repository.isPrivate)
+      .filter(
+        contributionByRepository =>
+          !contributionByRepository.repository.isPrivate,
+      )
+      .reduce((repositories: GitHubRepository[], contributionByRepository) => {
         const mostRecentContribution =
           contributionByRepository.contributions.nodes[0]
 
