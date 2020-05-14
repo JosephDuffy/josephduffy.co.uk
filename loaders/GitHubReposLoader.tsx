@@ -1,6 +1,5 @@
 import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { EntryType } from "../models/Entry"
@@ -96,8 +95,7 @@ export class GitHubRepositoriesLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fetch: fetch as any,
+      fetch: fetch,
       headers: {
         Authorization: `bearer ${accessToken}`,
       },
