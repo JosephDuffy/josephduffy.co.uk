@@ -25,6 +25,7 @@ const query = gql`
           createdAt
           repository {
             nameWithOwner
+            isPrivate
             owner {
               login
             }
@@ -58,6 +59,7 @@ interface PullRequest {
   createdAt: string
   repository: {
     nameWithOwner: string
+    isPrivate: boolean
     owner: {
       login: string
     }
@@ -127,7 +129,9 @@ export class GitHubPullRequestLoader {
     const data = result.data as QueryResult
     const pullRequests = data.user.pullRequests.nodes
       .filter(
-        pullRequest => pullRequest.repository.owner.login !== "JosephDuffy",
+        pullRequest =>
+          pullRequest.repository.owner.login !== "JosephDuffy" &&
+          !pullRequest.repository.isPrivate,
       )
       .flatMap(pullRequest => {
         const tags = pullRequestTags.concat(

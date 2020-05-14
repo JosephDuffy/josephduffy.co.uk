@@ -17,6 +17,7 @@ const query = gql`
             name
             description
             url
+            isPrivate
             owner {
               login
             }
@@ -47,6 +48,7 @@ interface ContributionByRepository {
     name: string
     description?: string
     url: string
+    isPrivate: boolean
     owner: {
       login: string
     }
@@ -112,8 +114,8 @@ export class GitHubRepositoriesLoader {
     }
 
     const data = result.data as QueryResult
-    const repositories: GitHubRepository[] = data.user.contributionsCollection.commitContributionsByRepository
-      .map(contributionByRepository => {
+    const repositories = data.user.contributionsCollection.commitContributionsByRepository
+      .filter(repo => !repo.repository.isPrivate)
         const mostRecentContribution =
           contributionByRepository.contributions.nodes[0]
 
@@ -122,10 +124,10 @@ export class GitHubRepositoriesLoader {
             "Got a repository with no recent contribution:",
             contributionByRepository,
           )
-          return
+          return repositories
         }
 
-        return {
+        repositories.push({
           description: contributionByRepository.repository.description,
           name: contributionByRepository.repository.name,
           url: contributionByRepository.repository.url,
@@ -136,9 +138,10 @@ export class GitHubRepositoriesLoader {
             commitCount: mostRecentContribution.commitCount,
           },
           type: EntryType.GithubRepository,
-        }
-      })
-      .filter(repo => repo !== undefined) as GitHubRepository[]
+        })
+
+        return repositories
+      }, [])
 
     return repositories
   }
