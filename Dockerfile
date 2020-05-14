@@ -13,6 +13,7 @@ RUN npm ci
 
 COPY components components
 COPY data data
+COPY helpers helpers
 COPY layouts layouts
 COPY loaders loaders
 COPY models models

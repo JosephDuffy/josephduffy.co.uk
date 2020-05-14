@@ -8,6 +8,7 @@ import ReactDOMServer from "react-dom/server"
 import Markdown from "../components/Markdown"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import { GitHubRelease } from "../models/GitHubRelease"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -99,7 +100,9 @@ export class GitHubReleasesLoader {
   }
 
   private async loadReleases(): Promise<GitHubRelease[]> {
-    if (process.env["GITHUB_ACCESS_TOKEN"] === undefined) {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
       )
@@ -111,7 +114,7 @@ export class GitHubReleasesLoader {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fetch: fetch as any,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({

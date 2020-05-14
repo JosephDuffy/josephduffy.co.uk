@@ -6,6 +6,7 @@ import { InMemoryCache } from "apollo-cache-inmemory"
 import { EntryType } from "../models/Entry"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import { GitHubRepository } from "../models/GitHubRepository"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -82,7 +83,9 @@ export class GitHubRepositoriesLoader {
   }
 
   private async loadReleases(): Promise<GitHubRepository[]> {
-    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
       )
@@ -94,7 +97,7 @@ export class GitHubRepositoriesLoader {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       fetch: fetch as any,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({
