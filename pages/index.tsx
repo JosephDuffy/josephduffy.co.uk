@@ -7,9 +7,11 @@ import Head from "next/head"
 import EntriesPreviewsGrid from "../components/EntriesPreviewsGrid"
 import { EntryType } from "../models/Entry"
 
+type Favourite = { type: EntryType; slug: string } | PossibleEntries
+
 interface Props {
   entries: PossibleEntries[]
-  favourites: ({ type: EntryType; slug: string } | PossibleEntries)[]
+  favourites: Favourite[]
   pageCount: number
 }
 
@@ -62,7 +64,7 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
@@ -88,37 +90,32 @@ export const getStaticProps: GetStaticProps = async () => {
     gatheredAppPreview,
     iosShareSheetLocation,
     scanulaAppPreview,
-  ]
-    .map(favourite => {
-      if (favourite === undefined) {
-        return undefined
-      }
+  ].reduce((favourites: Favourite[], entry) => {
+    if (entry === undefined) {
+      return favourites
+    }
 
-      const entryExistsOnPage =
-        pageEntries.find(entry => {
-          return entry.type == favourite.type && entry.slug == favourite.slug
-        }) !== undefined
+    const entryExistsOnPage =
+      pageEntries.find(entry => {
+        return entry.type == entry.type && entry.slug == entry.slug
+      }) !== undefined
 
-      if (entryExistsOnPage) {
-        return {
-          type: favourite.type,
-          slug: favourite.slug,
-        }
-      } else {
-        return favourite
-      }
-    })
-    .filter(favourite => favourite !== undefined)
+    if (entryExistsOnPage) {
+      favourites.push({
+        type: entry.type,
+        slug: entry.slug,
+      })
+    }
+    return favourites
+  }, [])
 
-  const props = {
+  return {
     props: {
       entries: pageEntries,
       pageCount,
       favourites,
     },
   }
-
-  return props
 }
 
 export default Index

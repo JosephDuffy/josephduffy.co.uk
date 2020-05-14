@@ -72,7 +72,7 @@ const OpenSourcePage: NextPage<Props> = ({
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const repositories = await gitHubRepositoryLoader.getRepositories()
 
   return {
