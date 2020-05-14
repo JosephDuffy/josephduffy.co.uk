@@ -16,17 +16,26 @@ interface Props {
 }
 
 const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
-  const favouriteEntries = favourites
-    .map(favourite => {
+  const favouriteEntries = favourites.reduce(
+    (favourites: PossibleEntries[], favourite) => {
       if ("title" in favourite) {
-        return favourite
+        favourites.push(favourite)
       } else {
-        return entries.find(entry => {
+        const entry = entries.find(entry => {
           return entry.type == favourite.type && entry.slug == favourite.slug
         })
+
+        if (entry !== undefined) {
+          favourites.push(entry)
+        } else {
+          console.error(`Server expected ${favourite} to be available`)
+        }
       }
-    })
-    .filter(favourite => favourite !== undefined) as PossibleEntries[]
+
+      return favourites
+    },
+    [],
+  )
 
   return (
     <Page>
@@ -90,22 +99,27 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     gatheredAppPreview,
     iosShareSheetLocation,
     scanulaAppPreview,
-  ].reduce((favourites: Favourite[], entry) => {
-    if (entry === undefined) {
+  ].reduce((favourites: Favourite[], favouriteEntry) => {
+    if (favouriteEntry === undefined) {
       return favourites
     }
 
     const entryExistsOnPage =
       pageEntries.find(entry => {
-        return entry.type == entry.type && entry.slug == entry.slug
+        return (
+          favouriteEntry.type == entry.type && favouriteEntry.slug == entry.slug
+        )
       }) !== undefined
 
     if (entryExistsOnPage) {
       favourites.push({
-        type: entry.type,
-        slug: entry.slug,
+        type: favouriteEntry.type,
+        slug: favouriteEntry.slug,
       })
+    } else {
+      favourites.push(favouriteEntry)
     }
+
     return favourites
   }, [])
 
