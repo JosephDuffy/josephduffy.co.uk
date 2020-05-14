@@ -10,7 +10,7 @@ export function loadSecret(name: string): Promise<string | undefined> {
         if (err) {
           resolve(undefined)
         } else if (secret) {
-          resolve(secret)
+          resolve(secret.trim())
         }
       })
     }
