@@ -10,7 +10,7 @@ const HorizontalScrollContainer: FunctionComponent = ({
     <style jsx>{`
       .wrapper {
         align-self: center;
-        overflow-x: scroll;
+        overflow-x: auto;
         max-width: 100%;
       }
 
