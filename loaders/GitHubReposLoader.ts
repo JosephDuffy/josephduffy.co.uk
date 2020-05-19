@@ -1,11 +1,11 @@
 import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { EntryType } from "../models/Entry"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import { GitHubRepository } from "../models/GitHubRepository"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -16,6 +16,7 @@ const query = gql`
             name
             description
             url
+            isPrivate
             owner {
               login
             }
@@ -46,6 +47,7 @@ interface ContributionByRepository {
     name: string
     description?: string
     url: string
+    isPrivate: boolean
     owner: {
       login: string
     }
@@ -77,12 +79,14 @@ export class GitHubRepositoriesLoader {
     }
   }
 
-  async getRepositories(): Promise<GitHubRepository[]> {
+  getRepositories(): Promise<GitHubRepository[]> {
     return this.cache.entries
   }
 
   private async loadReleases(): Promise<GitHubRepository[]> {
-    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
       )
@@ -91,10 +95,9 @@ export class GitHubRepositoriesLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fetch: fetch as any,
+      fetch: fetch,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({
@@ -109,8 +112,12 @@ export class GitHubRepositoriesLoader {
     }
 
     const data = result.data as QueryResult
-    const repositories: GitHubRepository[] = data.user.contributionsCollection.commitContributionsByRepository
-      .map(contributionByRepository => {
+    const repositories = data.user.contributionsCollection.commitContributionsByRepository
+      .filter(
+        contributionByRepository =>
+          !contributionByRepository.repository.isPrivate,
+      )
+      .reduce((repositories: GitHubRepository[], contributionByRepository) => {
         const mostRecentContribution =
           contributionByRepository.contributions.nodes[0]
 
@@ -119,10 +126,10 @@ export class GitHubRepositoriesLoader {
             "Got a repository with no recent contribution:",
             contributionByRepository,
           )
-          return
+          return repositories
         }
 
-        return {
+        repositories.push({
           description: contributionByRepository.repository.description,
           name: contributionByRepository.repository.name,
           url: contributionByRepository.repository.url,
@@ -133,9 +140,10 @@ export class GitHubRepositoriesLoader {
             commitCount: mostRecentContribution.commitCount,
           },
           type: EntryType.GithubRepository,
-        }
-      })
-      .filter(repo => repo !== undefined) as GitHubRepository[]
+        })
+
+        return repositories
+      }, [])
 
     return repositories
   }

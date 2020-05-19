@@ -7,24 +7,35 @@ import Head from "next/head"
 import EntriesPreviewsGrid from "../components/EntriesPreviewsGrid"
 import { EntryType } from "../models/Entry"
 
+type Favourite = { type: EntryType; slug: string } | PossibleEntries
+
 interface Props {
   entries: PossibleEntries[]
-  favourites: ({ type: EntryType; slug: string } | PossibleEntries)[]
+  favourites: Favourite[]
   pageCount: number
 }
 
 const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
-  const favouriteEntries = favourites
-    .map(favourite => {
+  const favouriteEntries = favourites.reduce(
+    (favourites: PossibleEntries[], favourite) => {
       if ("title" in favourite) {
-        return favourite
+        favourites.push(favourite)
       } else {
-        return entries.find(entry => {
+        const entry = entries.find(entry => {
           return entry.type == favourite.type && entry.slug == favourite.slug
         })
+
+        if (entry !== undefined) {
+          favourites.push(entry)
+        } else {
+          console.error(`Server expected ${favourite} to be available`)
+        }
       }
-    })
-    .filter(favourite => favourite !== undefined) as PossibleEntries[]
+
+      return favourites
+    },
+    [],
+  )
 
   return (
     <Page>
@@ -62,7 +73,7 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
@@ -88,37 +99,37 @@ export const getStaticProps: GetStaticProps = async () => {
     gatheredAppPreview,
     iosShareSheetLocation,
     scanulaAppPreview,
-  ]
-    .map(favourite => {
-      if (favourite === undefined) {
-        return undefined
-      }
+  ].reduce((favourites: Favourite[], favouriteEntry) => {
+    if (favouriteEntry === undefined) {
+      return favourites
+    }
 
-      const entryExistsOnPage =
-        pageEntries.find(entry => {
-          return entry.type == favourite.type && entry.slug == favourite.slug
-        }) !== undefined
+    const entryExistsOnPage =
+      pageEntries.find(entry => {
+        return (
+          favouriteEntry.type == entry.type && favouriteEntry.slug == entry.slug
+        )
+      }) !== undefined
 
-      if (entryExistsOnPage) {
-        return {
-          type: favourite.type,
-          slug: favourite.slug,
-        }
-      } else {
-        return favourite
-      }
-    })
-    .filter(favourite => favourite !== undefined)
+    if (entryExistsOnPage) {
+      favourites.push({
+        type: favouriteEntry.type,
+        slug: favouriteEntry.slug,
+      })
+    } else {
+      favourites.push(favouriteEntry)
+    }
 
-  const props = {
+    return favourites
+  }, [])
+
+  return {
     props: {
       entries: pageEntries,
       pageCount,
       favourites,
     },
   }
-
-  return props
 }
 
 export default Index

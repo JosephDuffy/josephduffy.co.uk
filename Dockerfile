@@ -13,6 +13,7 @@ RUN npm ci
 
 COPY components components
 COPY data data
+COPY helpers helpers
 COPY layouts layouts
 COPY loaders loaders
 COPY models models
@@ -41,6 +42,7 @@ COPY package*.json ./
 RUN npm ci
 COPY --from=builder /build/.next .next
 COPY --from=builder /build/public public
+COPY --from=builder /build/data data
 COPY nginx-include .
 
 ARG GIT_COMMIT

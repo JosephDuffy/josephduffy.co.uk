@@ -1,6 +1,5 @@
 import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { EntryType } from "../models/Entry"
@@ -8,6 +7,7 @@ import ReactDOMServer from "react-dom/server"
 import Markdown from "../components/Markdown"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import { GitHubRelease } from "../models/GitHubRelease"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -94,12 +94,14 @@ export class GitHubReleasesLoader {
     }
   }
 
-  async getReleases(): Promise<GitHubRelease[]> {
+  getReleases(): Promise<GitHubRelease[]> {
     return this.cache.entries
   }
 
   private async loadReleases(): Promise<GitHubRelease[]> {
-    if (process.env["GITHUB_ACCESS_TOKEN"] === undefined) {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
       )
@@ -108,10 +110,9 @@ export class GitHubReleasesLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fetch: fetch as any,
+      fetch: fetch,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({

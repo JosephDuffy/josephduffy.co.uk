@@ -25,7 +25,7 @@ const OpenSourcePage: NextPage<Props> = ({
       <h1>Open Source</h1>
       <p>
         I am a big believer in open source software, which I contribute to
-        through GitHub. Below are a the projects I have contributed to recently.
+        through GitHub. Below are the projects I have contributed to recently.
         To view all of my contributions to open source projects view entries
         under the{" "}
         <a href="/tags/open-source" rel="tag">
@@ -72,7 +72,7 @@ const OpenSourcePage: NextPage<Props> = ({
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const repositories = await gitHubRepositoryLoader.getRepositories()
 
   return {

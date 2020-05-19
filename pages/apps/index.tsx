@@ -37,11 +37,7 @@ const AppsPage: NextPage<Props> = ({ apps }: Props) => {
   )
 }
 
-interface StaticProps {
-  props: Props
-}
-
-export const getStaticProps: GetStaticProps = async (): Promise<StaticProps> => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const apps = appsLoader.getAppsPreviews()
 
   return {

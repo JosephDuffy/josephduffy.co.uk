@@ -1,6 +1,5 @@
 import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { EntryType } from "../models/Entry"
@@ -8,6 +7,7 @@ import Markdown from "../components/Markdown"
 import ReactDOMServer from "react-dom/server"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import { GitHubPullRequest } from "../models/GitHubPullRequest"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -24,6 +24,7 @@ const query = gql`
           createdAt
           repository {
             nameWithOwner
+            isPrivate
             owner {
               login
             }
@@ -57,6 +58,7 @@ interface PullRequest {
   createdAt: string
   repository: {
     nameWithOwner: string
+    isPrivate: boolean
     owner: {
       login: string
     }
@@ -94,7 +96,9 @@ export class GitHubPullRequestLoader {
   }
 
   private async loadPullRequests(): Promise<GitHubPullRequest[]> {
-    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub pull requests will not be loaded",
       )
@@ -103,10 +107,9 @@ export class GitHubPullRequestLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      fetch: fetch as any,
+      fetch: fetch,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({
@@ -124,7 +127,9 @@ export class GitHubPullRequestLoader {
     const data = result.data as QueryResult
     const pullRequests = data.user.pullRequests.nodes
       .filter(
-        pullRequest => pullRequest.repository.owner.login !== "JosephDuffy",
+        pullRequest =>
+          pullRequest.repository.owner.login !== "JosephDuffy" &&
+          !pullRequest.repository.isPrivate,
       )
       .flatMap(pullRequest => {
         const tags = pullRequestTags.concat(
