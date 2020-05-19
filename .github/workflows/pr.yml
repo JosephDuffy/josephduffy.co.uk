@@ -47,6 +47,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: hallee/eslint-action@v1
+      - uses: hallee/eslint-action@1
         with:
           repo-token: ${{secrets.GITHUB_TOKEN}}
