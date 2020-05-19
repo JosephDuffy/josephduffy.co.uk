@@ -15,7 +15,7 @@ function datesAreTheSame(dateA: Date, dateB: Date): boolean {
   )
 }
 
-const FormattedDate: FunctionComponent<Props> = props => {
+const FormattedDate: FunctionComponent<Props> = (props: Props) => {
   const { prefix } = props
   const date = new Date(props.date)
   const formattedDate = format(date, "do MMMM, y")

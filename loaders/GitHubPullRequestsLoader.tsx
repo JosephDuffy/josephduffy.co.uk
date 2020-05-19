@@ -1,11 +1,13 @@
 import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
-import { Entry, EntryType } from "./Entry"
-import Markdown from "../../components/Markdown"
+import { EntryType } from "../models/Entry"
+import Markdown from "../components/Markdown"
 import ReactDOMServer from "react-dom/server"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { GitHubPullRequest } from "../models/GitHubPullRequest"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -22,6 +24,7 @@ const query = gql`
           createdAt
           repository {
             nameWithOwner
+            isPrivate
             owner {
               login
             }
@@ -55,6 +58,7 @@ interface PullRequest {
   createdAt: string
   repository: {
     nameWithOwner: string
+    isPrivate: boolean
     owner: {
       login: string
     }
@@ -68,30 +72,33 @@ interface PullRequest {
   }
 }
 
-export function isGitHubPullRequest(object: any): object is GitHubPullRequest {
-  return object.type === EntryType.GitHubPullRequest
-}
-
-export interface GitHubPullRequest extends Entry {
-  descriptionHTML: string
-  url: string
-  repoName: string
-  date: string
-  tags: string[]
-}
-
 export class GitHubPullRequestLoader {
-  private cachedPullRequests?: GitHubPullRequest[]
+  private cache: LoaderEntriesCache<GitHubPullRequest>
 
-  async getPullRequests(
-    forceRefresh: boolean = false,
-  ): Promise<GitHubPullRequest[]> {
-    if (!forceRefresh && this.cachedPullRequests) {
-      console.debug("Using cached GitHub pull requests")
-      return this.cachedPullRequests
+  constructor() {
+    if (process.env["GITHUB_PULL_REQUESTS_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadPullRequests.bind(this),
+        parseInt(process.env["GITHUB_PULL_REQUESTS_TIMEOUT"]),
+      )
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadPullRequests.bind(this),
+        parseInt(process.env["CACHE_TIMEOUT"]),
+      )
+    } else {
+      this.cache = new LoaderEntriesCache(this.loadPullRequests.bind(this))
     }
+  }
 
-    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+  getPullRequests(): Promise<GitHubPullRequest[]> {
+    return this.cache.entries
+  }
+
+  private async loadPullRequests(): Promise<GitHubPullRequest[]> {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub pull requests will not be loaded",
       )
@@ -100,9 +107,9 @@ export class GitHubPullRequestLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
-      fetch: fetch as any,
+      fetch: fetch,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({
@@ -120,15 +127,19 @@ export class GitHubPullRequestLoader {
     const data = result.data as QueryResult
     const pullRequests = data.user.pullRequests.nodes
       .filter(
-        pullRequest => pullRequest.repository.owner.login !== "JosephDuffy",
+        (pullRequest) =>
+          pullRequest.repository.owner.login !== "JosephDuffy" &&
+          !pullRequest.repository.isPrivate,
       )
-      .flatMap(pullRequest => {
+      .flatMap((pullRequest) => {
         const tags = pullRequestTags.concat(
           pullRequest.repository.repositoryTopics.nodes.map(
-            node => node.topic.name,
+            (node) => node.topic.name,
           ),
         )
-        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={pullRequest.body} />)
+        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(
+          <Markdown source={pullRequest.body} />,
+        )
         return {
           title: pullRequest.title,
           descriptionHTML,
@@ -140,7 +151,6 @@ export class GitHubPullRequestLoader {
           type: EntryType.GitHubPullRequest,
         }
       })
-    this.cachedPullRequests = pullRequests
     return pullRequests
   }
 }

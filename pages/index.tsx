@@ -1,28 +1,41 @@
 import { NextPage, GetStaticProps } from "next"
 import Page from "../layouts/main"
 import EntryPreviews from "../components/EntryPreviews"
-import entriesLoader, { PossibleEntries } from "../data/loaders/EntriesLoader"
-import appsLoader from "../data/loaders/AppsLoader"
+import entriesLoader, { PossibleEntries } from "../loaders/EntriesLoader"
+import appsLoader from "../loaders/AppsLoader"
 import Head from "next/head"
 import EntriesPreviewsGrid from "../components/EntriesPreviewsGrid"
-import { EntryType } from "../data/loaders/Entry"
+import { EntryType } from "../models/Entry"
+
+type Favourite = { type: EntryType; slug: string } | PossibleEntries
 
 interface Props {
   entries: PossibleEntries[]
-  favourites: ({ type: EntryType, slug: string } | PossibleEntries)[]
+  favourites: Favourite[]
   pageCount: number
 }
 
-const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
-  const favouriteEntries = favourites.map(favourite => {
-    if ('title' in favourite) {
-      return favourite
-    } else {
-      return entries.find(entry => {
-        return entry.type == favourite.type && entry.slug == favourite.slug
-      })
-    }
-  }).filter(favourite => favourite !== undefined) as PossibleEntries[]
+const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
+  const favouriteEntries = favourites.reduce(
+    (favourites: PossibleEntries[], favourite) => {
+      if ("title" in favourite) {
+        favourites.push(favourite)
+      } else {
+        const entry = entries.find((entry) => {
+          return entry.type == favourite.type && entry.slug == favourite.slug
+        })
+
+        if (entry !== undefined) {
+          favourites.push(entry)
+        } else {
+          console.error(`Server expected ${favourite} to be available`)
+        }
+      }
+
+      return favourites
+    },
+    [],
+  )
 
   return (
     <Page>
@@ -34,16 +47,22 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
         />
       </Head>
       <p className="intro">
-        Hi! 👋 I'm Joseph Duffy. I enjoy making iOS apps and websites. This website contains information about my iOS apps, open-source projects, and blog posts. Welcome to my corner of the internet!
+        Hi! 👋 I&apos;m Joseph Duffy. I enjoy making iOS apps and websites. This
+        website contains information about my iOS apps, open-source projects,
+        and blog posts. Welcome to my corner of the internet!
       </p>
       <h1>★ My Favourites</h1>
-      <EntriesPreviewsGrid entries={favouriteEntries} />
+      <EntriesPreviewsGrid
+        entries={favouriteEntries}
+        appCampaignName="home-favourites"
+      />
       <h1>Recent Entries</h1>
       <EntryPreviews
         entries={entries}
         pageCount={pageCount}
         paginationHREF="/entries/[page]"
         currentPage={1}
+        appCampaignName="home-entries"
       />
       <style jsx>{`
         p.intro {
@@ -54,21 +73,24 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async context => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
-  const partialBlogPost = allEntries.find(entry => {
-    return 'slug' in entry && entry.slug === "partial-framework-release-1-0-0"
+  const partialBlogPost = allEntries.find((entry) => {
+    return "slug" in entry && entry.slug === "partial-framework-release-1-0-0"
   })
-  const iosShareSheetLocation = allEntries.find(entry => {
-    return 'slug' in entry && entry.slug === "ios-share-sheets-the-proper-way-locations"
+  const iosShareSheetLocation = allEntries.find((entry) => {
+    return (
+      "slug" in entry &&
+      entry.slug === "ios-share-sheets-the-proper-way-locations"
+    )
   })
   const appPreviews = appsLoader.getAppsPreviews()
-  const gatheredAppPreview = appPreviews.find(app => {
+  const gatheredAppPreview = appPreviews.find((app) => {
     return app.slug === "gathered"
   })
-  const scanulaAppPreview = appPreviews.find(app => {
+  const scanulaAppPreview = appPreviews.find((app) => {
     return app.slug === "scanula"
   })
 
@@ -77,34 +99,37 @@ export const getStaticProps: GetStaticProps = async context => {
     gatheredAppPreview,
     iosShareSheetLocation,
     scanulaAppPreview,
-  ].map(favourite => {
-    if (favourite === undefined) {
-      return undefined
+  ].reduce((favourites: Favourite[], favouriteEntry) => {
+    if (favouriteEntry === undefined) {
+      return favourites
     }
 
-    const entryExistsOnPage = pageEntries.find(entry => {
-      return entry.type == favourite.type && entry.slug == favourite.slug
-    }) !== undefined
+    const entryExistsOnPage =
+      pageEntries.find((entry) => {
+        return (
+          favouriteEntry.type == entry.type && favouriteEntry.slug == entry.slug
+        )
+      }) !== undefined
 
     if (entryExistsOnPage) {
-      return {
-        type: favourite.type,
-        slug: favourite.slug,
-      }
+      favourites.push({
+        type: favouriteEntry.type,
+        slug: favouriteEntry.slug,
+      })
     } else {
-      return favourite
+      favourites.push(favouriteEntry)
     }
-  }).filter(favourite => favourite !== undefined)
 
-  const props = {
+    return favourites
+  }, [])
+
+  return {
     props: {
       entries: pageEntries,
       pageCount,
       favourites,
     },
   }
-
-  return props
 }
 
 export default Index

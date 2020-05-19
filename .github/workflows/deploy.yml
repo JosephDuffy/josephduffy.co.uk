@@ -1,0 +1,40 @@
+name: Trigger Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_image:
+    name: Build Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+      - name: Docker Build
+        run: DOCKER_BUILDKIT=1 docker build . -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN --build-arg "BUILD_DATE=$(date -u)" --build-arg "GIT_COMMIT=${GITHUB_SHA}"
+
+      - name: Docker Login
+        run: docker login docker.pkg.github.com -u "JosephDuffy" --password "${GITHUB_TOKEN}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker Push
+        run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest
+
+  trigger_update:
+    name: Trigger Update
+    needs: build_image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          repository: JosephDuffy/webserver-deploy
+          event-type: update_josephduffy-co-uk

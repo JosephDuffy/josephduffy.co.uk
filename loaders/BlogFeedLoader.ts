@@ -3,10 +3,7 @@ import postsLoader from "./PostsLoader"
 import { compareDesc } from "date-fns"
 
 export class BlogFeedLoader {
-
-  async getFeed(
-    forceRefresh: boolean = false,
-  ): Promise<Feed> {
+  async getFeed(forceRefresh = false): Promise<Feed> {
     const posts = await postsLoader.getPosts(forceRefresh)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
@@ -15,8 +12,8 @@ export class BlogFeedLoader {
     const feed = new Feed({
       title: "Joseph Duffy",
       description: "Blog posts written by Joseph Duffy",
-      id: "https://josephduffy.co.uk",
-      link: "https://josephduffy.co.uk",
+      id: "https://josephduffy.co.uk/",
+      link: "https://josephduffy.co.uk/posts",
       language: "en-GB",
       favicon: "https://josephduffy.co.uk/favicon.ico",
       copyright: "Joseph Duffy",
@@ -28,25 +25,27 @@ export class BlogFeedLoader {
       },
       author: {
         name: "Joseph Duffy",
-        link: "https://josephduffy.co.uk"
-      }
+        link: "https://josephduffy.co.uk",
+      },
     })
-    posts.forEach(post => {
+    posts.forEach((post) => {
+      const url = "https://josephduffy.co.uk" + post.url
       feed.addItem({
         title: post.title,
-        id: post.url,
-        link: "https://josephduffy.co.uk" + post.url,
+        id: url,
+        link: url,
         description: post.excerptHTML,
         content: post.contentHTML,
+        date: new Date(post.date),
+        published: new Date(post.date),
         author: [
           {
             name: "Joseph Duffy",
-            link: "https://josephduffy.co.uk"
-          }
+            link: "https://josephduffy.co.uk",
+          },
         ],
-        date: new Date(post.date)
-      });
-    });
+      })
+    })
     return feed
   }
 }

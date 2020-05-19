@@ -1,18 +1,16 @@
-import BlogPostPreview from "../../models/BlogPostPreview"
+import BlogPostPreview from "../models/BlogPostPreview"
 import postsLoader from "./PostsLoader"
-import { EntryType } from "./Entry"
+import { EntryType } from "../models/Entry"
 
 export class PostPreviewsLoader {
   private cachedPosts?: BlogPostPreview[]
 
-  async getPostsPreviews(
-    forceRefresh: boolean = false,
-  ): Promise<BlogPostPreview[]> {
+  async getPostsPreviews(forceRefresh = false): Promise<BlogPostPreview[]> {
     if (!forceRefresh && this.cachedPosts) {
       return this.cachedPosts
     }
 
-    const posts = (await postsLoader.getPosts()).map(post => {
+    const posts = (await postsLoader.getPosts()).map((post) => {
       return {
         slug: post.slug,
         title: post.title,

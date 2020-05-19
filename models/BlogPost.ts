@@ -1,6 +1,6 @@
-import { Entry, EntryType } from "../data/loaders/Entry"
+import { Entry, EntryType } from "./Entry"
 
-export function isBlogPost(object: any): object is BlogPost {
+export function isBlogPost(object: Entry): object is BlogPost {
   return object.type === EntryType.BlogPost
 }
 

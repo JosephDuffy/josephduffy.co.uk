@@ -2,6 +2,7 @@ import Page from "../layouts/main"
 import { NextPage, NextPageContext } from "next"
 import Error from "../components/Error"
 import Head from "next/head"
+import { PropsWithChildren } from "react"
 
 interface Props {
   statusCode: number
@@ -12,31 +13,31 @@ interface Props {
 const ErrorPage: NextPage<Props> = ({
   statusCode,
   title,
-  children,
   message,
-}) => {
+  children,
+}: PropsWithChildren<Props>) => {
   return (
     <Page>
       <Head>
         <title>
-          {statusCode} - {title}
+          {title && title}
+          {!title && `${statusCode} Error`}
         </title>
       </Head>
-      <Error statusCode={statusCode} title={title} message={message} />
+      <Error
+        statusCode={statusCode}
+        title={title ?? `${statusCode} Error`}
+        message={message}
+      />
       {children}
     </Page>
   )
 }
 
-ErrorPage.getInitialProps = (context: NextPageContext) => {
+ErrorPage.getInitialProps = (context: NextPageContext): Props => {
   const { res, err } = context
   const statusCode = res?.statusCode ?? err?.statusCode ?? 404
-  const title = statusCode === 404 ? "Not Found" : undefined
-  const message =
-    statusCode === 404
-      ? "The page you were looking for could not be found."
-      : undefined
-  return { statusCode, title, message }
+  return { statusCode }
 }
 
 export default ErrorPage

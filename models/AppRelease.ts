@@ -1,6 +1,6 @@
-import { Entry, EntryType } from "../data/loaders/Entry"
+import { Entry, EntryType } from "./Entry"
 
-export function isAppRelease(object: any): object is AppRelease {
+export function isAppRelease(object: Entry): object is AppRelease {
   return object.type === EntryType.AppRelease
 }
 

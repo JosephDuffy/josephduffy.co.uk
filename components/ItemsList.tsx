@@ -16,7 +16,7 @@ const ItemsList: FunctionComponent<Props> = ({
   verb,
   showCount,
   rel,
-}) => {
+}: Props) => {
   return (
     <Fragment>
       <div>
@@ -27,7 +27,7 @@ const ItemsList: FunctionComponent<Props> = ({
               {verb}:
             </span>
           </li>
-          {Array.from(items.entries()).map(item => {
+          {Array.from(items.entries()).map((item) => {
             const [index, tag] = item
             return (
               <li className="list-item" key={tag.title}>
@@ -58,7 +58,7 @@ const ItemsList: FunctionComponent<Props> = ({
 
         span.label {
           margin-right: 4px;
-          color: var(--secondary-label)
+          color: var(--secondary-label);
         }
 
         ul {

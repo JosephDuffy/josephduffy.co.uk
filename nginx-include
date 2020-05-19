@@ -1,4 +1,4 @@
-add_header Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'" always;
+add_header Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; prefetch-src 'self'" always;
 add_header X-Frame-Options "SAMEORIGIN" always;
 add_header X-Content-Type-Options "nosniff" always;
 add_header Referrer-Policy "strict-origin-when-cross-origin" always;
@@ -46,4 +46,8 @@ location = /feeds {
 
 location = /atom {
 	return 301 https://$server_name/atom.xml;
+}
+
+location = /github {
+	return 301 https://github.com/JosephDuffy;
 }

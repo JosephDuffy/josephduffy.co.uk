@@ -9,7 +9,9 @@ interface Props {
   post: BlogPostPreview
 }
 
-const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
+const BlogPostPreviewComponent: FunctionComponent<Props> = ({
+  post,
+}: Props) => {
   return (
     <article key={post.slug}>
       <header>
@@ -21,7 +23,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({ post }) => {
         <FormattedDate date={post.date} prefix="Published" />
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
-      <HorizontalRule/>
+      <HorizontalRule />
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
         <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>

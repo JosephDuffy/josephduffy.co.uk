@@ -1,10 +1,10 @@
-import { NextPage } from "next"
+import { NextPage, GetStaticProps } from "next"
 import Page from "../../layouts/main"
-import entriesLoader, {
-  PossibleEntries,
-} from "../../data/loaders/EntriesLoader"
+import entriesLoader, { PossibleEntries } from "../../loaders/EntriesLoader"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
+import { GetStaticPaths } from "next/types"
+import { ParsedUrlQuery } from "querystring"
 
 export interface Props {
   entries: PossibleEntries[]
@@ -12,11 +12,15 @@ export interface Props {
   totalPages: number
 }
 
-const EntriesPage: NextPage<Props> = ({ entries, pageNumber, totalPages }) => {
+const EntriesPage: NextPage<Props> = ({
+  entries,
+  pageNumber,
+  totalPages,
+}: Props) => {
   return (
     <Page>
       <Head>
-        <title>Joseph Duffy :: iOS Developer</title>
+        <title>{`Entries page ${pageNumber} - Joseph Duffy`}</title>
         <meta
           name="description"
           content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy"
@@ -27,19 +31,21 @@ const EntriesPage: NextPage<Props> = ({ entries, pageNumber, totalPages }) => {
         pageCount={totalPages}
         paginationHREF="/entries/[page]"
         currentPage={pageNumber}
+        appCampaignName="entries"
       />
     </Page>
   )
 }
 
-export interface StaticProps {
-  props: Props
+interface StaticParams extends ParsedUrlQuery {
+  page: string
 }
 
-export async function getStaticProps({
+export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   params,
-}: StaticParams): Promise<StaticProps> {
-  const page = parseInt(params.page)
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const page = parseInt(params!.page)
   const pagesCount = await entriesLoader.getPageCount(true)
   const entries = await entriesLoader.getPage(page, true)
 
@@ -52,20 +58,14 @@ export async function getStaticProps({
   }
 }
 
-interface StaticParams {
-  params: {
-    page: string
-  }
-}
-
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const pagesCount = await entriesLoader.getPageCount(true)
 
   return {
     fallback: false,
     paths: Array.from(Array(pagesCount + 1).keys())
       .slice(1)
-      .map(page => {
+      .map((page) => {
         return `/entries/${page}`
       }),
   }

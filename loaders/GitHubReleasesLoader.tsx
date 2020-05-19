@@ -1,12 +1,13 @@
 import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import fetch from "node-fetch"
 import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from "apollo-cache-inmemory"
-import { Entry, EntryType } from "./Entry"
-import CombinedGitHubReleasesEntry from "../../models/CombinedGitHubReleasesEntry"
+import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
-import Markdown from "../../components/Markdown"
+import Markdown from "../components/Markdown"
+import { LoaderEntriesCache } from "./LoaderEntriesCache"
+import { GitHubRelease } from "../models/GitHubRelease"
+import { loadSecret } from "../helpers/loadSecret"
 
 const query = gql`
   query {
@@ -74,31 +75,33 @@ interface Release {
   url: string
 }
 
-export interface CombinedGitHubRelease extends CombinedGitHubReleasesEntry {}
-
-export function isGitHubRelease(object: any): object is GitHubRelease {
-  return object.type === EntryType.GithubRelease
-}
-
-export interface GitHubRelease extends Entry {
-  descriptionHTML: string | null
-  repoName: string
-  versionNumber: string
-  date: string
-  url: string
-  tags: string[]
-}
-
 export class GitHubReleasesLoader {
-  private cachedReleases?: GitHubRelease[]
+  private cache: LoaderEntriesCache<GitHubRelease>
 
-  async getReleases(forceRefresh: boolean = false): Promise<GitHubRelease[]> {
-    if (!forceRefresh && this.cachedReleases) {
-      console.debug("Using cached GitHub releases")
-      return this.cachedReleases
+  constructor() {
+    if (process.env["GITHUB_RELEASES_CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        parseInt(process.env["GITHUB_RELEASES_CACHE_TIMEOUT"]),
+      )
+    } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        parseInt(process.env["CACHE_TIMEOUT"]),
+      )
+    } else {
+      this.cache = new LoaderEntriesCache(this.loadReleases.bind(this))
     }
+  }
 
-    if (!process.env["GITHUB_ACCESS_TOKEN"]) {
+  getReleases(): Promise<GitHubRelease[]> {
+    return this.cache.entries
+  }
+
+  private async loadReleases(): Promise<GitHubRelease[]> {
+    const accessToken = await loadSecret("GITHUB_ACCESS_TOKEN")
+
+    if (accessToken === undefined) {
       console.warn(
         "GITHUB_ACCESS_TOKEN is not set; GitHub releases will not be loaded",
       )
@@ -107,9 +110,9 @@ export class GitHubReleasesLoader {
 
     const link = createHttpLink({
       uri: "https://api.github.com/graphql",
-      fetch: fetch as any,
+      fetch: fetch,
       headers: {
-        Authorization: `bearer ${process.env["GITHUB_ACCESS_TOKEN"]}`,
+        Authorization: `bearer ${accessToken}`,
       },
     })
     const client = new ApolloClient({
@@ -125,13 +128,15 @@ export class GitHubReleasesLoader {
 
     const releaseTags = ["open-source"]
     const data = result.data as QueryResult
-    const releases = data.user.repositories.nodes.flatMap(repository => {
+    const releases = data.user.repositories.nodes.flatMap((repository) => {
       const repoTags = releaseTags.concat(
-        repository.repositoryTopics.nodes.map(node => node.topic.name),
+        repository.repositoryTopics.nodes.map((node) => node.topic.name),
       )
-      return repository.releases.nodes.map(release => {
+      return repository.releases.nodes.map((release) => {
         const releaseTags = this.tagsForRelease(release, repository)
-        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={release.description} />)
+        const descriptionHTML = ReactDOMServer.renderToStaticMarkup(
+          <Markdown source={release.description} />,
+        )
         return {
           title: `${repository.name} ${release.tagName}`,
           descriptionHTML,
@@ -145,7 +150,6 @@ export class GitHubReleasesLoader {
         }
       })
     })
-    this.cachedReleases = releases
     return releases
   }
 

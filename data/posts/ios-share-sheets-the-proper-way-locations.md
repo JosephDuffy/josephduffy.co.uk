@@ -153,8 +153,8 @@ func activityItems(latitude: Double, longitude: Double) -> [AnyObject]? {
 
 This doesn't require much more code, but has a few other added bonuses:
 
-- When shared via AriDrop, ipens Maps.app
+- When shared via AirDrop, opens Maps.app
 - Allows sharing via apps that don't support sharing file, such as Facebook's Messenger
 - Allows the user to copy the location to the clipboard in form of "&lt;url&gt; &lt;share title&gt;"
 
-I've been doing a lot of work with Share Sheets lately, so if you've found this post useful and want to see more, check back soon, [subscribe to the RSS feed for this blog](/rss), or [follow me on Twitter](https://www.twitter.com/Joe_Duffy).
+I've been doing a lot of work with Share Sheets lately, so if you've found this post useful and want to see more, check back soon, [subscribe to the RSS feed for this blog](/blog-feeds), or [follow me on Twitter](https://www.twitter.com/Joe_Duffy).

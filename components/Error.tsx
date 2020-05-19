@@ -6,7 +6,11 @@ interface Props {
   message?: string
 }
 
-const Error: FunctionComponent<Props> = ({ statusCode, title, message }) => {
+const Error: FunctionComponent<Props> = ({
+  statusCode,
+  title,
+  message,
+}: Props) => {
   return (
     <Fragment>
       <h1>

@@ -1,13 +1,14 @@
 import ErrorPage from "../../pages/_error"
 import { NextPage } from "next"
 import Page from "../../layouts/main"
-import postsLoader from "../../data/loaders/PostsLoader"
+import postsLoader from "../../loaders/PostsLoader"
 import BlogPost from "../../models/BlogPost"
 import Link from "next/link"
 import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
 import Card from "../../components/Card"
+import { GetStaticPaths } from "next/types"
 
 interface Props {
   post?: BlogPost
@@ -19,15 +20,33 @@ const PostPage: NextPage<Props> = ({ post }) => {
     return (
       <Page>
         <Head>
-          <title>{post.title}</title>
+          <title>{post.title} - Joseph Duffy</title>
           <meta
             name="description"
             content={`Blog post by Joseph Duffy about ${post.title}`}
           />
-          <link rel="alternate" type="application/rss+xml" title="RSS feed for blog posts" href="https://josephduffy.co.uk/rss.xml" />
-          <link rel="alternate" type="application/atom+xml" title="Atom feed for blog posts" href="https://josephduffy.co.uk/atom.xml" />
-          <link rel="alternate" type="application/json" title="JSON feed for blog posts" href="https://josephduffy.co.uk/feed.json" />
-          <script type="application/ld+json" dangerouslySetInnerHTML={ { __html: `
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS feed for blog posts"
+            href="https://josephduffy.co.uk/rss.xml"
+          />
+          <link
+            rel="alternate"
+            type="application/atom+xml"
+            title="Atom feed for blog posts"
+            href="https://josephduffy.co.uk/atom.xml"
+          />
+          <link
+            rel="alternate"
+            type="application/json"
+            title="JSON feed for blog posts"
+            href="https://josephduffy.co.uk/feed.json"
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: `
             {
               "@context": "https://schema.org",
               "@type": "BlogPosting",
@@ -45,7 +64,9 @@ const PostPage: NextPage<Props> = ({ post }) => {
                 "name": "Joseph Duffy"
               }
             }
-          `} }></script>
+          `,
+            }}
+          ></script>
         </Head>
         <Card>
           <article>
@@ -54,7 +75,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
               <FormattedDate date={post.date} prefix="Published" />
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
-            <div className="post-content" dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
+            <div
+              className="post-content"
+              dangerouslySetInnerHTML={{ __html: post.contentHTML }}
+            />
           </article>
         </Card>
         <style jsx>{`
@@ -91,7 +115,7 @@ export async function getStaticProps({
 }: StaticParams): Promise<StaticProps> {
   const { slug } = params
   const posts = await postsLoader.getPosts()
-  const post = posts.find(post => post.slug === slug)
+  const post = posts.find((post) => post.slug === slug)
 
   return {
     props: {
@@ -100,12 +124,12 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await postsLoader.getPosts()
 
   return {
     fallback: false,
-    paths: posts.map(post => {
+    paths: posts.map((post) => {
       return `/posts/${post.slug}`
     }),
   }

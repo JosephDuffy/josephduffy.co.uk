@@ -1,35 +1,43 @@
 import { Fragment, Component } from "react"
-import { isGitHubRelease } from "../data/loaders/GitHubReleasesLoader"
-import { isStackOverflowEntry } from "../data/loaders/StackOverflowLoader"
 import GitHubReleasePreview from "./GitHubReleasePreview"
 import StackOverflowEntryPreview from "./StackOverflowEntryPreview"
 import BlogPostPreview from "./BlogPostPreview"
 import { isCombinedGitHubReleasesEntry } from "../models/CombinedGitHubReleasesEntry"
 import CombinedGitHubReleasesPreview from "./CombinedGitHubReleasesPreview"
-import { isGitHubPullRequest } from "../data/loaders/GitHubPullRequestsLoader"
 import GitHubPullRequestPreview from "./GitHubPullRequestPreview"
 import Card from "./Card"
-import { PossibleEntries } from "../data/loaders/EntriesLoader"
+import { PossibleEntries } from "../loaders/EntriesLoader"
 import { isAppRelease } from "../models/AppRelease"
 import AppReleasePreview from "./AppReleasePreview"
 import AppPreview, { isAppPreview } from "../models/AppPreview"
-import { default as AppPreviewComponent} from "./AppPreview"
+import { default as AppPreviewComponent } from "./AppPreview"
+import { isGitHubPullRequest } from "../models/GitHubPullRequest"
+import { isGitHubRelease } from "../models/GitHubRelease"
+import { isStackOverflowEntry } from "../models/StackOverflowEntry"
 
 interface Props {
   entry: PossibleEntries | AppPreview
+  appCampaignName?: string
 }
 
 class EntryPreview extends Component<Props> {
-  render() {
-    const { entry } = this.props
+  render(): JSX.Element {
+    const { entry, appCampaignName } = this.props
     return (
       <Fragment>
-        <Card>{this.previewForEntry(entry)}</Card>
+        <Card>{this.previewForEntry(entry, appCampaignName)}</Card>
       </Fragment>
     )
   }
 
-  private previewForEntry(entry: PossibleEntries | AppPreview): JSX.Element {
+  private previewForEntry(
+    entry: PossibleEntries | AppPreview,
+    appCampaignName?: string,
+  ): JSX.Element {
+    if (isAppPreview(entry)) {
+      return <AppPreviewComponent app={entry} campaignName={appCampaignName} />
+    }
+
     if (isCombinedGitHubReleasesEntry(entry)) {
       return <CombinedGitHubReleasesPreview combinedReleases={entry} />
     }
@@ -48,10 +56,6 @@ class EntryPreview extends Component<Props> {
 
     if (isAppRelease(entry)) {
       return <AppReleasePreview release={entry} />
-    }
-
-    if (isAppPreview(entry)) {
-      return <AppPreviewComponent app={entry} />
     }
 
     return <BlogPostPreview post={entry} />

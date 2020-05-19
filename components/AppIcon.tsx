@@ -5,7 +5,10 @@ interface Props {
   iconURL: string
 }
 
-const AppIcon: FunctionComponent<Props> = ({ appName, iconURL }) => {
+const AppIcon: FunctionComponent<Props> = ({
+  appName,
+  iconURL,
+}: Props): JSX.Element => {
   return (
     <Fragment>
       <div>

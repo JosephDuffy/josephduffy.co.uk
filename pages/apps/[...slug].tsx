@@ -1,6 +1,6 @@
-import { NextPage } from "next"
+import { NextPage, GetStaticProps } from "next"
 import Page from "../../layouts/main"
-import appsLoader from "../../data/loaders/AppsLoader"
+import appsLoader from "../../loaders/AppsLoader"
 import Head from "next/head"
 import App from "../../models/App"
 import ErrorPage from "../_error"
@@ -8,6 +8,8 @@ import Link from "next/link"
 import AppIcon from "../../components/AppIcon"
 import Markdown from "../../components/Markdown"
 import FormattedDate from "../../components/FormattedDate"
+import { GetStaticPaths } from "next/types"
+import { ParsedUrlQuery } from "querystring"
 
 export interface Props {
   app?: App
@@ -30,11 +32,8 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} :: iOS App by Joseph Duffy</title>
-          <meta
-            name="description"
-            content={app.shortDescription}
-          />
+          <title>{app.name} iOS App - Joseph Duffy</title>
+          <meta name="description" content={app.shortDescription} />
         </Head>
         <div className="header">
           <div className="appIcon">
@@ -42,7 +41,10 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </div>
           <div className="header-content">
             <h1>{app.name}</h1>
-            <a href={app.url} className="download-link">
+            <a
+              href={app.url + "?pt=96178896&ct=app-page&mt=8"}
+              className="download-link"
+            >
               <img
                 className="app-store-badge"
                 src="/images/app-store-download-badge.svg"
@@ -51,21 +53,15 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             </a>
             <div className="meta-links">
               <Link href="/apps/[...slug]" as={`/apps/${app.slug}/changelog`}>
-                <a>
-                  Changelog
-                </a>
+                <a>Changelog</a>
               </Link>
               <span className="divider">•</span>
               <Link href="/apps/[...slug]" as={`/apps/${app.slug}/privacy`}>
-                <a>
-                  Privacy Policy
-                </a>
+                <a>Privacy Policy</a>
               </Link>
               <span className="divider">•</span>
               <Link href="/tags/[slug]" as={`/tags/${app.slug}`}>
-                <a>
-                  Related Entries
-                </a>
+                <a>Related Entries</a>
               </Link>
             </div>
           </div>
@@ -118,7 +114,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} Privacy Policy :: iOS App by Joseph Duffy</title>
+          <title>{app.name} Privacy Policy - Joseph Duffy</title>
           <meta
             name="description"
             content={`Privacy policy for ${app.name} iOS App`}
@@ -126,9 +122,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
         </Head>
         <p>
           <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
-            <a>
-              ← Back to information about {app.name}
-            </a>
+            <a>← Back to information about {app.name}</a>
           </Link>
         </p>
         <h1>{app.name} Privacy Policy</h1>
@@ -139,7 +133,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} Changelog :: iOS App by Joseph Duffy</title>
+          <title>{app.name} Changelog - Joseph Duffy</title>
           <meta
             name="description"
             content={`Full changelog for ${app.name} iOS App`}
@@ -147,45 +141,36 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
         </Head>
         <p>
           <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
-            <a>
-              ← Back to information about {app.name}
-            </a>
+            <a>← Back to information about {app.name}</a>
           </Link>
         </p>
         <h1>{app.name} Changelog</h1>
-        {
-          app.changelogs.map(changelog => {
-            return (
-              <div key={changelog.version}>
-                <h2>{changelog.version}</h2>
-                <FormattedDate date={changelog.releaseDate} prefix="Released" />
-                <Markdown source={changelog.content} />
-              </div>
-            )
-          })
-        }
+        {app.changelogs.map((changelog) => {
+          return (
+            <div key={changelog.version}>
+              <h2>{changelog.version}</h2>
+              <FormattedDate date={changelog.releaseDate} prefix="Released" />
+              <Markdown source={changelog.content} />
+            </div>
+          )
+        })}
       </Page>
     )
   }
 }
 
-export interface StaticProps {
-  props: Props
+interface StaticParams extends ParsedUrlQuery {
+  slug: string[]
 }
 
-interface StaticParams {
-  params: {
-    slug: string[]
-  }
-}
-
-export async function getStaticProps({
+export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   params,
-}: StaticParams): Promise<StaticProps> {
-  const { slug } = params
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const slug = params!.slug
   const appSlug = slug[0]
   const apps = appsLoader.getApps()
-  const app = apps.find(app => app.slug === appSlug)
+  const app = apps.find((app) => app.slug === appSlug)
 
   if (!app) {
     console.warn("Failed to find app with slug", appSlug)
@@ -242,12 +227,12 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const apps = appsLoader.getApps()
 
   return {
     fallback: false,
-    paths: apps.flatMap(app => {
+    paths: apps.flatMap((app) => {
       return [
         `/apps/${app.slug}`,
         `/apps/${app.slug}/changelog`,

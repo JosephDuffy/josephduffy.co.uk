@@ -1,6 +1,6 @@
-import { FunctionComponent, Fragment } from "react"
+import { FunctionComponent, Fragment, PropsWithChildren } from "react"
 
-const Card: FunctionComponent = ({ children }) => {
+const Card: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
   return (
     <Fragment>
       <div className="card-container">{children}</div>
@@ -11,6 +11,7 @@ const Card: FunctionComponent = ({ children }) => {
           padding: 12px;
           margin-bottom: 8px;
           flex: 1;
+          overflow-wrap: break-word;
         }
       `}</style>
     </Fragment>

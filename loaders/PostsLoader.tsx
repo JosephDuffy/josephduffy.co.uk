@@ -2,15 +2,15 @@ import matter from "gray-matter"
 import glob from "glob"
 import path from "path"
 import fs from "fs"
-import BlogPost from "../../models/BlogPost"
-import { EntryType } from "./Entry"
+import BlogPost from "../models/BlogPost"
+import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
-import Markdown from "../../components/Markdown"
+import Markdown from "../components/Markdown"
 
 export class PostsLoader {
   private cachedPosts?: BlogPost[]
 
-  async getPosts(forceRefresh: boolean = false): Promise<BlogPost[]> {
+  async getPosts(forceRefresh = false): Promise<BlogPost[]> {
     if (!forceRefresh && this.cachedPosts) {
       return this.cachedPosts
     }
@@ -18,19 +18,26 @@ export class PostsLoader {
     console.debug("Loading posts")
 
     const postPaths = glob.sync("data/posts/*.md")
-    const posts: BlogPost[] = postPaths.map((postPath => {
+    const posts: BlogPost[] = postPaths.map((postPath) => {
       console.debug(`Loading post at ${postPath}`)
       const slug = path.basename(postPath, path.extname(postPath))
       const fileBuffer = fs.readFileSync(postPath)
       const excerptSeparator = "<!-- more -->"
       const parsedContent = matter(fileBuffer, {
         excerpt: true,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         excerpt_separator: excerptSeparator,
       })
       const excerptRegex = /<!-- more -->/g
       const markdownContent = parsedContent.content.replace(excerptRegex, "")
-      const contentHTML = ReactDOMServer.renderToStaticMarkup(<Markdown source={markdownContent} />)
-      const excerptHTML = parsedContent.excerpt ? ReactDOMServer.renderToStaticMarkup(<Markdown source={parsedContent.excerpt} />) : undefined
+      const contentHTML = ReactDOMServer.renderToStaticMarkup(
+        <Markdown source={markdownContent} />,
+      )
+      const excerptHTML = parsedContent.excerpt
+        ? ReactDOMServer.renderToStaticMarkup(
+            <Markdown source={parsedContent.excerpt} />,
+          )
+        : undefined
 
       return {
         slug,
@@ -42,7 +49,7 @@ export class PostsLoader {
         tags: parsedContent.data.tags ?? [],
         type: EntryType.BlogPost,
       }
-    }))
+    })
 
     this.cachedPosts = posts
 

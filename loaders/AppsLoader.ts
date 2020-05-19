@@ -1,10 +1,10 @@
-import App from "../../models/App"
-import gathered from "../apps/gathered"
-import scanula from "../apps/scanula"
-import fourSquares from "../apps/four-squares"
-import AppPreview from "../../models/AppPreview"
-import { EntryType } from "./Entry"
-import AppRelease from "../../models/AppRelease"
+import App from "../models/App"
+import gathered from "../data/apps/gathered"
+import scanula from "../data/apps/scanula"
+import fourSquares from "../data/apps/four-squares"
+import AppPreview from "../models/AppPreview"
+import { EntryType } from "../models/Entry"
+import AppRelease from "../models/AppRelease"
 
 export class AppsLoader {
   getApps(): App[] {
@@ -12,7 +12,7 @@ export class AppsLoader {
   }
 
   getAppsPreviews(): AppPreview[] {
-    return [gathered, scanula, fourSquares].map(app => {
+    return [gathered, scanula, fourSquares].map((app) => {
       return {
         title: app.name,
         slug: app.slug,
@@ -25,8 +25,8 @@ export class AppsLoader {
   }
 
   getAppsReleases(): AppRelease[] {
-    return [gathered, scanula, fourSquares].flatMap(app => {
-      return app.changelogs.map(changelog => {
+    return [gathered, scanula, fourSquares].flatMap((app) => {
+      return app.changelogs.map((changelog) => {
         return {
           title: `${app.name} version ${changelog.version}`,
           version: changelog.version,
