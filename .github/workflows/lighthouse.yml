@@ -9,11 +9,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Make GITHUB_ACCESS_TOKEN available
+        run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+      - name: Docker Build
+        run: DOCKER_BUILDKIT=1 docker build . -t josephduffy:lighthouse --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
+
       - name: Run Lighthouse CI
-        run: |
-          docker build -t josephduffy:lighthouse --build-arg GITHUB_ACCESS_TOKEN .
-          npx @lhci/cli@0.3.x autorun --collect.startServerCommand="docker run --rm -p 80:80 josephduffy:lighthouse" || echo "LHCI failed!"
-          docker rmi --force josephduffy:lighthouse
+        run: npx @lhci/cli@0.3.x autorun --collect.startServerCommand="docker run --rm -p 80:80 josephduffy:lighthouse" || echo "LHCI failed!"
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
