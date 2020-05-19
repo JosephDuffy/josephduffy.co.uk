@@ -27,7 +27,7 @@ const ItemsList: FunctionComponent<Props> = ({
               {verb}:
             </span>
           </li>
-          {Array.from(items.entries()).map(item => {
+          {Array.from(items.entries()).map((item) => {
             const [index, tag] = item
             return (
               <li className="list-item" key={tag.title}>

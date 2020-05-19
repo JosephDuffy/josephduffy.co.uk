@@ -145,7 +145,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </Link>
         </p>
         <h1>{app.name} Changelog</h1>
-        {app.changelogs.map(changelog => {
+        {app.changelogs.map((changelog) => {
           return (
             <div key={changelog.version}>
               <h2>{changelog.version}</h2>
@@ -170,7 +170,7 @@ export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   const slug = params!.slug
   const appSlug = slug[0]
   const apps = appsLoader.getApps()
-  const app = apps.find(app => app.slug === appSlug)
+  const app = apps.find((app) => app.slug === appSlug)
 
   if (!app) {
     console.warn("Failed to find app with slug", appSlug)
@@ -232,7 +232,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     fallback: false,
-    paths: apps.flatMap(app => {
+    paths: apps.flatMap((app) => {
       return [
         `/apps/${app.slug}`,
         `/apps/${app.slug}/changelog`,

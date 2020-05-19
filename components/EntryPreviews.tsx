@@ -16,7 +16,7 @@ class EntryPreviews extends Component<Props> {
     const { entries, pageCount, currentPage, appCampaignName } = this.props
     return (
       <Fragment>
-        {entries.map(entry => {
+        {entries.map((entry) => {
           return (
             <EntryPreview
               key={`${entry.type}-${entry.slug}`}
@@ -37,7 +37,7 @@ class EntryPreviews extends Component<Props> {
                 )}
                 {Array.from(Array(pageCount + 1).keys())
                   .slice(1)
-                  .map(page => {
+                  .map((page) => {
                     return this.linkForPage(
                       page,
                       page.toString(),

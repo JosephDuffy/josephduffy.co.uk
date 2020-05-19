@@ -127,14 +127,14 @@ export class GitHubPullRequestLoader {
     const data = result.data as QueryResult
     const pullRequests = data.user.pullRequests.nodes
       .filter(
-        pullRequest =>
+        (pullRequest) =>
           pullRequest.repository.owner.login !== "JosephDuffy" &&
           !pullRequest.repository.isPrivate,
       )
-      .flatMap(pullRequest => {
+      .flatMap((pullRequest) => {
         const tags = pullRequestTags.concat(
           pullRequest.repository.repositoryTopics.nodes.map(
-            node => node.topic.name,
+            (node) => node.topic.name,
           ),
         )
         const descriptionHTML = ReactDOMServer.renderToStaticMarkup(

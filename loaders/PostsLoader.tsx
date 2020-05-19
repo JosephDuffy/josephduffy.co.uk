@@ -18,7 +18,7 @@ export class PostsLoader {
     console.debug("Loading posts")
 
     const postPaths = glob.sync("data/posts/*.md")
-    const posts: BlogPost[] = postPaths.map(postPath => {
+    const posts: BlogPost[] = postPaths.map((postPath) => {
       console.debug(`Loading post at ${postPath}`)
       const slug = path.basename(postPath, path.extname(postPath))
       const fileBuffer = fs.readFileSync(postPath)

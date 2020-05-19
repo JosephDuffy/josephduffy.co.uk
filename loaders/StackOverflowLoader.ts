@@ -58,15 +58,17 @@ export class StackOverflowLoader {
 
     try {
       const posts = await this.loadPosts()
-      const questionPosts = posts.filter(post => post.post_type === "question")
-      const answerPosts = posts.filter(post => post.post_type === "answer")
-      const answerIds = answerPosts.map(answer => answer.post_id)
+      const questionPosts = posts.filter(
+        (post) => post.post_type === "question",
+      )
+      const answerPosts = posts.filter((post) => post.post_type === "answer")
+      const answerIds = answerPosts.map((answer) => answer.post_id)
 
       const apiAnswers = await this.loadAnswers(answerIds)
 
       const questionIds = questionPosts
-        .map(question => question.post_id)
-        .concat(apiAnswers.map(answer => answer.question_id))
+        .map((question) => question.post_id)
+        .concat(apiAnswers.map((answer) => answer.question_id))
 
       const apiQuestions = await this.loadQuestions(questionIds)
 
@@ -77,7 +79,7 @@ export class StackOverflowLoader {
       const questions: StackOverflowEntry[] = questionPosts.reduce(
         (questions: StackOverflowEntry[], questionPost) => {
           const apiQuestion = apiQuestions.find(
-            question => question.question_id === questionPost.post_id,
+            (question) => question.question_id === questionPost.post_id,
           )
 
           if (!apiQuestion) {
@@ -104,7 +106,7 @@ export class StackOverflowLoader {
       const answers: StackOverflowEntry[] = answerPosts.reduce(
         (answers: StackOverflowEntry[], answerPost) => {
           const apiAnswer = apiAnswers.find(
-            answer => answer.answer_id === answerPost.post_id,
+            (answer) => answer.answer_id === answerPost.post_id,
           )
 
           if (!apiAnswer) {
@@ -112,7 +114,7 @@ export class StackOverflowLoader {
           }
 
           const apiQuestion = apiQuestions.find(
-            question => question.question_id === apiAnswer.question_id,
+            (question) => question.question_id === apiAnswer.question_id,
           )
 
           if (!apiQuestion) {
@@ -180,12 +182,12 @@ export class StackOverflowLoader {
     )
     return new Promise<Response>((resolve, reject) => {
       https
-        .get(url, response => {
+        .get(url, (response) => {
           const gunzip = zlib.createGunzip()
           const buffer: string[] = []
 
           gunzip
-            .on("data", data => {
+            .on("data", (data) => {
               buffer.push(data.toString())
             })
             .on("end", () => {
@@ -199,14 +201,14 @@ export class StackOverflowLoader {
                 reject("Unknown response type")
               }
             })
-            .on("error", err => {
+            .on("error", (err) => {
               console.error("Error with StackExchange API response", err)
               reject(err)
             })
 
           response.pipe(gunzip)
         })
-        .on("error", err => {
+        .on("error", (err) => {
           console.error("Network error with StackExchange API", err)
           reject(err)
         })

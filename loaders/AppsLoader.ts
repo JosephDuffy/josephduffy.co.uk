@@ -12,7 +12,7 @@ export class AppsLoader {
   }
 
   getAppsPreviews(): AppPreview[] {
-    return [gathered, scanula, fourSquares].map(app => {
+    return [gathered, scanula, fourSquares].map((app) => {
       return {
         title: app.name,
         slug: app.slug,
@@ -25,8 +25,8 @@ export class AppsLoader {
   }
 
   getAppsReleases(): AppRelease[] {
-    return [gathered, scanula, fourSquares].flatMap(app => {
-      return app.changelogs.map(changelog => {
+    return [gathered, scanula, fourSquares].flatMap((app) => {
+      return app.changelogs.map((changelog) => {
         return {
           title: `${app.name} version ${changelog.version}`,
           version: changelog.version,

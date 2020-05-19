@@ -65,7 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
     paths: Array.from(Array(pagesCount + 1).keys())
       .slice(1)
-      .map(page => {
+      .map((page) => {
         return `/entries/${page}`
       }),
   }

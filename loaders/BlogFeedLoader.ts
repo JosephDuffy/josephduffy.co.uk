@@ -28,7 +28,7 @@ export class BlogFeedLoader {
         link: "https://josephduffy.co.uk",
       },
     })
-    posts.forEach(post => {
+    posts.forEach((post) => {
       const url = "https://josephduffy.co.uk" + post.url
       feed.addItem({
         title: post.title,

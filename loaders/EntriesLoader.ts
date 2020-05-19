@@ -139,7 +139,7 @@ export class EntriesLoader {
 
         if (sequentialReleasesCount >= 3) {
           console.debug(
-            `Combining ${entriesToCombine.map(e => e.title)} because ${
+            `Combining ${entriesToCombine.map((e) => e.title)} because ${
               entry.title
             } is not sequential`,
           )
@@ -150,9 +150,9 @@ export class EntriesLoader {
             date: latestRelease.date,
             releases: entriesToCombine,
             tags: Array.from(
-              new Set(entriesToCombine.flatMap(entry => entry.tags)),
+              new Set(entriesToCombine.flatMap((entry) => entry.tags)),
             ),
-            slug: entriesToCombine.map(entry => entry.slug).join("-"),
+            slug: entriesToCombine.map((entry) => entry.slug).join("-"),
             type: EntryType.CombinedGitHubReleases,
           }
           combinedEntries.push(combinedEntry)

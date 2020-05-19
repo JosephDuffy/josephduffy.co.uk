@@ -1,7 +1,7 @@
 import fs from "fs"
 
 export function loadSecret(name: string): Promise<string | undefined> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     if (process.env[name] !== undefined) {
       resolve(process.env[name])
     } else {

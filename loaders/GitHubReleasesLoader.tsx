@@ -128,11 +128,11 @@ export class GitHubReleasesLoader {
 
     const releaseTags = ["open-source"]
     const data = result.data as QueryResult
-    const releases = data.user.repositories.nodes.flatMap(repository => {
+    const releases = data.user.repositories.nodes.flatMap((repository) => {
       const repoTags = releaseTags.concat(
-        repository.repositoryTopics.nodes.map(node => node.topic.name),
+        repository.repositoryTopics.nodes.map((node) => node.topic.name),
       )
-      return repository.releases.nodes.map(release => {
+      return repository.releases.nodes.map((release) => {
         const releaseTags = this.tagsForRelease(release, repository)
         const descriptionHTML = ReactDOMServer.renderToStaticMarkup(
           <Markdown source={release.description} />,

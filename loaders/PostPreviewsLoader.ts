@@ -10,7 +10,7 @@ export class PostPreviewsLoader {
       return this.cachedPosts
     }
 
-    const posts = (await postsLoader.getPosts()).map(post => {
+    const posts = (await postsLoader.getPosts()).map((post) => {
       return {
         slug: post.slug,
         title: post.title,

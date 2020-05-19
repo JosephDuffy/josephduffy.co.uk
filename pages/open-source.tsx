@@ -33,7 +33,7 @@ const OpenSourcePage: NextPage<Props> = ({
         </a>
         .
       </p>
-      {repositories.map(repository => {
+      {repositories.map((repository) => {
         const datePrefix = `Most recent contribution: ${
           repository.mostRecentContribution.commitCount
         } commit${

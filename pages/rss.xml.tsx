@@ -4,7 +4,7 @@ import React from "react"
 
 export default class RSS extends React.Component {}
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { res } = context
 
   if (!res) {
