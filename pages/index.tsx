@@ -21,7 +21,7 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
       if ("title" in favourite) {
         favourites.push(favourite)
       } else {
-        const entry = entries.find(entry => {
+        const entry = entries.find((entry) => {
           return entry.type == favourite.type && entry.slug == favourite.slug
         })
 
@@ -77,20 +77,20 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
-  const partialBlogPost = allEntries.find(entry => {
+  const partialBlogPost = allEntries.find((entry) => {
     return "slug" in entry && entry.slug === "partial-framework-release-1-0-0"
   })
-  const iosShareSheetLocation = allEntries.find(entry => {
+  const iosShareSheetLocation = allEntries.find((entry) => {
     return (
       "slug" in entry &&
       entry.slug === "ios-share-sheets-the-proper-way-locations"
     )
   })
   const appPreviews = appsLoader.getAppsPreviews()
-  const gatheredAppPreview = appPreviews.find(app => {
+  const gatheredAppPreview = appPreviews.find((app) => {
     return app.slug === "gathered"
   })
-  const scanulaAppPreview = appPreviews.find(app => {
+  const scanulaAppPreview = appPreviews.find((app) => {
     return app.slug === "scanula"
   })
 
@@ -105,7 +105,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     }
 
     const entryExistsOnPage =
-      pageEntries.find(entry => {
+      pageEntries.find((entry) => {
         return (
           favouriteEntry.type == entry.type && favouriteEntry.slug == entry.slug
         )

@@ -6,7 +6,7 @@ interface Props {
 }
 
 const TagsList: FunctionComponent<Props> = ({ tags }: Props) => {
-  const items = tags.map(tag => {
+  const items = tags.map((tag) => {
     return {
       title: tag,
       url: `/tags/${tag}`,

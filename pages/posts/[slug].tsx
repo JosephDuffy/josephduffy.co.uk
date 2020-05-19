@@ -115,7 +115,7 @@ export async function getStaticProps({
 }: StaticParams): Promise<StaticProps> {
   const { slug } = params
   const posts = await postsLoader.getPosts()
-  const post = posts.find(post => post.slug === slug)
+  const post = posts.find((post) => post.slug === slug)
 
   return {
     props: {
@@ -129,7 +129,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     fallback: false,
-    paths: posts.map(post => {
+    paths: posts.map((post) => {
       return `/posts/${post.slug}`
     }),
   }

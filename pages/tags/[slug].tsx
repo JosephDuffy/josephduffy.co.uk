@@ -48,7 +48,7 @@ export async function getStaticProps({
 }: StaticParams): Promise<StaticProps> {
   const entries = await entriesLoader.getEntries(false)
   const { slug: tag } = params
-  const taggedEntries = entries.filter(entry => entry.tags.includes(tag))
+  const taggedEntries = entries.filter((entry) => entry.tags.includes(tag))
 
   taggedEntries.sort((entryA, entryB) => {
     return compareDesc(new Date(entryA.date), new Date(entryB.date))
@@ -65,14 +65,14 @@ export async function getStaticProps({
 export const getStaticPaths: GetStaticPaths = async () => {
   const entries = await entriesLoader.getEntries(false)
   const tags = new Set(
-    entries.flatMap(entry => {
+    entries.flatMap((entry) => {
       return entry.tags
     }),
   )
 
   return {
     fallback: false,
-    paths: Array.from(tags).map(tag => {
+    paths: Array.from(tags).map((tag) => {
       return `/tags/${tag}`
     }),
   }

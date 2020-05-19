@@ -15,7 +15,7 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
   return (
     <Fragment>
       <div className="entries">
-        {entries.map(entry => {
+        {entries.map((entry) => {
           return (
             <div className="preview" key={`${entry.type}-${entry.url}`}>
               <EntryPreview entry={entry} appCampaignName={appCampaignName} />

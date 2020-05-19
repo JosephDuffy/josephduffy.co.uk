@@ -114,7 +114,7 @@ export class GitHubRepositoriesLoader {
     const data = result.data as QueryResult
     const repositories = data.user.contributionsCollection.commitContributionsByRepository
       .filter(
-        contributionByRepository =>
+        (contributionByRepository) =>
           !contributionByRepository.repository.isPrivate,
       )
       .reduce((repositories: GitHubRepository[], contributionByRepository) => {
