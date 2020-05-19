@@ -31,6 +31,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cp .node-version .nvmrc
+          nvm install
           nvm use
 
       - run: npm install
