@@ -47,6 +47,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: hallee/eslint-action@1.0.1
-        with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
+      - name: Install node version from .node-version
+        shell: bash -l {0}
+        run: |
+          cp .node-version .nvmrc
+          nvm install
+          nvm use
+
+      - run: npm install
+      - run: npm run lint
