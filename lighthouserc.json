@@ -1,11 +1,13 @@
 {
   "ci": {
     "collect": {
+      "startServerCommand": "docker run --rm -p 80:80 josephduffy:lighthouse",
       "url": [
         "http://localhost/",
         "http://localhost/entries/2",
         "http://localhost/open-source",
         "http://localhost/yetii",
+        "http://localhost/privacy",
         "http://localhost/apps",
         "http://localhost/apps/gathered",
         "http://localhost/apps/gathered/privacy",
@@ -13,10 +15,10 @@
         "http://localhost/posts/exploiting-university-security-for-my-own-convenience",
         "http://localhost/posts/partial-in-swift",
         "http://localhost/posts/partial-framework-release-1-0-0",
+        "http://localhost/blog-feeds",
         "http://localhost/tags/open-source",
         "http://localhost/tags/swift"
-      ],
-      "numberOfRuns": 3
+      ]
     },
     "assert": {
       "preset": "lighthouse:recommended",
