@@ -36,9 +36,9 @@ const OpenSourcePage: NextPage<Props> = ({
       {repositories.map(repository => {
         const datePrefix = `Most recent contribution: ${
           repository.mostRecentContribution.commitCount
-          } commit${
+        } commit${
           repository.mostRecentContribution.commitCount > 1 ? "s" : ""
-          } on`
+        } on`
         return (
           <Card key={`${repository.owner}/${repository.name}`}>
             <div className="repository">
