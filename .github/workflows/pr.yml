@@ -29,7 +29,9 @@ jobs:
 
       - name: Install node version from .node-version
         shell: bash -l {0}
-        run: nvm use < .node-version
+        run: |
+          cp .node-version .nvmrc
+          nvm use
 
       - run: npm install
       - run: npm run format:check
