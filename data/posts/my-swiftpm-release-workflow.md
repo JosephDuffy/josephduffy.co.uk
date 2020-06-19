@@ -160,9 +160,9 @@ macOS, iOS, and tvOS tests gather test coverage and upload it to Codecov, which 
 
 For the iOS and tvOS tests, along with the watchOS build, I used [`xcutils`](https://github.com/JosephDuffy/xcutils). `xcutils` is another tool of mine that is used to improve the CLI of Xcode. Here it is used to run the tests/build against the latest versions of iOS/tvOS/watchOS, which means it should work on any machine and is resistant to changes made by GitHub.
 
-On Linux the `--enable-test-discovery` flag is paseed to `swift test` to remove the need for a `LinuxMain.swift` file that much be kept in sync with the tests.
+On Linux the `--enable-test-discovery` flag is passed to `swift test` to remove the need for a `LinuxMain.swift` file that much be kept in sync with the tests.
 
-These tests have helped me match many mistakes before merging, especially for platforms such as watchOS and Linux that are less frquently used.
+These tests have helped me match many mistakes before merging, especially for platforms such as watchOS and Linux that are less frequently used.
 
 ## Release Workflow
 
@@ -262,4 +262,4 @@ The second job runs `jazzy` to build HTML docs and uploads it to a `gh-pages` br
 
 With these workflows in place I can make a change, add some tests, push, create a pull request, merge, and tag a new release with confidence and all within a couple of hours.
 
-Sicne this workflow will be receiving small tweaks over time and I may not remember to update this workflow straight away (maybe I should make a workflow for that 🤪) you should check out the [Persist workflows](https://github.com/JosephDuffy/Persist/tree/master/.github/workflows) to find my latest changes.
+Since this workflow will be receiving small tweaks over time and I may not remember to update this workflow straight away (maybe I should make a workflow for that 🤪) you should check out the [Persist workflows](https://github.com/JosephDuffy/Persist/tree/master/.github/workflows) to find my latest changes.
