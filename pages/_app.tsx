@@ -2,14 +2,55 @@ import { Fragment } from "react"
 import App from "next/app"
 import Head from "next/head"
 import "normalize.css/normalize.css"
+import { Router } from "next/dist/client/router"
+
+declare global {
+  interface Window {
+    // Matomo
+    _paq?: {
+      push(event: string[]): void
+    }
+  }
+}
 
 // A custom app to support importing CSS files globally
 class MyApp extends App {
+  componentDidMount(): void {
+    Router.events.on("routeChangeComplete", (url) => {
+      if (window && window._paq) {
+        window._paq.push(["setCustomUrl", url])
+        window._paq.push(["setDocumentTitle", document.title])
+        window._paq.push(["trackPageView"])
+      }
+    })
+  }
+
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
     return (
       <Fragment>
         <Head>
+          {process.env["ANALYTICS_URL"] && (
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{
+                __html: `
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="${process.env["ANALYTICS_URL"]}";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+                  `,
+              }}
+            />
+          )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link
             rel="apple-touch-icon"

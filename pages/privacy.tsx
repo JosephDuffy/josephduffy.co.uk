@@ -17,16 +17,28 @@ const PrivacyPage: NextPage = () => {
         I take my own privacy seriously and in turn take the privacy practices
         of this website seriously.
       </p>
-      <h2>NGINX Logs</h2>
+      <h2>Analytics</h2>
+      <p>This website uses Matomo and NGINX logs to gather analytics.</p>
+      <h3>Matomo Analytics</h3>
+      <p>
+        <a href="https://matomo.org/">Matomo</a> is used to gather client-side
+        analytics. Matomo is configured to disable cookies and anonymise the
+        last 2 bytes of IP addresses.
+      </p>
+      <h3>NGINX Logs</h3>
       <p>
         <a href="https://nginx.org/">NGINX</a> is used to serve the content of
         this website. NGINX access logs are kept on the server and analysed by{" "}
-        <a href="https://goaccess.io/">GoAccess</a>. If you wish to browse the
-        website with access logging disabled please browse via{" "}
+        <a href="https://goaccess.io/">GoAccess</a>.
+      </p>
+      <h3>Browsing without Analytics</h3>
+      <p>
+        If you wish to browse the website without Matomo tracking and access
+        logging disabled please browse via{" "}
         <a href="https://noanalytics.josephduffy.co.uk">
           https://noanalytics.josephduffy.co.uk
         </a>
-        .
+        or the Tor hidden service linked below.
       </p>
       <h2>3rd Party Content</h2>
       <p>
