@@ -29,7 +29,7 @@
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
     "date-fns": "^2.14.0",
-    "feed": "^4.2.0",
+    "feed": "^4.2.1",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "gray-matter": "^4.0.2",
