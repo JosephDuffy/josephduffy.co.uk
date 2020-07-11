@@ -60,7 +60,9 @@ interface StaticProps {
 }
 
 export async function getStaticProps(): Promise<StaticProps> {
-  const posts = await postPreviewsLoader.getPostsPreviews()
+  const posts = await postPreviewsLoader.getPostsPreviews(
+    process.env["NODE_ENV"] === "development",
+  )
   posts.sort((postA, postB) => {
     return compareDesc(new Date(postA.date), new Date(postB.date))
   })

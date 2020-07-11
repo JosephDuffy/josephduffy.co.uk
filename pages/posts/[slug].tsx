@@ -114,7 +114,9 @@ export async function getStaticProps({
   params,
 }: StaticParams): Promise<StaticProps> {
   const { slug } = params
-  const posts = await postsLoader.getPosts()
+  const posts = await postsLoader.getPosts(
+    process.env["NODE_ENV"] === "development",
+  )
   const post = posts.find((post) => post.slug === slug)
 
   return {
@@ -125,7 +127,9 @@ export async function getStaticProps({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await postsLoader.getPosts()
+  const posts = await postsLoader.getPosts(
+    process.env["NODE_ENV"] === "development",
+  )
 
   return {
     fallback: false,
