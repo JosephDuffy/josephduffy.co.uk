@@ -81,4 +81,4 @@ foo.doSomething()
 
 The above code will print `Bar has changed`.
 
-To read more in-deptch information about closures read the [Swift language guide page on closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html).
+To read more in-depth information about closures read the [Swift language guide page on closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html).

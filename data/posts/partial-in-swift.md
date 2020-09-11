@@ -265,7 +265,7 @@ partialOrder[\.address][\.name] = "Johnny Appleseed"
 partialOrder[\.address][\.name] // "Johnny Appleseed"
 ```
 
-However, because it will always return a `Partial`, there will be an issue if the value has been explictly set elsewhere:
+However, because it will always return a `Partial`, there will be an issue if the value has been explicitly set elsewhere:
 
 ```swift
 partialOrder[\.address] = Address(name: "Johnny Appleseed", ...)
