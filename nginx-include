@@ -67,3 +67,7 @@ location = /atom {
 location = /github {
 	return 301 https://github.com/JosephDuffy;
 }
+
+location = /twitter {
+	return 301 https://twitter.com/Joe_Duffy;
+}
