@@ -32,6 +32,22 @@ location = /touch-id-on-the-lock-screen {
 	return 301 https://$server_name/posts/touch-id-on-the-lock-screen;
 }
 
+location = /exploiting-university-security-for-my-own-convenience {
+	return 301 https://$server_name/posts/exploiting-university-security-for-my-own-convenience;
+}
+
+location = /about {
+	return 302 https://$server_name/;
+}
+
+location = /projects/ {
+	return 301 https://$server_name/apps;
+}
+
+location = /projects {
+	return 301 https://$server_name/apps;
+}
+
 location = /rss {
 	return 301 https://$server_name/rss.xml;
 }
