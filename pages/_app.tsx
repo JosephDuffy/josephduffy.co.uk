@@ -27,6 +27,7 @@ class MyApp extends App {
 
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
+    const pageURL = "https://josephduffy.co.uk" + this.props.router.asPath
     return (
       <Fragment>
         <Head>
@@ -52,6 +53,7 @@ class MyApp extends App {
             />
           )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="canonical" href={pageURL} />
           <link
             rel="apple-touch-icon"
             sizes="57x57"
