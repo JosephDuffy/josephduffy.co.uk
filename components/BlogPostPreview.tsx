@@ -27,7 +27,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
         <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
-          <a>Read More</a>
+          <a title={`Keep reading ${post.title}`}>Keep Reading</a>
         </Link>
       </div>
     </article>
