@@ -9,8 +9,8 @@
     "postbuild": "npm run generate-feeds",
     "export": "next export",
     "start": "next start",
-    "format:check": "prettier --check '{components,data,layouts,loaders,models,pages,scripts}/**/*'",
-    "format": "prettier --write '{components,data,layouts,loaders,models,pages,scripts}/**/*'",
+    "format:check": "prettier --check '{components,data,layouts,loaders,models,pages}/**/*'",
+    "format": "prettier --write '{components,data,layouts,loaders,models,pages}/**/*'",
     "generate-feeds": "ts-node --script-mode ./scripts/generate-feeds.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix"
