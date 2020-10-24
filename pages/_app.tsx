@@ -54,6 +54,8 @@ class MyApp extends App {
             />
           )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#ffcc00" />
+          <meta name="color-scheme" content="dark light" />
           <link rel="manifest" href="/manifest.webmanifest" />
           <link rel="canonical" href={canonicalPageURL} />
           <link
