@@ -16,3 +16,8 @@ node_modules/
 # Lighthouse CI
 
 .lighthouseci/
+
+# Build-generated
+/public/rss.xml
+/public/feed.json
+/public/atom.xml

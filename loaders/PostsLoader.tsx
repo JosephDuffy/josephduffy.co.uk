@@ -6,6 +6,7 @@ import BlogPost from "../models/BlogPost"
 import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
 import Markdown from "../components/Markdown"
+import React from "react"
 
 export class PostsLoader {
   private cachedPosts?: BlogPost[]
