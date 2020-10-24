@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "postbuild": "npm run generate-feeds",
     "export": "next export",
     "start": "next start",
     "format:check": "prettier --check '{components,data,layouts,loaders,models,pages,scripts}/**/*'",
