@@ -54,6 +54,7 @@ class MyApp extends App {
             />
           )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="manifest" href="/manifest.webmanifest" />
           <link rel="canonical" href={canonicalPageURL} />
           <link
             rel="apple-touch-icon"
