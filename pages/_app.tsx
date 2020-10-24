@@ -128,6 +128,7 @@ class MyApp extends App {
         <Component {...pageProps} />
         <style jsx global>{`
           :root {
+            color-scheme: dark light;
             --primary-label: white;
             --secondary-label: #ebebf599;
             --tertiary-label: #ebebf57f;
