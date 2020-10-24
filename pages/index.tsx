@@ -77,8 +77,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
-  const partialBlogPost = allEntries.find((entry) => {
-    return "slug" in entry && entry.slug === "partial-framework-release-1-0-0"
+  const hashableByKeyPathBlogPost = allEntries.find((entry) => {
+    return (
+      "slug" in entry &&
+      entry.slug === "HashableByKeyPath-framework-release-1-0-0"
+    )
   })
   const iosShareSheetLocation = allEntries.find((entry) => {
     return (
@@ -90,15 +93,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const gatheredAppPreview = appPreviews.find((app) => {
     return app.slug === "gathered"
   })
-  const scanulaAppPreview = appPreviews.find((app) => {
-    return app.slug === "scanula"
+  const nevisAppPreview = appPreviews.find((app) => {
+    return app.slug === "nevis"
   })
 
   const favourites = [
-    partialBlogPost,
+    nevisAppPreview,
     gatheredAppPreview,
+    hashableByKeyPathBlogPost,
     iosShareSheetLocation,
-    scanulaAppPreview,
   ].reduce((favourites: Favourite[], favouriteEntry) => {
     if (favouriteEntry === undefined) {
       return favourites

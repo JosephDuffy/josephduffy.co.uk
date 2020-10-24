@@ -3,6 +3,7 @@ import App from "../../models/App"
 const scanula: App = {
   name: "Scanula",
   slug: "scanula",
+  platform: "iOS",
   logoURL: "/images/scanula/icon.png",
   shortDescription:
     "Scanula is a clean, modern, and fast QR, data matrix, and barcode scanner.",

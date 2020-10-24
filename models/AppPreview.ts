@@ -12,5 +12,6 @@ export default interface AppPreview {
   logoURL: string
   description: string
   url: string
+  platform: "iOS" | "macOS"
   type: EntryType.AppPreview
 }

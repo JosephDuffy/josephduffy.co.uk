@@ -1,7 +1,8 @@
-import { FunctionComponent, Fragment } from "react"
+import React, { FunctionComponent, Fragment } from "react"
 import AppIcon from "./AppIcon"
 import { default as AppPreviewModel } from "../models/AppPreview"
 import Link from "next/link"
+import Markdown from "./Markdown"
 
 interface Props {
   app: AppPreviewModel
@@ -26,15 +27,27 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           <div className="appIcon">
             <AppIcon iconURL={app.logoURL} appName={app.title} />
           </div>
-          <p>{app.description}</p>
+          <Markdown source={app.description} escapeHtml={false} />
         </div>
-        <a href={app.url + urlQueryString} className="download-link">
-          <img
-            className="app-store-badge"
-            src="/images/app-store-download-badge.svg"
-            alt={`Download ${app.title} on the App Store`}
-          />
-        </a>
+        {app.platform == "iOS" && (
+          <a href={app.url + urlQueryString} className="download-link">
+            <img
+              className="app-store-badge"
+              src="/images/app-store-download-badge.svg"
+              alt={`Download ${app.title} on the App Store`}
+            />
+          </a>
+        )}
+        {app.platform == "macOS" && (
+          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+            <a
+              title={`Learn more about ${app.title}`}
+              className="download-link"
+            >
+              Learn More
+            </a>
+          </Link>
+        )}
       </div>
       <style jsx>{`
         .app {
