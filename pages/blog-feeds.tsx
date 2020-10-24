@@ -6,7 +6,7 @@ const YetiiPage: NextPage = () => {
   return (
     <Page>
       <Head>
-        <title>Blog RSS Feeds :: Joseph Duffy, iOS Developer</title>
+        <title>Blog RSS Feeds - Joseph Duffy</title>
         <meta
           name="description"
           content="Links to RSS feeds for subscribing to blog posts published by Joseph Duffy"
