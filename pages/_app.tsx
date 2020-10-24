@@ -27,7 +27,8 @@ class MyApp extends App {
 
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
-    const pageURL = "https://josephduffy.co.uk" + this.props.router.asPath
+    const canonicalPageURL =
+      "https://josephduffy.co.uk" + this.props.router.asPath
     return (
       <Fragment>
         <Head>
@@ -53,7 +54,7 @@ class MyApp extends App {
             />
           )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="canonical" href={pageURL} />
+          <link rel="canonical" href={canonicalPageURL} />
           <link
             rel="apple-touch-icon"
             href="/icons/apple-touch-icon-180x180.png"
