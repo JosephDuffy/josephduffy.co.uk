@@ -47,8 +47,8 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
         />
       </Head>
       <p className="intro">
-        Hi! 👋 I&apos;m Joseph Duffy. I enjoy making iOS apps and websites. This
-        website contains information about my iOS apps, open-source projects,
+        Hi! 👋 I&apos;m Joseph Duffy. I enjoy building software. This website
+        contains information about my commercial software, open-source projects,
         and blog posts. Welcome to my corner of the internet!
       </p>
       <h1>★ My Favourites</h1>
