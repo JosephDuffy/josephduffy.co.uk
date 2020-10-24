@@ -1,6 +1,6 @@
 import { EntryType } from "./Entry"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 export function isGitHubRepository(object: any): object is GitHubRepository {
   return object.type === EntryType.GithubRelease
 }

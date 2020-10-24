@@ -26,7 +26,6 @@ export class PostsLoader {
       const excerptSeparator = "<!-- more -->"
       const parsedContent = matter(fileBuffer, {
         excerpt: true,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         excerpt_separator: excerptSeparator,
       })
       const excerptRegex = /<!-- more -->/g

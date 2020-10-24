@@ -1,6 +1,6 @@
 import { FunctionComponent, Fragment, PropsWithChildren } from "react"
 
-const Card: FunctionComponent = ({ children }: PropsWithChildren<{}>) => {
+const Card: FunctionComponent = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <Fragment>
       <div className="card-container">{children}</div>

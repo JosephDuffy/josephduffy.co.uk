@@ -1,6 +1,6 @@
 import { EntryType } from "./Entry"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
 export function isAppPreview(object: any): object is AppPreview {
   return object.type === EntryType.AppPreview
 }
