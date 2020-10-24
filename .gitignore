@@ -21,3 +21,5 @@ node_modules/
 /public/rss.xml
 /public/feed.json
 /public/atom.xml
+/public/robots.txt
+/public/sitemap.xml

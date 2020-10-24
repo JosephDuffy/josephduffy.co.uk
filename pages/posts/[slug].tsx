@@ -16,6 +16,13 @@ interface Props {
 
 const PostPage: NextPage<Props> = ({ post }) => {
   if (post) {
+    if (process.env["WEBSITE_URL"] === undefined) {
+      console.warn(
+        "WEBSITE_URL environment variable must be set to generate correct feed URLs",
+      )
+    }
+
+    const websiteURL = process.env["WEBSITE_URL"] ?? "/"
     const iso8601Date = new Date(post.date).toISOString()
     return (
       <Page>
@@ -29,19 +36,19 @@ const PostPage: NextPage<Props> = ({ post }) => {
             rel="alternate"
             type="application/rss+xml"
             title="RSS feed for blog posts"
-            href="https://josephduffy.co.uk/rss.xml"
+            href="/rss.xml"
           />
           <link
             rel="alternate"
             type="application/atom+xml"
             title="Atom feed for blog posts"
-            href="https://josephduffy.co.uk/atom.xml"
+            href="/atom.xml"
           />
           <link
             rel="alternate"
             type="application/json"
             title="JSON feed for blog posts"
-            href="https://josephduffy.co.uk/feed.json"
+            href="/feed.json"
           />
           <script
             type="application/ld+json"
@@ -50,7 +57,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
             {
               "@context": "https://schema.org",
               "@type": "BlogPosting",
-              "@id": "https://josephduffy.co.uk${post.url}",
+              "@id": "${websiteURL}${post.url.slice(1)}",
               "headline": "${post.title}",
               "keywords": "${post.tags.join(",")}",
               "datePublished": "${iso8601Date}",

@@ -3,6 +3,13 @@ import Head from "next/head"
 import Page from "../layouts/main"
 
 const YetiiPage: NextPage = () => {
+  if (process.env["WEBSITE_URL"] === undefined) {
+    console.warn(
+      "WEBSITE_URL environment variable must be set to generate correct feed URLs",
+    )
+  }
+
+  const websiteURL = process.env["WEBSITE_URL"] ?? "/"
   return (
     <Page>
       <Head>
@@ -33,7 +40,7 @@ const YetiiPage: NextPage = () => {
               <a href="/atom.xml">/atom.xml</a>
             </td>
             <td>
-              <a href="feed:https://josephduffy.co.uk/atom.xml">Subscribe</a>
+              <a href={`feed:${websiteURL}atom.xml`}>Subscribe</a>
             </td>
           </tr>
           <tr>
@@ -42,7 +49,7 @@ const YetiiPage: NextPage = () => {
               <a href="/rss.xml">/rss.xml</a>
             </td>
             <td>
-              <a href="feed:https://josephduffy.co.uk/rss.xml">Subscribe</a>
+              <a href={`feed:${websiteURL}rss.xml`}>Subscribe</a>
             </td>
           </tr>
           <tr>
@@ -51,7 +58,7 @@ const YetiiPage: NextPage = () => {
               <a href="/feed.json">/feed.json</a>
             </td>
             <td>
-              <a href="feed:https://josephduffy.co.uk/feed.json">Subscribe</a>
+              <a href={`feed:${websiteURL}feed.json`}>Subscribe</a>
             </td>
           </tr>
         </tbody>

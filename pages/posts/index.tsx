@@ -22,19 +22,19 @@ const PostPage: NextPage<Props> = (props: Props) => {
           rel="alternate"
           type="application/rss+xml"
           title="RSS feed for blog posts"
-          href="https://josephduffy.co.uk/rss.xml"
+          href="/rss.xml"
         />
         <link
           rel="alternate"
           type="application/atom+xml"
           title="Atom feed for blog posts"
-          href="https://josephduffy.co.uk/atom.xml"
+          href="/atom.xml"
         />
         <link
           rel="alternate"
           type="application/json"
           title="JSON feed for blog posts"
-          href="https://josephduffy.co.uk/feed.json"
+          href="/feed.json"
         />
       </Head>
       <h1>Blog Posts</h1>
