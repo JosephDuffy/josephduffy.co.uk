@@ -177,13 +177,14 @@ class MyApp extends App {
           }
 
           code {
-            padding: 0.1em 0.4em;
+            padding: 1px 0.4em;
             border-radius: 3px;
             background-color: #7878805b;
           }
 
           pre code {
             padding: unset;
+            background-color: unset;
           }
 
           blockquote {
