@@ -19,6 +19,8 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
   const { prefix } = props
   const date = new Date(props.date)
   const formattedDate = format(date, "do MMMM, y")
+  const formattedDateFull = format(date, "do MMMM, y HH:mm:ss")
+  const isoDate = date.toISOString()
   const formattedSecondDate =
     props.secondDate !== undefined &&
     !datesAreTheSame(date, new Date(props.secondDate))
@@ -27,17 +29,18 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
 
   return (
     <Fragment>
-      <div>
+      <time title={formattedDateFull} dateTime={isoDate}>
         {prefix && `${prefix} `}
         {prefix && formattedSecondDate && `between `}
         {formattedDate}
         {prefix && formattedSecondDate && ` and ${formattedSecondDate}`}
         {!prefix && formattedSecondDate && ` to ${formattedSecondDate}`}
-      </div>
+      </time>
       <style jsx>{`
-        div {
+        time {
+          display: block;
           font-size: 0.8em;
-          padding-bottom: 4px;
+          margin: 0.5rem 0;
           color: var(--secondary-label);
         }
       `}</style>
