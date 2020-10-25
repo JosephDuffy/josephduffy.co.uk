@@ -68,6 +68,10 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
         p.intro {
           padding: 8px;
         }
+
+        h1 {
+          margin: revert;
+        }
       `}</style>
     </Page>
   )

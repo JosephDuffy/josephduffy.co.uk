@@ -30,18 +30,24 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
         }
 
         div.entries {
-          display: flex;
-          flex-flow: row wrap;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 100%;
+          grid-template-rows: 1fr;
+          gap: 8px 8px;
+          grid-template-areas: ".";
+          padding: 8px 0;
         }
 
         div.preview {
           display: flex;
+          flex-direction: column;
+          flex: 1;
         }
 
         @media (min-width: 1024px) {
-          div.preview {
-            width: calc(50% - 4px);
+          div.entries {
+            grid-template-columns: repeat(2, 50%);
+            grid-template-areas: ". .";
           }
         }
       `}</style>

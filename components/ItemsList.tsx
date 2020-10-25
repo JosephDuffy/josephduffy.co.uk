@@ -51,38 +51,32 @@ const ItemsList: FunctionComponent<Props> = ({
       <style jsx>{`
         div {
           display: flex;
-          flex-wrap: wrap;
           flex-direction: row;
           font-size: 0.8em;
-        }
-
-        span.label {
-          margin-right: 4px;
-          color: var(--secondary-label);
+          overflow-x: auto;
+          max-width: 100%;
         }
 
         ul {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
+          display: inline-flex;
+          white-space: nowrap;
           list-style-type: none;
           padding: 0;
           margin: 0;
+          margin-top: 6px;
+          margin-bottom: 8px;
         }
 
         li {
-          padding-bottom: 4px;
-          display: inline;
-        }
-
-        li.list-item {
-           {
-            /* margin-right: 8px; */
-          }
+          display: block;
         }
 
         li a {
-          min-width: 28px;
+           {
+            /* To create a minimum width of 48px (40 + 4 + 4) */
+          }
+          min-width: 40px;
+          margin: 0 4px;
           display: inline-block;
           text-align: center;
         }
