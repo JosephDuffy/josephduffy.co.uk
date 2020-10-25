@@ -1,7 +1,7 @@
 ---
 title: Gathered 1.3 Release Notes
 tags: ["ios", "gathered", "yetii", "release-notes"]
-date: 2018-03-11
+date: 2018-03-11T19:57:27Z
 ---
 
 Gathered 1.3 has been released and is now [available on the App Store](https://itunes.apple.com/us/app/apple-store/id929726748?mt=8 "Gathered's App Store Page"). Version 1.3 brings 2 new data sources, app-wide speed and UX improvements, and support for various features added in recent versions of iOS.

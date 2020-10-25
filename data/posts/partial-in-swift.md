@@ -1,7 +1,7 @@
 ---
 title: Partial in Swift
 tags: ["swift", "partial"]
-date: 2018-07-10
+date: 2018-07-10T21:08:12Z
 ---
 
 Structs are incredibly useful in Swift, especially when representing static read-only data. However, the values of a struct often come from multiple sources, such as view controllers, network requests, and files on disk, which can make the creation of these structs cumbersome.

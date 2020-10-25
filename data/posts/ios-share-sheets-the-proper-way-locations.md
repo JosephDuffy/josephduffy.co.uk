@@ -8,7 +8,7 @@ tags:
     "UIActivityItem",
     "location",
   ]
-date: 2016-03-07
+date: 2016-03-07T16:39:46Z
 ---
 
 Sharing a location on iOS is something that not a lot of apps need, but after requiring it for my latest app, [Scanula](https://scanula.com), I found that there isn't a good resource explaining how to do it properly. This is the first post in a series of planned posts going over a few of the tips, tricks, and common pitfalls I have found while working with iOS Share Sheets.

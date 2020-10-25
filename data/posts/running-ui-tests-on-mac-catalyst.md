@@ -1,7 +1,7 @@
 ---
 title: Running UI Tests on Mac Catalyst
 tags: ["ios", "macos", "mac-catalyst", "ui-tests"]
-date: 2020-07-11
+date: 2020-07-11T17:51:00Z
 ---
 
 While working on the 2.0 update for [Gathered](/apps/gathered) I have been trying to develop the app multiple platforms simultaneously. SwiftUI will solve this problem in the future, but I wish to support some OS versions that SwiftUI does not support.

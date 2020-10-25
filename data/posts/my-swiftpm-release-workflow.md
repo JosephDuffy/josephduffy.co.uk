@@ -1,7 +1,7 @@
 ---
 title: My Swift Package Manager Release Workflow
 tags: ["swift", "swiftpm", "github-actions"]
-date: 2020-06-18
+date: 2020-06-18T21:53:03Z
 ---
 
 I am currently maintaining numerous Swift Packages that don't receive a constant flow of updates, but do receive updates when new Swift updates come out, or as I think of useful additions.

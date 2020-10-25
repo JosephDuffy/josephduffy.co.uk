@@ -1,7 +1,7 @@
 ---
 title: Partial framework release 1.0.0
 tags: ["swift", "partial"]
-date: 2019-07-10
+date: 2019-07-10T21:58:41Z
 ---
 
 Today marks 1 year since I released a [blog post demonstrating an implementation of Partial in Swift](https://josephduffy.co.uk/partial-in-swift), and it also marks the release of the 1.0.0 version of a Swift package for Partial.

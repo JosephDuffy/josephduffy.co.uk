@@ -1,7 +1,7 @@
 ---
 title: It's a Duffy Thing
 tags: ["web", "meta", "node", "workflow"]
-date: 2015-12-03
+date: 2015-12-03T:15:41:57Z
 ---
 
 I recently released a major overhaul for this website. The old website used an old version Node.js and used Ghost to power the blog. I didn't find it very easy to maintain and wanted more flexibility. While the new website may not have the best design, I'm a lot happier with it overall. Along with the rewrite of the website itself, I also gave it a new name: It's a Duffy Thing. This was inspired by a [shirt](/images/its-a-duffy-thing-shirt-full.jpg "High resolution photo of the shirt") that [my Dad](https://twitter.com/mark_duffy1) bought me.

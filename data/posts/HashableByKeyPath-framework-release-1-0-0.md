@@ -1,7 +1,7 @@
 ---
 title: HashableByKeyPath framework release 1.0.0
 tags: ["swift", "HashableByKeyPath"]
-date: 2020-04-30
+date: 2020-04-30T17:22:47Z
 ---
 
 Today I have released the 1.0.0 version of a Swift package that aids with adding `Equatable` and `Hashable` conformance by using `KeyPath`s.

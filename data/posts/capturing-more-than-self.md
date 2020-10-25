@@ -1,7 +1,7 @@
 ---
 title: Capturing More Than `self`
 tags: ["swift"]
-date: 2020-05-14
+date: 2020-05-14T17:58:13Z
 ---
 
 A common pattern when using closures in Swift is to add `[weak self]` in the captures list to hold a weak reference to `self` and avoid a retain cycle. This is then often followed by the following:
