@@ -13,7 +13,10 @@ const BlogFeedsPage: NextPage = () => {
   }
 
   const websiteURL =
-    window?.location.origin ?? process.env["WEBSITE_URL"] ?? "/"
+    typeof window !== "undefined"
+      ? window.location.origin + "/"
+      : process.env["WEBSITE_URL"] ?? "/"
+
   return (
     <Page>
       <Head>

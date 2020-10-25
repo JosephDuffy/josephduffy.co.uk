@@ -26,7 +26,9 @@ const PostPage: NextPage<Props> = ({ post }) => {
     }
 
     const websiteURL =
-      window?.location.origin ?? process.env["WEBSITE_URL"] ?? "/"
+      typeof window !== "undefined"
+        ? window.location.origin + "/"
+        : process.env["WEBSITE_URL"] ?? "/"
 
     const publishedISODate = new Date(post.publishDate).toISOString()
     const updatedISODate = post.updateDate
