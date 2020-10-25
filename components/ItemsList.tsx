@@ -42,7 +42,7 @@ const ItemsList: FunctionComponent<Props> = ({
                   </a>
                 )}
                 {!tag.url && tag.title}
-                {index !== items.length - 1 && <span>&nbsp;•&nbsp;</span>}
+                {index !== items.length - 1 && <span>•</span>}
               </li>
             )
           })}
