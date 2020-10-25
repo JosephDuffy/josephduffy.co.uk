@@ -30,7 +30,7 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           <Markdown source={app.description} escapeHtml={false} />
         </div>
         {app.platform == "iOS" && (
-          <a href={app.url + urlQueryString} className="download-link">
+          <a href={app.downloadURL + urlQueryString} className="download-link">
             <img
               className="app-store-badge"
               src="/images/app-store-download-badge.svg"
