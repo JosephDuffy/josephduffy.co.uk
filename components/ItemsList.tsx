@@ -42,7 +42,7 @@ const ItemsList: FunctionComponent<Props> = ({
                   </a>
                 )}
                 {!tag.url && tag.title}
-                {index !== items.length - 1 && <span>,</span>}
+                {index !== items.length - 1 && <span>&nbsp;•&nbsp;</span>}
               </li>
             )
           })}
@@ -76,7 +76,15 @@ const ItemsList: FunctionComponent<Props> = ({
         }
 
         li.list-item {
-          margin-right: 8px;
+           {
+            /* margin-right: 8px; */
+          }
+        }
+
+        li a {
+          min-width: 28px;
+          display: inline-block;
+          text-align: center;
         }
       `}</style>
     </Fragment>
