@@ -37,7 +37,7 @@ export class BlogFeedLoader {
         description: post.excerptHTML,
         content: post.contentHTML,
         date: new Date(post.date),
-        published: new Date(post.date),
+        published: new Date(post.publishDate),
         author: [
           {
             name: "Joseph Duffy",
