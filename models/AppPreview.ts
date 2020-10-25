@@ -11,7 +11,8 @@ export default interface AppPreview {
   slug: string
   logoURL: string
   description: string
-  url: string
+  downloadURL: string
+  marketingWebsiteURL: string | null
   platform: "iOS" | "macOS"
   type: EntryType.AppPreview
 }

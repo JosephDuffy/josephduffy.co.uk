@@ -7,7 +7,8 @@ export default interface App {
   shortDescription: string
   fullDescription: string
   logoURL: string
-  url: string
+  downloadURL: string
+  marketingWebsiteURL?: string
   tags: string[]
   changelogs: Changelog[]
   privacyPolicy: string

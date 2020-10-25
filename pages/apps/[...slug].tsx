@@ -45,7 +45,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             <h1>{app.name}</h1>
             {app.platform == "iOS" && (
               <a
-                href={app.url + "?pt=96178896&ct=app-page&mt=8"}
+                href={app.downloadURL + "?pt=96178896&ct=app-page&mt=8"}
                 className="download-link"
               >
                 <img
@@ -56,8 +56,17 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
               </a>
             )}
             {app.platform == "macOS" && (
-              <a href={app.url} title={`Download ${app.name}`}>
+              <a href={app.downloadURL} title={`Download ${app.name}`} download>
                 Download {app.name}
+              </a>
+            )}
+            {app.marketingWebsiteURL !== undefined && (
+              <a
+                href={app.marketingWebsiteURL}
+                title={`Visit the marketing website for ${app.name}`}
+                referrerPolicy="origin"
+              >
+                Visit {app.name} Website
               </a>
             )}
             <div className="meta-links">

@@ -23,7 +23,8 @@ Configuration options enable having Nevis ask you prior to performing any action
 ## Automatic cleanup
 
 Once a file has been processed it will automatically be moved to the Bin, helping prevent your Downloads folder from getting clogged up.`,
-  url: "https://nevis.app/Nevis.zip",
+  downloadURL: "https://download.nevis.app/Nevis.zip",
+  marketingWebsiteURL: "https://nevis.app",
   tags: ["nevis"],
   changelogs: [],
   privacyPolicy: `

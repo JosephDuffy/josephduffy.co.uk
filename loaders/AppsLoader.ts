@@ -19,7 +19,8 @@ export class AppsLoader {
         slug: app.slug,
         logoURL: app.logoURL,
         description: app.shortDescription,
-        url: app.url,
+        downloadURL: app.downloadURL,
+        marketingWebsiteURL: app.marketingWebsiteURL ?? null,
         platform: app.platform,
         type: EntryType.AppPreview,
       }

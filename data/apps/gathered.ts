@@ -64,7 +64,7 @@ Gathered features over 20 data sources (where available), including:
 - The device itself
 - Proximity
 `,
-  url: "https://apps.apple.com/app/apple-store/id929726748",
+  downloadURL: "https://apps.apple.com/app/apple-store/id929726748",
   tags: ["gathered"],
   changelogs: [
     {

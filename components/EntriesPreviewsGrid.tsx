@@ -1,6 +1,6 @@
 import { FunctionComponent, Fragment } from "react"
 import { PossibleEntries } from "../loaders/EntriesLoader"
-import AppPreview from "../models/AppPreview"
+import AppPreview, { isAppPreview } from "../models/AppPreview"
 import EntryPreview from "./EntryPreview"
 
 interface Props {
@@ -16,8 +16,9 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
     <Fragment>
       <div className="entries">
         {entries.map((entry) => {
+          const key = isAppPreview(entry) ? entry.downloadURL : entry.url
           return (
-            <div className="preview" key={`${entry.type}-${entry.url}`}>
+            <div className="preview" key={`${entry.type}-${key}`}>
               <EntryPreview entry={entry} appCampaignName={appCampaignName} />
             </div>
           )
