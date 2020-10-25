@@ -3,6 +3,7 @@
 ## Development
 .next/
 GITHUB_ACCESS_TOKEN
+/data/draft-posts
 
 ## Static export
 out/
