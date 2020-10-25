@@ -39,14 +39,24 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           </a>
         )}
         {app.platform == "macOS" && (
-          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
-            <a
-              title={`Learn more about ${app.title}`}
-              className="download-link"
-            >
-              Learn More
-            </a>
-          </Link>
+          <a
+            href={app.downloadURL}
+            title={`Download ${app.title}`}
+            className="direct-download-link"
+            download
+          >
+            Download {app.title}
+          </a>
+        )}
+        {app.marketingWebsiteURL && (
+          <a
+            href={app.marketingWebsiteURL}
+            title={`Visit the marketing website for ${app.title}`}
+            referrerPolicy="origin"
+            className="marketing-website-link"
+          >
+            Visit {app.title} Website
+          </a>
         )}
       </div>
       <style jsx>{`
@@ -87,6 +97,11 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           margin-top: 8px;
           line-height: 0;
           align-self: flex-start;
+        }
+
+        .direct-download-link,
+        .marketing-website-link {
+          margin: 0.3rem 0;
         }
 
         .app-store-badge {
