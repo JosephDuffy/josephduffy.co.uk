@@ -33,33 +33,43 @@ const OpenSourcePage: NextPage<Props> = ({
         </a>
         .
       </p>
-      {repositories.map((repository) => {
-        const datePrefix = `Most recent contribution: ${
-          repository.mostRecentContribution.commitCount
-        } commit${
-          repository.mostRecentContribution.commitCount > 1 ? "s" : ""
-        } on`
-        return (
-          <Card key={`${repository.owner}/${repository.name}`}>
-            <div className="repository">
-              <a href={repository.url}>
-                <h2>
-                  {repository.owner}/{repository.name}
-                </h2>
-              </a>
-              <FormattedDate
-                date={repository.mostRecentContribution.date}
-                prefix={datePrefix}
-              />
-              {repository.description && (
-                <p className="description">{repository.description}</p>
-              )}
-              <a href={repository.allContributionsURL}>All Contributions</a>
-            </div>
-          </Card>
-        )
-      })}
+      <div className="entries">
+        {repositories.map((repository) => {
+          const datePrefix = `Most recent contribution: ${
+            repository.mostRecentContribution.commitCount
+          } commit${
+            repository.mostRecentContribution.commitCount > 1 ? "s" : ""
+          } on`
+          return (
+            <Card key={`${repository.owner}/${repository.name}`}>
+              <div className="repository">
+                <a href={repository.url}>
+                  <h2>
+                    {repository.owner}/{repository.name}
+                  </h2>
+                </a>
+                <FormattedDate
+                  date={repository.mostRecentContribution.date}
+                  prefix={datePrefix}
+                />
+                {repository.description && (
+                  <p className="description">{repository.description}</p>
+                )}
+                <a href={repository.allContributionsURL}>All Contributions</a>
+              </div>
+            </Card>
+          )
+        })}
+      </div>
       <style jsx>{`
+        .entries {
+          display: grid;
+          grid-template-columns: 100%;
+          grid-template-rows: 1fr;
+          gap: 8px 8px;
+          grid-template-areas: ".";
+        }
+
         h2 {
           margin: 0;
         }
