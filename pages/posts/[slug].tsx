@@ -24,10 +24,9 @@ const PostPage: NextPage<Props> = ({ post }) => {
 
     const websiteURL = process.env["WEBSITE_URL"] ?? "/"
     const publishedISODate = new Date(post.publishDate).toISOString()
-    const updatedISODate =
-      post.updateDate !== undefined
-        ? new Date(post.updateDate).toISOString()
-        : undefined
+    const updatedISODate = post.updateDate
+      ? new Date(post.updateDate).toISOString()
+      : undefined
     return (
       <Page>
         <Head>
@@ -66,7 +65,7 @@ const PostPage: NextPage<Props> = ({ post }) => {
               "keywords": "${post.tags.join(",")}",
               "datePublished": "${publishedISODate}",
               "dateCreated": "${publishedISODate}",
-              ${updatedISODate && `"dateUpdated": "${updatedISODate},"`}
+              "dateModified": "${updatedISODate ?? publishedISODate}",
               "author": {
                 "@type": "Person",
                 "name": "Joseph Duffy"
