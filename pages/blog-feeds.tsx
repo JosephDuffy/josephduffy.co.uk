@@ -2,14 +2,18 @@ import { NextPage } from "next"
 import Head from "next/head"
 import Page from "../layouts/main"
 
-const YetiiPage: NextPage = () => {
-  if (process.env["WEBSITE_URL"] === undefined) {
+const BlogFeedsPage: NextPage = () => {
+  if (
+    typeof window === "undefined" &&
+    process.env["WEBSITE_URL"] === undefined
+  ) {
     console.warn(
       "WEBSITE_URL environment variable must be set to generate correct feed URLs",
     )
   }
 
-  const websiteURL = process.env["WEBSITE_URL"] ?? "/"
+  const websiteURL =
+    window?.location.origin ?? process.env["WEBSITE_URL"] ?? "/"
   return (
     <Page>
       <Head>
@@ -78,4 +82,4 @@ const YetiiPage: NextPage = () => {
   )
 }
 
-export default YetiiPage
+export default BlogFeedsPage

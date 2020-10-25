@@ -16,13 +16,18 @@ interface Props {
 
 const PostPage: NextPage<Props> = ({ post }) => {
   if (post) {
-    if (process.env["WEBSITE_URL"] === undefined) {
+    if (
+      typeof window === "undefined" &&
+      process.env["WEBSITE_URL"] === undefined
+    ) {
       console.warn(
         "WEBSITE_URL environment variable must be set to generate correct feed URLs",
       )
     }
 
-    const websiteURL = process.env["WEBSITE_URL"] ?? "/"
+    const websiteURL =
+      window?.location.origin ?? process.env["WEBSITE_URL"] ?? "/"
+
     const publishedISODate = new Date(post.publishDate).toISOString()
     const updatedISODate = post.updateDate
       ? new Date(post.updateDate).toISOString()
