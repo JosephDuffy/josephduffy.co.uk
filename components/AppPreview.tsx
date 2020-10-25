@@ -101,7 +101,7 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
 
         .direct-download-link,
         .marketing-website-link {
-          margin: 0.3rem 0;
+          margin: 0.4rem 0;
         }
 
         .app-store-badge {
