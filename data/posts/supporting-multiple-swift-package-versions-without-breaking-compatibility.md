@@ -47,7 +47,7 @@ This can be added after the `let package =` declaration:
 
 ```swift
 #if compiler(>= 5.3)
-package.platforms = [.iOS(.v9)] // Ensure to add any other platforms your support here too!
+package.platforms = [.iOS(.v9)] // Ensure to add any other platforms you support here too!
 #endif
 ```
 
