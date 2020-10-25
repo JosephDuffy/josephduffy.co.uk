@@ -38,13 +38,20 @@ export class PostsLoader {
             <Markdown source={parsedContent.excerpt} />,
           )
         : undefined
+      const publishDate = new Date(parsedContent.data.date).toISOString()
+      const updateDate =
+        parsedContent.data.updateDate !== undefined
+          ? new Date(parsedContent.data.updateDate).toISOString()
+          : null
 
       return {
         slug,
         title: parsedContent.data.title,
         contentHTML,
         excerptHTML,
-        date: new Date(parsedContent.data.date).toISOString(),
+        date: updateDate ?? publishDate,
+        publishDate,
+        updateDate,
         url: `/posts/${slug}`,
         tags: parsedContent.data.tags ?? [],
         type: EntryType.BlogPost,

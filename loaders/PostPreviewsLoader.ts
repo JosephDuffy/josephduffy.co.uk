@@ -16,6 +16,8 @@ export class PostPreviewsLoader {
         title: post.title,
         contentHTML: post.excerptHTML ?? post.contentHTML,
         date: post.date,
+        publishDate: post.publishDate,
+        updateDate: post.updateDate,
         url: post.url,
         tags: post.tags,
         type: EntryType.BlogPostPreview,

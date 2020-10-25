@@ -23,7 +23,11 @@ const PostPage: NextPage<Props> = ({ post }) => {
     }
 
     const websiteURL = process.env["WEBSITE_URL"] ?? "/"
-    const iso8601Date = new Date(post.date).toISOString()
+    const publishedISODate = new Date(post.publishDate).toISOString()
+    const updatedISODate =
+      post.updateDate !== undefined
+        ? new Date(post.updateDate).toISOString()
+        : undefined
     return (
       <Page>
         <Head>
@@ -60,8 +64,9 @@ const PostPage: NextPage<Props> = ({ post }) => {
               "@id": "${websiteURL}${post.url.slice(1)}",
               "headline": "${post.title}",
               "keywords": "${post.tags.join(",")}",
-              "datePublished": "${iso8601Date}",
-              "dateCreated": "${iso8601Date}",
+              "datePublished": "${publishedISODate}",
+              "dateCreated": "${publishedISODate}",
+              ${updatedISODate && `"dateUpdated": "${updatedISODate},"`}
               "author": {
                 "@type": "Person",
                 "name": "Joseph Duffy"
@@ -79,7 +84,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
           <article>
             <header>
               <h1>{post.title}</h1>
-              <FormattedDate date={post.date} prefix="Published" />
+              <FormattedDate date={post.publishDate} prefix="Published" />
+              {post.updateDate && (
+                <FormattedDate date={post.updateDate} prefix="Updated" />
+              )}
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
             <div

@@ -20,7 +20,10 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
             <h1>{post.title}</h1>
           </a>
         </Link>
-        <FormattedDate date={post.date} prefix="Published" />
+        <FormattedDate date={post.publishDate} prefix="Published" />
+        {post.updateDate && (
+          <FormattedDate date={post.updateDate} prefix="Updated" />
+        )}
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <HorizontalRule />
