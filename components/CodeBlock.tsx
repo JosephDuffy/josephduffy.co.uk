@@ -14,7 +14,13 @@ class CodeBlock extends PureComponent<Props> {
   render(): JSX.Element {
     const { language, value } = this.props
     return (
-      <PrismLight language={language} style={prismStyle}>
+      <PrismLight
+        language={language}
+        style={prismStyle}
+        customStyle={{
+          "color-scheme": "dark",
+        }}
+      >
         {value}
       </PrismLight>
     )
