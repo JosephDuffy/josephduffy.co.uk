@@ -12,6 +12,9 @@ const Footer: FunctionComponent = () => (
     <footer>
       <HorizontalScrollContainer>
         <nav>
+          <Link href="/contact">
+            <a>Contact</a>
+          </Link>
           <Link href="/privacy">
             <a>Privacy</a>
           </Link>

@@ -22,12 +22,17 @@ glob(`${root}**/*${fileExtension}`, (err, res) => {
     exit(1)
   }
 
+  console.log(res)
+
   const filteredFiles = res
+    .map((file) => file.slice(root.length))
     .filter((file) => {
       return !file.endsWith("404.html")
     })
+    .filter((file) => {
+      return !file.startsWith("contact/") || file.endsWith("index.html")
+    })
     .map((file) => file.replace(/index.html$/, ""))
-    .map((file) => file.slice(root.length))
     .map((file) => file.slice(0, -fileExtension.length))
 
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
