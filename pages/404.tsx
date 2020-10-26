@@ -3,14 +3,14 @@ import Head from "next/head"
 import Page from "../layouts/main"
 import Error from "../components/Error"
 
-const PrivacyPage: NextPage = () => {
+const NotFoundPage: NextPage = () => {
   return (
     <Page>
       <Head>
-        <title>Privacy Policy - Joseph Duffy</title>
+        <title>Page Not Found - Joseph Duffy</title>
         <meta
           name="description"
-          content="Privacy policy for browsing the website"
+          content="The requested page could not be found"
         />
       </Head>
       <Error
@@ -22,4 +22,4 @@ const PrivacyPage: NextPage = () => {
   )
 }
 
-export default PrivacyPage
+export default NotFoundPage
