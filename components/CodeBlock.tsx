@@ -18,7 +18,7 @@ class CodeBlock extends PureComponent<Props> {
         language={language}
         style={prismStyle}
         customStyle={{
-          "color-scheme": "dark",
+          colorScheme: "dark",
         }}
       >
         {value}
