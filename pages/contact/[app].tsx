@@ -1,5 +1,6 @@
-import { GetStaticPaths, NextPage } from "next"
-import { useRouter } from "next/dist/client/router"
+import { GetStaticPaths } from "next"
+import { NextRouter, withRouter } from "next/dist/client/router"
+import { ExcludeRouterProps } from "next/dist/client/with-router"
 import Head from "next/head"
 import { Component, FormEvent } from "react"
 import Page from "../../layouts/main"
@@ -8,6 +9,8 @@ import appsLoader from "../../loaders/AppsLoader"
 interface Props {
   slug: string
   name: string
+  contactURL: string
+  router: NextRouter
 }
 
 interface State {
@@ -21,7 +24,7 @@ interface State {
   errorMessage?: string
 }
 
-export default class AppContactPage extends Component<Props, State> {
+const appContactPage = class AppContactPage extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
 
@@ -40,7 +43,7 @@ export default class AppContactPage extends Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const { slug, name } = this.props
+    const { name } = this.props
     return (
       <Page>
         <Head>
@@ -67,8 +70,8 @@ export default class AppContactPage extends Component<Props, State> {
         )}
         <form
           method="POST"
-          action="https://contact.josephduffy.co.uk/app-contact"
-          onSubmit={this.submitForm}
+          action={`${this.props.contactURL}`}
+          onSubmit={this.submitForm.bind(this)}
         >
           <label>
             Name
@@ -119,8 +122,9 @@ export default class AppContactPage extends Component<Props, State> {
     )
   }
 
-  private async submitForm(event: FormEvent<HTMLFormElement>) {
+  private submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
     const body = {
       name: this.state.name,
       email: this.state.email,
@@ -128,33 +132,34 @@ export default class AppContactPage extends Component<Props, State> {
       subject: this.state.subject,
       extraField: this.state.extraField,
     }
-    try {
-      const response = await fetch(
-        "https://contact.josephduffy.co.uk/app-contact",
-        {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        },
-      )
-
-      if (response.status === 200) {
-        const router = useRouter()
-        router.push("/contact/success")
-      } else if (response.body) {
-        const body = await response.json()
-        this.setState({ errorMessage: body.message })
-      } else {
-        this.setState({ errorMessage: "Unknown error" })
-      }
-    } catch (err) {
-      this.setState({ errorMessage: err })
-    }
+    fetch(`${this.props.contactURL}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        console.dir(response)
+        if (response.status === 200) {
+          this.props.router.push("/contact/success")
+        } else if (response.body) {
+          response.json().then((bodyJSON) => {
+            console.dir(bodyJSON)
+            this.setState({ errorMessage: bodyJSON.message })
+          })
+        } else {
+          this.setState({ errorMessage: "Unknown error" })
+        }
+      })
+      .catch((err) => {
+        this.setState({ errorMessage: err.message })
+      })
   }
 }
+
+export default withRouter(appContactPage)
 
 interface StaticParams {
   params: {
@@ -163,7 +168,7 @@ interface StaticParams {
 }
 
 interface StaticProps {
-  props: Props
+  props: ExcludeRouterProps<Props>
 }
 
 export async function getStaticProps({
@@ -179,6 +184,9 @@ export async function getStaticProps({
     props: {
       slug: app.slug,
       name: app.name,
+      contactURL:
+        process.env["CONTACT_FORM_URL"] ??
+        "https://contact.josephduffy.co.uk/app-contact",
     },
   }
 }
