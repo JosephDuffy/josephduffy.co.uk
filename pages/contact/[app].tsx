@@ -104,6 +104,8 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
                 this.setState({ message: event.target.value })
               }
               name="message"
+              rows={5}
+              cols={40}
               required
             />
           </label>
@@ -123,6 +125,19 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
             Submit
           </button>
         </form>
+        <style jsx>{`
+          label,
+          input,
+          textarea {
+            display: block;
+          }
+
+          input,
+          textarea {
+            margin-top: 4px;
+            margin-bottom: 12px;
+          }
+        `}</style>
       </Page>
     )
   }
