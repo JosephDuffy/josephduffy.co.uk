@@ -21,6 +21,7 @@ interface State {
   // An extra field used to try and catch bots
   extraField?: string
 
+  submitting: boolean
   errorMessage?: string
 }
 
@@ -34,10 +35,12 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
         email: "test@test.com",
         message: "test!",
         subject: props.slug,
+        submitting: false,
       }
     } else {
       this.state = {
         subject: props.slug,
+        submitting: false,
       }
     }
   }
@@ -116,7 +119,9 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
               }
             />
           </label>
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={this.state.submitting}>
+            Submit
+          </button>
         </form>
       </Page>
     )
@@ -124,6 +129,12 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
 
   private submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    if (this.state.submitting) {
+      return
+    }
+
+    this.setState({ submitting: true })
 
     const body = {
       name: this.state.name,
@@ -141,20 +152,19 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
       },
     })
       .then((response) => {
-        console.dir(response)
         if (response.status === 200) {
           this.props.router.push("/contact/success")
         } else if (response.body) {
           response.json().then((bodyJSON) => {
             console.dir(bodyJSON)
-            this.setState({ errorMessage: bodyJSON.message })
+            this.setState({ errorMessage: bodyJSON.message, submitting: false })
           })
         } else {
-          this.setState({ errorMessage: "Unknown error" })
+          this.setState({ errorMessage: "Unknown error", submitting: false })
         }
       })
       .catch((err) => {
-        this.setState({ errorMessage: err.message })
+        this.setState({ errorMessage: err.message, submitting: false })
       })
   }
 }
