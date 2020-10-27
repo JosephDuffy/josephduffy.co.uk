@@ -17,7 +17,7 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
   return (
     <Fragment>
       <div key={app.title} className="app">
-        <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+        <Link href={`/apps/${app.slug}`}>
           <a title={`Read more about ${app.title}`}>
             <h2>{app.title}</h2>
           </a>

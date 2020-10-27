@@ -129,7 +129,7 @@ class EntryPreviews extends Component<Props> {
       `$1${page.toString()}$3`,
     )
     return (
-      <Link href={paginationHREF} as={paginationURL} key={title}>
+      <Link href={paginationURL} key={title}>
         <a className="link" rel={rel}>
           {title}
         </a>

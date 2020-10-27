@@ -70,15 +70,15 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
               </a>
             )}
             <div className="meta-links">
-              <Link href="/apps/[...slug]" as={`/apps/${app.slug}/changelog`}>
+              <Link href={`/apps/${app.slug}/changelog`}>
                 <a>Changelog</a>
               </Link>
               <span className="divider">•</span>
-              <Link href="/apps/[...slug]" as={`/apps/${app.slug}/privacy`}>
+              <Link href={`/apps/${app.slug}/privacy`}>
                 <a>Privacy Policy</a>
               </Link>
               <span className="divider">•</span>
-              <Link href="/tags/[slug]" as={`/tags/${app.slug}`}>
+              <Link href={`/tags/${app.slug}`}>
                 <a>Related Entries</a>
               </Link>
             </div>
@@ -139,7 +139,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           />
         </Head>
         <p>
-          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+          <Link href={`/apps/${app.slug}`}>
             <a>← Back to information about {app.name}</a>
           </Link>
         </p>
@@ -158,7 +158,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           />
         </Head>
         <p>
-          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+          <Link href={`/apps/${app.slug}`}>
             <a>← Back to information about {app.name}</a>
           </Link>
         </p>

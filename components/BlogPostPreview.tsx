@@ -15,7 +15,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
   return (
     <article key={post.slug}>
       <header>
-        <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
+        <Link href={`/posts/${post.slug}`}>
           <a>
             <h1>{post.title}</h1>
           </a>
@@ -29,7 +29,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
       <HorizontalRule />
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
-        <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
+        <Link href={`/posts/${post.slug}`}>
           <a title={`Keep reading ${post.title}`}>Keep Reading</a>
         </Link>
       </div>
