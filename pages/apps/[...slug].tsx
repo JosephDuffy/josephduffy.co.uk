@@ -78,6 +78,10 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
                 <a>Privacy Policy</a>
               </Link>
               <span className="divider">•</span>
+              <Link href={`/contact/${app.slug}/`}>
+                <a rel="nofollow">Contact Me About {app.name}</a>
+              </Link>
+              <span className="divider">•</span>
               <Link href={`/tags/${app.slug}`}>
                 <a>Related Entries</a>
               </Link>
