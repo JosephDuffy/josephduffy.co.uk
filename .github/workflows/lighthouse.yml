@@ -9,9 +9,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run Lighthouse CI
-        run: |
-          npx @lhci/cli@0.3.x autorun --upload.target=temporary-public-storage --collect.url=${{ steps.wait-for-netflify-preview.outputs.url }} || echo "LHCI failed!"
+      - name: Read .node-version
+        run: echo "##[set-output name=node-version;]$(cat .node-version)"
+        id: node-version
+
+      - name: Install node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "${{ steps.node-version.outputs.node-version }}"
+
+      - run: npm install
+
+      - run: npm run build
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          WEBSITE_URL: "http://localhost"
+
+      - run: npm run export
+
+      - name: Run Lighthouse CI
+        run: npx lhci autorun  || echo "LHCI failed!"
