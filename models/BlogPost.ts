@@ -8,7 +8,7 @@ export default interface BlogPost extends Entry {
   slug: string
   title: string
   contentHTML: string
-  excerptHTML?: string
+  excerptHTML: string | null
   /**
    The date used for sorting. Equal to the `updateDate` if set, otherwise `publishDate`.
    */

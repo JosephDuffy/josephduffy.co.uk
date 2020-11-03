@@ -79,6 +79,7 @@ class MyApp extends App {
             --tertiary-label: #ebebf57f;
             --primary-background: black;
             --secondary-background: #1c1c1e;
+            --tertiary-background: #2c2c2e;
             --separator-color: #54545899;
             --tint-color: #ffcc00;
             --hairline: 1px;
@@ -95,6 +96,7 @@ class MyApp extends App {
               --tertiary-label: #3c3c4399;
               --primary-background: white;
               --secondary-background: #f2f2f7;
+              --tertiary-background: white;
               --separator-color: #3c3c4349;
               --tint-color: #006bdf;
             }

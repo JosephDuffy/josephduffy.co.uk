@@ -34,7 +34,7 @@ export class BlogFeedLoader {
         title: post.title,
         id: url,
         link: url,
-        description: post.excerptHTML,
+        description: post.excerptHTML ?? undefined,
         content: post.contentHTML,
         date: new Date(post.date),
         published: new Date(post.publishDate),
