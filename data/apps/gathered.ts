@@ -3,6 +3,7 @@ import App from "../../models/App"
 const gathered: App = {
   name: "Gathered",
   slug: "gathered",
+  platform: "iOS",
   logoURL: "/images/gathered/icon.svg",
   shortDescription:
     "Gathered is an app that facilitates the viewing, recording, and sharing of over 25 sources of data available on iOS and iPadOS devices, from the GPS and accelerometer to the advertising identifier and the WiFi. Gathered is the perfect app to enable the recording of all the data required to calulcate position, acceleration, and ambient conditions of the device.",
@@ -63,7 +64,7 @@ Gathered features over 20 data sources (where available), including:
 - The device itself
 - Proximity
 `,
-  url: "https://apps.apple.com/app/apple-store/id929726748",
+  downloadURL: "https://apps.apple.com/app/apple-store/id929726748",
   tags: ["gathered"],
   changelogs: [
     {

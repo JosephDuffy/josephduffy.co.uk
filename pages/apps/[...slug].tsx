@@ -32,7 +32,9 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} iOS App - Joseph Duffy</title>
+          <title>
+            {app.name} {app.platform} App - Joseph Duffy
+          </title>
           <meta name="description" content={app.shortDescription} />
         </Head>
         <div className="header">
@@ -41,26 +43,46 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </div>
           <div className="header-content">
             <h1>{app.name}</h1>
-            <a
-              href={app.url + "?pt=96178896&ct=app-page&mt=8"}
-              className="download-link"
-            >
-              <img
-                className="app-store-badge"
-                src="/images/app-store-download-badge.svg"
-                alt={`Download ${app.name} on the App Store`}
-              />
-            </a>
+            {app.platform == "iOS" && (
+              <a
+                href={app.downloadURL + "?pt=96178896&ct=app-page&mt=8"}
+                className="download-link"
+              >
+                <img
+                  className="app-store-badge"
+                  src="/images/app-store-download-badge.svg"
+                  alt={`Download ${app.name} on the App Store`}
+                />
+              </a>
+            )}
+            {app.platform == "macOS" && (
+              <a href={app.downloadURL} title={`Download ${app.name}`} download>
+                Download {app.name}
+              </a>
+            )}
+            {app.marketingWebsiteURL !== undefined && (
+              <a
+                href={app.marketingWebsiteURL}
+                title={`Visit the marketing website for ${app.name}`}
+                referrerPolicy="origin"
+              >
+                Visit {app.name} Website
+              </a>
+            )}
             <div className="meta-links">
-              <Link href="/apps/[...slug]" as={`/apps/${app.slug}/changelog`}>
+              <Link href={`/apps/${app.slug}/changelog`}>
                 <a>Changelog</a>
               </Link>
               <span className="divider">•</span>
-              <Link href="/apps/[...slug]" as={`/apps/${app.slug}/privacy`}>
+              <Link href={`/apps/${app.slug}/privacy`}>
                 <a>Privacy Policy</a>
               </Link>
               <span className="divider">•</span>
-              <Link href="/tags/[slug]" as={`/tags/${app.slug}`}>
+              <Link href={`/contact/${app.slug}/`}>
+                <a rel="nofollow">Contact Me About {app.name}</a>
+              </Link>
+              <span className="divider">•</span>
+              <Link href={`/tags/${app.slug}`}>
                 <a>Related Entries</a>
               </Link>
             </div>
@@ -121,7 +143,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           />
         </Head>
         <p>
-          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+          <Link href={`/apps/${app.slug}`}>
             <a>← Back to information about {app.name}</a>
           </Link>
         </p>
@@ -140,7 +162,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           />
         </Head>
         <p>
-          <Link href="/apps/[...slug]" as={`/apps/${app.slug}`}>
+          <Link href={`/apps/${app.slug}`}>
             <a>← Back to information about {app.name}</a>
           </Link>
         </p>

@@ -2,94 +2,84 @@ import { Fragment } from "react"
 import App from "next/app"
 import Head from "next/head"
 import "normalize.css/normalize.css"
+import { Router } from "next/dist/client/router"
+
+declare global {
+  interface Window {
+    // Matomo
+    _paq?: {
+      push(event: string[]): void
+    }
+  }
+}
 
 // A custom app to support importing CSS files globally
 class MyApp extends App {
+  componentDidMount(): void {
+    Router.events.on("routeChangeComplete", (url) => {
+      if (window && window._paq) {
+        window._paq.push(["setCustomUrl", url])
+        window._paq.push(["setDocumentTitle", document.title])
+        window._paq.push(["trackPageView"])
+      }
+    })
+  }
+
   public render(): JSX.Element {
     const { Component, pageProps } = this.props
+    const canonicalPageURL =
+      "https://josephduffy.co.uk" + this.props.router.asPath
     return (
       <Fragment>
         <Head>
+          {process.env["ANALYTICS_URL"] && (
+            <script
+              type="text/javascript"
+              dangerouslySetInnerHTML={{
+                __html: `
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="${process.env["ANALYTICS_URL"]}";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+                  `,
+              }}
+            />
+          )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#ffcc00" />
+          <meta name="color-scheme" content="dark light" />
+          <link rel="manifest" href="/manifest.webmanifest" />
+          <link rel="canonical" href={canonicalPageURL} />
           <link
             rel="apple-touch-icon"
-            sizes="57x57"
-            href="/apple-touch-icon-57x57.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="60x60"
-            href="/apple-touch-icon-60x60.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="72x72"
-            href="/apple-touch-icon-72x72.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="/apple-touch-icon-76x76.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="114x114"
-            href="/apple-touch-icon-114x114.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="120x120"
-            href="/apple-touch-icon-120x120.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="144x144"
-            href="/apple-touch-icon-144x144.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="152x152"
-            href="/apple-touch-icon-152x152.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon-180x180.png"
+            href="/icons/apple-touch-icon-180x180.png"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/favicon-32x32.png"
+            href="/icons/favicon-32x32.png"
             sizes="32x32"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href="/android-chrome-192x192.png"
-            sizes="192x192"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href="/favicon-96x96.png"
-            sizes="96x96"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href="/favicon-16x16.png"
-            sizes="16x16"
           />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffcc00" />
         </Head>
         <Component {...pageProps} />
         <style jsx global>{`
           :root {
+            color-scheme: dark light;
             --primary-label: white;
             --secondary-label: #ebebf599;
             --tertiary-label: #ebebf57f;
             --primary-background: black;
             --secondary-background: #1c1c1e;
+            --tertiary-background: #2c2c2e;
             --separator-color: #54545899;
             --tint-color: #ffcc00;
             --hairline: 1px;
@@ -106,6 +96,7 @@ class MyApp extends App {
               --tertiary-label: #3c3c4399;
               --primary-background: white;
               --secondary-background: #f2f2f7;
+              --tertiary-background: white;
               --separator-color: #3c3c4349;
               --tint-color: #006bdf;
             }
@@ -188,13 +179,14 @@ class MyApp extends App {
           }
 
           code {
-            padding: 0.1em 0.4em;
+            padding: 1px 0.4em;
             border-radius: 3px;
             background-color: #7878805b;
           }
 
           pre code {
             padding: unset;
+            background-color: unset;
           }
 
           blockquote {

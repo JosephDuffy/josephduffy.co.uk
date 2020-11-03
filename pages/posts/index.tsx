@@ -22,19 +22,19 @@ const PostPage: NextPage<Props> = (props: Props) => {
           rel="alternate"
           type="application/rss+xml"
           title="RSS feed for blog posts"
-          href="https://josephduffy.co.uk/rss.xml"
+          href="/rss.xml"
         />
         <link
           rel="alternate"
           type="application/atom+xml"
           title="Atom feed for blog posts"
-          href="https://josephduffy.co.uk/atom.xml"
+          href="/atom.xml"
         />
         <link
           rel="alternate"
           type="application/json"
           title="JSON feed for blog posts"
-          href="https://josephduffy.co.uk/feed.json"
+          href="/feed.json"
         />
       </Head>
       <h1>Blog Posts</h1>
@@ -60,7 +60,9 @@ interface StaticProps {
 }
 
 export async function getStaticProps(): Promise<StaticProps> {
-  const posts = await postPreviewsLoader.getPostsPreviews()
+  const posts = await postPreviewsLoader.getPostsPreviews(
+    process.env["NODE_ENV"] === "development",
+  )
   posts.sort((postA, postB) => {
     return compareDesc(new Date(postA.date), new Date(postB.date))
   })

@@ -4,7 +4,7 @@ tags:
   - ios
   - gathered
   - yetii
-date: 2015-12-06
+date: 2015-12-06T18:48:34Z
 ---
 
 Gathered 1.0.1 was released a couple of weeks ago and I wanted to write a quick blog post addressing part of the [changelog](https://josephduffy.co.uk/apps/gathered/changelog "Gathered changelog")<!-- more -->:

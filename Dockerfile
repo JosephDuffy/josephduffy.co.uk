@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:experimental
+# Requires DOCKER_BUILDKIT=1
 
 FROM node:12 as builder
 
@@ -19,6 +20,7 @@ COPY loaders loaders
 COPY models models
 COPY pages pages
 COPY public public
+COPY scripts scripts
 COPY next-env.d.ts .
 COPY next.config.js .
 COPY tsconfig.json .
@@ -27,27 +29,21 @@ ARG GIT_COMMIT
 ENV NEXT_PUBLIC_GIT_COMMIT=$GIT_COMMIT
 ARG BUILD_DATE
 ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
+ARG WEBSITE_URL
+ENV WEBSITE_URL=$WEBSITE_URL
+ARG ANALYTICS_URL
+ENV ANALYTICS_URL=$ANALYTICS_URL
 ENV NODE_ENV production
 
 RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
+RUN npm run export
 
-FROM node:12-alpine
+FROM nginx:alpine
 
-RUN mkdir /app
+RUN mkdir /www
 ENV NODE_ENV production
 EXPOSE 80
-WORKDIR /app
+WORKDIR /www
 
-COPY package*.json ./
-RUN npm ci
-COPY --from=builder /build/.next .next
-COPY --from=builder /build/public public
-COPY --from=builder /build/data data
-COPY nginx-include .
-
-ARG GIT_COMMIT
-ENV NEXT_PUBLIC_GIT_COMMIT=$GIT_COMMIT
-ARG BUILD_DATE
-ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
-
-CMD [ "npm", "run", "start", "--", "-p", "80" ]
+COPY nginx-config.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /build/out /usr/share/nginx/html

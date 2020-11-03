@@ -32,7 +32,7 @@ const ItemsList: FunctionComponent<Props> = ({
             return (
               <li className="list-item" key={tag.title}>
                 {tag.url && tag.url.startsWith("/") && (
-                  <Link href="/tags/[slug]" as={`/tags/${tag.title}`}>
+                  <Link href={`/tags/${tag.title}`}>
                     <a rel={rel}>{tag.title}</a>
                   </Link>
                 )}
@@ -42,7 +42,7 @@ const ItemsList: FunctionComponent<Props> = ({
                   </a>
                 )}
                 {!tag.url && tag.title}
-                {index !== items.length - 1 && <span>,</span>}
+                {index !== items.length - 1 && <span>•</span>}
               </li>
             )
           })}
@@ -51,32 +51,34 @@ const ItemsList: FunctionComponent<Props> = ({
       <style jsx>{`
         div {
           display: flex;
-          flex-wrap: wrap;
           flex-direction: row;
           font-size: 0.8em;
-        }
-
-        span.label {
-          margin-right: 4px;
-          color: var(--secondary-label);
+          overflow-x: auto;
+          max-width: 100%;
         }
 
         ul {
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
+          display: inline-flex;
+          white-space: nowrap;
           list-style-type: none;
           padding: 0;
           margin: 0;
+          margin-top: 6px;
+          margin-bottom: 8px;
         }
 
         li {
-          padding-bottom: 4px;
-          display: inline;
+          display: block;
         }
 
-        li.list-item {
-          margin-right: 8px;
+        li a {
+           {
+            /* To create a minimum width of 48px (40 + 4 + 4) */
+          }
+          min-width: 40px;
+          margin: 0 4px;
+          display: inline-block;
+          text-align: center;
         }
       `}</style>
     </Fragment>

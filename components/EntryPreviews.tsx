@@ -16,15 +16,17 @@ class EntryPreviews extends Component<Props> {
     const { entries, pageCount, currentPage, appCampaignName } = this.props
     return (
       <Fragment>
-        {entries.map((entry) => {
-          return (
-            <EntryPreview
-              key={`${entry.type}-${entry.slug}`}
-              entry={entry}
-              appCampaignName={appCampaignName}
-            />
-          )
-        })}
+        <div className="entries">
+          {entries.map((entry) => {
+            return (
+              <EntryPreview
+                key={`${entry.type}-${entry.slug}`}
+                entry={entry}
+                appCampaignName={appCampaignName}
+              />
+            )
+          })}
+        </div>
         {pageCount > 1 && (
           <Fragment>
             <div className="pagination">
@@ -57,44 +59,52 @@ class EntryPreviews extends Component<Props> {
                 )}
               </div>
             </div>
-            <style jsx>{`
-              .pagination {
-                --border: 1px grey solid;
-              }
-
-              .pagination {
-                display: flex;
-                justify-content: center;
-                margin: 16px 0;
-              }
-
-              .links {
-                display: flex;
-                align-self: flex-start;
-                overflow: hidden;
-                border-radius: 8px;
-                border: var(--border);
-              }
-
-              .pagination :global(.link) {
-                padding: 16px;
-              }
-
-              .pagination :global(.link:not(:last-child)) {
-                border-right: var(--border);
-              }
-
-              .pagination :global(a.link:hover) {
-                background: var(--secondary-background);
-                text-decoration: none !important;
-              }
-
-              .pagination :global(span.link) {
-                background: var(--secondary-background);
-              }
-            `}</style>
           </Fragment>
         )}
+        <style jsx>{`
+          .entries {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-rows: 1fr;
+            gap: 8px 8px;
+            grid-template-areas: ".";
+          }
+
+          .pagination {
+            --border: 1px grey solid;
+          }
+
+          .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 16px 0;
+          }
+
+          .links {
+            display: flex;
+            align-self: flex-start;
+            overflow: hidden;
+            border-radius: 8px;
+            border: var(--border);
+          }
+
+          .pagination :global(.link) {
+            padding: 16px;
+          }
+
+          .pagination :global(.link:not(:last-child)) {
+            border-right: var(--border);
+          }
+
+          .pagination :global(a.link:hover) {
+            background: var(--secondary-background);
+            text-decoration: none !important;
+          }
+
+          .pagination :global(span.link) {
+            background: var(--secondary-background);
+          }
+        `}</style>
       </Fragment>
     )
   }
@@ -119,7 +129,7 @@ class EntryPreviews extends Component<Props> {
       `$1${page.toString()}$3`,
     )
     return (
-      <Link href={paginationHREF} as={paginationURL} key={title}>
+      <Link href={paginationURL} key={title}>
         <a className="link" rel={rel}>
           {title}
         </a>

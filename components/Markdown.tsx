@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react"
 import ReactMarkdown from "react-markdown"
 import CodeBlock from "./CodeBlock"
+import React from "react"
 
 interface Props {
   source: string

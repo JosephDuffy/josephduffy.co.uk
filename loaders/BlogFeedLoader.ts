@@ -3,7 +3,7 @@ import postsLoader from "./PostsLoader"
 import { compareDesc } from "date-fns"
 
 export class BlogFeedLoader {
-  async getFeed(forceRefresh = false): Promise<Feed> {
+  async getFeed(websiteURL: string, forceRefresh = false): Promise<Feed> {
     const posts = await postsLoader.getPosts(forceRefresh)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
@@ -12,36 +12,36 @@ export class BlogFeedLoader {
     const feed = new Feed({
       title: "Joseph Duffy",
       description: "Blog posts written by Joseph Duffy",
-      id: "https://josephduffy.co.uk/",
-      link: "https://josephduffy.co.uk/posts",
+      id: websiteURL,
+      link: websiteURL + "posts",
       language: "en-GB",
-      favicon: "https://josephduffy.co.uk/favicon.ico",
+      favicon: websiteURL + "icons/favicon-32x32.png",
       copyright: "Joseph Duffy",
       updated: new Date(latestPost.date),
       feedLinks: {
-        json: "https://josephduffy.co.uk/feed.json",
-        atom: "https://josephduffy.co.uk/atom.xml",
-        rss: "https://josephduffy.co.uk/rss.xml",
+        json: websiteURL + "feed.json",
+        atom: websiteURL + "atom.xml",
+        rss: websiteURL + "rss.xml",
       },
       author: {
         name: "Joseph Duffy",
-        link: "https://josephduffy.co.uk",
+        link: websiteURL,
       },
     })
     posts.forEach((post) => {
-      const url = "https://josephduffy.co.uk" + post.url
+      const url = websiteURL + post.url
       feed.addItem({
         title: post.title,
         id: url,
         link: url,
-        description: post.excerptHTML,
+        description: post.excerptHTML ?? undefined,
         content: post.contentHTML,
         date: new Date(post.date),
-        published: new Date(post.date),
+        published: new Date(post.publishDate),
         author: [
           {
             name: "Joseph Duffy",
-            link: "https://josephduffy.co.uk",
+            link: websiteURL,
           },
         ],
       })

@@ -1,6 +1,7 @@
 import App from "../models/App"
 import gathered from "../data/apps/gathered"
 import scanula from "../data/apps/scanula"
+import nevis from "../data/apps/nevis"
 import fourSquares from "../data/apps/four-squares"
 import AppPreview from "../models/AppPreview"
 import { EntryType } from "../models/Entry"
@@ -8,24 +9,26 @@ import AppRelease from "../models/AppRelease"
 
 export class AppsLoader {
   getApps(): App[] {
-    return [gathered, scanula, fourSquares]
+    return [gathered, nevis, scanula, fourSquares]
   }
 
   getAppsPreviews(): AppPreview[] {
-    return [gathered, scanula, fourSquares].map((app) => {
+    return [gathered, nevis, scanula, fourSquares].map((app) => {
       return {
         title: app.name,
         slug: app.slug,
         logoURL: app.logoURL,
         description: app.shortDescription,
-        url: app.url,
+        downloadURL: app.downloadURL,
+        marketingWebsiteURL: app.marketingWebsiteURL ?? null,
+        platform: app.platform,
         type: EntryType.AppPreview,
       }
     })
   }
 
   getAppsReleases(): AppRelease[] {
-    return [gathered, scanula, fourSquares].flatMap((app) => {
+    return [gathered, nevis, scanula, fourSquares].flatMap((app) => {
       return app.changelogs.map((changelog) => {
         return {
           title: `${app.name} version ${changelog.version}`,

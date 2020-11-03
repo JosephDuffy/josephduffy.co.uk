@@ -2,11 +2,25 @@ import { NextPage } from "next"
 import Head from "next/head"
 import Page from "../layouts/main"
 
-const YetiiPage: NextPage = () => {
+const BlogFeedsPage: NextPage = () => {
+  if (
+    typeof window === "undefined" &&
+    process.env["WEBSITE_URL"] === undefined
+  ) {
+    console.warn(
+      "WEBSITE_URL environment variable must be set to generate correct feed URLs",
+    )
+  }
+
+  const websiteURL =
+    typeof window !== "undefined"
+      ? window.location.origin + "/"
+      : process.env["WEBSITE_URL"] ?? "/"
+
   return (
     <Page>
       <Head>
-        <title>Blog RSS Feeds :: Joseph Duffy, iOS Developer</title>
+        <title>Blog RSS Feeds - Joseph Duffy</title>
         <meta
           name="description"
           content="Links to RSS feeds for subscribing to blog posts published by Joseph Duffy"
@@ -33,7 +47,7 @@ const YetiiPage: NextPage = () => {
               <a href="/atom.xml">/atom.xml</a>
             </td>
             <td>
-              <a href="feed:https://josephduffy.co.uk/atom.xml">Subscribe</a>
+              <a href={`feed:${websiteURL}atom.xml`}>Subscribe</a>
             </td>
           </tr>
           <tr>
@@ -42,7 +56,7 @@ const YetiiPage: NextPage = () => {
               <a href="/rss.xml">/rss.xml</a>
             </td>
             <td>
-              <a href="feed:https://josephduffy.co.uk/rss.xml">Subscribe</a>
+              <a href={`feed:${websiteURL}rss.xml`}>Subscribe</a>
             </td>
           </tr>
           <tr>
@@ -51,7 +65,7 @@ const YetiiPage: NextPage = () => {
               <a href="/feed.json">/feed.json</a>
             </td>
             <td>
-              <a href="feed:https://josephduffy.co.uk/feed.json">Subscribe</a>
+              <a href={`feed:${websiteURL}feed.json`}>Subscribe</a>
             </td>
           </tr>
         </tbody>
@@ -71,4 +85,4 @@ const YetiiPage: NextPage = () => {
   )
 }
 
-export default YetiiPage
+export default BlogFeedsPage

@@ -40,15 +40,15 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
   return (
     <Page>
       <Head>
-        <title>Joseph Duffy :: iOS Developer</title>
+        <title>Joseph Duffy</title>
         <meta
           name="description"
           content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy"
         />
       </Head>
       <p className="intro">
-        Hi! 👋 I&apos;m Joseph Duffy. I enjoy making iOS apps and websites. This
-        website contains information about my iOS apps, open-source projects,
+        Hi! 👋 I&apos;m Joseph Duffy. I enjoy building software. This website
+        contains information about my commercial software, open-source projects,
         and blog posts. Welcome to my corner of the internet!
       </p>
       <h1>★ My Favourites</h1>
@@ -68,6 +68,10 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
         p.intro {
           padding: 8px;
         }
+
+        h1 {
+          margin: revert;
+        }
       `}</style>
     </Page>
   )
@@ -77,8 +81,11 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
-  const partialBlogPost = allEntries.find((entry) => {
-    return "slug" in entry && entry.slug === "partial-framework-release-1-0-0"
+  const hashableByKeyPathBlogPost = allEntries.find((entry) => {
+    return (
+      "slug" in entry &&
+      entry.slug === "HashableByKeyPath-framework-release-1-0-0"
+    )
   })
   const iosShareSheetLocation = allEntries.find((entry) => {
     return (
@@ -90,15 +97,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const gatheredAppPreview = appPreviews.find((app) => {
     return app.slug === "gathered"
   })
-  const scanulaAppPreview = appPreviews.find((app) => {
-    return app.slug === "scanula"
+  const nevisAppPreview = appPreviews.find((app) => {
+    return app.slug === "nevis"
   })
 
   const favourites = [
-    partialBlogPost,
+    nevisAppPreview,
     gatheredAppPreview,
+    hashableByKeyPathBlogPost,
     iosShareSheetLocation,
-    scanulaAppPreview,
   ].reduce((favourites: Favourite[], favouriteEntry) => {
     if (favouriteEntry === undefined) {
       return favourites

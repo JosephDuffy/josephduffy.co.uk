@@ -100,7 +100,9 @@ export class EntriesLoader {
 
     let entries: PossibleEntries[] = []
 
-    const posts = await postsLoader.getPostsPreviews()
+    const posts = await postsLoader.getPostsPreviews(
+      process.env["NODE_ENV"] === "development",
+    )
     const gitHubReleases = await gitHubReleasesLoader.getReleases()
     const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()
     const stackOverflowEntries = await stackOverflowLoader.getEntries()

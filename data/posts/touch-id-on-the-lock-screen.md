@@ -1,7 +1,7 @@
 ---
 title: Touch ID on the Lock Screen
 tags: ["ios", "user-experience"]
-date: 2015-10-03
+date: 2015-10-03T11:34:24Z
 ---
 
 Touch ID is a wonderful piece of technology, to the point where wouldn't buy an iOS device without it. It had many great uses, such as:

@@ -12,11 +12,30 @@ import { GetStaticPaths } from "next/types"
 
 interface Props {
   post?: BlogPost
+  previousPost: BlogPost | null
+  nextPost: BlogPost | null
 }
 
-const PostPage: NextPage<Props> = ({ post }) => {
+const PostPage: NextPage<Props> = ({ post, previousPost, nextPost }) => {
   if (post) {
-    const iso8601Date = new Date(post.date).toISOString()
+    if (
+      typeof window === "undefined" &&
+      process.env["WEBSITE_URL"] === undefined
+    ) {
+      console.warn(
+        "WEBSITE_URL environment variable must be set to generate correct feed URLs",
+      )
+    }
+
+    const websiteURL =
+      typeof window !== "undefined"
+        ? window.location.origin + "/"
+        : process.env["WEBSITE_URL"] ?? "/"
+
+    const publishedISODate = new Date(post.publishDate).toISOString()
+    const updatedISODate = post.updateDate
+      ? new Date(post.updateDate).toISOString()
+      : undefined
     return (
       <Page>
         <Head>
@@ -29,19 +48,19 @@ const PostPage: NextPage<Props> = ({ post }) => {
             rel="alternate"
             type="application/rss+xml"
             title="RSS feed for blog posts"
-            href="https://josephduffy.co.uk/rss.xml"
+            href="/rss.xml"
           />
           <link
             rel="alternate"
             type="application/atom+xml"
             title="Atom feed for blog posts"
-            href="https://josephduffy.co.uk/atom.xml"
+            href="/atom.xml"
           />
           <link
             rel="alternate"
             type="application/json"
             title="JSON feed for blog posts"
-            href="https://josephduffy.co.uk/feed.json"
+            href="/feed.json"
           />
           <script
             type="application/ld+json"
@@ -50,11 +69,12 @@ const PostPage: NextPage<Props> = ({ post }) => {
             {
               "@context": "https://schema.org",
               "@type": "BlogPosting",
-              "@id": "https://josephduffy.co.uk${post.url}",
+              "@id": "${websiteURL}${post.url.slice(1)}",
               "headline": "${post.title}",
               "keywords": "${post.tags.join(",")}",
-              "datePublished": "${iso8601Date}",
-              "dateCreated": "${iso8601Date}",
+              "datePublished": "${publishedISODate}",
+              "dateCreated": "${publishedISODate}",
+              "dateModified": "${updatedISODate ?? publishedISODate}",
               "author": {
                 "@type": "Person",
                 "name": "Joseph Duffy"
@@ -72,7 +92,10 @@ const PostPage: NextPage<Props> = ({ post }) => {
           <article>
             <header>
               <h1>{post.title}</h1>
-              <FormattedDate date={post.date} prefix="Published" />
+              <FormattedDate date={post.publishDate} prefix="Published" />
+              {post.updateDate && (
+                <FormattedDate date={post.updateDate} prefix="Updated" />
+              )}
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
             <div
@@ -81,9 +104,185 @@ const PostPage: NextPage<Props> = ({ post }) => {
             />
           </article>
         </Card>
+        <div id="previous-next-post-links">
+          <div className="left-link-container">
+            {previousPost && (
+              <Link href={previousPost.url}>
+                <a title={previousPost.title} className="left-link">
+                  <div className="navigation-container">
+                    <div className="direction-arrow">←&nbsp;</div>
+                    <div className="post-metadata-container">
+                      <span className="post-name">{previousPost.title}</span>
+                      <br />
+                      <FormattedDate
+                        date={previousPost.publishDate}
+                        prefix="Published"
+                      />
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            )}
+            {!previousPost && (
+              <Link href="/blog-feeds">
+                <a
+                  title="View available RSS, Atom, and JSON blog post feeds"
+                  className="left-link"
+                >
+                  <div
+                    id="first-post-container"
+                    className="navigation-container"
+                  >
+                    <span className="alt-action-title">
+                      Subscribe to blog feed
+                    </span>
+                    <br />
+                    <span className="alt-action-subtitle">
+                      This is my first blog post
+                    </span>
+                  </div>
+                </a>
+              </Link>
+            )}
+          </div>
+          <div className="spacer"></div>
+          <div className="right-link-container">
+            {nextPost && (
+              <Link href={nextPost.url}>
+                <a title={nextPost.title} className="right-link">
+                  <div id="next-post-link" className="navigation-container">
+                    <div className="post-metadata-container">
+                      <span className="post-name">{nextPost.title}</span>
+                      <br />
+                      <FormattedDate
+                        date={nextPost.publishDate}
+                        prefix="Published"
+                      />
+                    </div>
+                    <div className="direction-arrow">&nbsp;→</div>
+                  </div>
+                </a>
+              </Link>
+            )}
+            {!nextPost && (
+              <Link href="/blog-feeds">
+                <a
+                  title="View available RSS, Atom, and JSON blog post feeds"
+                  className="right-link"
+                >
+                  <div id="blog-feeds-link" className="navigation-container">
+                    <span className="alt-action-title">
+                      Subscribe to blog feed
+                    </span>
+                    <br />
+                    <span className="alt-action-subtitle">
+                      This is my latest blog post
+                    </span>
+                  </div>
+                </a>
+              </Link>
+            )}
+          </div>
+        </div>
         <style jsx>{`
           .post-content {
             padding-top: 16px;
+          }
+
+          #previous-next-post-links {
+            display: flex;
+            flex-direction: column;
+          }
+
+          #previous-next-post-links a {
+            display: inline-flex;
+            background: var(--secondary-background);
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+          }
+
+          #previous-next-post-links a:hover {
+            text-decoration: none !important;
+            background: var(--tertiary-background);
+          }
+
+          #previous-next-post-links a:focus {
+            outline: auto;
+          }
+
+          .right-link-container {
+            text-align: right;
+          }
+
+          .left-link-container,
+          .right-link-container {
+            width: 100%;
+            padding-top: 16px;
+          }
+
+          @media (min-width: 480px) {
+            #previous-next-post-links {
+              flex-direction: row;
+            }
+
+            .left-link-container,
+            .right-link-container {
+              display: inline-block;
+              width: 45%;
+            }
+          }
+
+          @media (min-width: 1024px) {
+            .left-link-container,
+            .right-link-container {
+              display: inline-block;
+              width: 35%;
+            }
+          }
+
+          .post-metadata-container {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+          }
+
+          .alt-action-title {
+            color: var(--tint-color);
+            padding-bottom: 4px;
+          }
+
+          .alt-action-subtitle {
+            font-size: 0.8rem;
+            color: var(--secondary-label);
+          }
+
+          #first-post-container,
+          #blog-feeds-link {
+            padding-bottom: 8px;
+            color: var(--primary-label);
+            display: flex;
+            flex-direction: column;
+          }
+
+          .spacer {
+            flex: 1;
+          }
+
+          .post-name {
+            flex: 1;
+          }
+
+          .navigation-container {
+            display: flex;
+            width: 100%;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-top: 8px;
+          }
+
+          .direction-arrow {
+            color: var(--primary-label);
           }
         `}</style>
       </Page>
@@ -114,18 +313,27 @@ export async function getStaticProps({
   params,
 }: StaticParams): Promise<StaticProps> {
   const { slug } = params
-  const posts = await postsLoader.getPosts()
-  const post = posts.find((post) => post.slug === slug)
+  const posts = await postsLoader.getPosts(
+    process.env["NODE_ENV"] === "development",
+  )
+  const postIndex = posts.findIndex((post) => post.slug === slug)
+  const post = posts[postIndex]
+  const previousPost = posts[postIndex - 1] ?? null
+  const nextPost = posts[postIndex + 1] ?? null
 
   return {
     props: {
       post,
+      previousPost,
+      nextPost,
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await postsLoader.getPosts()
+  const posts = await postsLoader.getPosts(
+    process.env["NODE_ENV"] === "development",
+  )
 
   return {
     fallback: false,

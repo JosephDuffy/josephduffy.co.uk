@@ -3,6 +3,7 @@ import App from "../../models/App"
 const fourSquares: App = {
   name: "Four Squares",
   slug: "four-squares",
+  platform: "iOS",
   logoURL: "/images/four-squares/icon.svg",
   shortDescription:
     "Four Squares for iOS and Apple Watch is a take on an classic electronic memory game. Four Squares stays true to the original, while adding a modern feel and feature set to the game. It supports the iPhone, iPad, and Apple Watch.",
@@ -27,7 +28,7 @@ iPhone and iPad app features:
 - Game Center leaderboards
 - Portrait and landscape support
 `,
-  url: "https://apps.apple.com/app/apple-store/id982796319",
+  downloadURL: "https://apps.apple.com/app/apple-store/id982796319",
   tags: ["four-squares"],
   changelogs: [
     {

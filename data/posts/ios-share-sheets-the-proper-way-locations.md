@@ -8,7 +8,7 @@ tags:
     "UIActivityItem",
     "location",
   ]
-date: 2016-03-07
+date: 2016-03-07T16:39:46Z
 ---
 
 Sharing a location on iOS is something that not a lot of apps need, but after requiring it for my latest app, [Scanula](https://scanula.com), I found that there isn't a good resource explaining how to do it properly. This is the first post in a series of planned posts going over a few of the tips, tricks, and common pitfalls I have found while working with iOS Share Sheets.
@@ -19,7 +19,7 @@ Sharing a location on iOS is something that not a lot of apps need, but after re
 
 ![](/images/ios-share-icon.png 'Standard iOS "Action" Icon')
 
-Sharing on iOS is done using the Share Sheet, which is often opened via the "Action" icon (shown left). When tapping this, the user is presented with a Share Sheet, which provides various options, depending on the item being shared. In the blog post we'll be looking at location exclusively, but there are a various things that can be shared, from images, to URLs, to text files. The full list can be found in [Apple's Documention](https://developer.apple.com/library/ios/documentation/MobileCoreServices/Reference/UTTypeRef/#//apple_ref/doc/uid/TP40008771-CH100-SW2 "UTType Constants").
+Sharing on iOS is done using the Share Sheet, which is often opened via the "Action" icon (shown left). When tapping this, the user is presented with a Share Sheet, which provides various options, depending on the item being shared. In the blog post we'll be looking at location exclusively, but there are a various things that can be shared, from images, to URLs, to text files. The full list can be found in [Apple's Documentation](https://developer.apple.com/library/ios/documentation/MobileCoreServices/Reference/UTTypeRef/#//apple_ref/doc/uid/TP40008771-CH100-SW2 "UTType Constants").
 
 ### UIActivityViewController and UIActivityItem
 
@@ -58,7 +58,7 @@ When searching Google for "uiactivityviewcontroller share location", the top res
 
 - Create a VCard containing the location
   - Note that some solutions suggested creating an contact via the `AddressBook` framework and using that to generate the VCard contents, _crazy_!
-- Write the VCard data to a temperary location on disk
+- Write the VCard data to a temporary location on disk
 - Pass in the `NSURL` of the file
 
 Here's my example code:
@@ -99,7 +99,7 @@ func activityItems(latitude: Double, longitude: Double) -> [AnyObject]? {
 }
 ```
 
-While this does technically work for most use cases, when sharing via AirDrop the items is interpreted as a file (as it techncially should). This has some unwanted side effects:
+While this does technically work for most use cases, when sharing via AirDrop the items is interpreted as a file (as it technically should). This has some unwanted side effects:
 
 - Some apps that _should_ be able to share a location (such as Facebook's Messenger) see the item as a file and refuse to share it
 - When sharing via AirDrop, the item is shared as a contact card, and the user is prompted to add the contact the their contacts, not view the location
@@ -107,7 +107,7 @@ While this does technically work for most use cases, when sharing via AirDrop th
 
 ## Lead By Example - The Apple way
 
-When trying to figure out the correct way of doing this I created a smalled app for debugging Share Sheet items (hopefully more on this in another blog post). This shows me that Apple's built-in Maps application does things a little differently by sharing:
+When trying to figure out the correct way of doing this I created a small app for debugging Share Sheet items (hopefully more on this in another blog post). This shows me that Apple's built-in Maps application does things a little differently by sharing:
 
 - A single text item (the title of the location)
 - An Apple Maps `NSURL`

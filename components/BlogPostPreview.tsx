@@ -15,19 +15,22 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
   return (
     <article key={post.slug}>
       <header>
-        <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
+        <Link href={`/posts/${post.slug}`}>
           <a>
             <h1>{post.title}</h1>
           </a>
         </Link>
-        <FormattedDate date={post.date} prefix="Published" />
+        <FormattedDate date={post.publishDate} prefix="Published" />
+        {post.updateDate && (
+          <FormattedDate date={post.updateDate} prefix="Updated" />
+        )}
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>
       <HorizontalRule />
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
-        <Link href="/posts/[slug]" as={`/posts/${post.slug}`}>
-          <a>Read More</a>
+        <Link href={`/posts/${post.slug}`}>
+          <a title={`Keep reading ${post.title}`}>Keep Reading</a>
         </Link>
       </div>
     </article>

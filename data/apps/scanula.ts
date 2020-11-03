@@ -3,6 +3,7 @@ import App from "../../models/App"
 const scanula: App = {
   name: "Scanula",
   slug: "scanula",
+  platform: "iOS",
   logoURL: "/images/scanula/icon.png",
   shortDescription:
     "Scanula is a clean, modern, and fast QR, data matrix, and barcode scanner.",
@@ -39,7 +40,7 @@ Features:
 
 * Detection of QR codes via images requires an iPhone 5s, iPad Air, iPad Mini 2, or newer
 `,
-  url: "https://apps.apple.com/app/apple-store/id1063048919",
+  downloadURL: "https://apps.apple.com/app/apple-store/id1063048919",
   tags: ["scanula"],
   changelogs: [
     {

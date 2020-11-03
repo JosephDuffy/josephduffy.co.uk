@@ -1,6 +1,6 @@
 import { FunctionComponent, Fragment } from "react"
 import { PossibleEntries } from "../loaders/EntriesLoader"
-import AppPreview from "../models/AppPreview"
+import AppPreview, { isAppPreview } from "../models/AppPreview"
 import EntryPreview from "./EntryPreview"
 
 interface Props {
@@ -16,8 +16,9 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
     <Fragment>
       <div className="entries">
         {entries.map((entry) => {
+          const key = isAppPreview(entry) ? entry.downloadURL : entry.url
           return (
-            <div className="preview" key={`${entry.type}-${entry.url}`}>
+            <div className="preview" key={`${entry.type}-${key}`}>
               <EntryPreview entry={entry} appCampaignName={appCampaignName} />
             </div>
           )
@@ -29,18 +30,24 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
         }
 
         div.entries {
-          display: flex;
-          flex-flow: row wrap;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 100%;
+          grid-template-rows: 1fr;
+          gap: 8px 8px;
+          grid-template-areas: ".";
+          padding: 8px 0;
         }
 
         div.preview {
           display: flex;
+          flex-direction: column;
+          flex: 1;
         }
 
         @media (min-width: 1024px) {
-          div.preview {
-            width: calc(50% - 4px);
+          div.entries {
+            grid-template-columns: repeat(2, 50%);
+            grid-template-areas: ". .";
           }
         }
       `}</style>
