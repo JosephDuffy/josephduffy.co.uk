@@ -55,6 +55,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
             name="description"
             content={`Contact Joseph Duffy about ${name}`}
           />
+          <meta name="robots" content="noindex" />
         </Head>
         <h1>Contact Me About {name}</h1>
         <p>

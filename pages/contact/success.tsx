@@ -8,6 +8,7 @@ const ContactSuccessPage: NextPage = () => {
       <Head>
         <title>Contact Success - Joseph Duffy</title>
         <meta name="description" content="Contact message has been received" />
+        <meta name="robots" content="noindex" />
       </Head>
       <h1>Contact Success</h1>
       <p>Your message has been received.</p>
