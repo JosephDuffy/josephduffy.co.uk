@@ -26,9 +26,29 @@ Once a file has been processed it will automatically be moved to the Bin, helpin
   downloadURL: "https://download.nevis.app/Nevis.zip",
   marketingWebsiteURL: "https://nevis.app",
   tags: ["nevis"],
-  changelogs: [],
+  changelogs: [
+    {
+      version: "1.0.0",
+      releaseDate: "2020-11-15",
+      content: "Initial Release",
+    },
+    {
+      version: "1.0.1",
+      releaseDate: "2020-11-15",
+      content: `- Improve handling of watch folder
+- Improve notification text when an error occurs`,
+    },
+    {
+      version: "1.1.0",
+      releaseDate: "2020-11-29",
+      content: `- Add support for opening PKGs, including PKGs inside ZIPs and DMGs
+- Improve detection of downloaded files
+- Ensure app is brought forward when opening from status bar icon
+- Fix handling of DMGs if Nevis is force quit and reopened`,
+    },
+  ],
   privacyPolicy: `
-Nevis does not share any of your data.
+Nevis does not track, store, or share any of your data.
 `,
 }
 
