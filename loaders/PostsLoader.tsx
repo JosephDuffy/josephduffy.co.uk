@@ -33,11 +33,11 @@ export class PostsLoader {
         const excerptRegex = /<!-- more -->/g
         const markdownContent = parsedContent.content.replace(excerptRegex, "")
         const contentHTML = ReactDOMServer.renderToStaticMarkup(
-          <Markdown source={markdownContent} />,
+          <Markdown source={markdownContent} escapeHtml={false} />,
         )
         const excerptHTML = parsedContent.excerpt
           ? ReactDOMServer.renderToStaticMarkup(
-              <Markdown source={parsedContent.excerpt} />,
+              <Markdown source={parsedContent.excerpt} escapeHtml={false} />,
             )
           : null
         const publishDate = new Date(parsedContent.data.date).toISOString()
