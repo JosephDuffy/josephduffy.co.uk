@@ -4,7 +4,7 @@ tags: ["swift", "swiftui"]
 date: 2020-12-27T13:03:42Z
 ---
 
-When displaying an alert in SwiftUI, if the value used to calculate whether the alert show be presented is both `Optional` and does not conform to `Identifiable`<sup>1</sup> it is often recommended to create an sync a separate flag, similar to:
+When displaying an alert in SwiftUI, if the value used to calculate whether the alert is presented is both `Optional` and does not conform to `Identifiable`<sup>1</sup> it is often recommended to use a separate flag, similar to:
 
 ```swift
 struct ContentView: View {
@@ -25,7 +25,7 @@ struct ContentView: View {
 
 There are 2 main downsides to this:
 
-1. `alertText` is not set back to `nil`, which cause bugs and increase memory usage
+1. `alertText` is not set back to `nil`, which may cause bugs and will increase memory usage (even if only a little in this case)
 2. The `isPresentingAlert` flag needs to be managed
 
 To work around these issues I create a small extension to `Binding` the allows this same code to be updated to:
@@ -92,7 +92,7 @@ extension Binding {
 }
 ```
 
-This isn't tied directly to showing an alert or a sheet so can be used in any context, but this is one of the better examples of its usage.
+The extension isn't tied directly to showing an alert or a sheet and can be used in any context, but this is one of the better examples of its usage.
 
 This extension is [available on GitHub under the MIT license](https://gist.github.com/JosephDuffy/f6291ad150e8aedf4515c29fdf5ab7e3).
 
