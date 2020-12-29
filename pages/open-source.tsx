@@ -26,10 +26,16 @@ const OpenSourcePage: NextPage<Props> = ({
       <p>
         I am a big believer in open source software, which I contribute to
         through GitHub. Below are the projects I have contributed to recently.
-        To view all of my contributions to open source projects view entries
-        under the{" "}
+      </p>
+      <p>
+        To view all the entries on this website related to open source projects
+        you can{" "}
         <a href="/tags/open-source" rel="tag">
-          open-source tag
+          view entries under the open-source tag
+        </a>
+        . To see all my open source contributions visit{" "}
+        <a href="https://github.com/JosephDuffy" rel="me">
+          my GitHub profile
         </a>
         .
       </p>
