@@ -65,7 +65,7 @@ jobs:
           CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: Docker Push
-        run: docker push ghcr.io/josephduffy/contact.josephduffy.co.uk:latest
+        run: docker push ghcr.io/josephduffy/contact.josephduffy.co.uk:analytics
 
   trigger_update:
     name: Trigger Update
