@@ -21,7 +21,7 @@ jobs:
       - name: Docker Build
         run: docker
           build .
-          -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
+          -t ghcr.io/josephduffy/josephduffy.co.uk:latest --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
           --build-arg "BUILD_DATE=$(date -u)"
           --build-arg "GIT_COMMIT=${GITHUB_SHA}"
           --build-arg "WEBSITE_URL=${WEBSITE_URL}"
@@ -30,12 +30,12 @@ jobs:
           WEBSITE_URL: "https://noanalytics.josephduffy.co.uk/"
 
       - name: Docker Login
-        run: docker login docker.pkg.github.com -u "JosephDuffy" --password "${GITHUB_TOKEN}"
+        run: docker login ghcr.io -u "JosephDuffy" --password "${CR_PAT}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: Docker Push
-        run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:latest
+        run: docker push ghcr.io/josephduffy/josephduffy.co.uk:latest
 
   build_image_analytics:
     name: Build Image with Analytics
@@ -50,7 +50,7 @@ jobs:
       - name: Docker Build
         run: docker
           build .
-          -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:analytics --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
+          -t ghcr.io/josephduffy/josephduffy.co.uk:analytics --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
           --build-arg "BUILD_DATE=$(date -u)"
           --build-arg "GIT_COMMIT=${GITHUB_SHA}"
           --build-arg "WEBSITE_URL=${WEBSITE_URL}"
@@ -60,12 +60,12 @@ jobs:
           WEBSITE_URL: "https://josephduffy.co.uk/"
 
       - name: Docker Login
-        run: docker login docker.pkg.github.com -u "JosephDuffy" --password "${GITHUB_TOKEN}"
+        run: docker login ghcr.io -u "JosephDuffy" --password "${CR_PAT}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: Docker Push
-        run: docker push docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:analytics
+        run: docker push ghcr.io/josephduffy/contact.josephduffy.co.uk:latest
 
   trigger_update:
     name: Trigger Update
