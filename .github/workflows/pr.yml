@@ -14,6 +14,13 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: pr-docker-cache-{hash}
+          restore-keys: |
+            pr-docker-cache-
+
       - name: Docker Build
         run: DOCKER_BUILDKIT=1 docker build . -t docker.pkg.github.com/josephduffy/josephduffy.co.uk/website:$GITHUB_SHA --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
 
