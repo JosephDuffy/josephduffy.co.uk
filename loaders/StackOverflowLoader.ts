@@ -1,7 +1,7 @@
 import { EntryType } from "../models/Entry"
 import https from "https"
 import zlib from "zlib"
-import { AllHtmlEntities } from "html-entities"
+import { decode as decodeHTMLEntities } from "html-entities"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import {
   StackOverflowEntry,
@@ -74,8 +74,6 @@ export class StackOverflowLoader {
 
       let entries: StackOverflowEntry[] = []
 
-      const entities = new AllHtmlEntities()
-
       const questions: StackOverflowEntry[] = questionPosts.reduce(
         (questions: StackOverflowEntry[], questionPost) => {
           const apiQuestion = apiQuestions.find(
@@ -86,7 +84,7 @@ export class StackOverflowLoader {
             return questions
           }
 
-          const unescapedTitle = entities.decode(apiQuestion.title)
+          const unescapedTitle = decodeHTMLEntities(apiQuestion.title)
           questions.push({
             title: `Posted question to StackOverflow: ${unescapedTitle}`,
             date: new Date(apiQuestion.creation_date * 1000).toISOString(),
@@ -121,7 +119,7 @@ export class StackOverflowLoader {
             return answers
           }
 
-          const unescapedTitle = entities.decode(apiQuestion.title)
+          const unescapedTitle = decodeHTMLEntities(apiQuestion.title)
           answers.push({
             title: `Provided answer on StackOverflow to the question ${unescapedTitle}`,
             date: new Date(apiAnswer.creation_date * 1000).toISOString(),
