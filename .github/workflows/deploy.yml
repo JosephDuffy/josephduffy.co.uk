@@ -18,6 +18,13 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
 
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: noanalytics-docker-cache-{hash}
+          restore-keys: |
+            noanalytics-docker-cache-
+
       - name: Docker Build
         run: docker
           build .
@@ -46,6 +53,13 @@ jobs:
       - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: analytics-docker-cache-{hash}
+          restore-keys: |
+            analytics-docker-cache-
 
       - name: Docker Build
         run: docker
