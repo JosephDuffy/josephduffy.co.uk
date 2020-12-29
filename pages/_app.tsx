@@ -69,6 +69,14 @@ class MyApp extends App {
             sizes="32x32"
           />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffcc00" />
+          <link
+            rel="webmention"
+            href="https://webmention.io/josephduffy.co.uk/webmention"
+          />
+          <link
+            rel="pingback"
+            href="https://webmention.io/josephduffy.co.uk/xmlrpc"
+          />
         </Head>
         <Component {...pageProps} />
         <style jsx global>{`
