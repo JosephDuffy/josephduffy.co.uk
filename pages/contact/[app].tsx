@@ -5,11 +5,13 @@ import Head from "next/head"
 import { Component, FormEvent } from "react"
 import Page from "../../layouts/main"
 import appsLoader from "../../loaders/AppsLoader"
+import HCaptcha from "@hcaptcha/react-hcaptcha"
 
 interface Props {
   slug: string
   name: string
   contactURL: string
+  hCaptchaSiteKey: string
   router: NextRouter
 }
 
@@ -26,6 +28,8 @@ interface State {
 }
 
 const appContactPage = class AppContactPage extends Component<Props, State> {
+  private captchaComponent?: HCaptcha | null
+
   constructor(props: Props) {
     super(props)
 
@@ -47,6 +51,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
 
   render(): JSX.Element {
     const { name } = this.props
+
     return (
       <Page>
         <Head>
@@ -63,9 +68,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
           you have any feedback or questions feel free to use the form below to
           contact me.
         </p>
-        <noscript>
-          JavaScript is disabled. Note that all fields are required.
-        </noscript>
+        <noscript>JavaScript is required to submit this form, sorry.</noscript>
         {this.state.errorMessage && (
           <div className="error-message">
             There was an error submitting your message:{" "}
@@ -108,6 +111,16 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
               rows={5}
               cols={40}
               required
+            />
+          </label>
+          <label>
+            Captcha (sorry, spam is too common)
+            <HCaptcha
+              ref={(ref) => (this.captchaComponent = ref)}
+              id={this.state.subject + "_hcaptcha"}
+              sitekey={this.props.hCaptchaSiteKey}
+              // eslint-disable-next-line @typescript-eslint/no-empty-function
+              onVerify={() => {}}
             />
           </label>
           <input type="hidden" name="subject" value={this.state.subject} />
@@ -175,12 +188,16 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
             console.dir(bodyJSON)
             this.setState({ errorMessage: bodyJSON.message, submitting: false })
           })
+
+          this.captchaComponent?.resetCaptcha()
         } else {
           this.setState({ errorMessage: "Unknown error", submitting: false })
+          this.captchaComponent?.resetCaptcha()
         }
       })
       .catch((err) => {
         this.setState({ errorMessage: err.message, submitting: false })
+        this.captchaComponent?.resetCaptcha()
       })
   }
 }
@@ -213,6 +230,9 @@ export async function getStaticProps({
       contactURL:
         process.env["CONTACT_FORM_URL"] ??
         "https://contact.josephduffy.co.uk/app-contact",
+      hCaptchaSiteKey:
+        process.env["HCAPTCHA_SITE_KEY"] ??
+        "10000000-ffff-ffff-ffff-000000000001", // Dummy key
     },
   }
 }
