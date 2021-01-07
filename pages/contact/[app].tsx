@@ -22,6 +22,7 @@ interface State {
   subject: string
   // An extra field used to try and catch bots
   extraField?: string
+  hcaptchaResponseToken?: string
 
   submitting: boolean
   errorMessage?: string
@@ -119,8 +120,12 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
               ref={(ref) => (this.captchaComponent = ref)}
               id={this.state.subject + "_hcaptcha"}
               sitekey={this.props.hCaptchaSiteKey}
-              // eslint-disable-next-line @typescript-eslint/no-empty-function
-              onVerify={() => {}}
+              onVerify={(token) => {
+                this.setState({ hcaptchaResponseToken: token })
+              }}
+              onExpire={() => {
+                this.setState({ hcaptchaResponseToken: undefined })
+              }}
             />
           </label>
           <input type="hidden" name="subject" value={this.state.subject} />
@@ -171,6 +176,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
       message: this.state.message,
       subject: this.state.subject,
       "extra-field": this.state.extraField,
+      "hcaptcha-response": this.state.hcaptchaResponseToken,
     }
     fetch(`${this.props.contactURL}`, {
       method: "POST",
@@ -190,14 +196,17 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
           })
 
           this.captchaComponent?.resetCaptcha()
+          this.setState({ hcaptchaResponseToken: undefined })
         } else {
           this.setState({ errorMessage: "Unknown error", submitting: false })
           this.captchaComponent?.resetCaptcha()
+          this.setState({ hcaptchaResponseToken: undefined })
         }
       })
       .catch((err) => {
         this.setState({ errorMessage: err.message, submitting: false })
         this.captchaComponent?.resetCaptcha()
+        this.setState({ hcaptchaResponseToken: undefined })
       })
   }
 }
