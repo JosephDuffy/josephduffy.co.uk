@@ -170,7 +170,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
       email: this.state.email,
       message: this.state.message,
       subject: this.state.subject,
-      extraField: this.state.extraField,
+      "extra-field": this.state.extraField,
     }
     fetch(`${this.props.contactURL}`, {
       method: "POST",
