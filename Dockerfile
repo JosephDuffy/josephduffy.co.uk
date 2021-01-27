@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:experimental
 # Requires DOCKER_BUILDKIT=1
 
-FROM node:12 as builder
+FROM node:14.15.4 as builder
 
 RUN mkdir /app
 WORKDIR /build
@@ -48,7 +48,6 @@ RUN npm run export
 FROM nginx:alpine
 
 RUN mkdir /www
-ENV NODE_ENV production
 EXPOSE 80
 WORKDIR /www
 
