@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:experimental
 # Requires DOCKER_BUILDKIT=1
 
-FROM node:12 as builder
+FROM node:14.15.4 as builder
 
 RUN mkdir /app
 WORKDIR /build
@@ -27,12 +27,19 @@ COPY tsconfig.json .
 
 ARG GIT_COMMIT
 ENV NEXT_PUBLIC_GIT_COMMIT=$GIT_COMMIT
+
 ARG BUILD_DATE
 ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
+
 ARG WEBSITE_URL
 ENV WEBSITE_URL=$WEBSITE_URL
+
 ARG ANALYTICS_URL
 ENV ANALYTICS_URL=$ANALYTICS_URL
+
+ARG HCAPTCHA_SITE_KEY
+ENV HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY
+
 ENV NODE_ENV production
 
 RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
@@ -41,7 +48,6 @@ RUN npm run export
 FROM nginx:alpine
 
 RUN mkdir /www
-ENV NODE_ENV production
 EXPOSE 80
 WORKDIR /www
 

@@ -41,9 +41,17 @@ const PrivacyPage: NextPage = () => {
         or the Tor hidden service linked below.
       </p>
       <h2>3rd Party Content</h2>
+      <p>hCaptcha is used to reduce spam on the contact form pages.</p>
       <p>
-        All content is served by the domain you are browsing on; no 3rd party
-        domains are used to load content.
+        All other content is served by the domain you are browsing on with on
+        3rd party domains used to load content. They have{" "}
+        <a
+          href="https://www.hcaptcha.com/privacy"
+          title="hCaptcha Privacy Policy"
+        >
+          their own privacy policy
+        </a>
+        .
       </p>
       <p>
         The website is built with various open-source projects and is
