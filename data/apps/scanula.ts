@@ -5,6 +5,7 @@ const scanula: App = {
   slug: "scanula",
   platform: "iOS",
   logoURL: "/images/scanula/icon.png",
+  appId: "1063048919",
   shortDescription:
     "Scanula is a clean, modern, and fast QR, data matrix, and barcode scanner.",
   fullDescription: `

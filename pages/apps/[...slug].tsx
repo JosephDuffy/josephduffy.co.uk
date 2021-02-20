@@ -36,6 +36,9 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             {app.name} {app.platform} App - Joseph Duffy
           </title>
           <meta name="description" content={app.shortDescription} />
+          {app.appId && (
+            <meta name="apple-itunes-app" content={`app-id=${app.appId}`} />
+          )}
         </Head>
         <div className="header">
           <div className="appIcon">

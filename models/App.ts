@@ -4,6 +4,7 @@ export default interface App {
   name: string
   slug: string
   platform: "iOS" | "macOS"
+  appId?: string
   shortDescription: string
   fullDescription: string
   logoURL: string
