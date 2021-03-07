@@ -6,6 +6,7 @@ const fourSquares: App = {
   platform: "iOS",
   logoURL: "/images/four-squares/icon.svg",
   appId: "982796319",
+  appClipBundleIdentifier: "net.yetii.Four-Squares.Clip",
   shortDescription:
     "Four Squares for iOS and Apple Watch is a take on an classic electronic memory game. Four Squares stays true to the original, while adding a modern feel and feature set to the game. It supports the iPhone, iPad, and Apple Watch.",
   fullDescription: `

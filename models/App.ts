@@ -5,6 +5,7 @@ export default interface App {
   slug: string
   platform: "iOS" | "macOS"
   appId?: string
+  appClipBundleIdentifier?: string
   shortDescription: string
   fullDescription: string
   logoURL: string

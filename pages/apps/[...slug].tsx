@@ -37,7 +37,14 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </title>
           <meta name="description" content={app.shortDescription} />
           {app.appId && (
-            <meta name="apple-itunes-app" content={`app-id=${app.appId}`} />
+            <meta
+              name="apple-itunes-app"
+              content={`app-id=${app.appId}${
+                app.appClipBundleIdentifier
+                  ? `, app-clip-bundle-id=${app.appClipBundleIdentifier}`
+                  : ""
+              }`}
+            />
           )}
         </Head>
         <div className="header">
