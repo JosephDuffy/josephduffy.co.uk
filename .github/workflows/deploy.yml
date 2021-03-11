@@ -14,9 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+      - run: echo $DOCKER_GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
         env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          DOCKER_GITHUB_ACCESS_TOKEN: ${{ secrets.DOCKER_GITHUB_ACCESS_TOKEN }}
 
       - name: Docker Build
         run: docker
@@ -44,9 +44,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+      - run: echo $DOCKER_GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
         env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          DOCKER_GITHUB_ACCESS_TOKEN: ${{ secrets.DOCKER_GITHUB_ACCESS_TOKEN }}
 
       - name: Docker Build
         run: docker
@@ -79,6 +79,6 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          token: ${{ secrets.DISPATCH_UPDATE_GITHUB_ACCESS_TOKEN }}
           repository: JosephDuffy/webserver-deploy
           event-type: update_josephduffy-co-uk
