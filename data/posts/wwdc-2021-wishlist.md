@@ -12,13 +12,11 @@ I love to develop for Apple platforms but it can often be a painful process. May
 
 <!-- more -->
 
-## Advancements to the App Store Connection Api
+## Integrate the App Store Connection API with Xcode
 
-The App Store Connect API has proved itself very useful by allowing the use of API keys to access to various App Store Connect features, such as uploading and submitting apps.
+The App Store Connect API has proved itself very useful by allowing the use of API keys to access to various App Store Connect features, such as uploading and submitting apps and managing certificates.
 
-It would be great to enable the downloading of signing certificates and provisioning profiles to make deployment from continuous deployment servers easier without the need for external tools like fastlane.
-
-As I've been setting up more automation in my workflow – especially around releases – I've been thinking about this a lot and it feels fairly likely that Apple isn't done with the API.
+If it were integrated in to Xcode it could enable downloading signing certificates and provisioning profiles without logging in. This could make deployment from continuous deployment servers easier without the need for external tools like fastlane.
 
 ## Concurrency Improvements in Swift
 
