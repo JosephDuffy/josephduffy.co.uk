@@ -97,9 +97,11 @@ A recent example of this the bug fix that now allows multiple `sheet(isPresented
 
 For some APIs this could be a shim layer that gets downloaded with the first app that uses the API and then dynamically linked at app launch. I'm not familiar enough with how this could work on a technical level to say if this is viable but I know it would be massively loved by developers!
 
-### A Developer-Focussed iOS Device or OS Version
+### A Developer-Focussed iOS Device, OS Version, or Apps
 
 The [Apple Security Research Device Program](https://developer.apple.com/programs/security-research-device/) allows security researchers to own an iPhone that provides shell access. This level of access would not be required for developers. I would be very happy with support for downgrading the OS version and more on-device options for debugging such as simulating the location of device without Xcode.
+
+While working on macOS apps I find the `defaults` command very useful. Having something similar on iOS would surely prove itself useful too. This may require the sandbox to be loosened and so feels unlikely, although if this were allowed there may be many more developer-focussed apps that it would enable.
 
 ### Safari Vertical Tabs
 
