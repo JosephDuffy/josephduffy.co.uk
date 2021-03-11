@@ -8,7 +8,7 @@ With WWDC 2021 just around the corner I've been thinking about what I'd like to 
 
 A lot of the popular discourse around this time of year is focussed on features of the operating systems but I want to look at what I'd like to see as a developer for Apple platforms.
 
-I love to develop for Apple platforms but it can often be a painful process. May is like a christmas for Apple developers
+I love to develop for Apple platforms but it can often be a painful process. May is like a christmas for Apple developers.
 
 <!-- more -->
 
