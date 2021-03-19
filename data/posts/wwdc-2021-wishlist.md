@@ -2,6 +2,7 @@
 title: My WWDC 2021 Wishlist
 tags: ["swift", "xcode", "ios", "wwdc"]
 date: 2021-03-04T12:52:34Z
+updateDate: 2021-03-19T14:53:22Z
 ---
 
 With WWDC 2021 just around the corner I've been thinking about what I'd like to see there.
@@ -42,6 +43,12 @@ Apple could even provide some of these extensions and update them independently 
 With rumours of a portless iPhone on the horizon wireless debugging will need to see some drastic improvements.
 
 The main limitation of wireless debugging seems to be data throughput so I'm guessing that these would be not be sold as wireless debugging improvements but overall improvements to debugging speed, such as by reducing the data that needs to be sent to the device.
+
+## Log Filtering in Xcode Console
+
+The console in Xcode is used for both viewing logs and interfacing with the debugger, but the logs side of this can be quite cumbersome when the only filter option is a single text field.
+
+Most apps I work on require using Console.app, which is a decent app, but it would be nice to have these features integrated in to Xcode.
 
 ## SwiftUI Improvements
 
