@@ -45,6 +45,7 @@ export class PostsLoader {
           parsedContent.data.updateDate !== undefined
             ? new Date(parsedContent.data.updateDate).toISOString()
             : null
+        const draft = parsedContent.data.draft ?? false
 
         return {
           slug,
@@ -54,10 +55,14 @@ export class PostsLoader {
           date: updateDate ?? publishDate,
           publishDate,
           updateDate: updateDate ?? null,
+          draft,
           url: `/posts/${slug}`,
           tags: parsedContent.data.tags ?? [],
           type: EntryType.BlogPost,
         } as BlogPost
+      })
+      .filter((post) => {
+        !post.draft || process.env.NODE_ENV == "development"
       })
       .sort((postA, postB) => {
         return compareAsc(new Date(postA.date), new Date(postB.date))

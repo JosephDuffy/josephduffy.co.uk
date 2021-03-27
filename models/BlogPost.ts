@@ -27,4 +27,8 @@ export default interface BlogPost extends Entry {
   url: string
   tags: string[]
   type: EntryType.BlogPost
+  /**
+   * If `true` the post will be hidden in production. Defaults to `false`.
+   */
+  draft: boolean
 }
