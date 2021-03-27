@@ -62,7 +62,7 @@ export class PostsLoader {
         } as BlogPost
       })
       .filter((post) => {
-        !post.draft || process.env.NODE_ENV == "development"
+        return !post.draft || process.env.NODE_ENV == "development"
       })
       .sort((postA, postB) => {
         return compareAsc(new Date(postA.date), new Date(postB.date))
