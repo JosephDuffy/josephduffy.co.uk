@@ -9,11 +9,11 @@ import AppRelease from "../models/AppRelease"
 
 export class AppsLoader {
   getApps(): App[] {
-    return [gathered, nevis, scanula, fourSquares]
+    return [fourSquares, nevis, gathered, scanula]
   }
 
   getAppsPreviews(): AppPreview[] {
-    return [gathered, nevis, scanula, fourSquares].map((app) => {
+    return this.getApps().map((app) => {
       return {
         title: app.name,
         slug: app.slug,
@@ -28,7 +28,7 @@ export class AppsLoader {
   }
 
   getAppsReleases(): AppRelease[] {
-    return [gathered, nevis, scanula, fourSquares].flatMap((app) => {
+    return this.getApps().flatMap((app) => {
       return app.changelogs.map((changelog) => {
         return {
           title: `${app.name} version ${changelog.version}`,
