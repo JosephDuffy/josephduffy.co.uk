@@ -94,16 +94,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     )
   })
   const appPreviews = appsLoader.getAppsPreviews()
-  const gatheredAppPreview = appPreviews.find((app) => {
-    return app.slug === "gathered"
+  const fourSquaresAppPreview = appPreviews.find((app) => {
+    return app.slug === "four-squares"
   })
   const nevisAppPreview = appPreviews.find((app) => {
     return app.slug === "nevis"
   })
 
   const favourites = [
+    fourSquaresAppPreview,
     nevisAppPreview,
-    gatheredAppPreview,
     hashableByKeyPathBlogPost,
     iosShareSheetLocation,
   ].reduce((favourites: Favourite[], favouriteEntry) => {
