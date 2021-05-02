@@ -14,4 +14,5 @@ export default interface App {
   tags: string[]
   changelogs: Changelog[]
   privacyPolicy: string
+  externalPrivacyPolicyURL?: string
 }

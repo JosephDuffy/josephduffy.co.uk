@@ -112,6 +112,7 @@ Four Squares does not collect or transmit any user data.
 
 Four Squares utilises [RevenueCat](https://www.revenuecat.com/) to support in-app purchases. Anonymous user IDs are used to unlock in-app purchases. Nothing that can be used to identify individual users is used.
 `,
+  externalPrivacyPolicyURL: "https://foursquares.app/privacy",
 }
 
 export default fourSquares

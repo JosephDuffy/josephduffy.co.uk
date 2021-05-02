@@ -44,6 +44,13 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
               }`}
             />
           )}
+          {app.marketingWebsiteURL !== undefined && (
+            <link
+              rel="canonical"
+              key="canonical-url"
+              href={app.marketingWebsiteURL}
+            />
+          )}
         </Head>
         <div className="header">
           <div className="appIcon">
@@ -173,6 +180,13 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             name="description"
             content={`Privacy policy for ${app.name} iOS App`}
           />
+          {app.externalPrivacyPolicyURL !== undefined && (
+            <link
+              rel="canonical"
+              key="canonical-url"
+              href={app.externalPrivacyPolicyURL}
+            />
+          )}
         </Head>
         <p>
           <Link href={`/apps/${app.slug}`}>

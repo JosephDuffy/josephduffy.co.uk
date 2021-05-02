@@ -57,7 +57,7 @@ class MyApp extends App {
           <meta name="theme-color" content="#ffcc00" />
           <meta name="color-scheme" content="dark light" />
           <link rel="manifest" href="/manifest.webmanifest" />
-          <link rel="canonical" href={canonicalPageURL} />
+          <link rel="canonical" key="canonical-url" href={canonicalPageURL} />
           <link
             rel="apple-touch-icon"
             href="/icons/apple-touch-icon-180x180.png"
