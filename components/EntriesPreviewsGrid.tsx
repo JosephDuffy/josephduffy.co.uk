@@ -5,7 +5,7 @@ import EntryPreview from "./EntryPreview"
 
 interface Props {
   entries: (PossibleEntries | AppPreview)[]
-  appCampaignName?: string
+  appCampaignName: string
 }
 
 const EntriesPreviewsGrid: FunctionComponent<Props> = ({

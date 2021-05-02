@@ -50,6 +50,7 @@ const PostPage: NextPage<Props> = (props: Props) => {
         pageCount={1}
         paginationHREF="/posts/[slug]"
         currentPage={1}
+        appCampaignName="blog-posts"
       />
     </Page>
   )

@@ -32,9 +32,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>
-            {app.name} {app.platform} App - Joseph Duffy
-          </title>
+          <title>{app.name} App - Joseph Duffy</title>
           <meta name="description" content={app.shortDescription} />
           {app.appId && (
             <meta
@@ -53,23 +51,43 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </div>
           <div className="header-content">
             <h1>{app.name}</h1>
-            {app.platform == "iOS" && (
-              <a
-                href={app.downloadURL + "?pt=96178896&ct=app-page&mt=8"}
-                className="download-link"
-              >
-                <img
-                  className="app-store-badge"
-                  src="/images/app-store-download-badge.svg"
-                  alt={`Download ${app.name} on the App Store`}
-                />
-              </a>
-            )}
-            {app.platform == "macOS" && (
-              <a href={app.downloadURL} title={`Download ${app.name}`} download>
-                Download {app.name}
-              </a>
-            )}
+            <div className="downloadLinks">
+              {app.platforms.includes("iOS") && (
+                <a
+                  href={app.downloadURL + "?pt=96178896&ct=app-page&mt=8"}
+                  className="download-link"
+                >
+                  <img
+                    src="/images/app-store-download-badge.svg"
+                    alt={`Download ${app.name} on the App Store`}
+                    width={120}
+                    height={40}
+                  />
+                </a>
+              )}
+              {app.platforms.includes("macOS-appStore") && (
+                <a
+                  href={app.downloadURL + "?pt=96178896&ct=app-page&mt=12"}
+                  className="download-link"
+                >
+                  <img
+                    src="/images/Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                    alt={`Download ${app.name} on the Mac App Store`}
+                    width={156}
+                    height={40}
+                  />
+                </a>
+              )}
+              {app.platforms.includes("macOS-direct") && (
+                <a
+                  href={app.downloadURL}
+                  title={`Download ${app.name}`}
+                  download
+                >
+                  Download {app.name}
+                </a>
+              )}
+            </div>
             {app.marketingWebsiteURL !== undefined && (
               <a
                 href={app.marketingWebsiteURL}
@@ -133,6 +151,10 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
 
           .meta-links .divider {
             padding: 0 4px;
+          }
+
+          .download-link:not(:first-child) {
+            padding-left: 6px;
           }
 
           .download-link {

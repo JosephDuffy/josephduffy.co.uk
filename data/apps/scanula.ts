@@ -3,7 +3,7 @@ import App from "../../models/App"
 const scanula: App = {
   name: "Scanula",
   slug: "scanula",
-  platform: "iOS",
+  platforms: ["iOS"],
   logoURL: "/images/scanula/icon.png",
   appId: "1063048919",
   shortDescription:

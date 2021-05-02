@@ -21,7 +21,7 @@ export class AppsLoader {
         description: app.shortDescription,
         downloadURL: app.downloadURL,
         marketingWebsiteURL: app.marketingWebsiteURL ?? null,
-        platform: app.platform,
+        platforms: app.platforms,
         type: EntryType.AppPreview,
       }
     })

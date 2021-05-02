@@ -3,7 +3,7 @@ import App from "../../models/App"
 const nevis: App = {
   name: "Nevis",
   slug: "nevis",
-  platform: "macOS",
+  platforms: ["macOS-direct"],
   logoURL: "/images/nevis/square-icon.png",
   shortDescription: `Find and install applications found in DMGs and ZIPs.
 

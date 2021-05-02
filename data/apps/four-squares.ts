@@ -3,43 +3,67 @@ import App from "../../models/App"
 const fourSquares: App = {
   name: "Four Squares",
   slug: "four-squares",
-  platform: "iOS",
+  platforms: ["iOS", "macOS-appStore"],
   logoURL: "/images/four-squares/icon.svg",
   appId: "982796319",
   appClipBundleIdentifier: "net.yetii.Four-Squares.Clip",
   shortDescription:
-    "Four Squares for iOS and Apple Watch is a take on an classic electronic memory game. Four Squares stays true to the original, while adding a modern feel and feature set to the game. It supports the iPhone, iPad, and Apple Watch.",
+    "Four Squares is a game of memory, skill, and concentration available for iOS, iPadOS, and macOS. Watch what happens each turn and replay what you see.",
   fullDescription: `
-Four Squares is a game of memory, skill and concentration. Watch what happens each turn and replay what you see. Each time you complete a round the sequence is lengthened, the speed increases and your thinking time is shortened. Keep practising, work your way up the leaderboards and challenge your friends.
+Four Squares is a game of memory, skill, and concentration. Watch
+what happens each turn and repeat what you see. Each time you
+successfully repeat the sequence it is lengthened, the speed
+increases, and your thinking time is shortened. Keep practising,
+work your way up the leaderboards, and challenge your friends.
 
-Apple Watch app features:
+## 3 Game Modes
 
-- Multiple themes: Classic and Colourblind
-- Multiple difficulties: Easy, Normal and Hard
-- Local leaderboards
-- Game pauses when interruptions occur and via Force Touch
+Four Squares features 3 different game modes to challenge you in
+unique ways. Each game mode can be played with easy, normal, or hard
+difficulty.
 
-iPhone and iPad app features:
+### Endless
 
-- Multiple themes: Classic and Colourblind
-- Classic sounds
-- Multiple difficulties: Easy, Normal and Hard
-- Dark and light UI modes
-- Game pauses when interruptions occur
-- Listen to your own music while playing
-- Game Center leaderboards
-- Portrait and landscape support
+Endless is the classic mode that gives you a single life to repeat
+the longest sequence you can. One wrong move and it's game over!
+
+### Time Attack
+
+Time Attack mode gives you 30 seconds to repeat the longest sequence
+you can. Every correct sequence will win you some more time, but
+every wrong move will lose you time so don't rush!
+
+### Speedrun
+
+Speedrun mode gives you 3 lives to reach a sequence of 10 in the
+quickest time. You'll lose a life with each wrong move, but the
+timer doesn't stop so find the right balance of speed and accuracy.
+
+## Customisation
+
+With 9 themes and 6 sound packs Four Squares allows you to customise
+the experience to your heart's content.
+
+## Save, Sync, and Replay
+
+Each game you complete is saved and backed up to iCloud. You can
+view completed games on any iOS, iPadOS, or macOS device and choose
+to play the same sequence to get the best score.
+
+## Automatic Pausing
+
+When interruptions occur, such as phone call or replying to a text,
+Four Squares will automatically pause the game and allow you to
+resume where you left off.
+
+## Leaderboards
+
+Game Center integration provides leaderboards that let you compare
+your score to friends and other players worldwide.
 `,
   downloadURL: "https://apps.apple.com/app/apple-store/id982796319",
   tags: ["four-squares"],
   changelogs: [
-    {
-      version: "1.0",
-      releaseDate: "2015-04-14",
-      content: `
-- Initial release
-`,
-    },
     {
       version: "2.0",
       releaseDate: "2021-04-26",
@@ -73,19 +97,20 @@ You can even choose to play the same sequence to keep working on your high score
 Four Squares now includes an App Clip, so you can share a completed game with a friend and they can try to beat your score without having to install the app.
 `,
     },
+    {
+      version: "1.0",
+      releaseDate: "2015-04-14",
+      content: `
+- Initial release
+`,
+    },
   ],
   privacyPolicy: `
-Four Squares does not collect any private or sensitive data itself. It does, however, contain an SDK provided by a third party that does collect and record user data.
+Four Squares does not collect or transmit any user data.
 
-## Fabric
+## RevenueCat
 
-Fabric is used to integrate Crashlytics. Crashlytics is used to collect crashes that occur within the app. For more information visit [Fabric's Privacy and Security page](https://docs.fabric.io/apple/fabric/data-privacy.html).
-
-Four Squares 1.0.0 uses the Crashlytics 2.2.9 and Fabric 1.1.1 SDKs.
-
-## Google Analytics
-
-Google Analytics is used to collect analytics about the usage of the app. For more information visit [Google's help page](http://www.google.com/policies/privacy/partners/).
+Four Squares utilises [RevenueCat](https://www.revenuecat.com/) to support in-app purchases. Anonymous user IDs are used to unlock in-app purchases. Nothing that can be used to identify individual users is used.
 `,
 }
 

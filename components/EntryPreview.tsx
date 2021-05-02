@@ -17,7 +17,7 @@ import { isStackOverflowEntry } from "../models/StackOverflowEntry"
 
 interface Props {
   entry: PossibleEntries | AppPreview
-  appCampaignName?: string
+  appCampaignName: string
 }
 
 class EntryPreview extends Component<Props> {
@@ -32,7 +32,7 @@ class EntryPreview extends Component<Props> {
 
   private previewForEntry(
     entry: PossibleEntries | AppPreview,
-    appCampaignName?: string,
+    appCampaignName: string,
   ): JSX.Element {
     if (isAppPreview(entry)) {
       return <AppPreviewComponent app={entry} campaignName={appCampaignName} />

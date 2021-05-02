@@ -3,7 +3,7 @@ import App from "../../models/App"
 const gathered: App = {
   name: "Gathered",
   slug: "gathered",
-  platform: "iOS",
+  platforms: ["iOS"],
   logoURL: "/images/gathered/icon.svg",
   appId: "929726748",
   shortDescription:

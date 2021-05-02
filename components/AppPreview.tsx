@@ -6,14 +6,10 @@ import Markdown from "./Markdown"
 
 interface Props {
   app: AppPreviewModel
-  campaignName?: string
+  campaignName: string
 }
 
 const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
-  const urlQueryString =
-    campaignName !== undefined
-      ? `?pt=96178896&ct=${campaignName}&mt=8`
-      : "?mt=8"
   return (
     <Fragment>
       <div key={app.title} className="app">
@@ -29,35 +25,44 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           </div>
           <Markdown source={app.description} escapeHtml={false} />
         </div>
-        {app.platform == "iOS" && (
-          <a href={app.downloadURL + urlQueryString} className="download-link">
-            <img
-              className="app-store-badge"
-              src="/images/app-store-download-badge.svg"
-              alt={`Download ${app.title} on the App Store`}
-            />
-          </a>
-        )}
-        {app.platform == "macOS" && (
-          <a
-            href={app.downloadURL}
-            title={`Download ${app.title}`}
-            className="direct-download-link"
-            download
-          >
-            Download {app.title}
-          </a>
-        )}
-        {app.marketingWebsiteURL && (
-          <a
-            href={app.marketingWebsiteURL}
-            title={`Visit the marketing website for ${app.title}`}
-            referrerPolicy="origin"
-            className="marketing-website-link"
-          >
-            Visit {app.title} Website
-          </a>
-        )}
+        <div className="downloadLinks">
+          {app.platforms.includes("iOS") && (
+            <a
+              href={app.downloadURL + `?pt=96178896&ct=${campaignName}&mt=8`}
+              className="download-link"
+            >
+              <img
+                src="/images/app-store-download-badge.svg"
+                alt={`Download ${app.title} on the App Store`}
+                width={120}
+                height={40}
+              />
+            </a>
+          )}
+          {app.platforms.includes("macOS-appStore") && (
+            <a
+              href={app.downloadURL + `?pt=96178896&ct=${campaignName}&mt=12`}
+              className="download-link"
+            >
+              <img
+                src="/images/Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg"
+                alt={`Download ${app.title} on the Mac App Store`}
+                width={156}
+                height={40}
+              />
+            </a>
+          )}
+          {app.marketingWebsiteURL && (
+            <a
+              href={app.marketingWebsiteURL}
+              title={`Visit the marketing website for ${app.title}`}
+              referrerPolicy="origin"
+              className="marketing-website-link"
+            >
+              Visit {app.title} Website
+            </a>
+          )}
+        </div>
       </div>
       <style jsx>{`
         .app {
@@ -93,6 +98,10 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           margin-top: 0;
         }
 
+        .download-link:not(:first-child) {
+          padding-left: 6px;
+        }
+
         .download-link {
           margin-top: 8px;
           line-height: 0;
@@ -102,10 +111,6 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
         .direct-download-link,
         .marketing-website-link {
           margin: 0.4rem 0;
-        }
-
-        .app-store-badge {
-          height: 40px;
         }
       `}</style>
     </Fragment>

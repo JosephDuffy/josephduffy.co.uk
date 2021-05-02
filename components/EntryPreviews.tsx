@@ -8,7 +8,7 @@ interface Props {
   paginationHREF: string
   pageCount: number
   currentPage: number
-  appCampaignName?: string
+  appCampaignName: string
 }
 
 class EntryPreviews extends Component<Props> {

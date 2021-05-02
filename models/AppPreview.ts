@@ -13,6 +13,6 @@ export default interface AppPreview {
   description: string
   downloadURL: string
   marketingWebsiteURL: string | null
-  platform: "iOS" | "macOS"
+  platforms: ("iOS" | "macOS-appStore" | "macOS-direct")[]
   type: EntryType.AppPreview
 }
