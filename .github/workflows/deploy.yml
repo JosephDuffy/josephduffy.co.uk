@@ -30,8 +30,12 @@ jobs:
           DOCKER_BUILDKIT: "1"
           WEBSITE_URL: "https://noanalytics.josephduffy.co.uk/"
 
-      - name: Docker Login
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Push
         run: docker push ghcr.io/josephduffy/josephduffy.co.uk:latest
@@ -59,8 +63,12 @@ jobs:
           DOCKER_BUILDKIT: "1"
           WEBSITE_URL: "https://josephduffy.co.uk/"
 
-      - name: Docker Login
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Push
         run: docker push ghcr.io/josephduffy/josephduffy.co.uk:analytics
