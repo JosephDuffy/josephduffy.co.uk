@@ -14,9 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo $DOCKER_GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+      - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
         env:
-          DOCKER_GITHUB_ACCESS_TOKEN: ${{ secrets.DOCKER_GITHUB_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Build
         run: docker
@@ -31,9 +31,7 @@ jobs:
           WEBSITE_URL: "https://noanalytics.josephduffy.co.uk/"
 
       - name: Docker Login
-        run: docker login ghcr.io -u "JosephDuffy" --password "${CR_PAT}"
-        env:
-          CR_PAT: ${{ secrets.CR_PAT }}
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
 
       - name: Docker Push
         run: docker push ghcr.io/josephduffy/josephduffy.co.uk:latest
@@ -44,9 +42,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo $DOCKER_GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
+      - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
         env:
-          DOCKER_GITHUB_ACCESS_TOKEN: ${{ secrets.DOCKER_GITHUB_ACCESS_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker Build
         run: docker
@@ -62,9 +60,7 @@ jobs:
           WEBSITE_URL: "https://josephduffy.co.uk/"
 
       - name: Docker Login
-        run: docker login ghcr.io -u "JosephDuffy" --password "${CR_PAT}"
-        env:
-          CR_PAT: ${{ secrets.CR_PAT }}
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
 
       - name: Docker Push
         run: docker push ghcr.io/josephduffy/josephduffy.co.uk:analytics
