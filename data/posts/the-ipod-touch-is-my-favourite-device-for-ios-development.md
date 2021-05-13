@@ -26,7 +26,7 @@ It's not perfect but it's going to be easier to find performance issues with an 
 
 ## Colours
 
-The iPod touch comes in 6 different colour, the iPhone SE comes in 3 colours. 6 > 3.
+The iPod touch comes in 6 different colours, the iPhone SE comes in 3 colours. 6 > 3.
 
 ## Lack of Hardware Features
 
