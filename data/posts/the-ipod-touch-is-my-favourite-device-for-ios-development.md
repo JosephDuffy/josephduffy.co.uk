@@ -4,15 +4,13 @@ tags: ["ios"]
 date: 2021-05-12T23:37:34Z
 ---
 
-I currently have an iPhone 11 Pro, an iPhone 6, and 2 iPod touches that I use for iOS development. Out of all these I find the iPod touches to be the best device for a lot of iOS development.
-
-It's important to test across various screen sizes, which the iOS simulator is good for, but it's also important to test on real devices where possible. I've seen recommendations for developers to use an iPhone SE, but overall I think that the iPod touch is better for development.
+It's important to test across various screen sizes, which the iOS simulator is good for, but it's also important to test on real devices where possible. I currently have an iPhone 11 Pro, an iPhone 6, and 2 iPod touches that I use for iOS development. Out of all these I find the iPod touches to be the best device for a lot of iOS development.
 
 <!-- more -->
 
 ## Cost
 
-Especially when starting out developing any extra cost can be a burden, so with the iPod touch starting at $199/£199 and the iPhone SE starting at $399/£399 I think the iPod touch is a great deal.
+Especially when starting out developing any extra cost can be a burden. The often-recommended iPhone SE starts at $399/£399 but the iPod touch starts at $199/£199 which makes it a comparatively great deal.
 
 For the same price as an iPhone SE you can have an iPod touch kept on the latest developer beta and another on an older version, giving you a lot more OS version coverage.
 
