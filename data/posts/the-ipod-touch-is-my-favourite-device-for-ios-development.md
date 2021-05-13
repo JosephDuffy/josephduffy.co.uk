@@ -4,7 +4,7 @@ tags: ["ios"]
 date: 2021-05-12T23:37:34Z
 ---
 
-It's important to test across various screen sizes, which the iOS simulator is good for, but it's also important to test on real devices where possible. I currently have an iPhone 11 Pro, an iPhone 6, and 2 iPod touches that I use for iOS development. Out of all these I find the iPod touches to be the best device for a lot of iOS development.
+It's important to test across various screen sizes, which the iOS simulator is good for, but it's also important to test on real devices where possible. I currently have an iPhone 11 Pro, an iPhone 6, and 2 iPod touches. Out of all these I find the iPod touch to be the best device for a lot of iOS development.
 
 <!-- more -->
 
