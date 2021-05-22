@@ -112,38 +112,42 @@ export class GitHubRepositoriesLoader {
     }
 
     const data = result.data as QueryResult
-    const repositories = data.user.contributionsCollection.commitContributionsByRepository
-      .filter(
-        (contributionByRepository) =>
-          !contributionByRepository.repository.isPrivate,
-      )
-      .reduce((repositories: GitHubRepository[], contributionByRepository) => {
-        const mostRecentContribution =
-          contributionByRepository.contributions.nodes[0]
+    const repositories =
+      data.user.contributionsCollection.commitContributionsByRepository
+        .filter(
+          (contributionByRepository) =>
+            !contributionByRepository.repository.isPrivate,
+        )
+        .reduce(
+          (repositories: GitHubRepository[], contributionByRepository) => {
+            const mostRecentContribution =
+              contributionByRepository.contributions.nodes[0]
 
-        if (!mostRecentContribution) {
-          console.warn(
-            "Got a repository with no recent contribution:",
-            contributionByRepository,
-          )
-          return repositories
-        }
+            if (!mostRecentContribution) {
+              console.warn(
+                "Got a repository with no recent contribution:",
+                contributionByRepository,
+              )
+              return repositories
+            }
 
-        repositories.push({
-          description: contributionByRepository.repository.description,
-          name: contributionByRepository.repository.name,
-          url: contributionByRepository.repository.url,
-          owner: contributionByRepository.repository.owner.login,
-          allContributionsURL: `${contributionByRepository.repository.url}/commits?author=JosephDuffy`,
-          mostRecentContribution: {
-            date: mostRecentContribution.occurredAt,
-            commitCount: mostRecentContribution.commitCount,
+            repositories.push({
+              description: contributionByRepository.repository.description,
+              name: contributionByRepository.repository.name,
+              url: contributionByRepository.repository.url,
+              owner: contributionByRepository.repository.owner.login,
+              allContributionsURL: `${contributionByRepository.repository.url}/commits?author=JosephDuffy`,
+              mostRecentContribution: {
+                date: mostRecentContribution.occurredAt,
+                commitCount: mostRecentContribution.commitCount,
+              },
+              type: EntryType.GithubRepository,
+            })
+
+            return repositories
           },
-          type: EntryType.GithubRepository,
-        })
-
-        return repositories
-      }, [])
+          [],
+        )
 
     return repositories
   }
