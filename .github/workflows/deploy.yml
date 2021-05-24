@@ -83,10 +83,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Simulate Webhook
-        run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk-no-analytics "$UPDATE_CONTAINER_SECRET" "$UPDATE_CONTAINERS_HOOK_URL"
-        env:
-          UPDATE_CONTAINER_SECRET: ${{ secrets.UPDATE_CONTAINER_SECRET }}
-          UPDATE_CONTAINERS_HOOK_URL: ${{ secrets.UPDATE_CONTAINERS_HOOK_URL }}
+        run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk-no-analytics "${{ secrets.UPDATE_CONTAINER_SECRET }}" "${{ secrets.UPDATE_CONTAINERS_HOOK_URL }}"
 
   trigger_update_analytics:
     name: Trigger Update josephduffy.co.uk
@@ -98,7 +95,4 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Simulate Webhook
-        run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk "$UPDATE_CONTAINER_SECRET" "$UPDATE_CONTAINERS_HOOK_URL"
-        env:
-          UPDATE_CONTAINER_SECRET: ${{ secrets.UPDATE_CONTAINER_SECRET }}
-          UPDATE_CONTAINERS_HOOK_URL: ${{ secrets.UPDATE_CONTAINERS_HOOK_URL }}
+        run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk "${{ secrets.UPDATE_CONTAINER_SECRET }}" "${{ secrets.UPDATE_CONTAINERS_HOOK_URL }}"
