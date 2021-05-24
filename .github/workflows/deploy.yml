@@ -78,7 +78,10 @@ jobs:
     needs:
       - build_image
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
+
       - name: Simulate Webhook
         run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk-no-analytics "$UPDATE_CONTAINER_SECRET" "$UPDATE_CONTAINERS_HOOK_URL"
         env:
@@ -90,7 +93,10 @@ jobs:
     needs:
       - build_image_analytics
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
+
       - name: Simulate Webhook
         run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk "$UPDATE_CONTAINER_SECRET" "$UPDATE_CONTAINERS_HOOK_URL"
         env:
