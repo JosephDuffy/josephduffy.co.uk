@@ -135,7 +135,7 @@ class MyApp extends App {
           }
 
           html {
-            line-height: 1.15;
+            line-height: 1.5;
           }
 
           body {
