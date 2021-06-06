@@ -18,7 +18,7 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
         {entries.map((entry) => {
           const key = isAppPreview(entry) ? entry.downloadURL : entry.url
           return (
-            <div className="preview" key={`${entry.type}-${key}`}>
+            <div className="preview" key={`${entry.type}-${key}-grid-preview`}>
               <EntryPreview entry={entry} appCampaignName={appCampaignName} />
             </div>
           )
