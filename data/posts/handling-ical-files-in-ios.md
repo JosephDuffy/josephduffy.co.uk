@@ -8,7 +8,7 @@ The iCal format, first defined as a standard as [RFC 2445](https://datatracker.i
 
 As part of my [QR code scanning app Scanula](/apps/scanula) I added support for detecting events in scanned objects. Thanks to the fantastic [libical](https://github.com/libical/libical) and the Swift wrapper [swift-ical](https://github.com/tbartelmess/swift-ical) it's fairly easy to parse an iCal feed, but adding it to iOS is a bit trickier.
 
----
+<!-- more -->
 
 The best solution I have come up with is to host a small HTTP server within the app that redirects all requests to a `data:` URL containing the iCal text. Hosting a server to serve a single file to be able to add calendar events may sound a bit farfetched. To explain why I think this is the best solution I'll first go over the alternatives, with the final solution at the end.
 
