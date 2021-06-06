@@ -1,7 +1,8 @@
 import { Fragment } from "react"
 import App from "next/app"
 import Head from "next/head"
-import "normalize.css/normalize.css"
+// import "normalize.css/normalize.css"
+import "bootstrap/dist/css/bootstrap-reboot.css"
 import { Router } from "next/dist/client/router"
 
 declare global {
@@ -134,15 +135,7 @@ class MyApp extends App {
             }
           }
 
-          html {
-            line-height: 1.5;
-          }
-
           body {
-            margin: 0;
-
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-              Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
             background: var(--primary-background);
             color: var(--primary-label);
           }
@@ -152,25 +145,6 @@ class MyApp extends App {
             flex-direction: column;
             min-height: 100vh;
             min-height: -webkit-fill-available;
-          }
-
-          h1 {
-            margin: 0;
-            font-size: 1.7em;
-            margin-bottom: 0.3em;
-          }
-
-          h2 {
-            margin: 12px 0;
-            font-size: 1.4em;
-          }
-
-          p {
-            margin: 0 0 16px 0;
-          }
-
-          ul {
-            margin: 8px 0;
           }
 
           a {

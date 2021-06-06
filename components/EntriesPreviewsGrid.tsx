@@ -25,10 +25,6 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
         })}
       </div>
       <style jsx>{`
-        h1 {
-          margin-bottom: 8px;
-        }
-
         div.entries {
           display: grid;
           grid-template-columns: 100%;

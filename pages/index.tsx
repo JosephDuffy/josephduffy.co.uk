@@ -64,15 +64,6 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
         currentPage={1}
         appCampaignName="home-entries"
       />
-      <style jsx>{`
-        p.intro {
-          padding: 8px;
-        }
-
-        h1 {
-          margin: revert;
-        }
-      `}</style>
     </Page>
   )
 }
