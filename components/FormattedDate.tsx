@@ -39,8 +39,7 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
       <style jsx>{`
         time {
           display: block;
-          font-size: 0.8em;
-          margin: 0.5rem 0;
+          font-size: 0.8rem;
           color: var(--secondary-label);
         }
       `}</style>

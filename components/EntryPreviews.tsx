@@ -20,7 +20,7 @@ class EntryPreviews extends Component<Props> {
           {entries.map((entry) => {
             return (
               <EntryPreview
-                key={`${entry.type}-${entry.slug}`}
+                key={`${entry.type}-${entry.slug}-${entry.title}-preview`}
                 entry={entry}
                 appCampaignName={appCampaignName}
               />

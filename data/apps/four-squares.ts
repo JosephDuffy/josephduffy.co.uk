@@ -65,34 +65,41 @@ your score to friends and other players worldwide.
   tags: ["four-squares"],
   changelogs: [
     {
+      version: "2.1",
+      releaseDate: "2021-04-29",
+      content: `
+Four Squares 2.1 adds support for manually uploading completed games to iCloud, including games completed in Four Squares 1.0. Games completed in Four Squares 1.0 can also now be deleted.
+`,
+    },
+    {
       version: "2.0",
       releaseDate: "2021-04-26",
       content: `
 Four Squares 2.0 is a huge update bringing new modes, customisations, features, and an overhauled UI.
 
-## New Modes
+# New Modes
 
 In Time Attack mode you start with only 30 seconds on the clock. Every pattern you get right will add 3 more seconds to the clock. How long can keep going?
 
 Speedrun mode gives you 3 lives to try and reach of sequence of 10 in the fastest time.
 
-## New Customisations
+# New Customisations
 
 Old and new themes are available, along with brand new sound packs.
 
 Existing themes have been updated to better support both light and dark mode.
 
-## Brand New UI
+# Brand New UI
 
 The UI has been reworked to make customisation easier and support more platforms. Look out for a macOS app in the near future!
 
-## Completed Games
+# Completed Games
 
 Each game you play is now saved and can be viewed in the app.
 
 You can even choose to play the same sequence to keep working on your high score!
 
-## App Clip
+# App Clip
 
 Four Squares now includes an App Clip, so you can share a completed game with a friend and they can try to beat your score without having to install the app.
 `,

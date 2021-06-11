@@ -12,8 +12,8 @@ const scanula: App = {
 Scanula is a clean, modern, and fast QR code, data matrix, and barcode scanner. There are 3 ways of detecting QR codes:
 
 - Use the Scan tab and point the device’s camera at a QR code
-- Tap the photos icon on the top right and of the Scan tab and pick a photo from your photo library*
-- Use the share sheet with a URL, webpage, or image, and choose the "Scan for QR Codes" action*
+- Tap the photos icon on the top right and of the Scan tab and pick a photo from your photo library
+- Use the share sheet with a URL, webpage, or image, and choose the "Scan for QR Codes" action
 
 When using the camera Scanula will also detect barcodes, data matrices, and many other scannable codes. Scan results show detailed information about the scanned object and is customised for various types of scanned content, such as displaying a scanned location on a map, getting the balance of a bitcoin address, or showing the details of a contact card.
 
@@ -38,12 +38,27 @@ Features:
 - Share scanned objects using the built-in share sheet
 - Quickly scan using the camera, or via a saved photo or screenshot, directly from the home screen using Quick Actions via 3D Touch
 - Handoff Support - Scan a URL on your iOS device and load the URL on your Mac
-
-* Detection of QR codes via images requires an iPhone 5s, iPad Air, iPad Mini 2, or newer
 `,
   downloadURL: "https://apps.apple.com/app/apple-store/id1063048919",
   tags: ["scanula"],
   changelogs: [
+    {
+      version: "1.2.0",
+      releaseDate: "2021-06-06",
+      content: `
+Version 1.2 of Scanula provides better integration with system features, improvements to existing feature, and a few bug fixes.
+
+- Support for system dark mode
+- Support long press to preview scans
+- Improved UI on iPads
+- Use system icons
+- Adding a scanned calendar to the system calendar will now add all fields from the iCal object
+- Improved handling of sms: URLs
+- Fix changing brightness when viewing a generated barcode
+- Fix action extensions sometimes not showing results
+- Various small bug fixes and UI improvements
+`,
+    },
     {
       version: "1.1.2",
       releaseDate: "2018-05-06",
@@ -84,13 +99,7 @@ Version 1.1 updates Scanula to utilise some of the latest iOS features.
     },
   ],
   privacyPolicy: `
-Scanula contains SDKs that are provided by third parties that collect and record data. There third party SDKs are shown below.
-
-## Fabric
-
-Fabric is used to integrate Crashlytics and Answers. Crashlytics is used to collect crashes that occur within the app. Some basic non-user-identifiable information is collected via Answers. For more information visit [Fabric's Privacy and Security page](https://docs.fabric.io/apple/fabric/data-privacy.html).
-
-Scanula 1.1.2 uses the Crashlytics 3.10.1 and Fabric 1.7.6 SDKs.
+As of Scanula 1.2 no data is collected.
 `,
 }
 
