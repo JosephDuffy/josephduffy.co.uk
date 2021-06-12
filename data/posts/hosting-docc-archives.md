@@ -1,6 +1,6 @@
 ---
 title: Hosting DocC Archives
-tags: ["swift", "docc", "vapor", "nginx", "apache", "wwdc", "wwdc21"]
+tags: ["swift", "docc", "netlify", "vapor", "nginx", "apache", "wwdc", "wwdc21"]
 date: 2021-06-12T21:49:13Z
 ---
 
