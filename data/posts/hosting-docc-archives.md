@@ -79,7 +79,7 @@ Netlify will host your DocC archive and allow you to setup your own domain to po
 ## Vapor Middleware
 
 Website: [vapordocc.josephduffy.co.uk](https://vapordocc.josephduffy.co.uk/) |
-Repo: [github.com/JosephDuffy/VaporDocC](https://github.com/JosephDuffy/VaporDocC)
+Repo: [github.com/JosephDuffy/VaporDocC-website](https://github.com/JosephDuffy/VaporDocC-website)
 
 [VaporDocC](https://github.com/JosephDuffy/VaporDocC) is middleware I wrote for use with [Vapor](https://github.com/vapor/vapor), a server-side Swift web framework.
 
