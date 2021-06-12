@@ -1,6 +1,6 @@
 ---
 title: My WWDC 2021 Wishlist
-tags: ["swift", "xcode", "ios", "wwdc"]
+tags: ["swift", "xcode", "ios", "wwdc", "wwdc21"]
 date: 2021-03-04T12:52:34Z
 updateDate: 2021-03-19T14:53:22Z
 ---
