@@ -7,7 +7,7 @@ const gathered: App = {
   logoURL: "/images/gathered/icon.svg",
   appId: "929726748",
   shortDescription:
-    "Gathered is an app that facilitates the viewing, recording, and sharing of over 25 sources of data available on iOS and iPadOS devices, from the GPS and accelerometer to the advertising identifier and the WiFi. Gathered is the perfect app to enable the recording of all the data required to calulcate position, acceleration, and ambient conditions of the device.",
+    "Gathered makes it easy to view, record, and share over 20 data sources available on iOS and iPadOS devices, including the GPS, accelerometer, and magnetometer.",
   fullDescription: `
 Gathered is an app to help you monitor, record, and export information from your iOS device. If you've ever wondered what sensors your device possesses, what information can be determined from them, or what an app can know about your device, then Gathered is for you.
 
