@@ -86,6 +86,12 @@ jobs:
       - name: Simulate Webhook
         run: ./scripts/trigger-update-webhook.sh josephduffy-co-uk-no-analytics "${{ secrets.UPDATE_CONTAINER_SECRET }}" "${{ secrets.UPDATE_CONTAINERS_HOOK_URL }}"
 
+      - name: Ping Google
+        run: curl "https://www.google.com/ping?sitemap=https://josephduffy.co.uk/sitemap.xml"
+
+      - name: Ping Bing
+        run: curl "https://www.bing.com/ping?sitemap=https://josephduffy.co.uk/sitemap.xml"
+
   trigger_update_analytics:
     name: Trigger Update josephduffy.co.uk
     needs:
