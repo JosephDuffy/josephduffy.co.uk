@@ -13,19 +13,19 @@ Gathered is an app to help you monitor, record, and export information from your
 
 <div class="screenshots">
   <a href="/images/gathered/screenshots/monitor-tab.png">
-    <img src="/images/gathered/screenshots/monitor-tab.png" width="270" height="464">
+    <img src="/images/gathered/screenshots/monitor-tab.png" width="270" height="464" alt="Monitor over 20 data sources in real time">
   </a>
   <a href="/images/gathered/screenshots/record-tab.png">
-    <img src="/images/gathered/screenshots/record-tab.png" width="270" height="464">
+    <img src="/images/gathered/screenshots/record-tab.png" width="270" height="464" alt="Record, save, and export all of the data produced by all data sources">
   </a>
   <a href="/images/gathered/screenshots/complete-recording.png">
-    <img src="/images/gathered/screenshots/complete-recording.png" width="270" height="464">
+    <img src="/images/gathered/screenshots/complete-recording.png" width="270" height="464" alt="View, share, and export previous recordings">
   </a>
   <a href="/images/gathered/screenshots/settings-tab.png">
-    <img src="/images/gathered/screenshots/settings-tab.png" width="270" height="464">
+    <img src="/images/gathered/screenshots/settings-tab.png" width="270" height="464" alt="Choose how often data should be updated and which data sources to view">
   </a>
   <a href="/images/gathered/screenshots/apple-watch-app.png">
-    <img src="/images/gathered/screenshots/apple-watch-app.png" width="270" height="450">
+    <img src="/images/gathered/screenshots/apple-watch-app.png" width="270" height="450" alt="View data sources on Apple Watch">
   </a>
 </ul>
 
