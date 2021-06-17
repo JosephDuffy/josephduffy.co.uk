@@ -24,3 +24,5 @@ node_modules/
 /public/atom.xml
 /public/robots.txt
 /public/sitemap.xml
+/public/sw.js*
+/public/workbox*

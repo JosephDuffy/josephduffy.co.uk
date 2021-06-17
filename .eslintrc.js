@@ -8,6 +8,8 @@ module.exports = {
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "next",
+    "plugin:@next/next/recommended",
   ],
   settings: {
     react: {

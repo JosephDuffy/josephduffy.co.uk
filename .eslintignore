@@ -4,3 +4,4 @@ node_modules
 .eslintrc.js
 out
 next.config.js
+public

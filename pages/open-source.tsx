@@ -5,6 +5,7 @@ import gitHubRepositoryLoader from "../loaders/GitHubReposLoader"
 import FormattedDate from "../components/FormattedDate"
 import Card from "../components/Card"
 import { GitHubRepository } from "../models/GitHubRepository"
+import Link from "next/link"
 
 interface Props {
   repositories: GitHubRepository[]
@@ -30,9 +31,9 @@ const OpenSourcePage: NextPage<Props> = ({
       <p>
         To view all the entries on this website related to open source projects
         you can{" "}
-        <a href="/tags/open-source" rel="tag">
-          view entries under the open-source tag
-        </a>
+        <Link href="/tags/open-source">
+          <a rel="tag">view entries under the open-source tag</a>
+        </Link>
         . To see all my open source contributions visit{" "}
         <a href="https://github.com/JosephDuffy" rel="me">
           my GitHub profile
