@@ -26,7 +26,9 @@ const OpenSourcePage: NextPage<Props> = ({
       <h1>Open Source</h1>
       <p>
         I am a big believer in open source software, which I contribute to
-        through GitHub. Below are the projects I have contributed to recently.
+        through GitHub. My commits are signed with{" "}
+        <a href="/commits.asc">my PGP key</a>. Below are the projects I have
+        contributed to recently.
       </p>
       <p>
         To view all the entries on this website related to open source projects
