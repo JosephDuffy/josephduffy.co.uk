@@ -59,6 +59,7 @@ jobs:
           --build-arg "WEBSITE_URL=${WEBSITE_URL}"
           --build-arg "ANALYTICS_URL=https://analytics.josephduffy.co.uk/"
           --build-arg "HCAPTCHA_SITE_KEY=3549990c-5b31-4c18-84b6-e7f57fcde61b"
+          --build-arg "ENABLE_SITEMAP=TRUE"
         env:
           DOCKER_BUILDKIT: "1"
           WEBSITE_URL: "https://josephduffy.co.uk/"

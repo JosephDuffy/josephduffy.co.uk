@@ -9,6 +9,8 @@ if (process.env["WEBSITE_URL"] === undefined) {
   exit(1)
 }
 
+const enableSitemap = process.env["ENABLE_SITEMAP"] === "TRUE"
+
 const apps = appLoader.getApps()
 
 const websiteURL = process.env["WEBSITE_URL"]
@@ -22,7 +24,12 @@ Disallow: /contact/${app.slug}`
 
 robots += `
 Disallow: /contact/success
+`
+
+if (enableSitemap) {
+  robots += `
 Sitemap: ${websiteURL}sitemap.xml
 `
+}
 
 writeFileSync(__dirname + "/../public/robots.txt", robots)

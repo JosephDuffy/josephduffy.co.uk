@@ -3,6 +3,14 @@ import glob from "glob-promise"
 import { resolve } from "path"
 import { exit } from "process"
 import loader from "../loaders/PostsLoader"
+
+const enableSitemap = process.env["ENABLE_SITEMAP"] === "TRUE"
+
+if (!enableSitemap) {
+  console.info("Skipping sitemap; ENABLE_SITEMAP is not set to TRUE")
+  exit(0)
+}
+
 ;(async () => {
   if (process.env["WEBSITE_URL"] === undefined) {
     console.error(
