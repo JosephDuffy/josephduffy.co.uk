@@ -37,7 +37,7 @@ const PrivacyPage: NextPage = () => {
         logging disabled please browse via{" "}
         <a href="https://noanalytics.josephduffy.co.uk">
           https://noanalytics.josephduffy.co.uk
-        </a>
+        </a>{" "}
         or the Tor hidden service linked below.
       </p>
       <h2>3rd Party Content</h2>
