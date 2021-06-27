@@ -2,6 +2,7 @@ import App from "../models/App"
 import gathered from "../data/apps/gathered"
 import scanula from "../data/apps/scanula"
 import nevis from "../data/apps/nevis"
+import overamped from "../data/apps/overamped"
 import fourSquares from "../data/apps/four-squares"
 import AppPreview from "../models/AppPreview"
 import { EntryType } from "../models/Entry"
@@ -9,7 +10,7 @@ import AppRelease from "../models/AppRelease"
 
 export class AppsLoader {
   getApps(): App[] {
-    return [fourSquares, nevis, gathered, scanula]
+    return [overamped, fourSquares, scanula, nevis, gathered]
   }
 
   getAppsPreviews(): AppPreview[] {
