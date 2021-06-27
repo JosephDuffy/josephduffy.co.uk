@@ -14,7 +14,7 @@ Overamped is a Safari Extension that redirects AMP pages in Google and Bing sear
 
 AMP pages redirected from search results don't appear in your history and going back or forward will never load the AMP page.
 `,
-  downloadURL: "https://apps.apple.com/app/apple-store/id1573901090",
+  downloadURL: "https://testflight.apple.com/join/O1lgdt0R",
   tags: ["overamped"],
   changelogs: [],
   privacyPolicy: `
