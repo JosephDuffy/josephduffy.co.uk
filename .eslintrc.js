@@ -22,5 +22,6 @@ module.exports = {
   },
   rules: {
     "react/react-in-jsx-scope": "off", // React is imported by Next.js
+    "@next/next/no-img-element": "off",
   },
 }
