@@ -4,6 +4,7 @@
 .next/
 GITHUB_ACCESS_TOKEN
 /data/draft-posts
+eslint_report.json
 
 ## Static export
 out/
@@ -15,7 +16,6 @@ node_modules/
 .DS_Store
 
 # Lighthouse CI
-
 .lighthouseci/
 
 # Build-generated
