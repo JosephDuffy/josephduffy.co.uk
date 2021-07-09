@@ -78,25 +78,22 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       entry.slug === "HashableByKeyPath-framework-release-1-0-0"
     )
   })
-  const iosShareSheetLocation = allEntries.find((entry) => {
-    return (
-      "slug" in entry &&
-      entry.slug === "ios-share-sheets-the-proper-way-locations"
-    )
+  const hostingDoccArchivesBlogPost = allEntries.find((entry) => {
+    return "slug" in entry && entry.slug === "hosting-docc-archives"
   })
   const appPreviews = appsLoader.getAppsPreviews()
   const fourSquaresAppPreview = appPreviews.find((app) => {
     return app.slug === "four-squares"
   })
-  const nevisAppPreview = appPreviews.find((app) => {
-    return app.slug === "nevis"
+  const overampedAppPreview = appPreviews.find((app) => {
+    return app.slug === "overamped"
   })
 
   const favourites = [
+    overampedAppPreview,
     fourSquaresAppPreview,
-    nevisAppPreview,
+    hostingDoccArchivesBlogPost,
     hashableByKeyPathBlogPost,
-    iosShareSheetLocation,
   ].reduce((favourites: Favourite[], favouriteEntry) => {
     if (favouriteEntry === undefined) {
       return favourites
