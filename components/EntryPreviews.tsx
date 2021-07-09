@@ -33,7 +33,7 @@ class EntryPreviews extends Component<Props> {
               <div className="links">
                 {this.linkForPage(
                   currentPage - 1,
-                  "← Previous",
+                  "←\xa0Previous",
                   currentPage > 1,
                   "prev",
                 )}
@@ -53,7 +53,7 @@ class EntryPreviews extends Component<Props> {
                   })}
                 {this.linkForPage(
                   currentPage + 1,
-                  "Next →",
+                  "Next\xa0→",
                   currentPage < pageCount - 1,
                   "next",
                 )}
@@ -83,7 +83,7 @@ class EntryPreviews extends Component<Props> {
           .links {
             display: flex;
             align-self: flex-start;
-            overflow: hidden;
+            overflow-x: scroll;
             border-radius: 8px;
             border: var(--border);
           }
