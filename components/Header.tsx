@@ -23,14 +23,13 @@ const Header: FunctionComponent = () => (
         </nav>
       </HorizontalScrollContainer>
     </header>
-    <div className="horizontal-rule-container">
-      <HorizontalRule />
-    </div>
     <style jsx>{`
       header {
         width: 100vw;
         display: flex;
         flex-direction: column;
+        background: var(--tint-color);
+        margin-bottom: 12px;
       }
 
       nav {
@@ -40,6 +39,7 @@ const Header: FunctionComponent = () => (
       a {
         margin: 8px 12px;
         font-size: 1.5em;
+        color: var(--primary-background);
       }
 
       a:first-child {
@@ -48,12 +48,6 @@ const Header: FunctionComponent = () => (
 
       a:last-child {
         margin-right: 0;
-      }
-
-      .horizontal-rule-container {
-        width: var(--content-width);
-        margin: 0 auto;
-        margin-top: -8px;
       }
     `}</style>
   </Fragment>

@@ -1,0 +1,23 @@
+<svg height="16pt" viewBox="0 0 16 16" width="16pt" xmlns="http://www.w3.org/2000/svg">
+    <style>
+    :root {
+    --tint-color: #fc0;
+    --primary-background: black;
+    }
+    .outer-bar {
+      fill: var(--tint-color);
+    }
+    .inner-bar {
+      fill: var(--primary-background);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --tint-color: #006bdf;
+        --primary-background: white;
+      }
+    }
+  </style>
+  <rect width="16" height="5" class="outer-bar"/>
+  <rect y="5" width="16" height="6" class="inner-bar"/>
+  <rect y="11" width="16" height="5" class="outer-bar"/>
+</svg>

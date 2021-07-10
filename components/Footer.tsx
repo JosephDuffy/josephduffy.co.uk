@@ -6,9 +6,6 @@ import { format } from "date-fns"
 
 const Footer: FunctionComponent = () => (
   <Fragment>
-    <div className="horizontal-rule-container">
-      <HorizontalRule />
-    </div>
     <footer>
       <HorizontalScrollContainer>
         <nav>
@@ -51,17 +48,18 @@ const Footer: FunctionComponent = () => (
         width: 100vw;
         display: flex;
         flex-direction: column;
-        margin-bottom: max(12px, env(safe-area-inset-bottom));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
         font-size: 0.8em;
+        background: var(--tint-color);
+        color: var(--primary-background);
+        margin-top: 12px;
       }
 
       .copyright,
       .build-metadata {
         width: var(--content-width);
         margin: 0 auto;
-        color: var(--secondary-label);
         text-align: center;
-        margin-bottom: 12px;
       }
 
       nav {
@@ -73,9 +71,9 @@ const Footer: FunctionComponent = () => (
         margin: 6px;
       }
 
-      .horizontal-rule-container {
-        width: var(--content-width);
-        margin: 0 auto;
+      a {
+        text-decoration: underline;
+        color: var(--primary-background);
       }
     `}</style>
   </Fragment>

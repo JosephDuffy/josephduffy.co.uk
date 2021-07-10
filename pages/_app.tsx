@@ -57,19 +57,32 @@ class MyApp extends App {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#ffcc00" />
           <meta name="color-scheme" content="dark light" />
+          <meta name="msapplication-TileColor" content="#603cba" />
           <link rel="manifest" href="/manifest.webmanifest" />
           <link rel="canonical" key="canonical-url" href={canonicalPageURL} />
+          <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
           <link
             rel="apple-touch-icon"
-            href="/icons/apple-touch-icon-180x180.png"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
           />
           <link
             rel="icon"
             type="image/png"
-            href="/icons/favicon-32x32.png"
             sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
           />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffcc00" />
+          <link
+            rel="apple-touch-icon"
+            href="/icons/apple-touch-icon-180x180.png"
+          />
           <link
             rel="webmention"
             href="https://webmention.io/josephduffy.co.uk/webmention"
