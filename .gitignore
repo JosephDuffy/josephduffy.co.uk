@@ -3,7 +3,6 @@
 ## Development
 .next/
 GITHUB_ACCESS_TOKEN
-/data/draft-posts
 eslint_report.json
 
 ## Static export
