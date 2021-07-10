@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Fragment, FunctionComponent } from "react"
-import HorizontalRule from "./HorizontalRule"
 import HorizontalScrollContainer from "./HorizontalScrollContainer"
 
 const Header: FunctionComponent = () => (
