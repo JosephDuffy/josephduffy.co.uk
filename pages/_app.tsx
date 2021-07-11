@@ -56,6 +56,14 @@ class MyApp extends App {
           )}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#ffcc00" />
+          <meta
+            name="theme-color"
+            content="#006bdf"
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            /*
+            // @ts-ignore */
+            media="(prefers-color-scheme: light)"
+          />
           <meta name="color-scheme" content="dark light" />
           <meta name="msapplication-TileColor" content="#603cba" />
           <link rel="manifest" href="/manifest.webmanifest" />
