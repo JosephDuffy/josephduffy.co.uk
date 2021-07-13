@@ -17,7 +17,7 @@
       }
     }
   </style>
-  <rect width="16" height="5" class="outer-bar"/>
-  <rect y="5" width="16" height="6" class="inner-bar"/>
-  <rect y="11" width="16" height="5" class="outer-bar"/>
+  <rect width="16" height="3" class="outer-bar"/>
+  <rect y="3" width="16" height="10" class="inner-bar"/>
+  <rect y="13" width="16" height="3" class="outer-bar"/>
 </svg>
