@@ -29,7 +29,7 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           {app.platforms.includes("iOS") && (
             <a
               href={app.downloadURL + `?pt=96178896&ct=${campaignName}&mt=8`}
-              className="download-link"
+              className="download-badge"
             >
               <img
                 src="/images/app-store-download-badge.svg"
@@ -42,7 +42,7 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           {app.platforms.includes("macOS-appStore") && (
             <a
               href={app.downloadURL + `?pt=96178896&ct=${campaignName}&mt=12`}
-              className="download-link"
+              className="download-badge"
             >
               <img
                 src="/images/Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg"
@@ -98,17 +98,18 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           margin-top: 0;
         }
 
-        .download-link:not(:first-child) {
-          padding-left: 6px;
+        .download-badge:not(:first-child),
+        .marketing-website-link:not(:first-child) {
+          margin-left: 6px;
         }
 
-        .download-link {
+        .download-badge {
           margin-top: 8px;
           line-height: 0;
           align-self: flex-start;
         }
 
-        .direct-download-link,
+        .direct-download-badge,
         .marketing-website-link {
           margin: 0.4rem 0;
         }
