@@ -23,13 +23,14 @@ Disallow: /contact/${app.slug}`
 })
 
 robots += `
-Disallow: /contact/success
-`
+Disallow: /contact/success`
 
 if (enableSitemap) {
   robots += `
-Sitemap: ${websiteURL}sitemap.xml
-`
+Sitemap: ${websiteURL}sitemap.xml`
 }
+
+robots += `
+`
 
 writeFileSync(__dirname + "/../public/robots.txt", robots)
