@@ -42,7 +42,7 @@ if (!enableSitemap) {
     .map((file) => file.replace(/index.html$/, ""))
     .map((file) => file.slice(0, -fileExtension.length))
     .map((file) => {
-      const postIndex = posts.findIndex((post) => post.url === file)
+      const postIndex = posts.findIndex((post) => post.url === `/${file}`)
       if (postIndex !== -1) {
         return { uri: file, date: new Date(posts[postIndex].date) }
       } else {
