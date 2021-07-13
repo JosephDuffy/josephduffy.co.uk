@@ -54,7 +54,10 @@ class MyApp extends App {
               }}
             />
           )}
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+          />
           <meta name="theme-color" content="#ffcc00" />
           <meta
             name="theme-color"
@@ -156,16 +159,27 @@ class MyApp extends App {
             }
           }
 
+          html {
+            min-height: -webkit-fill-available;
+          }
+
           body {
-            background: var(--primary-background);
+            background: var(--tint-color);
             color: var(--primary-label);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            display: flex;
           }
 
           #__next {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            min-height: -webkit-fill-available;
+            background: var(--primary-background);
+          }
+
+          main {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
           }
 
           a {
