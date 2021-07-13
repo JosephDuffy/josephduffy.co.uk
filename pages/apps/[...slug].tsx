@@ -160,8 +160,9 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             padding: 0 4px;
           }
 
-          .download-link:not(:first-child) {
-            padding-left: 6px;
+          .download-link:not(:first-child),
+          .marketing-website-link:not(:first-child) {
+            margin-left: 6px;
           }
 
           .download-link {
