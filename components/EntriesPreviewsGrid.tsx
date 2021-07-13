@@ -26,10 +26,12 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
       </div>
       <style jsx>{`
         div.entries {
+          --spacing: 8px;
+
           display: grid;
           grid-template-columns: 100%;
           grid-template-rows: 1fr;
-          gap: 8px 8px;
+          gap: var(--spacing) var(--spacing);
           grid-template-areas: ".";
           padding: 8px 0;
         }
@@ -42,7 +44,10 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
 
         @media (min-width: 1024px) {
           div.entries {
-            grid-template-columns: repeat(2, 50%);
+            grid-template-columns: repeat(
+              2,
+              calc(50% - calc(var(--spacing) / 2))
+            );
             grid-template-areas: ". .";
           }
         }
