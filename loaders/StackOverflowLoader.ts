@@ -146,7 +146,12 @@ export class StackOverflowLoader {
         console.warn("StackOverflow API is throttling:", error["error_message"])
         return []
       } else {
-        throw error
+        console.log("StackOverflow API error", error)
+        if (process.env.NODE_ENV === "production") {
+          return []
+        } else {
+          throw error
+        }
       }
     }
   }
