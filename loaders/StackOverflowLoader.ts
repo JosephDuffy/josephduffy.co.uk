@@ -1,6 +1,5 @@
 import { EntryType } from "../models/Entry"
-import https from "https"
-import zlib from "zlib"
+import fetch from "node-fetch"
 import { decode as decodeHTMLEntities } from "html-entities"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import {
@@ -183,39 +182,19 @@ export class StackOverflowLoader {
     console.debug(
       `Performing API request to StackExchange API with url: ${url}`,
     )
-    return new Promise<Response>((resolve, reject) => {
-      https
-        .get(url, (response) => {
-          const gunzip = zlib.createGunzip()
-          const buffer: string[] = []
-
-          gunzip
-            .on("data", (data) => {
-              buffer.push(data.toString())
-            })
-            .on("end", () => {
-              const json = buffer.join("")
-              const jsonObject = JSON.parse(json)
-              if ("error_id" in jsonObject) {
-                reject(jsonObject)
-              } else if ("items" in jsonObject) {
-                resolve(jsonObject.items)
-              } else {
-                reject("Unknown response type")
-              }
-            })
-            .on("error", (err) => {
-              console.error("Error with StackExchange API response", err)
-              reject(err)
-            })
-
-          response.pipe(gunzip)
-        })
-        .on("error", (err) => {
-          console.error("Network error with StackExchange API", err)
-          reject(err)
-        })
+    const response = await fetch(url, {
+      headers: {
+        "Accept-Encoding": "GZIP",
+      },
     })
+    const jsonObject = await response.json()
+    if ("error_id" in jsonObject) {
+      throw jsonObject
+    } else if ("items" in jsonObject) {
+      return jsonObject.items
+    } else {
+      throw "Unknown response type"
+    }
   }
 }
 
