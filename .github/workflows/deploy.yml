@@ -18,12 +18,16 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get short hash
+        run: echo "##[set-output name=short-hash;]$(git rev-parse --short HEAD)"
+        id: short-hash
+
       - name: Docker Build
         run: docker
           build .
           -t ghcr.io/josephduffy/josephduffy.co.uk:latest --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
           --build-arg "BUILD_DATE=$(date -u)"
-          --build-arg "GIT_COMMIT=${GITHUB_SHA}"
+          --build-arg "GIT_COMMIT=${{ steps.short-hash.outputs.short-hash }}"
           --build-arg "WEBSITE_URL=${WEBSITE_URL}"
           --build-arg "HCAPTCHA_SITE_KEY=3549990c-5b31-4c18-84b6-e7f57fcde61b"
         env:
@@ -50,12 +54,16 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get short hash
+        run: echo "##[set-output name=short-hash;]$(git rev-parse --short HEAD)"
+        id: short-hash
+
       - name: Docker Build
         run: docker
           build .
           -t ghcr.io/josephduffy/josephduffy.co.uk:analytics --secret=id=GITHUB_ACCESS_TOKEN,src=./GITHUB_ACCESS_TOKEN
           --build-arg "BUILD_DATE=$(date -u)"
-          --build-arg "GIT_COMMIT=${GITHUB_SHA}"
+          --build-arg "GIT_COMMIT=${{ steps.short-hash.outputs.short-hash }}"
           --build-arg "WEBSITE_URL=${WEBSITE_URL}"
           --build-arg "ANALYTICS_URL=https://analytics.josephduffy.co.uk/"
           --build-arg "HCAPTCHA_SITE_KEY=3549990c-5b31-4c18-84b6-e7f57fcde61b"
