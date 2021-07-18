@@ -71,7 +71,7 @@ class MyApp extends App {
           <meta name="msapplication-TileColor" content="#603cba" />
           <link rel="manifest" href="/manifest.webmanifest" />
           <link rel="canonical" key="canonical-url" href={canonicalPageURL} />
-          <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -90,10 +90,6 @@ class MyApp extends App {
             href="/favicon-16x16.png"
           />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffcc00" />
-          <link
-            rel="apple-touch-icon"
-            href="/icons/apple-touch-icon-180x180.png"
-          />
           <link
             rel="webmention"
             href="https://webmention.io/josephduffy.co.uk/webmention"

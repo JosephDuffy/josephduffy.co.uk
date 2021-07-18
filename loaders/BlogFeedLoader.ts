@@ -15,7 +15,7 @@ export class BlogFeedLoader {
       id: websiteURL,
       link: websiteURL + "posts",
       language: "en-GB",
-      favicon: websiteURL + "icons/favicon-32x32.png",
+      favicon: websiteURL + "favicon.ico",
       copyright: "Joseph Duffy",
       updated: new Date(latestPost.date),
       feedLinks: {
