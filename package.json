@@ -1,32 +1,32 @@
 {
   "name": "josephduffy.co.uk",
   "version": "2.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "Code powering josephduffy.co.uk",
+  "homepage": "https://github.com/JosephDuffy/josephduffy.co.uk#readme",
+  "bugs": {
+    "url": "https://github.com/JosephDuffy/josephduffy.co.uk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephDuffy/josephduffy.co.uk.git"
+  },
+  "license": "MIT",
+  "author": "Joseph Duffy (https://josephduffy.co.uk)",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "postbuild": "npm run generate-feeds && npm run generate-sitemap && npm run generate-robots",
     "export": "next export",
     "start": "next start",
-    "format:check": "prettier --check '{components,data,layouts,loaders,models,pages}/**/*'",
-    "format": "prettier --write '{components,data,layouts,loaders,models,pages}/**/*'",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
     "generate-feeds": "ts-node ./scripts/generate-feeds.ts",
     "generate-sitemap": "ts-node ./scripts/generate-sitemap.ts",
     "generate-robots": "ts-node ./scripts/generate-robots.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JosephDuffy/josephduffy.co.uk.git"
-  },
-  "author": "Joseph Duffy",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JosephDuffy/josephduffy.co.uk/issues"
-  },
-  "homepage": "https://github.com/JosephDuffy/josephduffy.co.uk#readme",
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.6",
     "apollo-cache-inmemory": "^1.6.6",
@@ -66,6 +66,7 @@
     "glob": "^7.1.7",
     "glob-promise": "^4.2.0",
     "prettier": "2.3.2",
+    "prettier-plugin-packagejson": "^2.2.11",
     "rollup": "^2.53.2",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5",
