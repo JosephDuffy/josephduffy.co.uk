@@ -4,7 +4,7 @@ import { compareDesc } from "date-fns"
 
 export class BlogFeedLoader {
   async getFeed(websiteURL: string, forceRefresh = false): Promise<Feed> {
-    const posts = await postsLoader.getPosts(forceRefresh)
+    const posts = await postsLoader.getPosts(forceRefresh, false)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
     })

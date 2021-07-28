@@ -12,7 +12,10 @@ import { compareAsc } from "date-fns"
 export class PostsLoader {
   private cachedPosts?: BlogPost[]
 
-  async getPosts(forceRefresh = false): Promise<BlogPost[]> {
+  async getPosts(
+    forceRefresh = false,
+    renderCodeblocks = true,
+  ): Promise<BlogPost[]> {
     if (!forceRefresh && this.cachedPosts) {
       return this.cachedPosts
     }
@@ -33,11 +36,19 @@ export class PostsLoader {
         const excerptRegex = /<!-- more -->/g
         const markdownContent = parsedContent.content.replace(excerptRegex, "")
         const contentHTML = ReactDOMServer.renderToStaticMarkup(
-          <Markdown source={markdownContent} escapeHtml={false} />,
+          <Markdown
+            source={markdownContent}
+            escapeHtml={false}
+            renderCodeblocks={renderCodeblocks}
+          />,
         )
         const excerptHTML = parsedContent.excerpt
           ? ReactDOMServer.renderToStaticMarkup(
-              <Markdown source={parsedContent.excerpt} escapeHtml={false} />,
+              <Markdown
+                source={parsedContent.excerpt}
+                escapeHtml={false}
+                renderCodeblocks={renderCodeblocks}
+              />,
             )
           : null
         const publishDate = new Date(parsedContent.data.date).toISOString()

@@ -6,10 +6,15 @@ import rehypeRaw from "rehype-raw"
 
 interface Props {
   source: string
+  renderCodeblocks?: boolean
   escapeHtml?: boolean
 }
 
-const Markdown: FunctionComponent<Props> = ({ source, escapeHtml }: Props) => {
+const Markdown: FunctionComponent<Props> = ({
+  source,
+  renderCodeblocks,
+  escapeHtml,
+}: Props) => {
   return (
     <ReactMarkdown
       rehypePlugins={escapeHtml ? undefined : [rehypeRaw]}
@@ -19,7 +24,7 @@ const Markdown: FunctionComponent<Props> = ({ source, escapeHtml }: Props) => {
           const match = /language-(\w+)/.exec(
             (className as string | undefined) || "",
           )
-          return !inline && match ? (
+          return !inline && renderCodeblocks && match ? (
             <CodeBlock
               language={match[1]}
               value={String(children).replace(/\n$/, "")}
