@@ -19,8 +19,8 @@ const Markdown: FunctionComponent<Props> = ({
     <ReactMarkdown
       rehypePlugins={escapeHtml ? undefined : [rehypeRaw]}
       components={{
-        // eslint-disable-next-line react/prop-types
-        code({ inline, children, className, ...props }) {
+        /* eslint-disable @typescript-eslint/no-unused-vars, jsx-a11y/alt-text */
+        code({ inline, children, className, node, ...props }) {
           const match = /language-(\w+)/.exec(
             (className as string | undefined) || "",
           )
@@ -36,6 +36,43 @@ const Markdown: FunctionComponent<Props> = ({
             </code>
           )
         },
+        a({ href: _href, children, node, ...props }) {
+          const href = _href as string
+          const websiteURL = process.env["WEBSITE_URL"]
+
+          if (websiteURL && href.startsWith("/")) {
+            return (
+              <a {...props} href={websiteURL + href.substring(1)}>
+                {children}
+              </a>
+            )
+          } else {
+            return (
+              <a {...props} href={href}>
+                {children}
+              </a>
+            )
+          }
+        },
+        img({ src: _src, children, node, ...props }) {
+          const src = _src as string
+          const websiteURL = process.env["WEBSITE_URL"]
+
+          if (websiteURL && src.startsWith("/")) {
+            return (
+              <img {...props} src={websiteURL + src.substring(1)}>
+                {children}
+              </img>
+            )
+          } else {
+            return (
+              <img {...props} src={src}>
+                {children}
+              </img>
+            )
+          }
+        },
+        /* eslint-enable @typescript-eslint/no-unused-vars, jsx-a11y/alt-text */
       }}
     >
       {source}
