@@ -29,7 +29,7 @@ export class BlogFeedLoader {
       },
     })
     posts.forEach((post) => {
-      const url = websiteURL + post.url
+      const url = websiteURL + post.url.substring(1)
       feed.addItem({
         title: post.title,
         id: url,
