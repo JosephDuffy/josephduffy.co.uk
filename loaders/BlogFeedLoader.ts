@@ -34,8 +34,11 @@ export class BlogFeedLoader {
         title: post.title,
         id: url,
         link: url,
-        description: post.excerptHTML ?? undefined,
-        content: post.contentHTML,
+        // If an excerpt and the full post of available the description is only the
+        // except, but if only the full post is available the `content` is not provided
+        // and instead provided in the description.
+        description: post.excerptHTML ?? post.contentHTML,
+        content: post.excerptHTML ? post.contentHTML : undefined,
         date: new Date(post.date),
         published: new Date(post.publishDate),
         author: [
