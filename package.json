@@ -34,7 +34,7 @@
     "apollo-link-http": "^1.5.17",
     "bootstrap": "^5.0.2",
     "date-fns": "^2.23.0",
-    "feed": "^4.2.2",
+    "feed": "github:josephduffy/feed#master",
     "graphql": "^15.5.1",
     "graphql-tag": "^2.12.5",
     "gray-matter": "^4.0.3",
