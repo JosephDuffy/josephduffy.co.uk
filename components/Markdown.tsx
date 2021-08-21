@@ -20,7 +20,7 @@ const Markdown: FunctionComponent<Props> = ({
       rehypePlugins={escapeHtml ? undefined : [rehypeRaw]}
       components={{
         /* eslint-disable @typescript-eslint/no-unused-vars, jsx-a11y/alt-text */
-        code({ inline, children, className, node, ...props }) {
+        code({ node, inline, className, children, ref, ...props }) {
           const match = /language-(\w+)/.exec(
             (className as string | undefined) || "",
           )
