@@ -11,18 +11,20 @@ const AppIcon: FunctionComponent<Props> = ({
 }: Props): JSX.Element => {
   return (
     <Fragment>
-      <div>
-        <img src={iconURL} alt={`${appName} Icon`} />
-      </div>
+      <img src={iconURL} alt={`${appName} Icon`} width="128" height="128" />
       <style jsx>{`
-        div {
-          filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.75));
+        img {
+          filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.75));
+          border-radius: 22%;
+          width: 96px;
+          height: 96px;
         }
 
-        img {
-          width: 100%;
-          height: 100%;
-          mask: url("/images/ios7-icon-mask.svg");
+        @media (min-width: 320px) {
+          img {
+            width: 128px;
+            height: 128px;
+          }
         }
       `}</style>
     </Fragment>

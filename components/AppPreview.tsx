@@ -83,15 +83,6 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           float: left;
           margin-bottom: 8px;
           margin-right: 16px;
-          width: 128px;
-          height: 128px;
-        }
-
-        @media (max-width: 320px) {
-          .appIcon {
-            width: 96px;
-            height: 96px;
-          }
         }
 
         h2 {

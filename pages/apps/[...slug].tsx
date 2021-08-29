@@ -139,15 +139,6 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           .appIcon {
             float: left;
             margin-right: 8px;
-            width: 128px;
-            height: 128px;
-          }
-
-          @media (max-width: 320px) {
-            .appIcon {
-              width: 96px;
-              height: 96px;
-            }
           }
 
           .meta-links {
