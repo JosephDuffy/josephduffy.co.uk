@@ -32,7 +32,7 @@
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
-    "bootstrap": "5.0.2",
+    "bootstrap": "5.1.1",
     "date-fns": "^2.23.0",
     "feed": "^4.2.2",
     "graphql": "^15.5.1",
