@@ -7,7 +7,6 @@ import Link from "next/link"
 import Head from "next/head"
 import TagsList from "../../components/TagsList"
 import FormattedDate from "../../components/FormattedDate"
-import Card from "../../components/Card"
 import { GetStaticPaths } from "next/types"
 
 interface Props {
@@ -88,22 +87,20 @@ const PostPage: NextPage<Props> = ({ post, previousPost, nextPost }) => {
             }}
           ></script>
         </Head>
-        <Card>
-          <article>
-            <header>
-              <h1>{post.title}</h1>
-              <FormattedDate date={post.publishDate} prefix="Published" />
-              {post.updateDate && (
-                <FormattedDate date={post.updateDate} prefix="Updated" />
-              )}
-              {post.tags.length > 0 && <TagsList tags={post.tags} />}
-            </header>
-            <div
-              className="post-content"
-              dangerouslySetInnerHTML={{ __html: post.contentHTML }}
-            />
-          </article>
-        </Card>
+        <article>
+          <header>
+            <h1>{post.title}</h1>
+            <FormattedDate date={post.publishDate} prefix="Published" />
+            {post.updateDate && (
+              <FormattedDate date={post.updateDate} prefix="Updated" />
+            )}
+            {post.tags.length > 0 && <TagsList tags={post.tags} />}
+          </header>
+          <div
+            className="post-content"
+            dangerouslySetInnerHTML={{ __html: post.contentHTML }}
+          />
+        </article>
         <div id="previous-next-post-links">
           <div className="left-link-container">
             {previousPost && (
@@ -187,6 +184,20 @@ const PostPage: NextPage<Props> = ({ post, previousPost, nextPost }) => {
         <style jsx>{`
           .post-content {
             padding-top: 16px;
+          }
+
+          :global(.post-content .info) {
+            color: var(--secondary-label);
+            background: var(--secondary-background);
+            padding: 8px;
+            border-left: 2px solid var(--info-color);
+          }
+
+          :global(.post-content .warning) {
+            color: var(--secondary-label);
+            background: var(--secondary-background);
+            padding: 8px;
+            border-left: 2px solid var(--info-color);
           }
 
           #previous-next-post-links {

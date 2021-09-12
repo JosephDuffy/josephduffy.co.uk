@@ -111,6 +111,7 @@ class MyApp extends App {
             --tertiary-background: #2c2c2e;
             --separator-color: #54545899;
             --tint-color: #ffcc00;
+            --info-color: #006bdf;
             --hairline: 1px;
             --content-padding-x: 12px;
             --content-width: calc(
