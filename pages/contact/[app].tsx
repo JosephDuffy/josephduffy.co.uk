@@ -155,6 +155,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
           textarea {
             margin-top: 4px;
             margin-bottom: 12px;
+            max-width: 100%;
           }
         `}</style>
       </Page>
