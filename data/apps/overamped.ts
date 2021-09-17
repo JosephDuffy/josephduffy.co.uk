@@ -44,9 +44,15 @@ If you prefer the AMP or Yandex Turbo version of a website you can disable Overa
 
 Overamped can display statistics, including how many AMP results have been found and how many redirections Overamped has performed. All statistics are collected and remain exclusively on-device.
 `,
-  downloadURL: "https://testflight.apple.com/join/O1lgdt0R",
+  downloadURL: "https://apps.apple.com/app/apple-store/id1573901090",
   tags: ["overamped"],
-  changelogs: [],
+  changelogs: [
+    {
+      version: "1.0",
+      releaseDate: "2021-09-20T00:00:00Z",
+      content: "Initial release",
+    },
+  ],
   privacyPolicy: `
 Overamped does not collect, share, or sell any of your personal data, including what you search or any pages you open. All redirections occur on-device without contacting any external services or websites.
 
