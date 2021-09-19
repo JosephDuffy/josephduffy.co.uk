@@ -35,7 +35,7 @@
     "bootstrap": "^5.1.1",
     "date-fns": "^2.23.0",
     "feed": "^4.2.2",
-    "graphql": "^15.5.1",
+    "graphql": "^15.5.3",
     "graphql-tag": "^2.12.5",
     "gray-matter": "^4.0.3",
     "html-entities": "^2.3.2",
@@ -44,7 +44,7 @@
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-markdown": "^6.0.2",
+    "react-markdown": "^7.0.1",
     "react-syntax-highlighter": "^15.4.4",
     "rehype-raw": "^5.1.0"
   },
