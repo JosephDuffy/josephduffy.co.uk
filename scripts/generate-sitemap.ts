@@ -26,7 +26,7 @@ if (!enableSitemap) {
     readonly date: Date | null
   }
 
-  const root = resolve(__dirname + "/../.next/server/pages/") + "/"
+  const root = resolve(process.cwd() + "/.next/server/pages/") + "/"
   const fileExtension = ".html"
   const pages = await glob(`${root}**/*${fileExtension}`)
   const posts = await loader.getPosts()
@@ -70,5 +70,5 @@ if (!enableSitemap) {
   sitemap += `
 </urlset>
 `
-  await promises.writeFile(__dirname + "/../public/sitemap.xml", sitemap)
+  await promises.writeFile(process.cwd() + "/public/sitemap.xml", sitemap)
 })()

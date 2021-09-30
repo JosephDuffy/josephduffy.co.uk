@@ -14,15 +14,16 @@
   "license": "MIT",
   "author": "Joseph Duffy (https://josephduffy.co.uk)",
   "scripts": {
+    "prebuild": "sh ./scripts/build-scripts.sh",
     "build": "next build",
     "postbuild": "npm run generate-feeds && npm run generate-sitemap && npm run generate-robots",
     "dev": "next",
     "export": "next export",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate-feeds": "ts-node ./scripts/generate-feeds.ts",
-    "generate-robots": "ts-node ./scripts/generate-robots.ts",
-    "generate-sitemap": "ts-node ./scripts/generate-sitemap.ts",
+    "generate-feeds": "node ./scripts/generate-feeds.mjs",
+    "generate-robots": "node ./scripts/generate-robots.mjs",
+    "generate-sitemap": "node ./scripts/generate-sitemap.mjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "start": "next start"
@@ -44,9 +45,9 @@
     "node-fetch": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-markdown": "^6.0.3",
+    "react-markdown": "^7.0.1",
     "react-syntax-highlighter": "^15.4.4",
-    "rehype-raw": "^5.1.0"
+    "rehype-raw": "^6.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -58,6 +59,7 @@
     "@types/react-syntax-highlighter": "^13.5.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
+    "esbuild": "^0.13.3",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
     "eslint-config-prettier": "^8.3.0",
@@ -67,7 +69,6 @@
     "prettier": "2.4.1",
     "prettier-plugin-packagejson": "^2.2.13",
     "rollup": "^2.57.0",
-    "ts-node": "^10.1.0",
     "typescript": "^4.4.3",
     "webpack": "^5.55.1"
   }

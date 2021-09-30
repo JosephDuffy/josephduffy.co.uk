@@ -1,4 +1,5 @@
 import { writeFileSync } from "fs"
+import { join } from "path"
 import { exit } from "process"
 import appLoader from "../loaders/AppsLoader"
 
@@ -33,4 +34,6 @@ Sitemap: ${websiteURL}sitemap.xml`
 robots += `
 `
 
-writeFileSync(__dirname + "/../public/robots.txt", robots)
+const outputRoot = join(process.cwd(), "public")
+
+writeFileSync(outputRoot + "/robots.txt", robots)
