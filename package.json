@@ -14,18 +14,18 @@
   "license": "MIT",
   "author": "Joseph Duffy (https://josephduffy.co.uk)",
   "scripts": {
-    "dev": "next",
     "build": "next build",
     "postbuild": "npm run generate-feeds && npm run generate-sitemap && npm run generate-robots",
+    "dev": "next",
     "export": "next export",
-    "start": "next start",
-    "format:check": "prettier --check .",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "generate-feeds": "ts-node ./scripts/generate-feeds.ts",
-    "generate-sitemap": "ts-node ./scripts/generate-sitemap.ts",
     "generate-robots": "ts-node ./scripts/generate-robots.ts",
+    "generate-sitemap": "ts-node ./scripts/generate-sitemap.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "start": "next start"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.6",
