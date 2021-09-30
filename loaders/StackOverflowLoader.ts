@@ -29,6 +29,15 @@ interface StackOverflowAPIAnswer {
   question_id: number
 }
 
+interface StackOverflowAPIResponse<Item> {
+  items: Item[]
+}
+
+interface StackOverflowAPIErrorResponse {
+  error_id: number
+  error_message: string
+}
+
 export class StackOverflowLoader {
   private cache: LoaderEntriesCache<StackOverflowEntry>
 
@@ -141,11 +150,11 @@ export class StackOverflowLoader {
 
       return entries
     } catch (error) {
-      if (error["error_id"] === 502) {
-        console.warn("StackOverflow API is throttling:", error["error_message"])
+      if (objectIsErrorResponse(error)) {
+        console.warn("StackOverflow API is throttling:", error.error_message)
         return []
       } else {
-        console.log("StackOverflow API error", error)
+        console.log("Error calling StackOverflow API", error)
         if (process.env.NODE_ENV === "production") {
           return []
         } else {
@@ -177,7 +186,7 @@ export class StackOverflowLoader {
     )
   }
 
-  private async loadAPI<Response>(path: string): Promise<Response> {
+  private async loadAPI<Item>(path: string): Promise<Item[]> {
     const url = `https://api.stackexchange.com/2.2${path}`
     console.debug(
       `Performing API request to StackExchange API with url: ${url}`,
@@ -188,14 +197,38 @@ export class StackOverflowLoader {
       },
     })
     const jsonObject = await response.json()
-    if ("error_id" in jsonObject) {
+
+    if (typeof jsonObject !== "object") {
+      throw "Response was not an object"
+    }
+
+    if (jsonObject === null) {
+      throw "No response"
+    }
+
+    if (objectIsErrorResponse(jsonObject)) {
       throw jsonObject
-    } else if ("items" in jsonObject) {
+    } else if (objectIsResponse<Item>(jsonObject)) {
       return jsonObject.items
     } else {
       throw "Unknown response type"
     }
   }
+}
+
+function objectIsResponse<Items>(
+  object: unknown,
+): object is StackOverflowAPIResponse<Items> {
+  return Object.prototype.hasOwnProperty.call(object, "items")
+}
+
+function objectIsErrorResponse(
+  object: unknown,
+): object is StackOverflowAPIErrorResponse {
+  return (
+    Object.prototype.hasOwnProperty.call(object, "error_id") &&
+    Object.prototype.hasOwnProperty.call(object, "error_message")
+  )
 }
 
 const loader = new StackOverflowLoader()
