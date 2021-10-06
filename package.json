@@ -57,7 +57,7 @@
     "@types/react": "^17.0.26",
     "@types/react-dom": "^17.0.9",
     "@types/react-syntax-highlighter": "^13.5.2",
-    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.32.0",
     "esbuild": "^0.13.3",
     "eslint": "^7.32.0",
