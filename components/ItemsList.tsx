@@ -72,9 +72,7 @@ const ItemsList: FunctionComponent<Props> = ({
         }
 
         li a {
-           {
-            /* To create a minimum width of 48px (40 + 4 + 4) */
-          }
+          /* To create a minimum width of 48px (40 + 4 + 4) */
           min-width: 40px;
           margin: 0 4px;
           display: inline-block;
