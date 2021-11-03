@@ -1,0 +1,7 @@
+out/
+node_modules/
+./.*
+GITHUB_ACCESS_TOCKEN
+lighthouserc.json
+nginx-config.conf
+README.md

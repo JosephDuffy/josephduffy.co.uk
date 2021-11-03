@@ -1,58 +1,40 @@
-# syntax=docker/dockerfile:experimental
-# Requires DOCKER_BUILDKIT=1
-
-FROM node:14.15.4 as builder
-
-RUN mkdir /app
-WORKDIR /build
-
-COPY package*.json ./
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
+# Install dependencies only when needed
+FROM node:16.13.0-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY components components
-COPY data data
-COPY helpers helpers
-COPY layouts layouts
-COPY loaders loaders
-COPY models models
-COPY pages pages
-COPY public public
-COPY scripts scripts
-COPY next-env.d.ts .
-COPY next.config.js .
-COPY tsconfig.json .
+# Rebuild the source code only when needed
+FROM node:16.13.0 AS builder
+WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+ENV NODE_ENV production
+RUN npm run build
+# Remove non-dev dependencies
+RUN npm ci
 
-ARG GIT_COMMIT
-ENV NEXT_PUBLIC_GIT_COMMIT=$GIT_COMMIT
-
-ARG BUILD_DATE
-ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
-
-ARG WEBSITE_URL
-ENV WEBSITE_URL=$WEBSITE_URL
-
-ARG ENABLE_SITEMAP
-ENV ENABLE_SITEMAP=$ENABLE_SITEMAP
-
-ARG ANALYTICS_URL
-ENV ANALYTICS_URL=$ANALYTICS_URL
-
-ARG HCAPTCHA_SITE_KEY
-ENV HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY
+# Production image, copy all the files and run next
+FROM node:16.13.0-alpine AS runner
+WORKDIR /app
 
 ENV NODE_ENV production
 
-RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
-RUN npm run export
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
-FROM nginx:alpine
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
-RUN mkdir /www
-EXPOSE 80
-WORKDIR /www
+USER nextjs
 
-COPY nginx-config.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /build/out /usr/share/nginx/html
+EXPOSE 3000
+
+ENV PORT 3000
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+CMD ["node_modules/.bin/next", "start"]
