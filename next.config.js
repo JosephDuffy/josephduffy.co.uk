@@ -46,6 +46,10 @@ module.exports = (phase) => {
               value:
                 "geolocation 'none'; midi 'none'; notifications 'none'; push 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; vibrate 'none'; fullscreen 'none'; payment: 'none'",
             },
+            {
+              key: "Vary",
+              value: "Accept-Encoding, DNT",
+            },
           ],
         },
         {
