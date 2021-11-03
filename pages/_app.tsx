@@ -1,5 +1,5 @@
 import { Fragment } from "react"
-import App from "next/app"
+import App, { AppContext, AppInitialProps } from "next/app"
 import Head from "next/head"
 // import "normalize.css/normalize.css"
 import "bootstrap/dist/css/bootstrap-reboot.css"
@@ -14,8 +14,33 @@ declare global {
   }
 }
 
+interface AppProps extends AppInitialProps {
+  analyticsURL: string | undefined
+}
+
 // A custom app to support importing CSS files globally
-class MyApp extends App {
+class MyApp extends App<AppProps> {
+  static async getInitialProps(appContext: AppContext): Promise<AppProps> {
+    const appProps = await App.getInitialProps(appContext)
+    console.log("appContext.ctx.req?.headers", appContext.ctx.req?.headers)
+    if (appContext.ctx.req?.headers["dnt"] === "1") {
+      // Relying on the DNT header is not going to be future-proof as
+      // the header has been deprecated. It's also not being used to
+      // specifically prevent tracking since the analytics don't really
+      // track. Still, this seems like the best way to honour the user's
+      // privacy wishes and can be used by reverse proxies.
+      return {
+        ...appProps,
+        analyticsURL: undefined,
+      }
+    } else {
+      return {
+        ...appProps,
+        analyticsURL: process.env["ANALYTICS_URL"],
+      }
+    }
+  }
+
   componentDidMount(): void {
     Router.events.on("routeChangeComplete", (url) => {
       if (window && window._paq) {
@@ -33,7 +58,7 @@ class MyApp extends App {
     return (
       <Fragment>
         <Head>
-          {process.env["ANALYTICS_URL"] && (
+          {this.props.analyticsURL && (
             <script
               type="text/javascript"
               dangerouslySetInnerHTML={{
@@ -44,7 +69,7 @@ class MyApp extends App {
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u="${process.env["ANALYTICS_URL"]}";
+    var u="${this.props.analyticsURL}";
     _paq.push(['setTrackerUrl', u+'matomo.php']);
     _paq.push(['setSiteId', '1']);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
