@@ -14,14 +14,11 @@
   "license": "MIT",
   "author": "Joseph Duffy (https://josephduffy.co.uk)",
   "scripts": {
-    "prebuild": "sh ./scripts/build-scripts.sh",
     "build": "next build",
-    "postbuild": "npm run generate-feeds && npm run generate-sitemap && npm run generate-robots",
     "dev": "next",
     "export": "next export",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate-sitemap": "node ./scripts/generate-sitemap.mjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "start": "next start"
@@ -59,7 +56,6 @@
     "@types/react-syntax-highlighter": "^13.5.2",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "esbuild": "^0.13.10",
     "eslint": "^7.32.0",
     "eslint-config-next": "^12.0.1",
     "eslint-config-prettier": "^8.3.0",
