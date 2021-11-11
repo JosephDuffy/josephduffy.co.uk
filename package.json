@@ -21,7 +21,6 @@
     "export": "next export",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "generate-robots": "node ./scripts/generate-robots.mjs",
     "generate-sitemap": "node ./scripts/generate-sitemap.mjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
