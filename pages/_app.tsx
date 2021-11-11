@@ -22,7 +22,6 @@ interface AppProps extends AppInitialProps {
 class MyApp extends App<AppProps> {
   static async getInitialProps(appContext: AppContext): Promise<AppProps> {
     const appProps = await App.getInitialProps(appContext)
-    console.log("appContext.ctx.req?.headers", appContext.ctx.req?.headers)
     if (appContext.ctx.req?.headers["dnt"] === "1") {
       // Relying on the DNT header is not going to be future-proof as
       // the header has been deprecated. It's also not being used to
