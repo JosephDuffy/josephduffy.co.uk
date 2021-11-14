@@ -1,0 +1,13 @@
+.iconImage {
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.75));
+  border-radius: 22%;
+  width: 96px;
+  height: 96px;
+}
+
+@media (min-width: 320px) {
+  .iconImage {
+    width: 128px;
+    height: 128px;
+  }
+}

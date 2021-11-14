@@ -8,15 +8,23 @@ import ReactDOMServer from "react-dom/server"
 import Markdown from "../components/Markdown"
 import React from "react"
 import { compareAsc } from "date-fns"
+import cache from "memory-cache"
 
 export class PostsLoader {
-  private cachedPosts?: BlogPost[]
+  private get cachedPosts(): BlogPost[] | undefined {
+    return cache.get("BlogPosts")
+  }
+
+  private set cachedPosts(posts: BlogPost[] | undefined) {
+    cache.put("BlogPosts", posts)
+  }
 
   async getPosts(
     forceRefresh = false,
     renderCodeblocks = true,
   ): Promise<BlogPost[]> {
     if (!forceRefresh && this.cachedPosts) {
+      console.debug("Using cached posts")
       return this.cachedPosts
     }
 

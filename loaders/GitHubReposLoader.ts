@@ -67,15 +67,20 @@ export class GitHubRepositoriesLoader {
     if (process.env["GITHUB_REPOS_CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadReleases.bind(this),
+        "GitHubRepositories",
         parseInt(process.env["GITHUB_REPOS_CACHE_TIMEOUT"]),
       )
     } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadReleases.bind(this),
+        "GitHubRepositories",
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(this.loadReleases.bind(this))
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        "GitHubRepositories",
+      )
     }
   }
 

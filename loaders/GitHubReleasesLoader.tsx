@@ -82,15 +82,20 @@ export class GitHubReleasesLoader {
     if (process.env["GITHUB_RELEASES_CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadReleases.bind(this),
+        "GitHubReleases",
         parseInt(process.env["GITHUB_RELEASES_CACHE_TIMEOUT"]),
       )
     } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadReleases.bind(this),
+        "GitHubReleases",
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(this.loadReleases.bind(this))
+      this.cache = new LoaderEntriesCache(
+        this.loadReleases.bind(this),
+        "GitHubReleases",
+      )
     }
   }
 
