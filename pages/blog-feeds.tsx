@@ -1,5 +1,6 @@
 import { NextPage } from "next"
 import Head from "next/head"
+import Link from "next/link"
 import Page from "../layouts/main"
 
 const BlogFeedsPage: NextPage = () => {
@@ -44,7 +45,7 @@ const BlogFeedsPage: NextPage = () => {
           <tr>
             <td>Atom</td>
             <td>
-              <a href="/atom.xml">/atom.xml</a>
+              <Link href="/atom.xml">/atom.xml</Link>
             </td>
             <td>
               <a href={`feed:${websiteURL}atom.xml`}>Subscribe</a>
@@ -53,7 +54,7 @@ const BlogFeedsPage: NextPage = () => {
           <tr>
             <td>RSS 2</td>
             <td>
-              <a href="/rss.xml">/rss.xml</a>
+              <Link href="/rss.xml">/rss.xml</Link>
             </td>
             <td>
               <a href={`feed:${websiteURL}rss.xml`}>Subscribe</a>
@@ -62,7 +63,7 @@ const BlogFeedsPage: NextPage = () => {
           <tr>
             <td>JSON</td>
             <td>
-              <a href="/feed.json">/feed.json</a>
+              <Link href="/feed.json">/feed.json</Link>
             </td>
             <td>
               <a href={`feed:${websiteURL}feed.json`}>Subscribe</a>
