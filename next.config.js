@@ -46,6 +46,11 @@ module.exports = (phase) => {
               value:
                 "geolocation 'none'; midi 'none'; notifications 'none'; push 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; vibrate 'none'; fullscreen 'none'; payment: 'none'",
             },
+            {
+              key: "Onion-Location",
+              value:
+                "http://josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion/",
+            },
           ],
         },
         {
