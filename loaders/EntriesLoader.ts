@@ -32,28 +32,34 @@ export class EntriesLoader {
       const timeout = parseInt(process.env["ENTRIES_CACHE_TIMEOUT"])
       this.cachedCombinedEntries = new LoaderEntriesCache(
         this.loadEntries.bind(this, true),
+        "CombinedEntries",
         timeout,
       )
       this.cachedNonCombinedEntries = new LoaderEntriesCache(
         this.loadEntries.bind(this, true),
+        "NonCombinedEntries",
         timeout,
       )
     } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
       const timeout = parseInt(process.env["CACHE_TIMEOUT"])
       this.cachedCombinedEntries = new LoaderEntriesCache(
         this.loadEntries.bind(this, true),
+        "CombinedEntries",
         timeout,
       )
       this.cachedNonCombinedEntries = new LoaderEntriesCache(
         this.loadEntries.bind(this, true),
+        "NonCombinedEntries",
         timeout,
       )
     } else {
       this.cachedCombinedEntries = new LoaderEntriesCache(
         this.loadEntries.bind(this, true),
+        "CombinedEntries",
       )
       this.cachedNonCombinedEntries = new LoaderEntriesCache(
         this.loadEntries.bind(this, true),
+        "NonCombinedEntries",
       )
     }
   }
@@ -101,7 +107,7 @@ export class EntriesLoader {
     let entries: PossibleEntries[] = []
 
     const posts = await postsLoader.getPostsPreviews(
-      process.env["NODE_ENV"] === "development",
+      process.env.NODE_ENV === "development",
     )
     const gitHubReleases = await gitHubReleasesLoader.getReleases()
     const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()

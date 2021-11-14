@@ -1,3 +1,5 @@
+import cache from "memory-cache"
+
 export type EntriesReloader<Entry> = () => Promise<Entry[]>
 
 export class LoaderEntriesCache<Entry> {
@@ -7,11 +9,17 @@ export class LoaderEntriesCache<Entry> {
 
   readonly timeout: number
 
-  private clearCacheTimeout?: NodeJS.Timeout
+  private get cachedEntries(): Entry[] | undefined {
+    return cache.get(this.#cacheKey)
+  }
 
-  private cachedEntries?: Entry[]
+  private set cachedEntries(entries: Entry[] | undefined) {
+    cache.put(this.#cacheKey, entries, this.timeout)
+  }
 
   private entriesReloader: EntriesReloader<Entry>
+
+  #cacheKey: string
 
   /**
    *
@@ -19,9 +27,11 @@ export class LoaderEntriesCache<Entry> {
    */
   constructor(
     entriesReloader: EntriesReloader<Entry>,
+    key: string,
     timeout: number = 6 * 60 * 1000,
   ) {
     this.entriesReloader = entriesReloader
+    this.#cacheKey = key
     this.timeout = timeout
   }
 
@@ -30,19 +40,8 @@ export class LoaderEntriesCache<Entry> {
       return this.cachedEntries
     }
 
-    if (this.clearCacheTimeout) {
-      clearTimeout(this.clearCacheTimeout)
-      this.clearCacheTimeout = undefined
-    }
-
     const entries = await this.entriesReloader()
     this.cachedEntries = entries
-
-    this.clearCacheTimeout = setTimeout(async () => {
-      console.debug("Clearing cache")
-      this.cachedEntries = undefined
-      await this.getEntries()
-    }, this.timeout)
 
     return entries
   }

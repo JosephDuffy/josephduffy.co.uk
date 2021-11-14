@@ -79,15 +79,20 @@ export class GitHubPullRequestLoader {
     if (process.env["GITHUB_PULL_REQUESTS_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadPullRequests.bind(this),
+        "GitHubPullRequests",
         parseInt(process.env["GITHUB_PULL_REQUESTS_TIMEOUT"]),
       )
     } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadPullRequests.bind(this),
+        "GitHubPullRequests",
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(this.loadPullRequests.bind(this))
+      this.cache = new LoaderEntriesCache(
+        this.loadPullRequests.bind(this),
+        "GitHubPullRequests",
+      )
     }
   }
 

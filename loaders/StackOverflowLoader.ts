@@ -45,15 +45,20 @@ export class StackOverflowLoader {
     if (process.env["STACK_OVERFLOW_CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadEntries.bind(this),
+        "StackOverflowEntries",
         parseInt(process.env["STACK_OVERFLOW_CACHE_TIMEOUT"]),
       )
     } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
       this.cache = new LoaderEntriesCache(
         this.loadEntries.bind(this),
+        "StackOverflowEntries",
         parseInt(process.env["CACHE_TIMEOUT"]),
       )
     } else {
-      this.cache = new LoaderEntriesCache(this.loadEntries.bind(this))
+      this.cache = new LoaderEntriesCache(
+        this.loadEntries.bind(this),
+        "StackOverflowEntries",
+      )
     }
   }
 
