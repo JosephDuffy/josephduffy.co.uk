@@ -1,5 +1,5 @@
 (function() {
-  if (document.location.hostname === "josephduffy.co.uk") {
+  if (document.location.hostname !== "josephduffy.co.uk") {
     // Don't load analytics for noanalytics.josephduffy.co.uk or onion service
     return;
   }
