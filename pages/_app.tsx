@@ -1,6 +1,7 @@
 import { Fragment } from "react"
-import App, { AppContext, AppInitialProps } from "next/app"
+import App, { AppInitialProps } from "next/app"
 import Head from "next/head"
+import Script from "next/script"
 import "bootstrap/dist/css/bootstrap-reboot.css"
 import "../styles/global.css"
 import { Router } from "next/dist/client/router"
@@ -14,32 +15,8 @@ declare global {
   }
 }
 
-interface AppProps extends AppInitialProps {
-  analyticsURL: string | undefined
-}
-
 // A custom app to support importing CSS files globally
-class MyApp extends App<AppProps> {
-  static async getInitialProps(appContext: AppContext): Promise<AppProps> {
-    const appProps = await App.getInitialProps(appContext)
-    if (appContext.ctx.req?.headers["dnt"] === "1") {
-      // Relying on the DNT header is not going to be future-proof as
-      // the header has been deprecated. It's also not being used to
-      // specifically prevent tracking since the analytics don't really
-      // track. Still, this seems like the best way to honour the user's
-      // privacy wishes and can be used by reverse proxies.
-      return {
-        ...appProps,
-        analyticsURL: undefined,
-      }
-    } else {
-      return {
-        ...appProps,
-        analyticsURL: process.env["ANALYTICS_URL"],
-      }
-    }
-  }
-
+class MyApp extends App<AppInitialProps> {
   componentDidMount(): void {
     Router.events.on("routeChangeComplete", (url) => {
       if (window && window._paq) {
@@ -57,27 +34,6 @@ class MyApp extends App<AppProps> {
     return (
       <Fragment>
         <Head>
-          {this.props.analyticsURL && (
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: `
-  var _paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["disableCookies"]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="${this.props.analyticsURL}";
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
-                  `,
-              }}
-            />
-          )}
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1, viewport-fit=cover"
@@ -124,6 +80,7 @@ class MyApp extends App<AppProps> {
           />
         </Head>
         <Component {...pageProps} />
+        <Script src="/load-analytics.js" strategy="lazyOnload" />
       </Fragment>
     )
   }
