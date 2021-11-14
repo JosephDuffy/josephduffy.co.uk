@@ -241,7 +241,7 @@ export async function getStaticProps({
         process.env["CONTACT_FORM_URL"] ??
         "https://contact.josephduffy.co.uk/app-contact",
       hCaptchaSiteKey:
-        process.env["HCAPTCHA_SITE_KEY"] ??
+        process.env["NEXT_PUBLIC_HCAPTCHA_SITE_KEY"] ??
         "10000000-ffff-ffff-ffff-000000000001", // Dummy key
     },
   }
