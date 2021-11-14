@@ -1,6 +1,7 @@
 import { Feed } from "feed"
 import postsLoader from "./PostsLoader"
 import { compareDesc } from "date-fns"
+import BlogPost from "../models/BlogPost"
 
 export class BlogFeedLoader {
   async getFeed(websiteURL: string, forceRefresh = false): Promise<Feed> {
@@ -8,7 +9,7 @@ export class BlogFeedLoader {
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
     })
-    const latestPost = posts[0]
+    const latestPost = posts[0] as BlogPost | undefined
     const feed = new Feed({
       title: "Joseph Duffy",
       description: "Blog posts written by Joseph Duffy",
@@ -17,7 +18,7 @@ export class BlogFeedLoader {
       language: "en-GB",
       favicon: websiteURL + "favicon.ico",
       copyright: "Joseph Duffy",
-      updated: new Date(latestPost.date),
+      updated: latestPost ? new Date(latestPost.date) : undefined,
       feedLinks: {
         json: websiteURL + "feed.json",
         atom: websiteURL + "atom.xml",
