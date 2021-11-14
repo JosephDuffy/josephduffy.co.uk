@@ -11,21 +11,14 @@ import { compareAsc } from "date-fns"
 import cache from "memory-cache"
 
 export class PostsLoader {
-  private get cachedPosts(): BlogPost[] | undefined {
-    return cache.get("BlogPosts")
-  }
-
-  private set cachedPosts(posts: BlogPost[] | undefined) {
-    cache.put("BlogPosts", posts)
-  }
-
   async getPosts(
     forceRefresh = false,
     renderCodeblocks = true,
   ): Promise<BlogPost[]> {
-    if (!forceRefresh && this.cachedPosts) {
+    const cachedPosts = this.getCachedPosts(renderCodeblocks)
+    if (!forceRefresh && cachedPosts !== undefined) {
       console.debug("Using cached posts")
-      return this.cachedPosts
+      return cachedPosts
     }
 
     console.debug("Loading posts")
@@ -87,11 +80,30 @@ export class PostsLoader {
         return compareAsc(new Date(postA.date), new Date(postB.date))
       })
 
-    this.cachedPosts = posts
+    this.setCachedPosts(posts, renderCodeblocks)
 
     console.debug("Loaded posts")
 
     return posts
+  }
+
+  private getCachedPosts(renderCodeblocks: boolean): BlogPost[] | undefined {
+    if (renderCodeblocks) {
+      return cache.get("BlogPostsWithCodeblock")
+    } else {
+      return cache.get("BlogPostsWithoutCodeblock")
+    }
+  }
+
+  private setCachedPosts(
+    posts: BlogPost[] | undefined,
+    renderCodeblocks: boolean,
+  ) {
+    if (renderCodeblocks) {
+      cache.put("BlogPostsWithCodeblock", posts)
+    } else {
+      cache.put("BlogPostsWithoutCodeblock", posts)
+    }
   }
 }
 
