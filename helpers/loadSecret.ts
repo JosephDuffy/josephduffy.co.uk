@@ -9,7 +9,7 @@ export function loadSecret(name: string): Promise<string | undefined> {
       fs.readFile(secretPath, "utf8", (err, secret) => {
         if (err) {
           resolve(undefined)
-        } else if (secret) {
+        } else {
           resolve(secret.trim())
         }
       })
