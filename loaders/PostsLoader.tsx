@@ -8,15 +8,21 @@ import ReactDOMServer from "react-dom/server"
 import Markdown from "../components/Markdown"
 import React from "react"
 import { compareAsc } from "date-fns"
-import cache from "memory-cache"
+import { Cache, CacheClass } from "memory-cache"
 
 export class PostsLoader {
+  #cache: CacheClass<string, BlogPost[]>
+
+  constructor() {
+    this.#cache = new Cache()
+  }
+
   async getPosts(
     forceRefresh = false,
     renderCodeblocks = true,
   ): Promise<BlogPost[]> {
     const cachedPosts = this.getCachedPosts(renderCodeblocks)
-    if (!forceRefresh && cachedPosts !== undefined) {
+    if (!forceRefresh && cachedPosts !== null) {
       console.debug("Using cached posts")
       return cachedPosts
     }
@@ -87,22 +93,19 @@ export class PostsLoader {
     return posts
   }
 
-  private getCachedPosts(renderCodeblocks: boolean): BlogPost[] | undefined {
+  private getCachedPosts(renderCodeblocks: boolean): BlogPost[] | null {
     if (renderCodeblocks) {
-      return cache.get("BlogPostsWithCodeblock")
+      return this.#cache.get("BlogPostsWithCodeblock")
     } else {
-      return cache.get("BlogPostsWithoutCodeblock")
+      return this.#cache.get("BlogPostsWithoutCodeblock")
     }
   }
 
-  private setCachedPosts(
-    posts: BlogPost[] | undefined,
-    renderCodeblocks: boolean,
-  ) {
+  private setCachedPosts(posts: BlogPost[], renderCodeblocks: boolean) {
     if (renderCodeblocks) {
-      cache.put("BlogPostsWithCodeblock", posts)
+      this.#cache.put("BlogPostsWithCodeblock", posts)
     } else {
-      cache.put("BlogPostsWithoutCodeblock", posts)
+      this.#cache.put("BlogPostsWithoutCodeblock", posts)
     }
   }
 }

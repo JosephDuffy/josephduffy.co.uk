@@ -1,4 +1,4 @@
-import cache from "memory-cache"
+import { Cache, CacheClass } from "memory-cache"
 
 export type EntriesReloader<Entry> = () => Promise<Entry[]>
 
@@ -9,15 +9,21 @@ export class LoaderEntriesCache<Entry> {
 
   readonly timeout: number
 
-  private get cachedEntries(): Entry[] | undefined {
-    return cache.get(this.#cacheKey)
+  private get cachedEntries(): Entry[] | null {
+    return this.#cache.get(this.#cacheKey)
   }
 
-  private set cachedEntries(entries: Entry[] | undefined) {
-    cache.put(this.#cacheKey, entries, this.timeout)
+  private set cachedEntries(entries: Entry[] | null) {
+    if (entries === null) {
+      this.#cache.del(this.#cacheKey)
+    } else {
+      this.#cache.put(this.#cacheKey, entries, this.timeout)
+    }
   }
 
   private entriesReloader: EntriesReloader<Entry>
+
+  #cache: CacheClass<string, Entry[]>
 
   #cacheKey: string
 
@@ -31,12 +37,13 @@ export class LoaderEntriesCache<Entry> {
     timeout: number = 6 * 60 * 1000,
   ) {
     this.entriesReloader = entriesReloader
+    this.#cache = new Cache()
     this.#cacheKey = key
     this.timeout = timeout
   }
 
   private async getEntries(): Promise<Entry[]> {
-    if (this.cachedEntries) {
+    if (this.cachedEntries !== null) {
       return this.cachedEntries
     }
 
