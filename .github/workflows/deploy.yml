@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_image:
-    name: Build Image with Analytics
+    name: Build and Push Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
