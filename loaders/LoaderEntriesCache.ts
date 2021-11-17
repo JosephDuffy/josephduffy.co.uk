@@ -44,8 +44,11 @@ export class LoaderEntriesCache<Entry> {
 
   private async getEntries(): Promise<Entry[]> {
     if (this.cachedEntries !== null) {
+      console.debug(`Cache hit for key ${this.#cacheKey}`)
       return this.cachedEntries
     }
+
+    console.debug(`Cache miss for key ${this.#cacheKey}`)
 
     const entries = await this.entriesReloader()
     this.cachedEntries = entries
