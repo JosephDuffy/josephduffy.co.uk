@@ -12,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Pull Docker Image
-        run: docker pull ghcr.io/josephduffy/josephduffy.co.uk:latest
-
       - run: echo $GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
