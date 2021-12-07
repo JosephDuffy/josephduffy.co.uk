@@ -98,6 +98,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     props: {
       repositories,
     },
+    revalidate: 60 * 60, // 1 hour cache
   }
 }
 

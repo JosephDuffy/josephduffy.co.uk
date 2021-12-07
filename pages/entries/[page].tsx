@@ -55,6 +55,7 @@ export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
       pageNumber: page,
       totalPages: pagesCount,
     },
+    revalidate: 60 * 60, // 1 hour cache
   }
 }
 
