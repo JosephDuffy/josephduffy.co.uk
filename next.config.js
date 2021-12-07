@@ -8,7 +8,7 @@ module.exports = (phase) => {
     csp = ""
   } else {
     csp =
-      "default-src 'none'; connect-src 'self' https://contact.josephduffy.co.uk https://analytics.josephduffy.co.uk; frame-src https://*.hcaptcha.com; img-src 'self' https://analytics.josephduffy.co.uk; script-src 'self' 'unsafe-inline' https://analytics.josephduffy.co.uk/ https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'"
+      "default-src 'none'; connect-src 'self' https://contact.josephduffy.co.uk https://analytics.josephduffy.co.uk; frame-src https://*.hcaptcha.com; img-src 'self' https://analytics.josephduffy.co.uk; script-src 'self' 'unsafe-inline' https://analytics.josephduffy.co.uk/ https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
   }
   /**
    * @type {import('next').NextConfig}
