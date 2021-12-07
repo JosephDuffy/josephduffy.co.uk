@@ -124,6 +124,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       pageCount,
       favourites,
     },
+    revalidate: 60 * 60, // 1 hour cache
   }
 }
 
