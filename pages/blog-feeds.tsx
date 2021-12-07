@@ -1,6 +1,5 @@
 import { NextPage } from "next"
 import Head from "next/head"
-import Link from "next/link"
 import Page from "../layouts/main"
 
 const BlogFeedsPage: NextPage = () => {
@@ -45,7 +44,8 @@ const BlogFeedsPage: NextPage = () => {
           <tr>
             <td>Atom</td>
             <td>
-              <Link href="/atom.xml">/atom.xml</Link>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/atom.xml">/atom.xml</a>
             </td>
             <td>
               <a href={`feed:${websiteURL}atom.xml`}>Subscribe</a>
@@ -54,7 +54,8 @@ const BlogFeedsPage: NextPage = () => {
           <tr>
             <td>RSS 2</td>
             <td>
-              <Link href="/rss.xml">/rss.xml</Link>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/rss.xml">/rss.xml</a>
             </td>
             <td>
               <a href={`feed:${websiteURL}rss.xml`}>Subscribe</a>
@@ -63,7 +64,8 @@ const BlogFeedsPage: NextPage = () => {
           <tr>
             <td>JSON</td>
             <td>
-              <Link href="/feed.json">/feed.json</Link>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/feed.json">/feed.json</a>
             </td>
             <td>
               <a href={`feed:${websiteURL}feed.json`}>Subscribe</a>
