@@ -53,7 +53,7 @@ module.exports = (phase) => {
             {
               key: "Onion-Location",
               value:
-                "http://josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion/",
+                "http://josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion/:path*",
             },
           ],
         },
