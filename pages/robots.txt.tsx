@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   apps.forEach((app) => {
     res.write(`Disallow: /contact/${app.slug}\n`)
   })
+  res.write("Disallow: /debug\n")
   res.write(`Sitemap: ${websiteURL}sitemap.xml\n`)
   res.end()
 
