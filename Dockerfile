@@ -23,7 +23,7 @@ ENV WEBSITE_URL=$WEBSITE_URL
 ARG HCAPTCHA_SITE_KEY
 ENV NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY
 
-RUN npm run build
+RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
 # Remove non-dev dependencies
 RUN npm ci
 
