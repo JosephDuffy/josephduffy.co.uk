@@ -20,6 +20,10 @@ module.exports = (phase) => {
     pwa: {
       dest: "public",
     },
+    i18n: {
+      locales: ["en-GB"],
+      defaultLocale: "en-GB",
+    },
     async headers() {
       return [
         {
