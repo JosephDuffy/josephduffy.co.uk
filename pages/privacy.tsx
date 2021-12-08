@@ -70,7 +70,7 @@ const PrivacyPage: NextPage = () => {
         This website does not contain any information that could be considered
         sensitive enough to warrant access via Tor, but I enjoy technology as a
         whole and have setup a Tor hidden service, which can be accessed at{" "}
-        <a href="josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion">
+        <a href="http://josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion">
           josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion
         </a>
         . This service bypasses NGINX and prevents the loading of the Matomo
