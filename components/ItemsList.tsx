@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Fragment, FunctionComponent } from "react"
+import styles from "./ItemsList.module.css"
 
 interface Props {
   items: {
@@ -19,7 +20,7 @@ const ItemsList: FunctionComponent<Props> = ({
 }: Props) => {
   return (
     <Fragment>
-      <div>
+      <div className={styles["items-list"]}>
         <ul>
           <li key="labels-count">
             <span className="label">
@@ -27,8 +28,7 @@ const ItemsList: FunctionComponent<Props> = ({
               {verb}:
             </span>
           </li>
-          {Array.from(items.entries()).map((item) => {
-            const [index, tag] = item
+          {items.map((tag) => {
             return (
               <li className="list-item" key={tag.title}>
                 {tag.url && tag.url.startsWith("/") && (
@@ -42,43 +42,11 @@ const ItemsList: FunctionComponent<Props> = ({
                   </a>
                 )}
                 {!tag.url && tag.title}
-                {index !== items.length - 1 && <span>•</span>}
               </li>
             )
           })}
         </ul>
       </div>
-      <style jsx>{`
-        div {
-          display: flex;
-          flex-direction: row;
-          font-size: 0.8em;
-          overflow-x: auto;
-          max-width: 100%;
-        }
-
-        ul {
-          display: inline-flex;
-          white-space: nowrap;
-          list-style-type: none;
-          padding: 0;
-          margin: 0;
-          margin-top: 6px;
-          margin-bottom: 8px;
-        }
-
-        li {
-          display: block;
-        }
-
-        li a {
-          /* To create a minimum width of 48px (40 + 4 + 4) */
-          min-width: 40px;
-          margin: 0 4px;
-          display: inline-block;
-          text-align: center;
-        }
-      `}</style>
     </Fragment>
   )
 }
