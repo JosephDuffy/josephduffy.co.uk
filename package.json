@@ -46,7 +46,7 @@
     "rehype-raw": "^6.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
+    "@babel/core": "^7.16.7",
     "@types/glob": "^7.2.0",
     "@types/hcaptcha__react-hcaptcha": "^0.1.5",
     "@types/memory-cache": "^0.2.1",
