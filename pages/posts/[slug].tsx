@@ -43,6 +43,7 @@ const PostPage: NextPage<Props> = ({ post, previousPost, nextPost }) => {
             name="description"
             content={`Blog post by Joseph Duffy about ${post.title}`}
           />
+          {post.draft && <meta name="robots" content="noindex nofollow" />}
           <link
             rel="alternate"
             type="application/rss+xml"
