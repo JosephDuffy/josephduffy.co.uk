@@ -17,11 +17,7 @@ export class ConfigLoader {
   // hCaptcha
 
   get hCaptchaSiteKey(): string | undefined {
-    if (process.env["NEXT_PUBLIC_HCAPTCHA_SITE_KEY"]) {
-      return process.env["NEXT_PUBLIC_HCAPTCHA_SITE_KEY"]
-    } else if (process.env.NODE_ENV === "development") {
-      return "10000000-ffff-ffff-ffff-000000000001" // Dummy key
-    }
+    return process.env["NEXT_PUBLIC_HCAPTCHA_SITE_KEY"]
   }
 
   get hCaptchaSecret(): string | undefined {
