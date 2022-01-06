@@ -1,4 +1,4 @@
-import { GetStaticPaths } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import { NextRouter, withRouter } from "next/dist/client/router"
 import { ExcludeRouterProps } from "next/dist/client/with-router"
 import Head from "next/head"
@@ -6,11 +6,12 @@ import { Component, FormEvent } from "react"
 import Page from "../../layouts/main"
 import appsLoader from "../../loaders/AppsLoader"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
+import { ParsedUrlQuery } from "querystring"
+import configLoader from "../../loaders/ConfigLoader"
 
 interface Props {
   slug: string
   name: string
-  contactURL: string
   hCaptchaSiteKey: string
   router: NextRouter
 }
@@ -78,7 +79,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
         )}
         <form
           method="POST"
-          action={`${this.props.contactURL}`}
+          action="/api/app-contact"
           onSubmit={this.submitForm.bind(this)}
         >
           <label>
@@ -179,7 +180,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
       "extra-field": this.state.extraField,
       "hcaptcha-response": this.state.hcaptchaResponseToken,
     }
-    fetch(`${this.props.contactURL}`, {
+    fetch("/api/app-contact", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
@@ -214,35 +215,30 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
 
 export default withRouter(appContactPage)
 
-interface StaticParams {
-  params: {
-    app: string
+interface StaticParams extends ParsedUrlQuery {
+  app: string
+}
+
+export const getStaticProps: GetStaticProps<
+  ExcludeRouterProps<Props>,
+  StaticParams
+> = async ({ params }) => {
+  if (!params || !params.app || !configLoader.hCaptchaSiteKey) {
+    return { notFound: true }
   }
-}
-
-interface StaticProps {
-  props: ExcludeRouterProps<Props>
-}
-
-export async function getStaticProps({
-  params,
-}: StaticParams): Promise<StaticProps> {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const slug = params!.app
+  const slug = params.app
   const apps = appsLoader.getApps()
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const app = apps.find((app) => app.slug === slug)!
+  const app = apps.find((app) => app.slug === slug)
+
+  if (!app) {
+    return { notFound: true }
+  }
 
   return {
     props: {
       slug: app.slug,
       name: app.name,
-      contactURL:
-        process.env["CONTACT_FORM_URL"] ??
-        "https://contact.josephduffy.co.uk/app-contact",
-      hCaptchaSiteKey:
-        process.env["NEXT_PUBLIC_HCAPTCHA_SITE_KEY"] ??
-        "10000000-ffff-ffff-ffff-000000000001", // Dummy key
+      hCaptchaSiteKey: configLoader.hCaptchaSiteKey,
     },
   }
 }

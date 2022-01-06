@@ -3,7 +3,6 @@ import Page from "../../layouts/main"
 import appsLoader from "../../loaders/AppsLoader"
 import Head from "next/head"
 import App from "../../models/App"
-import ErrorPage from "../_error"
 import Link from "next/link"
 import AppIcon from "../../components/AppIcon"
 import Markdown from "../../components/Markdown"
@@ -12,22 +11,11 @@ import { GetStaticPaths } from "next/types"
 import { ParsedUrlQuery } from "querystring"
 
 export interface Props {
-  app?: App
+  app: App
   page: "metadata" | "changelog" | "privacy"
 }
 
 const EntriesPage: NextPage<Props> = ({ app, page }) => {
-  if (!app) {
-    return (
-      <ErrorPage title={"App not found"} statusCode={404}>
-        <Link href="/apps/">
-          <a>Go back to the index of apps</a>
-        </Link>
-        .
-      </ErrorPage>
-    )
-  }
-
   if (page === "metadata") {
     return (
       <Page>
@@ -226,8 +214,10 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   params,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const slug = params!.slug
+  if (!params || !params.slug) {
+    return { notFound: true }
+  }
+  const slug = params.slug
   const appSlug = slug[0]
   const apps = appsLoader.getApps()
   const app = apps.find((app) => app.slug === appSlug)
@@ -235,20 +225,16 @@ export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   if (!app) {
     console.warn("Failed to find app with slug", appSlug)
     return {
-      props: {
-        app: undefined,
-        page: "metadata",
-      },
+      notFound: true,
     }
-  } else if (slug.length > 1) {
+  }
+
+  if (slug.length > 1) {
     if (slug.length !== 2) {
       // Too many slugs
       console.warn("Received too many slugs", slug)
       return {
-        props: {
-          app: undefined,
-          page: "metadata",
-        },
+        notFound: true,
       }
     } else {
       const pageSlug = slug[1]
@@ -270,10 +256,7 @@ export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
       } else {
         console.warn("Unknown slug", slug)
         return {
-          props: {
-            app: undefined,
-            page: "metadata",
-          },
+          notFound: true,
         }
       }
     }
