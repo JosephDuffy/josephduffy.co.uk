@@ -2,7 +2,8 @@
 FROM node:16.13.0-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+# Required for swc when building
+RUN npm ci && npm install @next/swc-linux-x64-gnu --no-save
 
 # Rebuild the source code only when needed
 FROM node:16.13.0 AS builder
