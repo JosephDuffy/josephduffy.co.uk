@@ -17,6 +17,9 @@ module.exports = (phase) => {
     poweredByHeader: false,
     reactStrictMode: true,
     swcMinify: true,
+    experimental: {
+      outputStandalone: true,
+    },
     pwa: {
       dest: "public",
     },

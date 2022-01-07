@@ -1,3 +1,5 @@
+# Based on the example Docker setup: https://github.com/vercel/next.js/tree/canary/examples/with-docker
+
 # Install dependencies only when needed
 FROM node:16.13.0-alpine AS deps
 WORKDIR /app
@@ -40,9 +42,11 @@ RUN adduser -S nextjs -u 1001
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/data ./data
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 
@@ -64,4 +68,4 @@ ENV WEBSITE_URL=$WEBSITE_URL
 ARG HCAPTCHA_SITE_KEY
 ENV NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY
 
-CMD ["node_modules/.bin/next", "start"]
+CMD ["node", "server.js"]
