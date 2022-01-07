@@ -1,7 +1,5 @@
-import ApolloClient from "apollo-client"
 import gql from "graphql-tag"
-import { createHttpLink } from "apollo-link-http"
-import { InMemoryCache } from "apollo-cache-inmemory"
+import { createHttpLink, InMemoryCache, ApolloClient } from "@apollo/client"
 import { EntryType } from "../models/Entry"
 import Markdown from "../components/Markdown"
 import ReactDOMServer from "react-dom/server"
