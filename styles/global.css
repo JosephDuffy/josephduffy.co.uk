@@ -107,6 +107,10 @@ blockquote {
   margin: 0;
 }
 
+details {
+  margin-bottom: 1em;
+}
+
 img {
   max-width: 100%;
 }

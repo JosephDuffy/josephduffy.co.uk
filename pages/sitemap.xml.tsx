@@ -42,6 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     "/open-source",
     "/privacy",
     "/yetii",
+    "/swift-package-collection",
   ].forEach((path) => {
     addURL(path)
   })

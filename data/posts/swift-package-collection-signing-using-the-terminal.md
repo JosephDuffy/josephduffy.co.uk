@@ -1,23 +1,24 @@
 ---
-title: Advanced Swift Package Collection Signing
+title: Swift Package Collection Signing Using the Terminal
 tags: ["swift", "swiftpm"]
-date: 2021-07-10T21:08:12Z
-draft: true
+date: 2022-01-11T05:49:14Z
 ---
 
-Swift Packages are JSON files that describe a collection of packages. This post will explain how to sign these packages with a strong certificate and how to add support for Linux.
+Swift Packages are JSON files that describe a collection of packages. This post will explain how to sign these packages with a trusted certificate entirely from the terminal. These methods should work on Linux and macOS alike. At the end I describe how to have Swift on Linux implicitly trust these packages.
+
+Using this technique I have published [my own package collection](/swift-package-collection).
 
 If you're targeting macOS only and find GUIs more intuitive I recommend following the [“Swift Package Collection” blog post from Shaps](https://benkau.com/swift-package-collections/), which is the post that finally made this “click” for me.
 
 <!-- more -->
 
-[Packages support certificates using either 256-bit EC or 2048-bit RSA keys](package-signing-requirement). Check with your certificate provider which they support.
+The first choice to make is what kind of key to generate. [Packages support certificates using either 256-bit EC or 2048-bit RSA keys][package-signing-requirement]. Check with your certificate provider which they support.
 
 <p class="info">
 Apple's Code Signing certificates only support 2048-bit RSA keys. If you want to use a 256-bit EC key you'll need to use an alternative certificate provider.
 </p>
 
-Some certificate providers – including Apple – only support 2048-bit RSA keys, which can be generated using:
+A 2048-bit RSA key can be generated using:
 
 ```shell
 openssl genrsa -out private.pem 2048
@@ -31,7 +32,7 @@ Here's what this command is doing:
 
 <details>
 <summary>
-If your certificate provider supports 256-bit EC key the command can be tweaked
+If your certificate provider supports 256-bit EC keys <code>openssl</code> can also be used to generate that key.
 </summary>
 
 ```shell
@@ -59,7 +60,7 @@ You must provide a value for at least 1 field.
 This command is doing:
 
 - `req` specifies we are making a request
-- `-new` tells `openssl` we want to generate a new req
+- `-new` tells `openssl` we want to generate a new request
 - `-key private.pem` specifies that we want to request that `private.pem` be signed
 - `-out req.csr` tells `openssl` tou output the request to `req.csr`
 
@@ -73,6 +74,10 @@ Download the `.cer` file from your certificate provider and keep it safe. Here I
 
 With your new certificate you can now sign your package:
 
+<p class="info">
+This is using the <a href="https://github.com/apple/swift-package-collection-generator">swift-package-collection-generator package</a>, which you will need  to install separately.
+</p>
+
 ```bash
 swift run package-collection-sign collection.json signed-collection.json private.pem swift_package.cer
 ```
@@ -80,19 +85,15 @@ swift run package-collection-sign collection.json signed-collection.json private
 This file can now be uploaded to a server and others can add it.
 
 <p class="info">
-Need to quickly test hosting the file? `python3 -m http.server` can be used to host static files, `ngrok http 8000` can be used to serve the files over HTTPS and provide external routing.
+Need to quickly test hosting the file? <code>ngrok http "file://$(pwd)"</code> can be used to serve the files over HTTPS and provide external routing.
 </p>
 
 ## Supporting Linux
 
 At this point your collection will be trusted when added via Xcode, but not when downloaded on Linux. To work on Linux the consumer needs to add the root certificate that signed your certificate to their trust store. This is stored in `~/.swiftpm/config/trust-root-certs/`. To test this we can start a Docker container that contains Swift and try adding the package.
 
-<p class="warning">
-At the time of writing Swift 5.5 has not been released. Use `swiftlang/swift:latest` once Swift 5.5 has been released.
-</p>
-
 ```bash
-docker run --rm -it --entrypoint bash swiftlang/swift:nightly-5.5
+docker run --rm -it --entrypoint bash swift
 ```
 
 This is asking Docker to:
@@ -101,12 +102,12 @@ This is asking Docker to:
 - `--rm`: remove it if it exists
 - `--it`: Makes the container `--interactive` and attaches a `--tty`
 - `--entrypoint bash`: Enters the container using `bash`
-- `swiftlang/swift:nightly-5.5`: Use the nightly Swift 5.5 build (at the time of writing Swift 5.5 has not yet been released)
+- `swift`: Use the latest Swift image (at the time of writing this is 5.5.2)
 
 We can try adding the package without making any changes:
 
 ```shell
-swift package-collection add https://example.com/signed-collection.json
+swift package-collection add https://example.com/swift-package-collection.json
 ```
 
 This will display the following error:
@@ -134,17 +135,15 @@ With my Apple-provided cert this outputs:
 
 `issuer= /CN=Apple Worldwide Developer Relations Certification Authority/OU=G3/O=Apple Inc./C=US`
 
-This certificate can be found on [Apple's PKI](apple-pki). Copy the URL and download it in the container:
+This certificate can be found on [Apple's PKI][apple-pki]. Copy the URL and download it in the container:
 
 ```shell
 wget https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -O ~/.swiftpm/config/trust-root-certs/AppleWWDRCAG3.cer
 ```
 
-If we re-run the command we should now see:
+If we rerun the command we should now see:
 
-```
-Added "Joseph Duffy's Collection" to your package collections.
-```
+`Added "Joseph Duffy's Collection" to your package collections.`
 
 🎉 Our package is now signed and can be trusted by by both macOS and Linux users!
 
