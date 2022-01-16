@@ -18,6 +18,11 @@ const pastelghouls: App = {
 - Initial release
 `,
     },
+    {
+      version: "1.0.1",
+      releaseDate: "2022-01-16",
+      content: `Support for the latest versions of iOS, better accessibility for the Vampire sticker.`,
+    },
   ],
   privacyPolicy: `
 pastelghouls does not collect any data.
