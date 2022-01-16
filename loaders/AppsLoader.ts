@@ -7,10 +7,11 @@ import fourSquares from "../data/apps/four-squares"
 import AppPreview from "../models/AppPreview"
 import { EntryType } from "../models/Entry"
 import AppRelease from "../models/AppRelease"
+import pastelghouls from "../data/apps/pastelghouls"
 
 export class AppsLoader {
   getApps(): App[] {
-    return [overamped, fourSquares, scanula, nevis, gathered]
+    return [overamped, fourSquares, scanula, nevis, gathered, pastelghouls]
   }
 
   getAppsPreviews(): AppPreview[] {
