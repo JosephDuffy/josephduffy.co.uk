@@ -15,6 +15,7 @@ export class PostPreviewsLoader {
         slug: post.slug,
         title: post.title,
         contentHTML: post.excerptHTML ?? post.contentHTML,
+        showKeepReading: post.excerptHTML !== null,
         date: post.date,
         publishDate: post.publishDate,
         updateDate: post.updateDate,

@@ -8,6 +8,7 @@ export default interface BlogPostPreview extends Entry {
   slug: string
   title: string
   contentHTML: string
+  showKeepReading: boolean
   /**
    The date used for sorting. Equal to the `updateDate` if set, otherwise `publishDate`.
    */

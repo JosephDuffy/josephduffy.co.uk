@@ -29,9 +29,11 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
       <HorizontalRule />
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
-        <Link href={`/posts/${post.slug}`}>
-          <a title={`Keep reading ${post.title}`}>Keep Reading</a>
-        </Link>
+        {post.showKeepReading && (
+          <Link href={`/posts/${post.slug}`}>
+            <a title={`Keep reading ${post.title}`}>Keep Reading</a>
+          </Link>
+        )}
       </div>
     </article>
   )
