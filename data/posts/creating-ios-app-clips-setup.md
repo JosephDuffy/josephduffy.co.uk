@@ -1,7 +1,7 @@
 ---
 title: Creating iOS App Clips – Setup
 tags: ["swift", "xcode", "ios", "app-clips"]
-date: 2021-03-04T12:52:34Z
+date: 2021-03-04T12:54:34Z
 draft: true
 ---
 
