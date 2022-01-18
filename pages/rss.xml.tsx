@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { notFound: true }
   }
   const websiteURL = process.env["WEBSITE_URL"]
-  const feed = await blogFeedLoader.getFeed(websiteURL)
+  const feed = await blogFeedLoader.getFeed(websiteURL, "rss")
 
   res.setHeader("Content-Type", "application/rss+xml")
   res.write(feed.rss2())

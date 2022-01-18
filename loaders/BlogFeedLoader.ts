@@ -4,7 +4,11 @@ import { compareDesc } from "date-fns"
 import BlogPost from "../models/BlogPost"
 
 export class BlogFeedLoader {
-  async getFeed(websiteURL: string, forceRefresh = false): Promise<Feed> {
+  async getFeed(
+    websiteURL: string,
+    type: "rss" | "atom" | "json",
+    forceRefresh = false,
+  ): Promise<Feed> {
     const posts = await postsLoader.getPosts(forceRefresh, false)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
@@ -31,15 +35,34 @@ export class BlogFeedLoader {
     })
     posts.forEach((post) => {
       const url = websiteURL + post.url.substring(1)
+      const description = (() => {
+        switch (type) {
+          case "json":
+            // The description field is optional for JSON feeds and only
+            // needs to be provided if it is a preview of the full post.
+            return post.excerptHTML ? post.excerptHTML : undefined
+          case "rss":
+            // In RSS feeds having both `content:encoded` and `description`
+            // is redundant/invalid/not recommended.
+            //
+            // When there's no excerpt the content is provided as the description.
+            return post.excerptHTML ? post.excerptHTML : post.contentHTML
+        }
+      })()
+      const content = (() => {
+        switch (type) {
+          case "json":
+            return post.contentHTML
+          case "rss":
+            return post.excerptHTML ? post.contentHTML : undefined
+        }
+      })()
       feed.addItem({
         title: post.title,
         id: url,
         link: url,
-        // If an excerpt and the full post of available the description is only the
-        // except, but if only the full post is available the `content` is not provided
-        // and instead provided in the description.
-        description: post.excerptHTML ?? post.contentHTML,
-        content: post.excerptHTML ? post.contentHTML : undefined,
+        description,
+        content,
         date: new Date(post.date),
         published: new Date(post.publishDate),
         author: [
