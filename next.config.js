@@ -5,7 +5,8 @@ const { PHASE_DEVELOPMENT_SERVER } = require("next/constants")
 module.exports = (phase) => {
   let csp = ""
   if (phase === PHASE_DEVELOPMENT_SERVER) {
-    csp = ""
+    csp =
+      "default-src 'none'; connect-src 'self' http://localhost; frame-src https://*.hcaptcha.com; img-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
   } else {
     csp =
       "default-src 'none'; connect-src 'self' https://contact.josephduffy.co.uk https://analytics.josephduffy.co.uk; frame-src https://*.hcaptcha.com; img-src 'self' https://analytics.josephduffy.co.uk; script-src 'self' 'unsafe-inline' https://analytics.josephduffy.co.uk/ https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
