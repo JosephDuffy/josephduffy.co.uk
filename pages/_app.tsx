@@ -80,6 +80,13 @@ class MyApp extends App<AppInitialProps> {
           />
         </Head>
         <Component {...pageProps} />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `body {
+  background: var(--tint-color);
+}`,
+          }}
+        />
         <Script src="/load-analytics.js" strategy="lazyOnload" />
       </Fragment>
     )

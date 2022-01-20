@@ -58,7 +58,7 @@ html {
 }
 
 body {
-  background: var(--tint-color);
+  background: var(--primary-background);
   color: var(--primary-label);
   min-height: 100vh;
   min-height: -webkit-fill-available;
