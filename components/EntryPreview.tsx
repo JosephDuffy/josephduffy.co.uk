@@ -23,11 +23,7 @@ interface Props {
 class EntryPreview extends Component<Props> {
   render(): JSX.Element {
     const { entry, appCampaignName } = this.props
-    return (
-      <Fragment>
-        <Card>{this.previewForEntry(entry, appCampaignName)}</Card>
-      </Fragment>
-    )
+    return <Fragment>{this.previewForEntry(entry, appCampaignName)}</Fragment>
   }
 
   private previewForEntry(

@@ -34,12 +34,16 @@ const EntriesPreviewsGrid: FunctionComponent<Props> = ({
           gap: var(--spacing) var(--spacing);
           grid-template-areas: ".";
           padding: 8px 0;
+          filter: drop-shadow(0px 2px 4px hsl(0deg 0% 0% / 0.35));
         }
 
         div.preview {
           display: flex;
           flex-direction: column;
           flex: 1;
+          padding: 12px;
+          background: var(--primary-background);
+          border-radius: 8px;
         }
 
         @media (min-width: 1024px) {
