@@ -3,14 +3,14 @@ const withPWA = require("next-pwa")
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants")
 
 module.exports = (phase) => {
-  let csp = ""
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
-    csp =
-      "default-src 'none'; connect-src 'self' http://localhost; frame-src https://*.hcaptcha.com; img-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
-  } else {
-    csp =
-      "default-src 'none'; connect-src 'self' https://contact.josephduffy.co.uk https://analytics.josephduffy.co.uk; frame-src https://*.hcaptcha.com; img-src 'self' https://analytics.josephduffy.co.uk; script-src 'self' 'unsafe-inline' https://analytics.josephduffy.co.uk/ https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
-  }
+  const csp = (() => {
+    // `https://*.hcaptcha.com/` is required in `connect-src` to fix it not loaded via the service worker, possibly only in Firefox?
+    if (phase === PHASE_DEVELOPMENT_SERVER) {
+      return "default-src 'none'; connect-src 'self' http://localhost https://*.hcaptcha.com/; frame-src https://*.hcaptcha.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
+    } else {
+      return "default-src 'none'; connect-src 'self' https://contact.josephduffy.co.uk https://analytics.josephduffy.co.uk https://*.hcaptcha.com/; frame-src https://*.hcaptcha.com; img-src 'self' https://analytics.josephduffy.co.uk; script-src 'self' 'unsafe-inline' https://analytics.josephduffy.co.uk/ https://*.hcaptcha.com/ https://hcaptcha.com/; style-src 'self' 'unsafe-inline'; worker-src 'self'; manifest-src 'self'"
+    }
+  })()
   /**
    * @type {import('next').NextConfig}
    **/
