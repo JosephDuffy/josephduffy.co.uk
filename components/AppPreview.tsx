@@ -3,6 +3,7 @@ import AppIcon from "./AppIcon"
 import { default as AppPreviewModel } from "../models/AppPreview"
 import Link from "next/link"
 import Markdown from "./Markdown"
+import VisitAppWebsite from "./VisitAppWebsite"
 
 interface Props {
   app: AppPreviewModel
@@ -25,7 +26,7 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           </div>
           <Markdown source={app.description} escapeHtml={false} />
         </div>
-        <div className="downloadLinks">
+        <div className="download-links">
           {app.platforms.includes("iOS") && (
             <a
               href={app.downloadURL + `?pt=96178896&ct=${campaignName}&mt=8`}
@@ -53,14 +54,10 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
             </a>
           )}
           {app.marketingWebsiteURL && (
-            <a
-              href={app.marketingWebsiteURL}
-              title={`Visit the marketing website for ${app.title}`}
-              referrerPolicy="origin"
-              className="marketing-website-link"
-            >
-              Visit {app.title} Website
-            </a>
+            <VisitAppWebsite
+              appName={app.title}
+              appURL={app.marketingWebsiteURL}
+            />
           )}
         </div>
       </div>
@@ -89,20 +86,20 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
           margin-top: 0;
         }
 
-        .download-badge:not(:first-child),
-        .marketing-website-link:not(:first-child) {
-          margin-left: 6px;
-        }
-
-        .download-badge {
+        .download-links {
           margin-top: 8px;
-          line-height: 0;
-          align-self: flex-start;
+          min-height: 40px;
+          display: flex;
+          align-items: center;
         }
 
-        .direct-download-badge,
-        .marketing-website-link {
-          margin: 0.4rem 0;
+        .download-links > :global(*) {
+          display: inline-block;
+          height: 100%;
+        }
+
+        .download-links > :global(*:not(:first-child)) {
+          margin-left: 6px;
         }
       `}</style>
     </Fragment>

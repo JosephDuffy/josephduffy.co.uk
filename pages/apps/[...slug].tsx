@@ -9,6 +9,7 @@ import Markdown from "../../components/Markdown"
 import FormattedDate from "../../components/FormattedDate"
 import { GetStaticPaths } from "next/types"
 import { ParsedUrlQuery } from "querystring"
+import VisitAppWebsite from "../../components/VisitAppWebsite"
 
 export interface Props {
   app: App
@@ -46,7 +47,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           </div>
           <div className="header-content">
             <h1>{app.name}</h1>
-            <div className="downloadLinks">
+            <div className="download-links">
               {app.platforms.includes("iOS") && (
                 <a
                   href={app.downloadURL + "?pt=96178896&ct=app-page&mt=8"}
@@ -82,16 +83,13 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
                   Download {app.name}
                 </a>
               )}
+              {app.marketingWebsiteURL !== undefined && (
+                <VisitAppWebsite
+                  appName={app.name}
+                  appURL={app.marketingWebsiteURL}
+                />
+              )}
             </div>
-            {app.marketingWebsiteURL !== undefined && (
-              <a
-                href={app.marketingWebsiteURL}
-                title={`Visit the marketing website for ${app.name}`}
-                referrerPolicy="origin"
-              >
-                Visit {app.name} Website
-              </a>
-            )}
             <div className="meta-links">
               <Link href={`/apps/${app.slug}/changelog`}>
                 <a>Changelog</a>
@@ -139,14 +137,20 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             padding: 0 4px;
           }
 
-          .download-link:not(:first-child),
-          .marketing-website-link:not(:first-child) {
-            margin-left: 6px;
+          .download-links {
+            margin-top: 8px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
           }
 
-          .download-link {
-            line-height: 0;
-            align-self: flex-start;
+          .download-links > :global(*) {
+            display: inline-block;
+            height: 100%;
+          }
+
+          .download-links > :global(*:not(:first-child)) {
+            margin-left: 6px;
           }
         `}</style>
       </Page>

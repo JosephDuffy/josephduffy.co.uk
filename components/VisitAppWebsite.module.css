@@ -1,0 +1,15 @@
+.visit-website-badge {
+  color: white;
+  border: 1px solid #a6a6a6;
+  border-radius: 6px;
+  background: black;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+}
+
+.visit-website-badge svg {
+  padding-right: 6px;
+}
