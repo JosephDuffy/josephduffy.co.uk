@@ -3,6 +3,8 @@ import { getStaticPaths as getStaticEntriesPaths } from "./entries/[page]"
 import { getStaticPaths as getStaticPostsPaths } from "./posts/[slug]"
 import { getStaticPaths as getStaticTagsPaths } from "./tags/[slug]"
 import { GetServerSideProps } from "next"
+import { makePostsEntriesKey } from "./posts"
+import loader from "../loaders/EntriesLoader"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = context.res
@@ -46,6 +48,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   ].forEach((path) => {
     addURL(path)
   })
+
+  const postsKey = makePostsEntriesKey(1)
+  const { pageCount } = await loader.getPageForKey(postsKey)
+  Array.from(Array(pageCount + 1).keys())
+    .slice(2)
+    .forEach((page) => {
+      addURL(`/posts/?page=${page}`)
+    })
 
   const allStaticPathGetters = [
     getStaticAppPaths,

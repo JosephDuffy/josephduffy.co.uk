@@ -1,18 +1,28 @@
-import { NextPage } from "next"
+import {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next"
 import Page from "../../layouts/main"
-import postPreviewsLoader from "../../loaders/PostPreviewsLoader"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
-import BlogPostPreview from "../../models/BlogPostPreview"
-import { compareDesc } from "date-fns"
 import Link from "next/link"
+import entriesLoader, {
+  EntriesKey,
+  PossibleEntries,
+} from "../../loaders/EntriesLoader"
+import { EntryType } from "../../models/Entry"
+import { ParsedUrlQuery } from "querystring"
 
 interface Props {
-  posts: BlogPostPreview[]
+  posts: PossibleEntries[]
+  entriesKey: EntriesKey
+  pageCount: number
 }
 
 const PostPage: NextPage<Props> = (props: Props) => {
-  const { posts } = props
+  const { posts, entriesKey, pageCount } = props
   return (
     <Page>
       <Head>
@@ -47,30 +57,50 @@ const PostPage: NextPage<Props> = (props: Props) => {
       </p>
       <EntryPreviews
         entries={posts}
-        pageCount={1}
-        paginationHREF="/posts/[slug]"
-        currentPage={1}
+        pageCount={pageCount}
+        paginationHREF="/posts/?page=[page]"
+        currentPage={entriesKey.pageNumber}
         appCampaignName="blog-posts"
       />
     </Page>
   )
 }
 
-interface StaticProps {
-  props: Props
+export function makePostsEntriesKey(pageNumber: number): EntriesKey {
+  return {
+    pageSize: 10,
+    combineSequentialEntries: false,
+    supportedEntriesTypes: [EntryType.BlogPostPreview],
+    pageNumber,
+  }
 }
 
-export async function getStaticProps(): Promise<StaticProps> {
-  const posts = await postPreviewsLoader.getPostsPreviews(
-    process.env["NODE_ENV"] === "development",
-  )
-  posts.sort((postA, postB) => {
-    return compareDesc(new Date(postA.date), new Date(postB.date))
-  })
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context,
+) => {
+  // TODO: Move to /posts/archives/[page], make this all static
+  const params = context.query
+  const pageNumber: number = (() => {
+    if (
+      params &&
+      params.page !== undefined &&
+      !Array.isArray(params.page) &&
+      params.page !== ""
+    ) {
+      return parseInt(params.page)
+    } else {
+      return 1
+    }
+  })()
+  const entriesKey: EntriesKey = makePostsEntriesKey(pageNumber)
+  const { entries: postPreviews, pageCount } =
+    await entriesLoader.getPageForKey(entriesKey)
 
   return {
     props: {
-      posts,
+      posts: postPreviews,
+      entriesKey,
+      pageCount,
     },
   }
 }

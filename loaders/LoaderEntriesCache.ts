@@ -2,7 +2,7 @@ import { Cache, CacheClass } from "memory-cache"
 
 export type EntriesReloader<Entry> = () => Promise<Entry[]>
 
-export class LoaderEntriesCache<Entry> {
+export class LoaderEntriesCache<Entry, Key = string> {
   get entries(): Promise<Entry[]> {
     return this.getEntries()
   }
@@ -23,9 +23,9 @@ export class LoaderEntriesCache<Entry> {
 
   private entriesReloader: EntriesReloader<Entry>
 
-  #cache: CacheClass<string, Entry[]>
+  #cache: CacheClass<Key, Entry[]>
 
-  #cacheKey: string
+  #cacheKey: Key
 
   /**
    *
@@ -33,7 +33,7 @@ export class LoaderEntriesCache<Entry> {
    */
   constructor(
     entriesReloader: EntriesReloader<Entry>,
-    key: string,
+    key: Key,
     timeout: number = 6 * 60 * 1000,
   ) {
     this.entriesReloader = entriesReloader
