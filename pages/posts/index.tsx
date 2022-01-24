@@ -1,9 +1,4 @@
-import {
-  GetServerSideProps,
-  GetStaticPaths,
-  GetStaticProps,
-  NextPage,
-} from "next"
+import { GetServerSideProps, NextPage } from "next"
 import Page from "../../layouts/main"
 import EntryPreviews from "../../components/EntryPreviews"
 import Head from "next/head"
@@ -13,7 +8,6 @@ import entriesLoader, {
   PossibleEntries,
 } from "../../loaders/EntriesLoader"
 import { EntryType } from "../../models/Entry"
-import { ParsedUrlQuery } from "querystring"
 
 interface Props {
   posts: PossibleEntries[]
