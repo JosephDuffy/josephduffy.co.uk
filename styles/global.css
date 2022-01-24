@@ -6,6 +6,9 @@
   --primary-background: black;
   --secondary-background: #1c1c1e;
   --tertiary-background: #2c2c2e;
+  --primary-background: #1c1c1e;
+  --secondary-background: #2c2c2e;
+  --tertiary-background: #000000;
   --separator-color: #54545899;
   --tint-color: #ffcc00;
   --info-color: #006bdf;
