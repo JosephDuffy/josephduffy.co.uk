@@ -31,9 +31,7 @@ SOFTWARE.`
         <title>Acknowledgements</title>
         <meta name="robots" content="noindex" />
       </Head>
-      <h1>
-        <title>Acknowledgements</title>
-      </h1>
+      <h1>Acknowledgements</h1>
       <h2>Feather Icons</h2>
       <p>
         Download and Compass icons provided by{" "}
