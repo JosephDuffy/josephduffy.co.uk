@@ -10,6 +10,7 @@ import FormattedDate from "../../components/FormattedDate"
 import { GetStaticPaths } from "next/types"
 import { ParsedUrlQuery } from "querystring"
 import VisitAppWebsite from "../../components/VisitAppWebsite"
+import DownloadBadge from "../../components/DownloadBadge"
 
 export interface Props {
   app: App
@@ -74,19 +75,16 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
                   />
                 </a>
               )}
-              {app.platforms.includes("macOS-direct") && (
-                <a
-                  href={app.downloadURL}
-                  title={`Download ${app.name}`}
-                  download
-                >
-                  Download {app.name}
-                </a>
-              )}
               {app.marketingWebsiteURL !== undefined && (
                 <VisitAppWebsite
                   appName={app.name}
                   appURL={app.marketingWebsiteURL}
+                />
+              )}
+              {app.platforms.includes("macOS-direct") && (
+                <DownloadBadge
+                  downloadURL={app.downloadURL}
+                  fileTitle={app.name}
                 />
               )}
             </div>
