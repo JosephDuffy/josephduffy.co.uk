@@ -2,7 +2,7 @@ import { Fragment } from "react"
 import App, { AppInitialProps } from "next/app"
 import Head from "next/head"
 import Script from "next/script"
-import "bootstrap/dist/css/bootstrap-reboot.css"
+// import "bootstrap/dist/css/bootstrap-reboot.css"
 import "../styles/global.css"
 import { Router } from "next/dist/client/router"
 

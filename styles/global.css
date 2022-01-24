@@ -1,5 +1,8 @@
 :root {
   color-scheme: dark light;
+  --sans-font: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
+    "Nimbus Sans L", Roboto, Noto, "Segoe UI", Arial, Helvetica,
+    "Helvetica Neue", sans-serif;
   --primary-label: white;
   --secondary-label: #ebebf599;
   --tertiary-label: #ebebf57f;
@@ -55,6 +58,7 @@
 
 html {
   min-height: -webkit-fill-available;
+  font-family: var(--sans-font);
 }
 
 body {
@@ -74,6 +78,58 @@ body {
 main {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+
+h4 {
+  font-size: 1.44rem;
+}
+
+h5 {
+  font-size: 1.15rem;
+}
+
+h6 {
+  font-size: 0.96rem;
+}
+
+/* Fix line height when title wraps */
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+/* Reduce header size on mobile */
+@media only screen and (max-width: 720px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2.1rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
 }
 
 a {

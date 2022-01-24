@@ -17,7 +17,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
       <header>
         <Link href={`/posts/${post.slug}`}>
           <a>
-            <h1>{post.title}</h1>
+            <h2>{post.title}</h2>
           </a>
         </Link>
         <FormattedDate date={post.publishDate} prefix="Published" />
