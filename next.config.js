@@ -62,6 +62,16 @@ module.exports = (phase) => {
           ],
         },
         {
+          source: "/",
+          headers: [
+            {
+              key: "Onion-Location",
+              value:
+                "http://josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion/",
+            },
+          ],
+        },
+        {
           source: "/:all*(js|css|png|jpg|jpeg|gif|svg|ico|webp)",
           locale: false,
           headers: [
