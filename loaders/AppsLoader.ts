@@ -20,6 +20,7 @@ export class AppsLoader {
         title: app.name,
         slug: app.slug,
         logoURL: app.logoURL,
+        logoURLWebP: app.logoURLWebP === undefined ? null : app.logoURLWebP,
         description: app.shortDescription,
         downloadURL: app.downloadURL,
         marketingWebsiteURL: app.marketingWebsiteURL ?? null,

@@ -5,6 +5,7 @@ const overamped: App = {
   slug: "overamped",
   platforms: ["iOS"],
   logoURL: "/images/overamped/App-Icon-384.png",
+  logoURLWebP: "/images/overamped/App-Icon-384.webp",
   appId: "1573901090",
   marketingWebsiteURL: "https://overamped.app",
   shortDescription:

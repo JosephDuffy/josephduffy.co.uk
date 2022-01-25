@@ -10,6 +10,7 @@ export default interface AppPreview {
   title: string
   slug: string
   logoURL: string
+  logoURLWebP: string | null
   description: string
   downloadURL: string
   marketingWebsiteURL: string | null

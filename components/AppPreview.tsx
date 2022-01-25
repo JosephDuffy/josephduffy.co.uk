@@ -22,7 +22,11 @@ const AppPreview: FunctionComponent<Props> = ({ app, campaignName }: Props) => {
         <div className="screenshots"></div>
         <div className="summary">
           <div className="appIcon">
-            <AppIcon iconURL={app.logoURL} appName={app.title} />
+            <AppIcon
+              iconURL={app.logoURL}
+              iconURLWebP={app.logoURLWebP ?? undefined}
+              appName={app.title}
+            />
           </div>
           <Markdown source={app.description} escapeHtml={false} />
         </div>

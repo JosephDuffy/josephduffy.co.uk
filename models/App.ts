@@ -9,6 +9,8 @@ export default interface App {
   shortDescription: string
   fullDescription: string
   logoURL: string
+  // A URL containing the app icon in WebP format.
+  logoURLWebP?: string
   downloadURL: string
   marketingWebsiteURL?: string
   tags: string[]

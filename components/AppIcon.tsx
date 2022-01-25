@@ -4,21 +4,29 @@ import { Fragment, FunctionComponent } from "react"
 interface Props {
   appName: string
   iconURL: string
+  iconURLWebP?: string
 }
 
 const AppIcon: FunctionComponent<Props> = ({
   appName,
   iconURL,
+  iconURLWebP,
 }: Props): JSX.Element => {
   return (
     <Fragment>
-      <img
-        src={iconURL}
-        alt={`${appName} Icon`}
-        width="128"
-        height="128"
-        className={styles.iconImage}
-      />
+      <picture>
+        {iconURLWebP && (
+          <source type="image/webp" srcSet={iconURLWebP}></source>
+        )}
+        <source type="image/png" srcSet={iconURL}></source>
+        <img
+          src={iconURL}
+          alt={`${appName} Icon`}
+          width="128"
+          height="128"
+          className={styles.iconImage}
+        />
+      </picture>
     </Fragment>
   )
 }
