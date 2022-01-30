@@ -42,6 +42,7 @@ export class BlogFeedLoader {
             // needs to be provided if it is a preview of the full post.
             return post.excerptHTML ? post.excerptHTML : undefined
           case "rss":
+          case "atom":
             // In RSS feeds having both `content:encoded` and `description`
             // is redundant/invalid/not recommended.
             //
@@ -54,6 +55,7 @@ export class BlogFeedLoader {
           case "json":
             return post.contentHTML
           case "rss":
+          case "atom":
             return post.excerptHTML ? post.contentHTML : undefined
         }
       })()
