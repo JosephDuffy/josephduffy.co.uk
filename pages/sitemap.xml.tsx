@@ -3,24 +3,28 @@ import { getStaticPaths as getStaticEntriesPaths } from "./entries/[page]"
 import { getStaticPaths as getStaticPostsPaths } from "./posts/[slug]"
 import { getStaticPaths as getStaticTagsPaths } from "./tags/[slug]"
 import { GetServerSideProps } from "next"
+import configLoader from "../loaders/ConfigLoader"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = context.res
-  if (process.env["WEBSITE_URL"] === undefined) {
+  const websiteURL = configLoader.websiteURL(context.req)
+  if (websiteURL === undefined) {
     console.error(
-      "WEBSITE_URL environment variable must be set to generate ATOM feed",
+      "Website URL config value must be available to generate sitemap",
     )
     return { notFound: true }
   }
-  const websiteURL = process.env["WEBSITE_URL"].slice(0, -1)
 
+  const res = context.res
   res.setHeader("Content-Type", "application/xml")
   res.write(`<?xml version="1.0" encoding="UTF-8"?>\n`)
   res.write(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`)
 
   function addURL(path: string, lastModified: Date | undefined = undefined) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const location = websiteURL!
+    location.pathname = path
     res.write("  <url>\n")
-    res.write(`    <loc>${websiteURL}${path}</loc>\n`)
+    res.write(`    <loc>${location}</loc>\n`)
     if (lastModified !== undefined) {
       res.write(
         `    <lastmod>${lastModified
