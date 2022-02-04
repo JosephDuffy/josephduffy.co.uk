@@ -1,17 +1,45 @@
+import { IncomingMessage } from "http"
+import "../helpers/Array+first"
+
 export class ConfigLoader {
   /**
-   * The main URL used to serve the website. This may be different
-   * from the URL currently being used to request the website, e.g.
-   * this may be https://josephduffy.co.uk but the request may be from
-   * https://noanalytics.co.uk
+   * The main URL used to serve the website. If `request` is not provided this will be the default URL for this installation. If `request` is provided and the `host` and `X-Forward-Proto` headers match allowed values they will be used to construct the URL.
+   *
+   * The provided URL will have a trailing slash.
    */
-  get websiteURL(): URL | undefined {
+  websiteURL(request: IncomingMessage): URL | undefined {
+    const allowedDomains = [
+      "josephduffy.co.uk",
+      "noanalytics.josephduffy.co.uk",
+      "josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion",
+      process.env.WEBSITE_DOMAIN, // Used during development
+    ]
+
+    if (
+      request.headers.host !== undefined &&
+      allowedDomains.includes(request.headers.host)
+    ) {
+      const allowedProtocols = ["https", "http"]
+      const xForwardProtoHeader = request.headers["X-Forward-Proto"]
+      if (
+        xForwardProtoHeader &&
+        !Array.isArray(xForwardProtoHeader) &&
+        allowedProtocols.includes(xForwardProtoHeader)
+      ) {
+        return new URL(xForwardProtoHeader + "://" + request.headers.host + "/")
+      }
+    }
+
     if (process.env.WEBSITE_URL === undefined) {
       return undefined
     }
 
     const websiteURLString = process.env.WEBSITE_URL
-    return new URL(websiteURLString)
+    if (websiteURLString.endsWith("/")) {
+      return new URL(websiteURLString)
+    } else {
+      return new URL(websiteURLString + "/")
+    }
   }
 
   // hCaptcha

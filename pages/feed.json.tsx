@@ -1,17 +1,18 @@
 import blogFeedLoader from "../loaders/BlogFeedLoader"
 import { GetServerSideProps } from "next"
+import configLoader from "../loaders/ConfigLoader"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = context.res
-  if (process.env["WEBSITE_URL"] === undefined) {
+  const websiteURL = configLoader.websiteURL(context.req)
+  if (websiteURL === undefined) {
     console.error(
-      "WEBSITE_URL environment variable must be set to generate JSON feed",
+      "Website URL config value must be available to generate JSON feed",
     )
     return { notFound: true }
   }
-  const websiteURL = process.env["WEBSITE_URL"]
   const feed = await blogFeedLoader.getFeed(websiteURL, "json")
 
+  const res = context.res
   res.setHeader("Content-Type", "application/feed+json")
   res.write(feed.json1())
   res.end()

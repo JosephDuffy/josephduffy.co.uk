@@ -5,10 +5,11 @@ import BlogPost from "../models/BlogPost"
 
 export class BlogFeedLoader {
   async getFeed(
-    websiteURL: string,
+    websiteURL: URL,
     type: "rss" | "atom" | "json",
     forceRefresh = false,
   ): Promise<Feed> {
+    const websiteURLString = `${websiteURL}`
     const posts = await postsLoader.getPosts(forceRefresh, false)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
@@ -17,7 +18,7 @@ export class BlogFeedLoader {
     const feed = new Feed({
       title: "Joseph Duffy",
       description: "Blog posts written by Joseph Duffy",
-      id: websiteURL,
+      id: websiteURLString,
       link: websiteURL + "posts",
       language: "en-GB",
       favicon: websiteURL + "favicon.ico",
@@ -30,7 +31,7 @@ export class BlogFeedLoader {
       },
       author: {
         name: "Joseph Duffy",
-        link: websiteURL,
+        link: websiteURLString,
       },
     })
     posts.forEach((post) => {
@@ -70,7 +71,7 @@ export class BlogFeedLoader {
         author: [
           {
             name: "Joseph Duffy",
-            link: websiteURL,
+            link: websiteURLString,
           },
         ],
       })

@@ -18,14 +18,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const websiteURL = configLoader.websiteURL(req)
+
   await new Promise((resolve, reject) => {
     cors({
       methods: ["POST"],
       origin: (requestOrigin, callback) => {
-        if (
-          configLoader.websiteURL?.origin &&
-          requestOrigin?.endsWith(configLoader.websiteURL?.origin)
-        ) {
+        if (websiteURL?.origin && requestOrigin?.endsWith(websiteURL?.origin)) {
           // Allow main website URL and subdomains
           return callback(null, true)
         }
@@ -165,10 +164,9 @@ export default async function handler(
       const origin = req.headers["origin"]
       if (origin) {
         res.redirect(`${origin}/contact/success`)
-      } else if (configLoader.websiteURL) {
-        const url = configLoader.websiteURL
-        url.pathname = "contact/success"
-        res.redirect(url.toString())
+      } else if (websiteURL) {
+        websiteURL.pathname = "contact/success"
+        res.redirect(websiteURL.toString())
       } else {
         respond(200)
       }
