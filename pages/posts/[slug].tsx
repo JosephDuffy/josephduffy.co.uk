@@ -11,6 +11,7 @@ import { GetStaticPaths } from "next/types"
 
 interface Props {
   post?: BlogPost
+  // TODO: Not pass in full content to reduce page size
   previousPost: BlogPost | null
   nextPost: BlogPost | null
 }
