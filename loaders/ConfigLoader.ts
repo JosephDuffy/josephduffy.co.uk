@@ -28,9 +28,18 @@ export class ConfigLoader {
       ) {
         return new URL(xForwardProtoHeader + "://" + request.headers.host + "/")
       }
+    } else if (request.headers.host) {
+      console.warn(
+        "Value of Host header",
+        request.headers.host,
+        "is not in allowed domains list",
+      )
+    } else {
+      console.warn("No Host header included with request")
     }
 
     if (process.env.WEBSITE_URL === undefined) {
+      console.warn("WEBSITE_URL environment variable has not been set")
       return undefined
     }
 
