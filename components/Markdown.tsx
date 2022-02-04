@@ -8,12 +8,14 @@ interface Props {
   source: string
   renderCodeblocks?: boolean
   escapeHtml?: boolean
+  websiteURL?: URL
 }
 
 const Markdown: FunctionComponent<Props> = ({
   source,
   renderCodeblocks,
   escapeHtml,
+  websiteURL,
 }: Props) => {
   return (
     <ReactMarkdown
@@ -36,13 +38,12 @@ const Markdown: FunctionComponent<Props> = ({
             </code>
           )
         },
-        a({ href: _href, children, node, ...props }) {
-          const href = _href as string
-          const websiteURL = process.env["WEBSITE_URL"]
-
-          if (websiteURL && href.startsWith("/")) {
+        a({ href, children, node, ...props }) {
+          if (websiteURL && href && href.startsWith("/")) {
+            const anchorURL = websiteURL
+            anchorURL.pathname = href
             return (
-              <a {...props} href={websiteURL + href.substring(1)}>
+              <a {...props} href={anchorURL.toString()}>
                 {children}
               </a>
             )
@@ -54,13 +55,12 @@ const Markdown: FunctionComponent<Props> = ({
             )
           }
         },
-        img({ src: _src, children, node, ...props }) {
-          const src = _src as string
-          const websiteURL = process.env["WEBSITE_URL"]
-
-          if (websiteURL && src.startsWith("/")) {
+        img({ src, children, node, ...props }) {
+          if (websiteURL && src && src.startsWith("/")) {
+            const srcURL = websiteURL
+            srcURL.pathname = src
             return (
-              <img {...props} src={websiteURL + src.substring(1)}>
+              <img {...props} src={srcURL.toString()}>
                 {children}
               </img>
             )

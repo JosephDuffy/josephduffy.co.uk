@@ -20,6 +20,7 @@ export class PostsLoader {
   async getPosts(
     forceRefresh = false,
     renderCodeblocks = true,
+    websiteURL?: URL,
   ): Promise<BlogPost[]> {
     const cachedPosts = this.getCachedPosts(renderCodeblocks)
     if (!forceRefresh && cachedPosts !== null) {
@@ -47,6 +48,7 @@ export class PostsLoader {
             source={markdownContent}
             escapeHtml={false}
             renderCodeblocks={renderCodeblocks}
+            websiteURL={websiteURL}
           />,
         )
         const excerptHTML = parsedContent.excerpt
@@ -55,6 +57,7 @@ export class PostsLoader {
                 source={parsedContent.excerpt}
                 escapeHtml={false}
                 renderCodeblocks={renderCodeblocks}
+                websiteURL={websiteURL}
               />,
             )
           : null

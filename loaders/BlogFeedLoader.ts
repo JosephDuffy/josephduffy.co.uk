@@ -10,7 +10,7 @@ export class BlogFeedLoader {
     forceRefresh = false,
   ): Promise<Feed> {
     const websiteURLString = `${websiteURL}`
-    const posts = await postsLoader.getPosts(forceRefresh, false)
+    const posts = await postsLoader.getPosts(forceRefresh, false, websiteURL)
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
     })
