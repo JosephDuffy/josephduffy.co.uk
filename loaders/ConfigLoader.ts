@@ -20,13 +20,15 @@ export class ConfigLoader {
       allowedDomains.includes(request.headers.host)
     ) {
       const allowedProtocols = ["https", "http"]
-      const xForwardProtoHeader = request.headers["X-Forward-Proto"]
+      const xForwardedProtoHeader = request.headers["x-forwarded-proto"]
       if (
-        xForwardProtoHeader &&
-        !Array.isArray(xForwardProtoHeader) &&
-        allowedProtocols.includes(xForwardProtoHeader)
+        xForwardedProtoHeader &&
+        !Array.isArray(xForwardedProtoHeader) &&
+        allowedProtocols.includes(xForwardedProtoHeader)
       ) {
-        return new URL(xForwardProtoHeader + "://" + request.headers.host + "/")
+        return new URL(
+          xForwardedProtoHeader + "://" + request.headers.host + "/",
+        )
       }
     } else if (request.headers.host) {
       console.warn(
