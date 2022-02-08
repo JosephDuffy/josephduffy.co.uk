@@ -11,7 +11,7 @@ jobs:
         uses: vlaurin/action-ghcr-prune@v0.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          organization: ${{ github.repository_owner }}
+          organization: josephduffy
           container: josephduffy.co.uk
           dry-run: true
           older-than: 7 # days
