@@ -24,6 +24,7 @@ export class ConfigLoader {
         !Array.isArray(xForwardedProtoHeader) &&
         allowedProtocols.includes(xForwardedProtoHeader)
       ) {
+        console.debug("Using X-Forwarded-Proto header", xForwardedProtoHeader, "with host", request.headers.)
         return new URL(
           xForwardedProtoHeader + "://" + request.headers.host + "/",
         )
@@ -54,6 +55,8 @@ export class ConfigLoader {
       console.warn("WEBSITE_URL environment variable has not been set")
       return undefined
     }
+
+    console.debug("Falling back to $WEBSITE_URL")
 
     const websiteURLString = process.env.WEBSITE_URL
     if (websiteURLString.endsWith("/")) {
