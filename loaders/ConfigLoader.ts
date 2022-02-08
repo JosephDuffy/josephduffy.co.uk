@@ -24,7 +24,12 @@ export class ConfigLoader {
         !Array.isArray(xForwardedProtoHeader) &&
         allowedProtocols.includes(xForwardedProtoHeader)
       ) {
-        console.debug("Using X-Forwarded-Proto header", xForwardedProtoHeader, "with host", request.headers.)
+        console.debug(
+          "Using X-Forwarded-Proto header",
+          xForwardedProtoHeader,
+          "with host",
+          request.headers.host,
+        )
         return new URL(
           xForwardedProtoHeader + "://" + request.headers.host + "/",
         )
