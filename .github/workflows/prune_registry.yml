@@ -1,0 +1,18 @@
+name: Prune Registry
+
+on: [workflow_dispatch]
+
+jobs:
+  prune_registry:
+    name: Prune Registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prune Untagged Images Older Than 7 Days
+        uses: vlaurin/action-ghcr-prune@v0.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          organization: ${{ github.repository_owner }}
+          container: josephduffy.co.uk
+          dry-run: true
+          older-than: 7 # days
+          untagged: true
