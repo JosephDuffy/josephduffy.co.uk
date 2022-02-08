@@ -3,9 +3,7 @@ import "../helpers/Array+first"
 
 export class ConfigLoader {
   /**
-   * The main URL used to serve the website. If `request` is not provided this will be the default URL for this installation. If `request` is provided and the `host` and `X-Forward-Proto` headers match allowed values they will be used to construct the URL.
-   *
-   * The provided URL will have a trailing slash.
+   * The main URL used to serve the website. If `request` is not provided this will be the default URL for this installation. If `request` is provided and the `host` and `X-Forwarded-Proto` headers match allowed values they will be used to construct the URL.
    */
   websiteURL(request: IncomingMessage): URL | undefined {
     const allowedDomains = [
@@ -28,6 +26,18 @@ export class ConfigLoader {
       ) {
         return new URL(
           xForwardedProtoHeader + "://" + request.headers.host + "/",
+        )
+      } else if (!xForwardedProtoHeader) {
+        console.debug("Request is missing X-Forwarded-Proto header")
+      } else if (Array.isArray(xForwardedProtoHeader)) {
+        console.debug(
+          "Request includes unsupported array value for X-Forwarded-Proto header",
+        )
+      } else {
+        console.debug(
+          "X-Forwarded-Proto header",
+          xForwardedProtoHeader,
+          "is not in allowed protocols list",
         )
       }
     } else if (request.headers.host) {
