@@ -50,8 +50,45 @@ Overamped can display statistics, including how many AMP results have been found
   changelogs: [
     {
       version: "1.0",
-      releaseDate: "2021-09-20T00:00:00Z",
+      releaseDate: "2021-09-20T19:28:00Z",
       content: "Initial release",
+    },
+    {
+      version: "1.0.1",
+      releaseDate: "2021-09-27T20:46:00Z",
+      content: `Thank you to everyone that has downloaded Overamped! More features are planned for the future.
+
+The source code of Overamped is now available on GitHub! You can find the link in the About tab.
+
+This build also fixes some bugs:
+
+- Fix showing “Overamped” in place of “Safari” in installation instructions
+- Prevent infinite redirections to student.si and thehustle.co`,
+    },
+    {
+      version: "1.0.2",
+      releaseDate: "2021-09-30T21:14:00Z",
+      content: `Thank you to everyone that has downloaded Overamped!
+
+The release is a hotfix for changes to Google image searches. Clicking links will no longer open the AMP popover and the AMP popover should be removed from the bottom of the screen
+
+More features are being worked on.`,
+    },
+    {
+      version: "1.0.3",
+      releaseDate: "2021-11-20T20:15:00Z",
+      content: `This update includes a change that will hopefully prevent all recursive redirects, e.g. when a website automatically redirects to the AMP version. Unfortunately it's not possible to prevent the redirection to the AMP version but this fix should prevent the page repeatedly reloading.
+
+A bug has also been fixed that would cause AMP Google News articles loaded after scrolling to the bottom to not be redirected.`,
+    },
+    {
+      version: "1.1.0",
+      releaseDate: "2022-02-07T10:03:00Z",
+      content: `A new option in the Settings allows for a notification to be posted whenever Overamped redirects an AMP or Yandex Turbo page in Safari.
+
+A new screen has been added under Advanced Statistics that displays each event that has occurred and allows for the deletion of individual events.
+
+The permissions model has been simplified. The "Other Websites" will now be the only option shown when first installing the extension.`,
     },
   ],
   privacyPolicy: `
