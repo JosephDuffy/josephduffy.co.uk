@@ -58,6 +58,7 @@
 
 html {
   min-height: -webkit-fill-available;
+  background: var(--primary-background);
 }
 
 body {

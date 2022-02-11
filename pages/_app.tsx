@@ -82,7 +82,7 @@ class MyApp extends App<AppInitialProps> {
         <Component {...pageProps} />
         <style
           dangerouslySetInnerHTML={{
-            __html: `body {
+            __html: `html {
   background: var(--tint-color);
 }`,
           }}
