@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # A script that simulates a minimal package update webhook that GitHub would trigger.
-# These hooks are not available on per-repo basis when using ghcr.io but only on an
-# organisation level, which this repo is not a part of. If support is added for individual
-# repos this script can be removed.
+# These hooks were not available on per-repo basis when using ghcr.io but only on an
+# organisation level, which this repo is not a part of. When added to repos this was
+# no linger used, but the webhooks have since stopped firing.
 
 PACKAGE="$1"
 SECRET="$2"
