@@ -7,7 +7,7 @@ jobs:
     name: Build Image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Make GITHUB_ACCESS_TOKEN available
         run: echo $DOCKER_GITHUB_ACCESS_TOKEN > GITHUB_ACCESS_TOKEN
@@ -38,7 +38,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install node
         uses: actions/setup-node@v3.0.0
@@ -57,7 +57,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Install node
         uses: actions/setup-node@v3.0.0
