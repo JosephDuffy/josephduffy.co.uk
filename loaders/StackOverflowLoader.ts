@@ -1,5 +1,4 @@
 import { EntryType } from "../models/Entry"
-import fetch from "node-fetch"
 import { decode as decodeHTMLEntities } from "html-entities"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import {
