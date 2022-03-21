@@ -10,7 +10,7 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from "next/types"
-import { Component } from "react"
+import { Component, Fragment } from "react"
 import { ParsedUrlQuery } from "querystring"
 
 interface SiblingPost {
@@ -84,10 +84,13 @@ export default class PostPage extends Component<Props> {
               <meta property="article:modified_time" content={updatedISODate} />
             )}
             {post.imageURL && (
-              <meta
-                property="og:image"
-                content={websiteURL.slice(0, -1) + post.imageURL}
-              />
+              <Fragment>
+                <meta name="twitter:card" content="summary" />
+                <meta
+                  property="og:image"
+                  content={websiteURL.slice(0, -1) + post.imageURL}
+                />
+              </Fragment>
             )}
             {post.tags.map((tag) => {
               return (
