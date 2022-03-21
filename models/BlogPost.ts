@@ -35,5 +35,5 @@ export default interface BlogPost extends Entry {
   /**
    * A URL to a PNG image that can be used as the Open Graph image.
    */
-  imageURL?: string
+  imageURL: string | null
 }

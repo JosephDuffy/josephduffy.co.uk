@@ -29,7 +29,7 @@ interface PostContent {
   url: string
   tags: string[]
   draft: boolean
-  imageURL?: string
+  imageURL: string | null
 }
 
 interface Props {
