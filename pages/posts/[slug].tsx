@@ -56,6 +56,8 @@ export default class PostPage extends Component<Props> {
           ? window.location.origin + "/"
           : process.env["WEBSITE_URL"] ?? "/"
 
+      const fullPostURL = websiteURL + post.url.slice(1)
+
       const publishedISODate = new Date(post.publishDate).toISOString()
       const updatedISODate = post.updateDate
         ? new Date(post.updateDate).toISOString()
@@ -70,12 +72,32 @@ export default class PostPage extends Component<Props> {
               content={`Blog post by Joseph Duffy about ${post.title}`}
             />
             {post.draft && <meta name="robots" content="noindex nofollow" />}
+            <meta property="og:title" content={post.title} />
+            <meta property="og:type" content="article" />
+            <meta property="og:url" content={fullPostURL} />
+            <meta property="article:author" content="Joseph Duffy" />
+            <meta
+              property="article:published_time"
+              content={publishedISODate}
+            />
+            {updatedISODate && (
+              <meta property="article:modified_time" content={updatedISODate} />
+            )}
             {post.imageURL && (
               <meta
                 property="og:image"
                 content={websiteURL.slice(0, -1) + post.imageURL}
               />
             )}
+            {post.tags.map((tag) => {
+              return (
+                <meta
+                  property="article:tag"
+                  content={tag}
+                  key={`article:tag:${tag}`}
+                />
+              )
+            })}
             <link
               rel="alternate"
               type="application/rss+xml"
@@ -101,7 +123,7 @@ export default class PostPage extends Component<Props> {
               {
                 "@context": "https://schema.org",
                 "@type": "BlogPosting",
-                "@id": "${websiteURL}${post.url.slice(1)}",
+                "@id": "${fullPostURL}",
                 "headline": "${post.title}",
                 "keywords": "${post.tags.join(",")}",
                 "datePublished": "${publishedISODate}",
