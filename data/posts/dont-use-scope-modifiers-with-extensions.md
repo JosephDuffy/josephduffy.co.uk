@@ -54,6 +54,12 @@ private extension MyType {
 }
 ```
 
-I've been aiming to improve the maintainability of my code lately, and this is one of the things I'm doing to improve that. If I want to jump in and quickly fix a bug or make an update I don't want to guess the access level of anything.
+I've been aiming to improve the maintainability of my code lately, and this is one of the things I'm doing to improve that. If I want to jump in and quickly fix a bug or make a small update I don't want to guess the access level of anything. Making the access level explicit and **never** setting an access level on an extension helps with this.
+
+```swift
+public func doSomething() {
+    // Do the thing
+}
+```
 
 In frameworks I've found it useful always be explicit about the access level. This forces me to think about a symbol being `public` or `internal`, so even if the `internal` is implicit I like to add it. Maybe I'll change my mind of that though, just as I did with explicit `self` 😬
