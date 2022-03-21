@@ -79,6 +79,7 @@ export class PostsLoader {
           draft,
           url: `/posts/${slug}`,
           tags: parsedContent.data.tags ?? [],
+          imageURL: parsedContent.data.imageURL,
           type: EntryType.BlogPost,
         } as BlogPost
       })

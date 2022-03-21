@@ -21,6 +21,7 @@ export class PostPreviewsLoader {
         updateDate: post.updateDate,
         url: post.url,
         tags: post.tags,
+        imageURL: post.imageURL ?? null,
         type: EntryType.BlogPostPreview,
       }
     })

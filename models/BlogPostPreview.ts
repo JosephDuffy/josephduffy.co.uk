@@ -26,4 +26,5 @@ export default interface BlogPostPreview extends Entry {
    */
   url: string
   tags: string[]
+  imageURL: string | null
 }

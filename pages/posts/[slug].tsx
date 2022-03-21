@@ -29,6 +29,7 @@ interface PostContent {
   url: string
   tags: string[]
   draft: boolean
+  imageURL?: string
 }
 
 interface Props {
@@ -69,6 +70,12 @@ export default class PostPage extends Component<Props> {
               content={`Blog post by Joseph Duffy about ${post.title}`}
             />
             {post.draft && <meta name="robots" content="noindex nofollow" />}
+            {post.imageURL && (
+              <meta
+                property="og:image"
+                content={websiteURL.slice(0, -1) + post.imageURL}
+              />
+            )}
             <link
               rel="alternate"
               type="application/rss+xml"
@@ -373,6 +380,7 @@ export const getStaticProps: GetStaticProps<Props, StaticParams> =
           url: post.url,
           tags: post.tags,
           draft: post.draft,
+          imageURL: post.imageURL,
         },
         previousPost: previousPost
           ? {
