@@ -10,12 +10,12 @@ interface Props {
   message?: string
 }
 
-const ErrorPage: NextPage<Props> = ({
+const ErrorPage: NextPage<PropsWithChildren<Props>> = ({
   statusCode,
   title,
   message,
   children,
-}: PropsWithChildren<Props>) => {
+}) => {
   return (
     <Page>
       <Head>

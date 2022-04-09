@@ -2,7 +2,7 @@ import Header from "../components/Header"
 import { Fragment, PropsWithChildren, FunctionComponent } from "react"
 import Footer from "../components/Footer"
 
-const Index: FunctionComponent = ({ children }: PropsWithChildren<unknown>) => (
+const Index: FunctionComponent<PropsWithChildren<unknown>> = ({ children }) => (
   <Fragment>
     <a id="skip-to-content" href="#main">
       Skip to content

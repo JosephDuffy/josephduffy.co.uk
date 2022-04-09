@@ -1,8 +1,8 @@
 import { Fragment, FunctionComponent, PropsWithChildren } from "react"
 
-const HorizontalScrollContainer: FunctionComponent = ({
-  children,
-}: PropsWithChildren<unknown>) => (
+const HorizontalScrollContainer: FunctionComponent<
+  PropsWithChildren<unknown>
+> = ({ children }) => (
   <Fragment>
     <div className="wrapper">
       <div className="container">{children}</div>
