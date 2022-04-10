@@ -43,7 +43,7 @@ jobs:
         run: docker push ghcr.io/josephduffy/josephduffy.co.uk:latest
 
   trigger_webhook:
-    if: ${{ false }} # Webhooks seem to be delivered automatically again.
+    # if: ${{ false }} # Webhooks seem to be delivered automatically again.
     name: Trigger Webhook
     runs-on: ubuntu-latest
     needs: [build_image]
