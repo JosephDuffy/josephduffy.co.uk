@@ -42,7 +42,7 @@
     "next-pwa": "^5.5.2",
     "node-fetch": "^3.2.3",
     "react": "^18.1.0",
-    "react-dom": "^18.0.0",
+    "react-dom": "^18.1.0",
     "react-markdown": "^8.0.3",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-raw": "^6.1.0"
