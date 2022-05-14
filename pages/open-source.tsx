@@ -27,21 +27,26 @@ const OpenSourcePage: NextPage<Props> = ({
       <p>
         I am a big believer in open source software, which I contribute to
         through GitHub. My commits are signed with{" "}
-        <a href="/commits.asc">my PGP key</a>. Below are the projects I have
-        contributed to recently.
+        <a href="/commits.asc">my PGP key</a>.
       </p>
       <p>
-        To view all the entries on this website related to open source projects
-        you can{" "}
-        <Link href="/tags/open-source">
-          <a rel="tag">view entries under the open-source tag</a>
-        </Link>
-        . To see all my open source contributions visit{" "}
+        I have a{" "}
+        <Link href="/swift-package-collection">Swift Package Collection</Link>{" "}
+        available that includes all the Swift packages I maintain.{" "}
         <a href="https://github.com/JosephDuffy" rel="me">
-          my GitHub profile
-        </a>
-        .
+          My GitHub profile
+        </a>{" "}
+        also highlights my most popular projects.
       </p>
+      <p>
+        The{" "}
+        <Link href="/tags/open-source">
+          <a rel="tag">open-source tag</a>
+        </Link>
+        collects all contributions, releases, and blog posts relating to open
+        source.
+      </p>
+      <p>Below are the open source projects I have contributed to recently.</p>
       <div className="entries">
         {repositories.map((repository) => {
           const datePrefix = `Most recent contribution: ${
