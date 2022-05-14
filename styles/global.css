@@ -87,6 +87,7 @@ a {
 
 a:hover {
   text-decoration: underline !important;
+  color: var(--tint-color);
 }
 
 pre {
