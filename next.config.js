@@ -17,6 +17,8 @@ module.exports = (phase) => {
   const config = {
     poweredByHeader: false,
     reactStrictMode: true,
+    // Allow nginx to compress. This also enables chunked responses, which breaks Swift package collections
+    compress: false,
     swcMinify: true,
     experimental: {
       outputStandalone: true,
