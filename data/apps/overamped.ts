@@ -90,6 +90,14 @@ A new screen has been added under Advanced Statistics that displays each event t
 
 The permissions model has been simplified. The "Other Websites" will now be the only option shown when first installing the extension.`,
     },
+    {
+      version: "1.2.0",
+      releaseDate: "2022-06-08T14:40:00Z",
+      content: `Support for the Overamped Install Checker has been added, enabling a method of automatically checking if the Safari Extension is enabled and setup correctly.
+
+The new install checker can be found in the About tab.
+`,
+    },
   ],
   privacyPolicy: `
 Overamped does not collect, share, or sell any of your personal data, including what you search or any pages you open. All redirections occur on-device without contacting any external services or websites.
