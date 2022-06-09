@@ -163,6 +163,16 @@ module.exports = (phase) => {
           destination: "/atom.xml",
           permanent: true,
         },
+        {
+          source: "/twitter",
+          destination: "https://twitter.com/Joe_Duffy",
+          permanent: true,
+        },
+        {
+          source: "/github",
+          destination: "https://github.com/JosephDuffy",
+          permanent: true,
+        },
       ]
     },
   }
