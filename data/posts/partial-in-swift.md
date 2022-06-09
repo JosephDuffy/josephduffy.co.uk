@@ -2,7 +2,12 @@
 title: Partial in Swift
 tags: ["swift", "partial"]
 date: 2018-07-10T21:08:12Z
+updateDate: 2022-07-09T14:25:19-0700
 ---
+
+<p class="info">
+Partial is now available in its own <a href="https://github.com/JosephDuffy/Partial" title="Partial Swift package on GitHub">Swift package on GitHub</a>. This post is still valid, but somewhat out of date.
+</p>
 
 Structs are incredibly useful in Swift, especially when representing static read-only data. However, the values of a struct often come from multiple sources, such as view controllers, network requests, and files on disk, which can make the creation of these structs cumbersome.
 
@@ -422,7 +427,7 @@ extension PartialBuilder where Wrapped: PartialConvertible {
 
 ## Full Code
 
-If you want to try `Partial` yourself you can [download the playground][2], or [download Partial.swift][3] and add it to your project.
+`Partial` is available as part of the [`Partial` Swift package on GitHub](https://github.com/JosephDuffy/Partial).
 
 Below is the full code – excluding documentation and `CustomStringConvertible` and `CustomDebugStringConvertible` conformance for the sake of brevity – plus a full example of how `Partial` can be used.
 
@@ -579,9 +584,7 @@ do {
 
 ## Special Thanks
 
-[Shaps][4] helped me a lot with this post, from working with me through the evolution of the implementation to reading drafts of this post. Thanks, Shaps!
+[Shaps][shaps-twitter] helped me a lot with this post, from working with me through the evolution of the implementation to reading drafts of this post. Thanks, Shaps!
 
 [1]: https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types
-[2]: https://josephduffy.co.uk/public/Partial.playground.zip
-[3]: https://gist.github.com/JosephDuffy/66dba40d3d591f83518d0d0d28a0f7f8
-[4]: https://twitter.com/shaps
+[shaps-twitter]: https://twitter.com/shaps
