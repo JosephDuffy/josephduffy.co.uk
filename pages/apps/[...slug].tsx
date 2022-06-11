@@ -136,19 +136,22 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           }
 
           .download-links {
-            margin-top: 8px;
             min-height: 40px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 6px;
+          }
+
+          @media (min-width: 480px) {
+            .download-links {
+              flex-direction: row;
+              align-items: center;
+            }
           }
 
           .download-links > :global(*) {
             display: inline-block;
             height: 100%;
-          }
-
-          .download-links > :global(*:not(:first-child)) {
-            margin-left: 6px;
           }
         `}</style>
       </Page>
