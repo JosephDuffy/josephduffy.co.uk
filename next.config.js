@@ -134,16 +134,6 @@ module.exports = (phase) => {
           permanent: true,
         },
         {
-          source: "/projects/",
-          destination: "/apps",
-          permanent: true,
-        },
-        {
-          source: "/projects",
-          destination: "/apps",
-          permanent: true,
-        },
-        {
           source: "/rss",
           destination: "/rss.xml",
           permanent: true,
