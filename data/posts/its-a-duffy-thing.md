@@ -58,4 +58,4 @@ I'm happy with my decision to open source the website. I can already see that I'
 
 ## Future Posts
 
-I've got a few other post ideas (some of which are already 90% written), so there's going to be more activity on here soon. You can [subscribe to the RSS feed](/rss), [follow me on Twitter](https://twitter.com/Joe_Duffy), or simply check the website soon to see new posts.
+I've got a few other post ideas (some of which are already 90% written), so there's going to be more activity on here soon. You can [subscribe to the blog feed](/blog-feeds), [follow me on Twitter](https://twitter.com/Joe_Duffy), or simply check the website soon to see new posts.
