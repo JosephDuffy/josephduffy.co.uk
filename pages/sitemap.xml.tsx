@@ -52,7 +52,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   })
 
   const allStaticPathGetters = [
-    getStaticAppPaths,
+    () => {
+      return getStaticAppPaths({ defaultLocale: "SITEMAP" })
+    },
     getStaticEntriesPaths,
     getStaticPostsPaths,
     getStaticTagsPaths,

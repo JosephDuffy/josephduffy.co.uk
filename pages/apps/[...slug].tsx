@@ -7,7 +7,7 @@ import Link from "next/link"
 import AppIcon from "../../components/AppIcon"
 import Markdown from "../../components/Markdown"
 import FormattedDate from "../../components/FormattedDate"
-import { GetStaticPaths } from "next/types"
+import { GetStaticPaths, GetStaticPathsContext } from "next/types"
 import { ParsedUrlQuery } from "querystring"
 import VisitAppWebsite from "../../components/VisitAppWebsite"
 import DownloadBadge from "../../components/DownloadBadge"
@@ -275,17 +275,24 @@ export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async (
+  context: GetStaticPathsContext,
+) => {
   const apps = appsLoader.getApps()
+  const includeNonCanonical = context.defaultLocale !== "SITEMAP"
 
   return {
     fallback: false,
     paths: apps.flatMap((app) => {
-      return [
-        `/apps/${app.slug}`,
-        `/apps/${app.slug}/changelog`,
-        `/apps/${app.slug}/privacy`,
-      ]
+      const paths: string[] = []
+      if (includeNonCanonical || app.marketingWebsiteURL === null) {
+        paths.push(`/apps/${app.slug}`)
+      }
+      if (includeNonCanonical || app.externalPrivacyPolicyURL === null) {
+        paths.push(`/apps/${app.slug}/privacy`)
+      }
+      paths.push(`/apps/${app.slug}/changelog`)
+      return paths
     }),
   }
 }
