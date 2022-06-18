@@ -4,7 +4,7 @@ tags: ["swift", "partial"]
 date: 2019-07-10T21:58:41Z
 ---
 
-Today marks 1 year since I released a [blog post demonstrating an implementation of Partial in Swift](https://josephduffy.co.uk/partial-in-swift), and it also marks the release of the 1.0.0 version of a Swift package for Partial.
+Today marks 1 year since I released a [blog post demonstrating an implementation of Partial in Swift](https://josephduffy.co.uk/posts/partial-in-swift), and it also marks the release of the 1.0.0 version of a Swift package for Partial.
 
 The package is [available on GitHub](https://github.com/JosephDuffy/Partial/) and supports SwiftPM, Carthage, and CocoaPods.
 
