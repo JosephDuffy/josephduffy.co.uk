@@ -11,6 +11,9 @@ const Footer: FunctionComponent = () => (
           <Link href="/contact">
             <a>Contact</a>
           </Link>
+          <Link href="/projects">
+            <a>Projects</a>
+          </Link>
           <Link href="/privacy">
             <a>Privacy</a>
           </Link>

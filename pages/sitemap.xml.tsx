@@ -39,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     "/", // Home page
     "/apps",
     "/posts",
+    "/projects",
     "/projects/baking-feedback",
     "/projects/timetable-parser",
     "/bio",
