@@ -35,7 +35,7 @@ const PrivacyPage: NextPage = () => {
       <p>
         If you wish to browse the website without loading the Matomo script and
         with access logging disable please browse via{" "}
-        <a href="https://noanalytics.josephduffy.co.uk">
+        <a href="https://noanalytics.josephduffy.co.uk" rel="nofollow">
           https://noanalytics.josephduffy.co.uk
         </a>{" "}
         or the Tor hidden service linked below.
