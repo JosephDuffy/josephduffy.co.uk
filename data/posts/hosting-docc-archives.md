@@ -32,7 +32,7 @@ The redirects aren't strictly necessary, although they will likely be useful to 
 
 ## Netlify
 
-Website: [docc-netlify.josephduffy.co.uk](https://docc-netlify.josephduffy.co.uk/) | Repo: [github.com/JosephDuffy/DocC-netlify](https://github.com/JosephDuffy/DocC-netlify)
+Website: <a href="https://docc-netlify.josephduffy.co.uk/" rel="nofollow">docc-netlify.josephduffy.co.uk</a> | Repo: [github.com/JosephDuffy/DocC-netlify](https://github.com/JosephDuffy/DocC-netlify)
 
 [Netlify](https://netlify.com) is one of the easiest to setup and provides the most functionality for the least amount of setup. To get setup add your DocC archive to a git repo, add the below configuration (updating the name of the `.docarchive`), publish your repo (public or private), and then set it up on Netlify.
 
@@ -78,7 +78,7 @@ Netlify will host your DocC archive and allow you to setup your own domain to po
 
 ## Vapor Middleware
 
-Website: [vapordocc.josephduffy.co.uk](https://vapordocc.josephduffy.co.uk/) |
+Website: <a href="https://vapordocc.josephduffy.co.uk/" rel="nofollow">vapordocc.josephduffy.co.uk</a> |
 Repo: [github.com/JosephDuffy/VaporDocC-website](https://github.com/JosephDuffy/VaporDocC-website)
 
 [VaporDocC](https://github.com/JosephDuffy/VaporDocC) is middleware I wrote for use with [Vapor](https://github.com/vapor/vapor), a server-side Swift web framework.
@@ -107,7 +107,7 @@ docker run \
 
 ## nginx
 
-Website: [docc-nginx.josephduffy.co.uk](https://docc-nginx.josephduffy.co.uk/) | Repo: [github.com/JosephDuffy/DocC-nginx](https://github.com/JosephDuffy/DocC-nginx)
+Website: <a href="https://docc-nginx.josephduffy.co.uk/" rel="nofollow">docc-nginx.josephduffy.co.uk</a> | Repo: [github.com/JosephDuffy/DocC-nginx](https://github.com/JosephDuffy/DocC-nginx)
 
 Using the nginx configuration may be a good option if you're adding documentation or tutorials to a website that's already using nginx. For nginx there are a few location blocks that will satisfy the basic set of rules:
 
@@ -151,7 +151,7 @@ This configuration assumes that your DocC archive is stored at `/docs/`.
 
 ## Apache
 
-Website: [docc-apache.josephduffy.co.uk](https://docc-apache.josephduffy.co.uk/) | Repo: [github.com/JosephDuffy/DocC-Apache](https://github.com/JosephDuffy/DocC-Apache)
+Website: <a href="https://docc-apache.josephduffy.co.uk/" rel="nofollow">docc-apache.josephduffy.co.uk</a> | Repo: [github.com/JosephDuffy/DocC-Apache](https://github.com/JosephDuffy/DocC-Apache)
 
 An Apache config is the example provided in the WWDC talk, but some extra changes are required to have it function correctly:
 
