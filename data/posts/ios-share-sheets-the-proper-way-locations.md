@@ -17,7 +17,7 @@ Sharing a location on iOS is something that not a lot of apps need, but after re
 
 ## Sharing on iOS - An Overview
 
-![](/images/ios-share-icon.png 'Standard iOS "Action" Icon')
+![Standard iOS "Action" Icon](/images/ios-share-icon.png)
 
 Sharing on iOS is done using the Share Sheet, which is often opened via the "Action" icon (shown left). When tapping this, the user is presented with a Share Sheet, which provides various options, depending on the item being shared. In the blog post we'll be looking at location exclusively, but there are a various things that can be shared, from images, to URLs, to text files. The full list can be found in [Apple's Documentation](https://developer.apple.com/library/ios/documentation/MobileCoreServices/Reference/UTTypeRef/#//apple_ref/doc/uid/TP40008771-CH100-SW2 "UTType Constants").
 

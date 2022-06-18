@@ -37,7 +37,7 @@ This is of course an over simplification, but it demonstrates what's happening. 
 
 This would obviously be a confusing change for some users, and is something would likely only appeal to the nerds that care about the small time save/loss. For this reason I would personally set it as an option that is off by default (or mentioned during setup) and have a visual indicator of what's happening.
 
-![](/images/lockglyph-open-ui.jpg "LockGlyph device unlocking UI")
+!["LockGlyph device unlocking UI"](/images/lockglyph-open-ui.jpg)
 
 [LockGlyph](http://cydia.saurik.com/package/com.evilgoldfish.lockglyph/) (shown above) is a tweak available for iOS 8 that adds the Apple Pay animation to the lock screen when unlocking. If instead of fully unlocking the device when authentication the checkmark were to stay to indicate authentication and acted as the pre-authorisation for the next action. To try and keep the action of unlocking quick the checkmark could also be tapped to unlock the device, as well as the classic slide to unlock. It may even be possible for Apple to implement some form of check so that when the user may wish to interact with the lock screen (such as a notification or music controls being shown) this options is turned on, but in other situations the auto-unlock would only happen based on the user preferences. To summarise, the interaction would go a little like this:
 
