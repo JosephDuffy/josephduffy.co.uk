@@ -1,7 +1,7 @@
 out/
 node_modules/
 ./.*
-GITHUB_ACCESS_TOCKEN
+GITHUB_ACCESS_TOKEN
+LICENSE
 lighthouserc.json
-nginx-config.conf
 README.md
