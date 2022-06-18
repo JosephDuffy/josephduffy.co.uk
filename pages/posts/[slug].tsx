@@ -71,7 +71,7 @@ export default class PostPage extends Component<Props> {
               name="description"
               content={`Blog post by Joseph Duffy about ${post.title}`}
             />
-            {post.draft && <meta name="robots" content="noindex nofollow" />}
+            {post.draft && <meta name="robots" content="noindex, nofollow" />}
             <meta property="og:title" content={post.title} />
             <meta property="og:type" content="article" />
             <meta property="og:url" content={fullPostURL} />
