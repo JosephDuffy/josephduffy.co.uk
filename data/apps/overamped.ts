@@ -98,6 +98,13 @@ The permissions model has been simplified. The "Other Websites" will now be the 
 The new install checker can be found in the About tab.
 `,
     },
+    {
+      version: "1.2.1",
+      releaseDate: "2022-08-10T12:28:12Z",
+      content: `- Fixed an issue that can occur on newer versions of Safari on Google Images
+- Improved layout of popover on larger screens
+`,
+    },
   ],
   privacyPolicy: `
 Overamped does not collect, share, or sell any of your personal data, including what you search or any pages you open. All redirections occur on-device without contacting any external services or websites.
