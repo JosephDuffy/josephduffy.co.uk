@@ -26,7 +26,7 @@
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@hcaptcha/react-hcaptcha": "^1.4.4",
-    "bootstrap": "^5.2.0",
+    "bootstrap": "^5.2.1",
     "cors": "^2.8.5",
     "date-fns": "^2.29.2",
     "feed": "^4.2.2",
@@ -57,7 +57,7 @@
     "@types/react": "^18.0.19",
     "@types/react-dom": "^18.0.6",
     "@types/react-syntax-highlighter": "^15.5.5",
-    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "eslint": "^8.23.0",
     "eslint-config-next": "^12.2.5",
