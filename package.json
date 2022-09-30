@@ -24,7 +24,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "^3.6.10",
     "@hcaptcha/react-hcaptcha": "^1.4.4",
     "bootstrap": "^5.2.1",
     "cors": "^2.8.5",
