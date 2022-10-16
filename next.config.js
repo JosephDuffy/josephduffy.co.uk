@@ -167,5 +167,7 @@ module.exports = (phase) => {
     },
   }
 
-  return withPWA(config)
+  return withPWA({
+    dest: "public",
+  })(config)
 }
