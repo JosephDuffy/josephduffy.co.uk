@@ -20,12 +20,7 @@ module.exports = (phase) => {
     // Allow nginx to compress. This also enables chunked responses, which breaks Swift package collections
     compress: false,
     swcMinify: true,
-    experimental: {
-      outputStandalone: true,
-    },
-    pwa: {
-      dest: "public",
-    },
+    output: "standalone",
     i18n: {
       locales: ["en-GB"],
       defaultLocale: "en-GB",
