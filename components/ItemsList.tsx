@@ -32,8 +32,8 @@ const ItemsList: FunctionComponent<Props> = ({
             return (
               <li className="list-item" key={tag.title}>
                 {tag.url && tag.url.startsWith("/") && (
-                  <Link href={`/tags/${tag.title}`}>
-                    <a rel={rel}>{tag.title}</a>
+                  <Link href={`/tags/${tag.title}`} rel={rel}>
+                    {tag.title}
                   </Link>
                 )}
                 {tag.url && tag.url.startsWith("http") && (
