@@ -14,7 +14,7 @@
   "license": "MIT",
   "author": "Joseph Duffy (https://josephduffy.co.uk)",
   "scripts": {
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "dev": "next",
     "export": "next export",
     "format": "prettier --cache --write .",
