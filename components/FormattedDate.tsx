@@ -5,6 +5,8 @@ interface Props {
   date: string | Date
   secondDate?: string | Date
   prefix?: string
+  style?: "entry-preview"
+  format: "date-only" | "date-and-time"
 }
 
 function datesAreTheSame(dateA: Date, dateB: Date): boolean {
@@ -19,12 +21,22 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
   const { prefix } = props
   const date = new Date(props.date)
   const dateFormat: string = (() => {
-    if (typeof window === "undefined") {
-      // On the server render something unambiguous
-      return "do MMMM, y 'GMT' XXX"
+    if (props.format === "date-only") {
+      if (typeof window === "undefined") {
+        // On the server render something unambiguous
+        return "do MMMM, y O"
+      } else {
+        // On the client render a local string
+        return "do MMMM, y"
+      }
     } else {
-      // On the client render a local string
-      return "do MMMM, y"
+      if (typeof window === "undefined") {
+        // On the server render something unambiguous
+        return "do MMMM, y HH:mm:ss O"
+      } else {
+        // On the client render a local string
+        return "pp PP"
+      }
     }
   })()
   const dateFormatLong: string = (() => {
@@ -58,13 +70,15 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
         {prefix && formattedSecondDate && ` and ${formattedSecondDate}`}
         {!prefix && formattedSecondDate && ` to ${formattedSecondDate}`}
       </time>
-      <style jsx>{`
-        time {
-          display: block;
-          font-size: 0.8rem;
-          color: var(--secondary-label);
-        }
-      `}</style>
+      {props.style === "entry-preview" && (
+        <style jsx>{`
+          time {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--secondary-label);
+          }
+        `}</style>
+      )}
     </Fragment>
   )
 }

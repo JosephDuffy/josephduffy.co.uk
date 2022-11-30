@@ -20,9 +20,19 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
             <h1>{post.title}</h1>
           </a>
         </Link>
-        <FormattedDate date={post.publishDate} prefix="Published" />
+        <FormattedDate
+          date={post.publishDate}
+          prefix="Published"
+          style="entry-preview"
+          format="date-only"
+        />
         {post.updateDate && (
-          <FormattedDate date={post.updateDate} prefix="Updated" />
+          <FormattedDate
+            date={post.updateDate}
+            prefix="Updated"
+            style="entry-preview"
+            format="date-only"
+          />
         )}
         {post.tags.length > 0 && <TagsList tags={post.tags} />}
       </header>

@@ -65,6 +65,8 @@ const OpenSourcePage: NextPage<Props> = ({
                 <FormattedDate
                   date={repository.mostRecentContribution.date}
                   prefix={datePrefix}
+                  style="entry-preview"
+                  format="date-only"
                 />
                 {repository.description && (
                   <p className="description">{repository.description}</p>

@@ -148,9 +148,19 @@ export default class PostPage extends Component<Props> {
           <article>
             <header>
               <h1>{post.title}</h1>
-              <FormattedDate date={post.publishDate} prefix="Published" />
+              <FormattedDate
+                date={post.publishDate}
+                prefix="Published"
+                style="entry-preview"
+                format="date-only"
+              />
               {post.updateDate && (
-                <FormattedDate date={post.updateDate} prefix="Updated" />
+                <FormattedDate
+                  date={post.updateDate}
+                  prefix="Updated"
+                  style="entry-preview"
+                  format="date-only"
+                />
               )}
               {post.tags.length > 0 && <TagsList tags={post.tags} />}
             </header>
@@ -172,6 +182,8 @@ export default class PostPage extends Component<Props> {
                         <FormattedDate
                           date={previousPost.publishDate}
                           prefix="Published"
+                          style="entry-preview"
+                          format="date-only"
                         />
                       </div>
                     </div>
@@ -212,6 +224,8 @@ export default class PostPage extends Component<Props> {
                         <FormattedDate
                           date={nextPost.publishDate}
                           prefix="Published"
+                          style="entry-preview"
+                          format="date-only"
                         />
                       </div>
                       <div className="direction-arrow">&nbsp;→</div>

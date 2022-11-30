@@ -202,7 +202,12 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
           return (
             <div key={changelog.version}>
               <h2>{changelog.version}</h2>
-              <FormattedDate date={changelog.releaseDate} prefix="Released" />
+              <FormattedDate
+                date={changelog.releaseDate}
+                prefix="Released"
+                style="entry-preview"
+                format="date-only"
+              />
               <Markdown source={changelog.content} />
             </div>
           )

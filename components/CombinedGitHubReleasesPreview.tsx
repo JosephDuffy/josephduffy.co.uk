@@ -25,6 +25,8 @@ const CombinedGitHubReleasesPreview: FunctionComponent<Props> = ({
           date={earliestEntry.date}
           secondDate={latestEntry.date}
           prefix="Published"
+          style="entry-preview"
+          format="date-only"
         />
         {combinedReleases.tags.length > 0 && (
           <TagsList tags={combinedReleases.tags} />
