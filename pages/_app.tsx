@@ -78,6 +78,9 @@ class MyApp extends App<AppInitialProps> {
             rel="pingback"
             href="https://webmention.io/josephduffy.co.uk/xmlrpc"
           />
+          <link rel="me" href="https://mastodon.social/@josephduffy" />
+          <link rel="me" href="https://github.com/JosephDuffy" />
+          <link rel="me" href="https://twitter.com/Joe_Duffy" />
         </Head>
         <Component {...pageProps} />
         <style
