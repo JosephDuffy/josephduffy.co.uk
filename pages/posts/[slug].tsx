@@ -67,7 +67,7 @@ export default class PostPage extends Component<Props> {
       return (
         <Page>
           <Head>
-            <title>{post.title} - Joseph Duffy</title>
+            <title>{`${post.title} - Joseph Duffy`}</title>
             <meta
               name="description"
               content={`Blog post by Joseph Duffy about ${post.title}`}

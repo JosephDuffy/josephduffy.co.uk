@@ -57,7 +57,7 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
     return (
       <Page>
         <Head>
-          <title>Contact Me About {name} - Joseph Duffy</title>
+          <title>{`Contact Me About ${name} - Joseph Duffy`}</title>
           <meta
             name="description"
             content={`Contact Joseph Duffy about ${name}`}

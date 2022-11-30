@@ -22,7 +22,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} App - Joseph Duffy</title>
+          <title>{`${app.name} App - Joseph Duffy`}</title>
           <meta name="description" content={app.shortDescription} />
           {app.appId && (
             <meta
@@ -154,7 +154,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} Privacy Policy - Joseph Duffy</title>
+          <title>{`${app.name} Privacy Policy - Joseph Duffy`}</title>
           <meta
             name="description"
             content={`Privacy policy for ${app.name} iOS App`}
@@ -180,7 +180,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
     return (
       <Page>
         <Head>
-          <title>{app.name} Changelog - Joseph Duffy</title>
+          <title>{`${app.name} Changelog - Joseph Duffy`}</title>
           <meta
             name="description"
             content={`Full changelog for ${app.name} iOS App`}
