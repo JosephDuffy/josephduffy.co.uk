@@ -89,21 +89,15 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
               )}
             </div>
             <div className="meta-links">
-              <Link href={`/apps/${app.slug}/changelog`}>
-                <a>Changelog</a>
+              <Link href={`/apps/${app.slug}/changelog`}>Changelog</Link>
+              <span className="divider">•</span>
+              <Link href={`/apps/${app.slug}/privacy`}>Privacy Policy</Link>
+              <span className="divider">•</span>
+              <Link href={`/contact/${app.slug}/`} rel="nofollow">
+                Contact Me About {app.name}
               </Link>
               <span className="divider">•</span>
-              <Link href={`/apps/${app.slug}/privacy`}>
-                <a>Privacy Policy</a>
-              </Link>
-              <span className="divider">•</span>
-              <Link href={`/contact/${app.slug}/`}>
-                <a rel="nofollow">Contact Me About {app.name}</a>
-              </Link>
-              <span className="divider">•</span>
-              <Link href={`/tags/${app.slug}`}>
-                <a>Related Entries</a>
-              </Link>
+              <Link href={`/tags/${app.slug}`}>Related Entries</Link>
             </div>
           </div>
         </div>
@@ -175,7 +169,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
         </Head>
         <p>
           <Link href={`/apps/${app.slug}`}>
-            <a>← Back to information about {app.name}</a>
+            ← Back to information about {app.name}
           </Link>
         </p>
         <h1>{app.name} Privacy Policy</h1>
@@ -194,7 +188,7 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
         </Head>
         <p>
           <Link href={`/apps/${app.slug}`}>
-            <a>← Back to information about {app.name}</a>
+            ← Back to information about {app.name}
           </Link>
         </p>
         <h1>{app.name} Changelog</h1>

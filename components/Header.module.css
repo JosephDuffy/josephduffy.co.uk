@@ -1,0 +1,25 @@
+.header {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: var(--tint-color);
+  margin-bottom: 12px;
+}
+
+.nav {
+  margin: 12px 0;
+}
+
+.link {
+  margin: 8px 12px;
+  font-size: 1.5em;
+  color: var(--primary-background);
+}
+
+.link:first-child {
+  margin-left: 0;
+}
+
+.link:last-child {
+  margin-right: 0;
+}

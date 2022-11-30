@@ -41,7 +41,7 @@ const PostPage: NextPage<Props> = (props: Props) => {
       <p>
         Below are the blog posts I have published since 2015. You can also{" "}
         <Link href="/blog-feeds">
-          <a>subscribe to new posts with your favourite news reader</a>
+          subscribe to new posts with your favourite news reader
         </Link>
         .
       </p>

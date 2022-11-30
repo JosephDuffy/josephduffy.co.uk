@@ -36,10 +36,11 @@ const TimetableParserPage: NextPage = () => {
       </p>
       <p>
         You can also read the{" "}
-        <Link href="/posts/exploiting-university-security-for-my-own-convenience">
-          <a title="Exploiting University Security for My Own Convenience blog post">
-            blog post I wrote when I originally created the project
-          </a>
+        <Link
+          href="/posts/exploiting-university-security-for-my-own-convenience"
+          title="Exploiting University Security for My Own Convenience blog post"
+        >
+          blog post I wrote when I originally created the project
         </Link>
         .
       </p>

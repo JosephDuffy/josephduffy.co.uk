@@ -16,9 +16,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
     <article key={post.slug}>
       <header>
         <Link href={`/posts/${post.slug}`}>
-          <a>
-            <h1>{post.title}</h1>
-          </a>
+          <h1>{post.title}</h1>
         </Link>
         <FormattedDate
           date={post.publishDate}
@@ -40,8 +38,11 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
       <div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
         {post.showKeepReading && (
-          <Link href={`/posts/${post.slug}`}>
-            <a title={`Keep reading ${post.title}`}>Keep Reading</a>
+          <Link
+            href={`/posts/${post.slug}`}
+            title={`Keep reading ${post.title}`}
+          >
+            Keep Reading
           </Link>
         )}
       </div>

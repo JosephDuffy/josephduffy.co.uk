@@ -1,0 +1,32 @@
+.footer {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  font-size: 0.8em;
+  background: var(--tint-color);
+  color: var(--primary-background);
+  margin-top: 12px;
+}
+
+.copyright,
+.build-metadata {
+  width: var(--content-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.nav {
+  white-space: nowrap;
+  margin: 12px 6px;
+}
+
+.navLink {
+  margin: 6px;
+}
+
+.navLink,
+.link {
+  text-decoration: underline;
+  color: var(--primary-background);
+}

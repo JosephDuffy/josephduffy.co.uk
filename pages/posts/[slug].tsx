@@ -12,6 +12,7 @@ import {
 } from "next/types"
 import { Component, Fragment } from "react"
 import { ParsedUrlQuery } from "querystring"
+import styles from "./Post.module.css"
 
 interface SiblingPost {
   url: string
@@ -169,86 +170,88 @@ export default class PostPage extends Component<Props> {
               dangerouslySetInnerHTML={{ __html: post.contentHTML }}
             />
           </article>
-          <div id="previous-next-post-links">
+          <div id={styles["previous-next-post-links"]}>
             <div className="left-link-container">
               {previousPost && (
-                <Link href={previousPost.url}>
-                  <a title={previousPost.title} className="left-link">
-                    <div className="navigation-container">
-                      <div className="direction-arrow">←&nbsp;</div>
-                      <div className="post-metadata-container">
-                        <span className="post-name">{previousPost.title}</span>
-                        <br />
-                        <FormattedDate
-                          date={previousPost.publishDate}
-                          prefix="Published"
-                          style="entry-preview"
-                          format="date-only"
-                        />
-                      </div>
+                <Link
+                  href={previousPost.url}
+                  title={previousPost.title}
+                  className={styles.link}
+                >
+                  <div className="navigation-container">
+                    <div className="direction-arrow">←&nbsp;</div>
+                    <div className="post-metadata-container">
+                      <span className="post-name">{previousPost.title}</span>
+                      <br />
+                      <FormattedDate
+                        date={previousPost.publishDate}
+                        prefix="Published"
+                        style="entry-preview"
+                        format="date-only"
+                      />
                     </div>
-                  </a>
+                  </div>
                 </Link>
               )}
               {!previousPost && (
-                <Link href="/blog-feeds">
-                  <a
-                    title="View available RSS, Atom, and JSON blog post feeds"
-                    className="left-link"
+                <Link
+                  href="/blog-feeds"
+                  title="View available RSS, Atom, and JSON blog post feeds"
+                  className={styles.link}
+                >
+                  <div
+                    id="first-post-container"
+                    className="navigation-container"
                   >
-                    <div
-                      id="first-post-container"
-                      className="navigation-container"
-                    >
-                      <span className="alt-action-title">
-                        Subscribe to blog feed
-                      </span>
-                      <br />
-                      <span className="alt-action-subtitle">
-                        This is my first blog post
-                      </span>
-                    </div>
-                  </a>
+                    <span className="alt-action-title">
+                      Subscribe to blog feed
+                    </span>
+                    <br />
+                    <span className="alt-action-subtitle">
+                      This is my first blog post
+                    </span>
+                  </div>
                 </Link>
               )}
             </div>
             <div className="spacer"></div>
             <div className="right-link-container">
               {nextPost && (
-                <Link href={nextPost.url}>
-                  <a title={nextPost.title} className="right-link">
-                    <div id="next-post-link" className="navigation-container">
-                      <div className="post-metadata-container">
-                        <span className="post-name">{nextPost.title}</span>
-                        <br />
-                        <FormattedDate
-                          date={nextPost.publishDate}
-                          prefix="Published"
-                          style="entry-preview"
-                          format="date-only"
-                        />
-                      </div>
-                      <div className="direction-arrow">&nbsp;→</div>
+                <Link
+                  href={nextPost.url}
+                  title={nextPost.title}
+                  className={styles.link}
+                >
+                  <div id="next-post-link" className="navigation-container">
+                    <div className="post-metadata-container">
+                      <span className="post-name">{nextPost.title}</span>
+                      <br />
+                      <FormattedDate
+                        date={nextPost.publishDate}
+                        prefix="Published"
+                        style="entry-preview"
+                        format="date-only"
+                      />
                     </div>
-                  </a>
+                    <div className="direction-arrow">&nbsp;→</div>
+                  </div>
                 </Link>
               )}
               {!nextPost && (
-                <Link href="/blog-feeds">
-                  <a
-                    title="View available RSS, Atom, and JSON blog post feeds"
-                    className="right-link"
-                  >
-                    <div id="blog-feeds-link" className="navigation-container">
-                      <span className="alt-action-title">
-                        Subscribe to blog feed
-                      </span>
-                      <br />
-                      <span className="alt-action-subtitle">
-                        This is my latest blog post
-                      </span>
-                    </div>
-                  </a>
+                <Link
+                  href="/blog-feeds"
+                  title="View available RSS, Atom, and JSON blog post feeds"
+                  className={styles.link}
+                >
+                  <div id="blog-feeds-link" className="navigation-container">
+                    <span className="alt-action-title">
+                      Subscribe to blog feed
+                    </span>
+                    <br />
+                    <span className="alt-action-subtitle">
+                      This is my latest blog post
+                    </span>
+                  </div>
                 </Link>
               )}
             </div>
@@ -272,28 +275,6 @@ export default class PostPage extends Component<Props> {
               border-left: 2px solid var(--info-color);
             }
 
-            #previous-next-post-links {
-              display: flex;
-              flex-direction: column;
-            }
-
-            #previous-next-post-links a {
-              display: inline-flex;
-              background: var(--secondary-background);
-              height: 100%;
-              width: 100%;
-              border-radius: 8px;
-            }
-
-            #previous-next-post-links a:hover {
-              text-decoration: none !important;
-              background: var(--tertiary-background);
-            }
-
-            #previous-next-post-links a:focus {
-              outline: auto;
-            }
-
             .right-link-container {
               text-align: right;
             }
@@ -305,10 +286,6 @@ export default class PostPage extends Component<Props> {
             }
 
             @media (min-width: 480px) {
-              #previous-next-post-links {
-                flex-direction: row;
-              }
-
               .left-link-container,
               .right-link-container {
                 display: inline-block;
@@ -371,10 +348,7 @@ export default class PostPage extends Component<Props> {
     } else {
       return (
         <ErrorPage title={"Blog post not found"} statusCode={404}>
-          <Link href="/posts/">
-            <a>Go back to the index of blog posts</a>
-          </Link>
-          .
+          <Link href="/posts/">Go back to the index of blog posts</Link>.
         </ErrorPage>
       )
     }

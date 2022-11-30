@@ -1,0 +1,27 @@
+#previous-next-post-links {
+  display: flex;
+  flex-direction: column;
+}
+
+#previous-next-post-links .link {
+  display: inline-flex;
+  background: var(--secondary-background);
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+}
+
+#previous-next-post-links .link:hover {
+  text-decoration: none !important;
+  background: var(--tertiary-background);
+}
+
+#previous-next-post-links .link:focus {
+  outline: auto;
+}
+
+@media (min-width: 480px) {
+  #previous-next-post-links {
+    flex-direction: row;
+  }
+}

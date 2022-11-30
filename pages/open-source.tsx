@@ -40,8 +40,8 @@ const OpenSourcePage: NextPage<Props> = ({
       </p>
       <p>
         The{" "}
-        <Link href="/tags/open-source">
-          <a rel="tag">open-source tag</a>
+        <Link href="/tags/open-source" rel="tag">
+          open-source tag
         </Link>
         collects all contributions, releases, and blog posts relating to open
         source.

@@ -20,10 +20,8 @@ const YetiiPage: NextPage = () => {
       </p>
       <p>
         Yetii is the company I used to publish{" "}
-        <Link href="/apps/">
-          <a>my iOS apps on the App Store</a>
-        </Link>
-        . Information about Yetii was previously available on{" "}
+        <Link href="/apps/">my iOS apps on the App Store</Link>. Information
+        about Yetii was previously available on{" "}
         <a href="https://yetii.net" rel="nofollow">
           https://yetii.net
         </a>{" "}

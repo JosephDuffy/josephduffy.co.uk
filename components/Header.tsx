@@ -1,54 +1,28 @@
 import Link from "next/link"
 import { Fragment, FunctionComponent } from "react"
 import HorizontalScrollContainer from "./HorizontalScrollContainer"
+import styles from "./Header.module.css"
 
 const Header: FunctionComponent = () => (
   <Fragment>
-    <header>
+    <header className={styles.header}>
       <HorizontalScrollContainer>
-        <nav>
-          <Link href="/">
-            <a>Home</a>
+        <nav className={styles.nav}>
+          <Link href="/" className={styles.link}>
+            Home
           </Link>
-          <Link href="/apps">
-            <a>Apps</a>
+          <Link href="/apps" className={styles.link}>
+            Apps
           </Link>
-          <Link href="/posts">
-            <a>Blog Posts</a>
+          <Link href="/posts" className={styles.link}>
+            Blog Posts
           </Link>
-          <Link href="/open-source">
-            <a>Open Source</a>
+          <Link href="/open-source" className={styles.link}>
+            Open Source
           </Link>
         </nav>
       </HorizontalScrollContainer>
     </header>
-    <style jsx>{`
-      header {
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        background: var(--tint-color);
-        margin-bottom: 12px;
-      }
-
-      nav {
-        margin: 12px 0;
-      }
-
-      a {
-        margin: 8px 12px;
-        font-size: 1.5em;
-        color: var(--primary-background);
-      }
-
-      a:first-child {
-        margin-left: 0;
-      }
-
-      a:last-child {
-        margin-right: 0;
-      }
-    `}</style>
   </Fragment>
 )
 

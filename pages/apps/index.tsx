@@ -28,10 +28,7 @@ const AppsPage: NextPage<Props> = ({ apps }: Props) => {
       <EntriesPreviewsGrid entries={apps} appCampaignName="apps-page" />
       <p>
         All of my apps are released in my company&apos;s name,{" "}
-        <Link href="/yetii/">
-          <a>Yetii Ltd</a>
-        </Link>
-        .
+        <Link href="/yetii/">Yetii Ltd</Link>.
       </p>
     </Page>
   )
