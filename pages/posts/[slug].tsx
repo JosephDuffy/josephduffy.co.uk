@@ -257,6 +257,10 @@ export default class PostPage extends Component<Props> {
             </div>
           </div>
           <style jsx>{`
+            article header :global(time) {
+              display: block;
+            }
+
             .post-content {
               padding-top: 16px;
             }
