@@ -64,7 +64,7 @@ const Footer: FunctionComponent = () => {
           >
             CC-BY-4.0
           </a>
-          .
+          , unless otherwise specified.
         </div>
         {gitCommit !== undefined && buildDate !== undefined && (
           <div className={styles["build-metadata"]}>
