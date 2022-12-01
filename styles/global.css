@@ -56,12 +56,29 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
 html {
   min-height: -webkit-fill-available;
   background: var(--primary-background);
 }
 
 body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: var(--bs-body-color);
   background: var(--primary-background);
   color: var(--primary-label);
   min-height: 100vh;
@@ -69,10 +86,30 @@ body {
   display: flex;
 }
 
-#__next {
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+#__next,
+body {
   display: flex;
   flex-direction: column;
   background: var(--primary-background);
+}
+
+#__next {
+  flex: 1;
 }
 
 main {
@@ -87,7 +124,81 @@ a {
 
 a:hover {
   text-decoration: underline !important;
+}
+
+main a:hover {
   color: var(--tint-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: 2rem;
+}
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+@media (min-width: 1200px) {
+  h2 {
+    font-size: 2rem;
+  }
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+@media (min-width: 1200px) {
+  h3 {
+    font-size: 1.75rem;
+  }
+}
+
+h4 {
+  font-size: 1rem;
+}
+@media (min-width: 1200px) {
+  h4 {
+    font-size: 1.5rem;
+  }
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 16px;
+}
+
+dl,
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ol,
+ul {
+  padding-left: 2rem;
 }
 
 pre {
@@ -98,6 +209,13 @@ code {
   padding: 1px 0.4em;
   border-radius: 3px;
   background-color: #7878805b;
+}
+
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 0.875em;
 }
 
 pre code {

@@ -26,7 +26,6 @@
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@hcaptcha/react-hcaptcha": "^1.4.4",
-    "bootstrap": "^5.2.2",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "feed": "^4.2.2",
