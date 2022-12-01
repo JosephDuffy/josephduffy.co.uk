@@ -1,5 +1,6 @@
 import { FunctionComponent, Fragment } from "react"
 import { format } from "date-fns"
+import styles from "./FormattedDate.module.css"
 
 interface Props {
   date: string | Date
@@ -63,6 +64,9 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
         suppressHydrationWarning
         title={formattedDateFull}
         dateTime={isoDate}
+        className={
+          props.style === "entry-preview" ? styles.entryPreviewTime : undefined
+        }
       >
         {prefix && `${prefix} `}
         {prefix && formattedSecondDate && `between `}
@@ -70,15 +74,6 @@ const FormattedDate: FunctionComponent<Props> = (props: Props) => {
         {prefix && formattedSecondDate && ` and ${formattedSecondDate}`}
         {!prefix && formattedSecondDate && ` to ${formattedSecondDate}`}
       </time>
-      {props.style === "entry-preview" && (
-        <style jsx>{`
-          time {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--secondary-label);
-          }
-        `}</style>
-      )}
     </Fragment>
   )
 }
