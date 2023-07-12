@@ -1,7 +1,7 @@
 import matter from "gray-matter"
 import glob from "glob"
 import path from "path"
-import fs from "fs"
+import { readFile } from "fs/promises"
 import BlogPost from "../models/BlogPost"
 import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
@@ -9,6 +9,12 @@ import Markdown from "../components/Markdown"
 import React from "react"
 import { compareAsc } from "date-fns"
 import { Cache, CacheClass } from "memory-cache"
+import seriesLoader from "./SeriesLoader"
+import SeriesChapters from "../components/SeriesChapters"
+import BlogPostFrontmatter, {
+  BlogPostFrontmatterSchema,
+} from "../models/BlogPostFrontmatter"
+import Series from "../models/Series"
 
 export class PostsLoader {
   #cache: CacheClass<string, BlogPost[]>
@@ -28,21 +34,108 @@ export class PostsLoader {
       return cachedPosts
     }
 
+    const seriesMetadataPromise = seriesLoader.getSeries()
+
     console.debug("Loading posts")
 
-    const postPaths = glob.sync("data/posts/*.md")
-    const posts = postPaths
-      .map((postPath) => {
+    type ParsedPost = BlogPostFrontmatter & {
+      slug: string
+      content: string
+      excerpt?: string | undefined
+    }
+
+    const postPaths = glob.sync("data/posts/**/*.md")
+    const parsedPosts = await Promise.all(
+      postPaths.map(async (postPath): Promise<ParsedPost> => {
         console.debug(`Loading post at ${postPath}`)
         const slug = path.basename(postPath, path.extname(postPath))
-        const fileBuffer = fs.readFileSync(postPath)
+        const fileBuffer = await readFile(postPath)
         const excerptSeparator = "<!-- more -->"
-        const parsedContent = matter(fileBuffer, {
+        const parsedFile = matter(fileBuffer, {
           excerpt: true,
           excerpt_separator: excerptSeparator,
         })
+        const frontMatter = await BlogPostFrontmatterSchema.validate(
+          parsedFile.data,
+        )
+        return {
+          ...frontMatter,
+          slug,
+          content: parsedFile.content,
+          excerpt: parsedFile.excerpt,
+        } as ParsedPost
+      }),
+    )
+
+    const series: Record<
+      string,
+      {
+        posts: {
+          slug: string
+          title: string
+          publishDate: Date
+        }[]
+        series: Series
+      }
+    > = {}
+
+    for (const parsedContent of parsedPosts) {
+      if (parsedContent.series) {
+        const seriesMetadata = await seriesMetadataPromise
+        const seriesMetadataIndex = seriesMetadata.findIndex((metadata) => {
+          return metadata.id === parsedContent.series
+        })
+        if (seriesMetadataIndex !== -1) {
+          const post = {
+            slug: parsedContent.slug,
+            title: parsedContent.title.replace(
+              `${seriesMetadata[seriesMetadataIndex].title} – `,
+              "",
+            ),
+            publishDate: parsedContent.date,
+          }
+          if (!series[parsedContent.series]) {
+            series[parsedContent.series] = {
+              posts: [post],
+              series: seriesMetadata[seriesMetadataIndex],
+            }
+          } else {
+            series[parsedContent.series].posts.push(post)
+
+            series[parsedContent.series].posts.sort((a, b) => {
+              return compareAsc(a.publishDate, b.publishDate)
+            })
+          }
+        } else {
+          console.error(
+            `Post ${parsedContent.slug} has series ${parsedContent.series}, which was not found in known series ${seriesMetadata}`,
+          )
+        }
+      }
+    }
+
+    const allPosts = await Promise.all(
+      parsedPosts.map(async (parsedContent) => {
+        const seriesHTML = await (async () => {
+          if (
+            parsedContent.series &&
+            series[parsedContent.series] !== undefined
+          ) {
+            return ReactDOMServer.renderToStaticMarkup(
+              <SeriesChapters
+                series={series[parsedContent.series].series}
+                currentPostId={parsedContent.slug}
+                postsInSeries={series[parsedContent.series].posts}
+              />,
+            )
+          }
+        })()
+
         const excerptRegex = /<!-- more -->/g
-        const markdownContent = parsedContent.content.replace(excerptRegex, "")
+        const markdownContent = parsedContent.content.replace(
+          excerptRegex,
+          seriesHTML ?? "",
+        )
         const contentHTML = ReactDOMServer.renderToStaticMarkup(
           <Markdown
             source={markdownContent}
@@ -61,28 +154,27 @@ export class PostsLoader {
               />,
             )
           : null
-        const publishDate = new Date(parsedContent.data.date).toISOString()
-        const updateDate =
-          parsedContent.data.updateDate !== undefined
-            ? new Date(parsedContent.data.updateDate).toISOString()
-            : null
-        const draft = parsedContent.data.draft ?? false
 
         return {
-          slug,
-          title: parsedContent.data.title,
+          slug: parsedContent.slug,
+          title: parsedContent.title,
           contentHTML,
           excerptHTML,
-          date: updateDate ?? publishDate,
-          publishDate,
-          updateDate: updateDate ?? null,
-          draft,
-          url: `/posts/${slug}`,
-          tags: parsedContent.data.tags ?? [],
-          imageURL: parsedContent.data.imageURL ?? null,
+          date:
+            parsedContent.updateDate?.toISOString() ??
+            parsedContent.date.toISOString(),
+          publishDate: parsedContent.date.toISOString(),
+          updateDate: parsedContent.updateDate?.toISOString() ?? null,
+          draft: parsedContent.draft,
+          url: `/posts/${parsedContent.slug}`,
+          tags: parsedContent.tags,
+          imageURL: parsedContent.imageURL ?? null,
           type: EntryType.BlogPost,
         } as BlogPost
-      })
+      }),
+    )
+
+    const posts = allPosts
       .filter((post) => {
         return !post.draft || process.env.NODE_ENV === "development"
       })
