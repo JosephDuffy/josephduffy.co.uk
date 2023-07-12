@@ -4,6 +4,7 @@
 .next/
 GITHUB_ACCESS_TOKEN
 eslint_report.json
+data/**/drafts
 
 ## Static export
 out/
