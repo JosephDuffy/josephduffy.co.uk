@@ -4,7 +4,7 @@ export const BlogPostFrontmatterSchema = y.object({
   title: y.string().required(),
   date: y.date().required(),
   updateDate: y.date(),
-  draft: y.boolean().default(true),
+  draft: y.boolean().default(false),
   tags: y.array().of(y.string()).default([]),
   imageURL: y.string(),
   series: y.string(),
