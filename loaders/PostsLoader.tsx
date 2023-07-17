@@ -181,7 +181,19 @@ export class PostsLoader {
 
     const posts = allPosts
       .filter((post) => {
-        return !post.draft || process.env.NODE_ENV === "development"
+        if (post.draft) {
+          if (process.env.NODE_ENV === "development") {
+            console.debug(
+              `Post ${post.slug} is a draft; allowing during development`,
+            )
+            return true
+          } else {
+            console.info(`Post ${post.slug} is a draft; removing`)
+            return false
+          }
+        }
+
+        return true
       })
       .sort((postA, postB) => {
         return compareAsc(new Date(postA.date), new Date(postB.date))
