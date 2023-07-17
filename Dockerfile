@@ -1,14 +1,16 @@
 # Based on the example Docker setup: https://github.com/vercel/next.js/tree/canary/examples/with-docker
 
+FROM node:18.16.1-alpine AS base
+
 # Install dependencies only when needed
-FROM node:16.13.0-alpine AS deps
+FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 # Required for swc when building
 RUN npm ci && npm install @next/swc-linux-x64-gnu --no-save
 
 # Rebuild the source code only when needed
-FROM node:16.13.0 AS builder
+FROM base AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
@@ -31,7 +33,7 @@ RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
 RUN npm ci
 
 # Production image, copy all the files and run next
-FROM node:16.13.0-alpine AS runner
+FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
