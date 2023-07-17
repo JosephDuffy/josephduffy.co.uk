@@ -47,23 +47,28 @@ export class PostsLoader {
     const postPaths = glob.sync("data/posts/**/*.md")
     const parsedPosts = await Promise.all(
       postPaths.map(async (postPath): Promise<ParsedPost> => {
-        console.debug(`Loading post at ${postPath}`)
-        const slug = path.basename(postPath, path.extname(postPath))
-        const fileBuffer = await readFile(postPath)
-        const excerptSeparator = "<!-- more -->"
-        const parsedFile = matter(fileBuffer, {
-          excerpt: true,
-          excerpt_separator: excerptSeparator,
-        })
-        const frontMatter = await BlogPostFrontmatterSchema.validate(
-          parsedFile.data,
-        )
-        return {
-          ...frontMatter,
-          slug,
-          content: parsedFile.content,
-          excerpt: parsedFile.excerpt,
-        } as ParsedPost
+        try {
+          console.debug(`Loading post at ${postPath}`)
+          const slug = path.basename(postPath, path.extname(postPath))
+          const fileBuffer = await readFile(postPath)
+          const excerptSeparator = "<!-- more -->"
+          const parsedFile = matter(fileBuffer, {
+            excerpt: true,
+            excerpt_separator: excerptSeparator,
+          })
+          const frontMatter = await BlogPostFrontmatterSchema.validate(
+            parsedFile.data,
+          )
+          return {
+            ...frontMatter,
+            slug,
+            content: parsedFile.content,
+            excerpt: parsedFile.excerpt,
+          } as ParsedPost
+        } catch (error) {
+          console.error(`Failed to load post at ${postPath}`, error)
+          throw error
+        }
       }),
     )
 
@@ -184,7 +189,7 @@ export class PostsLoader {
 
     this.setCachedPosts(posts, renderCodeblocks)
 
-    console.debug("Loaded posts")
+    console.debug(`Loaded ${posts.length} post(s)`)
 
     return posts
   }
