@@ -119,9 +119,10 @@ export class PostsLoader {
       }
     }
 
-    const allPosts = await Promise.all(
-      parsedPosts.map(async (parsedContent) => {
-        const seriesHTML = await (async () => {
+    const allPosts = parsedPosts.map((parsedContent) => {
+      try {
+        console.debug(`Rendering post ${parsedContent.slug}`)
+        const seriesHTML = (() => {
           if (
             parsedContent.series &&
             series[parsedContent.series] !== undefined
@@ -176,8 +177,11 @@ export class PostsLoader {
           imageURL: parsedContent.imageURL ?? null,
           type: EntryType.BlogPost,
         } as BlogPost
-      }),
-    )
+      } catch (error) {
+        console.error(`Failed to parse post ${parsedContent.slug}`, error)
+        throw error
+      }
+    })
 
     const posts = allPosts
       .filter((post) => {
