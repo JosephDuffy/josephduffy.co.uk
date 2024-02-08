@@ -10,8 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { notFound: true }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const sitemapURL = websiteURL!
+  const sitemapURL = websiteURL
   sitemapURL.pathname = "sitemap.xml"
   const res = context.res
   res.setHeader("Content-Type", "text/plain")
