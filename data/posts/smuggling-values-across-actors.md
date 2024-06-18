@@ -72,6 +72,29 @@ With this we can smuggle our value through:
     }
 ```
 
+We can add an extension to `MainActor` that makes this a little more convenient.
+
+```swift
+extension MainActor {
+    public static func assumeIsolated<Smuggled>(
+        smuggling smuggled: Smuggled,
+        operation: @MainActor (_ smuggled: Smuggled) -> Void,
+        file: StaticString = #fileID,
+        line: UInt = #line
+    ) {
+        let smuggler = Smuggler(unsafeSmuggled: smuggled)
+        withoutActuallyEscaping(operation) { escapingOperation in
+            let smuggledOperation = Smuggler(unsafeSmuggled: escapingOperation)
+            assumeIsolated({
+                smuggledOperation.smuggled(smuggler.smuggled)
+            }, file: file, line: line)
+        }
+    }
+}
+```
+
 I have been playing around with trying to add a function to `GlobalActor` that would make the API a bit nicer but I think it's going to require a macro, lest we resort to reimplementing [`MainActor.assumeIsolated`](https://github.com/apple/swift/blob/main/stdlib/public/Concurrency/MainActor.swift#L142) 😊
+
+Although this isn't really "smuggling" because the value is not actually crossing an actor boundary I like the term and I'm sticking to it! Especially because I assume this workaround will be temporary.
 
 P.S. I created a [demo project of the issue](https://github.com/JosephDuffy/AVCaptureMetadataOutputObjectsDelegateConcurrency), which I also submitted to Apple as feedback FB13950073 ✌️
