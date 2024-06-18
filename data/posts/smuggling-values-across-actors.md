@@ -64,10 +64,10 @@ With this we can smuggle our value through:
     nonisolated func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // We know it's on the main actor so we should be able to assume
         // isolated and pass metadata objects to another function.
+        let smuggler = Smuggler(unsafeSmuggled: metadataObjects)
         MainActor.assumeIsolated {
-            // This does not compile though, presumably because AVMetadataObject
-            // is not Sendable.
-            doSomethingWithMetadataObjects(metadataObjects) // ❌ Error: Sending 'metadataObjects' risks causing data races
+            let metadataObjects = smuggler.smuggled
+            doSomethingWithMetadataObjects(metadataObjects) // ✅ Works
         }
     }
 ```
