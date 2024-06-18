@@ -2,6 +2,7 @@
 title: Smuggling Values Across Actors
 tags: ["swift", "concurrency", "swift-6"]
 date: 2024-06-18T01:12:34Z
+updateDate: 2024-06-18T03:45:53Z
 ---
 
 I recently started updating an app to use the Swift 6 language mode and ran in to an issue using `AVCaptureMetadataOutputObjectsDelegate`. The issue is that the compiler cannot reason about which actor the delegate function is called on and it must be treated as nonisolated, however _we_ know that it's being called on a specific actor (in this case the `MainActor`), so how can we tell the compiler?
