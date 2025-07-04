@@ -1,5 +1,5 @@
 import matter from "gray-matter"
-import glob from "glob"
+import { glob } from "glob"
 import path from "path"
 import { readFile } from "fs/promises"
 import BlogPost from "../models/BlogPost"
@@ -84,7 +84,7 @@ export class PostsLoader {
       excerpt?: string | undefined
     }
 
-    const postPaths = glob.sync("data/posts/**/*.md")
+    const postPaths = await glob("data/posts/**/*.md")
     const parsedPosts = await (async () => {
       const posts = await Promise.all(
         postPaths.map(async (postPath): Promise<ParsedPost | null> => {

@@ -1,5 +1,5 @@
 import { SeriesSchema, type Series } from "../models/Series"
-import glob from "glob"
+import { glob } from "glob"
 import { readFile } from "fs/promises"
 
 export class SeriesLoader {
@@ -12,7 +12,7 @@ export class SeriesLoader {
 
     console.debug("Loading series")
 
-    const seriesPaths = glob.sync("data/series/**/*.json")
+    const seriesPaths = await glob("data/series/**/*.json")
     const series: Series[] = await Promise.allSettled(
       seriesPaths.map(async (path) => {
         try {
