@@ -4,6 +4,8 @@
   max-width: unset;
   width: 96px;
   height: 96px;
+  /* Possibly fix drop shadow being clipped on sides on Safari */
+  transform: translateZ(0);
 }
 
 @media (prefers-color-scheme: light) {
