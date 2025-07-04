@@ -29,7 +29,11 @@ export class PostsLoader {
     websiteURL?: URL,
   ): Promise<BlogPost[]> {
     const cachedPosts = this.getCachedPosts(renderCodeblocks)
-    if (!forceRefresh && cachedPosts !== null) {
+    if (
+      !forceRefresh &&
+      cachedPosts !== null &&
+      process.env.NODE_ENV !== "development"
+    ) {
       console.debug("Using cached posts")
       return cachedPosts
     }
