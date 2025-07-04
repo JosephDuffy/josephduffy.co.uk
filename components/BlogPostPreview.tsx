@@ -42,7 +42,7 @@ const BlogPostPreviewComponent: FunctionComponent<Props> = ({
             href={`/posts/${post.slug}`}
             title={`Keep reading ${post.title}`}
           >
-            Keep Reading
+            Keep Reading →
           </Link>
         )}
       </div>
