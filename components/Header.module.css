@@ -6,14 +6,17 @@
   margin-bottom: 12px;
 }
 
-.nav {
-  margin: 12px 0;
-}
-
 .link {
-  margin: 8px 12px;
+  padding: 12px;
   font-size: 1.5em;
   color: var(--primary-background);
+  font-weight: 500;
+  display: inline-block;
+}
+
+.link:hover {
+  background: #e6b801;
+  text-decoration: none !important;
 }
 
 .link:first-child {
