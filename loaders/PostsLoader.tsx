@@ -173,6 +173,42 @@ export class PostsLoader {
         }
       }
     }
+    // Without this TypeScript does not like `remarkAlert` or `rehypeRaw`.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let remarkChain: any = remark()
+
+    if (!websiteURL) {
+      // Parse GitHub-style alerts in markdown. Don't do this when a
+      // website URL is provided because this is being used for e.g. an
+      // RSS feed, which does not support SVGs.
+      remarkChain = remarkChain.use(remarkAlert)
+    }
+
+    // Parse markdown
+    remarkChain = remarkChain.use(remarkRehype, {
+      allowDangerousHtml: true,
+    })
+
+    if (renderCodeblocks) {
+      // Highlight code blocks
+      remarkChain = remarkChain.use(rehypeHighlight)
+    }
+    remarkChain = remarkChain
+      // Re-parse HTML embedded in markdown
+      .use(rehypeRaw)
+
+    if (websiteURL) {
+      console.log("Using website URL for links:", websiteURL.toString())
+
+      // Make relative links absolute
+      remarkChain = remarkChain.use(linksAbsolute, {
+        baseURL: websiteURL,
+      })
+    }
+
+    remarkChain = remarkChain
+      // Convert to HTML
+      .use(rehypeStringify)
 
     const allPosts = await Promise.all(
       parsedPosts.map(async (parsedContent) => {
@@ -198,42 +234,6 @@ export class PostsLoader {
             excerptRegex,
             seriesHTML ?? "",
           )
-          // Without this TypeScript does not like `remarkAlert` or `rehypeRaw`.
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          let remarkChain: any = remark()
-
-          if (!websiteURL) {
-            // Parse GitHub-style alerts in markdown. Don't do this when a
-            // website URL is provided because this is being used for e.g. an
-            // RSS feed, which does not support SVGs.
-            remarkChain = remarkChain.use(remarkAlert)
-          }
-
-          // Parse markdown
-          remarkChain = remarkChain.use(remarkRehype, {
-            allowDangerousHtml: true,
-          })
-
-          if (renderCodeblocks) {
-            // Highlight code blocks
-            remarkChain = remarkChain.use(rehypeHighlight)
-          }
-          remarkChain = remarkChain
-            // Re-parse HTML embedded in markdown
-            .use(rehypeRaw)
-
-          if (websiteURL) {
-            console.log("Using website URL for links:", websiteURL.toString())
-
-            // Make relative links absolute
-            remarkChain = remarkChain.use(linksAbsolute, {
-              baseURL: websiteURL,
-            })
-          }
-
-          remarkChain = remarkChain
-            // Convert to HTML
-            .use(rehypeStringify)
 
           const processedContent = await remarkChain.process(markdownContent)
           const contentHTML = processedContent.toString()
