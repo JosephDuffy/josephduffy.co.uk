@@ -40,7 +40,7 @@ const Markdown: FunctionComponent<Props> = ({
         },
         a({ href, children, node, ...props }) {
           if (websiteURL && href && href.startsWith("/")) {
-            const anchorURL = websiteURL
+            const anchorURL = new URL(websiteURL)
             anchorURL.pathname = href
             return (
               <a {...props} href={anchorURL.toString()}>
@@ -57,7 +57,7 @@ const Markdown: FunctionComponent<Props> = ({
         },
         img({ src, children, node, ...props }) {
           if (websiteURL && src && src.startsWith("/")) {
-            const srcURL = websiteURL
+            const srcURL = new URL(websiteURL)
             srcURL.pathname = src
             return (
               <img {...props} src={srcURL.toString()}>
