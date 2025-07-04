@@ -6,6 +6,7 @@ import appsLoader from "../loaders/AppsLoader"
 import Head from "next/head"
 import EntriesPreviewsGrid from "../components/EntriesPreviewsGrid"
 import { EntryType } from "../models/Entry"
+import styles from "./index.module.css"
 
 type Favourite = { type: EntryType; slug: string } | PossibleEntries
 
@@ -46,12 +47,25 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
           content="Apps, blog posts, open source projects and contributions, and Stack Overflow contributions by Joseph Duffy"
         />
       </Head>
-      <p className="intro">
-        Hi! 👋 I&apos;m Joseph Duffy. I enjoy building software. This website
-        contains information about my commercial software, open-source projects,
-        and blog posts. Welcome to my corner of the internet!
-      </p>
-      <h1>★ My Favourites</h1>
+      <h1>Hi 👋 I&apos;m Joseph Duffy</h1>
+      <div className={styles.introContainer}>
+        <picture className={styles.portrait}>
+          <source type="image/webp" srcSet="/images/portrait.webp"></source>
+          <source type="image/jpeg" srcSet="/images/portrait.jpeg"></source>
+          <img
+            src="/images/portrait.jpeg"
+            alt="Joseph Duffy"
+            width={100}
+            height={100}
+            className={styles.portrait}
+          />
+        </picture>
+        <p>
+          I enjoy building software. This website contains information about the
+          apps I have created, open-source projects, and blog posts. Welcome to
+          my corner of the internet!
+        </p>
+      </div>
       <EntriesPreviewsGrid
         entries={favouriteEntries}
         appCampaignName="home-favourites"

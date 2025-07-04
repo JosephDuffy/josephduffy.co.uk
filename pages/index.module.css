@@ -1,0 +1,20 @@
+img.portrait,
+picture.portrait {
+  width: 100px;
+  /* Fixes width being too narrow because it's inside a flex container. */
+  min-width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.introContainer {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 0.5em;
+}
+
+.introContainer p {
+  margin: 0;
+}
