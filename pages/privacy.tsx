@@ -61,8 +61,8 @@ const PrivacyPage: NextPage = () => {
         development experience.
       </p>
       <p>
-        If you wish to browse the website without downloading any 3rd party
-        content it is possible to browse the website with JavaScript disabled.
+        If you would like extra peace of mind it is possible to browse the
+        website with JavaScript disabled.
       </p>
       <h3>Tor</h3>
       <p>
