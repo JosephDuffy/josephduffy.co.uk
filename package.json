@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
-    "@hcaptcha/react-hcaptcha": "^1.4.4",
+    "@hcaptcha/react-hcaptcha": "^1.12.0",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "feed": "^4.2.2",
@@ -33,7 +33,7 @@
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "gray-matter": "^4.0.3",
-    "hcaptcha": "^0.1.1",
+    "hcaptcha": "^0.2.0",
     "highlight.js": "^11.11.1",
     "html-entities": "^2.3.3",
     "mailgun.js": "^8.0.2",

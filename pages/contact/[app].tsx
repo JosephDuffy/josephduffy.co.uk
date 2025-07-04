@@ -118,7 +118,6 @@ const appContactPage = class AppContactPage extends Component<Props, State> {
           <label>
             Captcha (sorry, spam is too common)
             <HCaptcha
-              ref={(ref) => (this.captchaComponent = ref)}
               id={this.state.subject + "_hcaptcha"}
               sitekey={this.props.hCaptchaSiteKey}
               onVerify={(token) => {
