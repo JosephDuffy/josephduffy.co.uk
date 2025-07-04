@@ -7,8 +7,11 @@ const ProjectsPage: NextPage = () => {
   return (
     <Page>
       <Head>
-        <title>Project - Joseph Duffy</title>
-        <meta name="description" content="Various non-app projects " />
+        <title>Projects - Joseph Duffy</title>
+        <meta
+          name="description"
+          content="Various non-app projects by Joseph Duffy"
+        />
       </Head>
       <h1>Projects</h1>
       <p>
