@@ -1,3 +1,4 @@
+# syntax=docker.io/docker/dockerfile:1
 # Based on the example Docker setup: https://github.com/vercel/next.js/tree/canary/examples/with-docker
 
 FROM node:22.17.0-alpine AS base
@@ -6,8 +7,7 @@ FROM node:22.17.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
-# Required for swc when building
-RUN npm ci && npm install @next/swc-linux-x64-gnu --no-save
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -29,8 +29,6 @@ ARG HCAPTCHA_SITE_KEY
 ENV NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY
 
 RUN --mount=type=secret,id=GITHUB_ACCESS_TOKEN,required npm run build
-# Remove non-dev dependencies
-RUN npm ci
 
 # Production image, copy all the files and run next
 FROM base AS runner
