@@ -9,8 +9,13 @@ export class BlogFeedLoader {
     type: "rss" | "atom" | "json",
     forceRefresh = false,
   ): Promise<Feed> {
-    const websiteURLString = `${websiteURL}`
-    const posts = await postsLoader.getPosts(forceRefresh, false, websiteURL)
+    const websiteURLString = `${websiteURL.origin}/`
+    const posts = await postsLoader.getPosts(
+      forceRefresh,
+      false,
+      type !== "rss",
+      websiteURL,
+    )
     posts.sort((postA, postB) => {
       return compareDesc(new Date(postA.date), new Date(postB.date))
     })

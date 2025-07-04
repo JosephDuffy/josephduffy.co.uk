@@ -5,7 +5,6 @@ import { readFile } from "fs/promises"
 import BlogPost from "../models/BlogPost"
 import { EntryType } from "../models/Entry"
 import ReactDOMServer from "react-dom/server"
-import Markdown from "../components/Markdown"
 import React from "react"
 import { compareAsc } from "date-fns"
 import { Cache, CacheClass } from "memory-cache"
@@ -15,9 +14,40 @@ import BlogPostFrontmatter, {
   BlogPostFrontmatterSchema,
 } from "../models/BlogPostFrontmatter"
 import Series from "../models/Series"
+import { remark } from "remark"
+import { remarkAlert } from "remark-github-blockquote-alert"
+import remarkRehype from "remark-rehype"
+import rehypeStringify from "rehype-stringify"
+import rehypeRaw, { Root } from "rehype-raw"
+import rehypeHighlight from "rehype-highlight"
+import { visit } from "unist-util-visit"
+
+function linksAbsolute(options: { baseURL: URL }) {
+  return (tree: Root) =>
+    visit(tree, "element", (node) => {
+      if (
+        options.baseURL &&
+        node.tagName === "a" &&
+        typeof node.properties?.href === "string" &&
+        node.properties.href.startsWith("/")
+      ) {
+        node.properties.href = new URL(
+          node.properties.href,
+          options.baseURL,
+        ).href
+      } else if (
+        options.baseURL &&
+        node.tagName === "img" &&
+        typeof node.properties?.src === "string" &&
+        node.properties.src.startsWith("/")
+      ) {
+        node.properties.src = new URL(node.properties.src, options.baseURL).href
+      }
+    })
+}
 
 export class PostsLoader {
-  #cache: CacheClass<string, BlogPost[]>
+  #cache: CacheClass<CacheKey, BlogPost[]>
 
   constructor() {
     this.#cache = new Cache()
@@ -26,9 +56,15 @@ export class PostsLoader {
   async getPosts(
     forceRefresh = false,
     renderCodeblocks = true,
+    allowSVGs = true,
     websiteURL?: URL,
   ): Promise<BlogPost[]> {
-    const cachedPosts = this.getCachedPosts(renderCodeblocks)
+    const cacheKey: CacheKey = {
+      renderCodeblocks,
+      allowSVGs,
+      websiteURL,
+    }
+    const cachedPosts = this.#cache.get(cacheKey)
     if (
       !forceRefresh &&
       cachedPosts !== null &&
@@ -49,32 +85,47 @@ export class PostsLoader {
     }
 
     const postPaths = glob.sync("data/posts/**/*.md")
-    const parsedPosts = await Promise.all(
-      postPaths.map(async (postPath): Promise<ParsedPost> => {
-        try {
-          console.debug(`Loading post at ${postPath}`)
-          const slug = path.basename(postPath, path.extname(postPath))
-          const fileBuffer = await readFile(postPath)
-          const excerptSeparator = "<!-- more -->"
-          const parsedFile = matter(fileBuffer, {
-            excerpt: true,
-            excerpt_separator: excerptSeparator,
-          })
-          const frontMatter = await BlogPostFrontmatterSchema.validate(
-            parsedFile.data,
-          )
-          return {
-            ...frontMatter,
-            slug,
-            content: parsedFile.content,
-            excerpt: parsedFile.excerpt,
-          } as ParsedPost
-        } catch (error) {
-          console.error(`Failed to load post at ${postPath}`, error)
-          throw error
+    const parsedPosts = await (async () => {
+      const posts = await Promise.all(
+        postPaths.map(async (postPath): Promise<ParsedPost | null> => {
+          try {
+            console.debug(`Loading post at ${postPath}`)
+            const slug = path
+              .basename(postPath, path.extname(postPath))
+              .replaceAll(" ", "-")
+            const fileBuffer = await readFile(postPath)
+            const excerptSeparator = "<!-- more -->"
+            const parsedFile = matter(fileBuffer, {
+              excerpt: true,
+              excerpt_separator: excerptSeparator,
+            })
+            const frontMatter = await BlogPostFrontmatterSchema.validate(
+              parsedFile.data,
+            )
+            return {
+              ...frontMatter,
+              slug,
+              content: parsedFile.content,
+              excerpt: parsedFile.excerpt,
+            } as ParsedPost
+          } catch (error) {
+            console.error(`Failed to load post at ${postPath}`, error)
+            return null
+          }
+        }),
+      )
+
+      const parsedPosts: ParsedPost[] = []
+
+      for (const post of posts) {
+        if (!post) {
+          continue
         }
-      }),
-    )
+        parsedPosts.push(post)
+      }
+
+      return parsedPosts
+    })()
 
     const series: Record<
       string,
@@ -123,72 +174,104 @@ export class PostsLoader {
       }
     }
 
-    const allPosts = parsedPosts.map((parsedContent) => {
-      try {
-        console.debug(`Rendering post ${parsedContent.slug}`)
-        const seriesHTML = (() => {
-          if (
-            parsedContent.series &&
-            series[parsedContent.series] !== undefined
-          ) {
-            return ReactDOMServer.renderToStaticMarkup(
-              <SeriesChapters
-                series={series[parsedContent.series].series}
-                currentPostId={parsedContent.slug}
-                postsInSeries={series[parsedContent.series].posts}
-              />,
-            )
+    const allPosts = await Promise.all(
+      parsedPosts.map(async (parsedContent) => {
+        try {
+          console.debug(`Rendering post ${parsedContent.slug}`)
+          const seriesHTML = (() => {
+            if (
+              parsedContent.series &&
+              series[parsedContent.series] !== undefined
+            ) {
+              return ReactDOMServer.renderToStaticMarkup(
+                <SeriesChapters
+                  series={series[parsedContent.series].series}
+                  currentPostId={parsedContent.slug}
+                  postsInSeries={series[parsedContent.series].posts}
+                />,
+              )
+            }
+          })()
+
+          const excerptRegex = /<!-- more -->/g
+          const markdownContent = parsedContent.content.replace(
+            excerptRegex,
+            seriesHTML ?? "",
+          )
+          let remarkChain = remark()
+
+          if (!websiteURL) {
+            // Parse GitHub-style alerts in markdown. Don't do this when a
+            // website URL is provided because this is being used for e.g. an
+            // RSS feed, which does not support SVGs.
+            remarkChain = remarkChain.use(remarkAlert)
           }
-        })()
 
-        const excerptRegex = /<!-- more -->/g
-        const markdownContent = parsedContent.content.replace(
-          excerptRegex,
-          seriesHTML ?? "",
-        )
-        const contentHTML = ReactDOMServer.renderToStaticMarkup(
-          <Markdown
-            source={markdownContent}
-            escapeHtml={false}
-            renderCodeblocks={renderCodeblocks}
-            websiteURL={websiteURL}
-          />,
-        )
-        const excerptHTML = parsedContent.excerpt
-          ? ReactDOMServer.renderToStaticMarkup(
-              <Markdown
-                source={parsedContent.excerpt}
-                escapeHtml={false}
-                renderCodeblocks={renderCodeblocks}
-                websiteURL={websiteURL}
-              />,
-            )
-          : null
+          // Parse markdown
+          remarkChain = remarkChain.use(remarkRehype, {
+            allowDangerousHtml: true,
+          })
 
-        return {
-          slug: parsedContent.slug,
-          title: parsedContent.title,
-          contentHTML,
-          excerptHTML,
-          date:
-            parsedContent.updateDate?.toISOString() ??
-            parsedContent.date.toISOString(),
-          publishDate: parsedContent.date.toISOString(),
-          updateDate: parsedContent.updateDate?.toISOString() ?? null,
-          draft: parsedContent.draft,
-          url: `/posts/${parsedContent.slug}`,
-          tags: parsedContent.tags,
-          imageURL: parsedContent.imageURL ?? null,
-          type: EntryType.BlogPost,
-        } as BlogPost
-      } catch (error) {
-        console.error(`Failed to parse post ${parsedContent.slug}`, error)
-        throw error
-      }
-    })
+          if (renderCodeblocks) {
+            // Highlight code blocks
+            remarkChain = remarkChain.use(rehypeHighlight)
+          }
+          remarkChain = remarkChain
+            // Re-parse HTML embedded in markdown
+            .use(rehypeRaw)
+
+          if (websiteURL) {
+            console.log("Using website URL for links:", websiteURL.toString())
+
+            // Make relative links absolute
+            remarkChain = remarkChain.use(linksAbsolute, {
+              baseURL: websiteURL,
+            })
+          }
+
+          remarkChain = remarkChain
+            // Convert to HTML
+            .use(rehypeStringify)
+
+          const processedContent = await remarkChain.process(markdownContent)
+          const contentHTML = processedContent.toString()
+
+          const processedExcept = parsedContent.excerpt
+            ? await remarkChain.process(parsedContent.excerpt)
+            : null
+          const excerptHTML = processedExcept
+            ? processedExcept.toString()
+            : null
+
+          return {
+            slug: parsedContent.slug,
+            title: parsedContent.title,
+            contentHTML,
+            excerptHTML,
+            date:
+              parsedContent.updateDate?.toISOString() ??
+              parsedContent.date.toISOString(),
+            publishDate: parsedContent.date.toISOString(),
+            updateDate: parsedContent.updateDate?.toISOString() ?? null,
+            draft: parsedContent.draft,
+            url: `/posts/${parsedContent.slug}`,
+            tags: parsedContent.tags,
+            imageURL: parsedContent.imageURL ?? null,
+            type: EntryType.BlogPost,
+          } as BlogPost
+        } catch (error) {
+          console.error(`Failed to parse post ${parsedContent.slug}`, error)
+          throw error
+        }
+      }),
+    )
 
     const posts = allPosts
       .filter((post) => {
+        if (!post) {
+          return false
+        }
+
         if (post.draft) {
           if (process.env.NODE_ENV === "development") {
             console.debug(
@@ -207,28 +290,18 @@ export class PostsLoader {
         return compareAsc(new Date(postA.date), new Date(postB.date))
       })
 
-    this.setCachedPosts(posts, renderCodeblocks)
+    this.#cache.put(cacheKey, posts)
 
     console.debug(`Loaded ${posts.length} post(s)`)
 
     return posts
   }
+}
 
-  private getCachedPosts(renderCodeblocks: boolean): BlogPost[] | null {
-    if (renderCodeblocks) {
-      return this.#cache.get("BlogPostsWithCodeblock")
-    } else {
-      return this.#cache.get("BlogPostsWithoutCodeblock")
-    }
-  }
-
-  private setCachedPosts(posts: BlogPost[], renderCodeblocks: boolean) {
-    if (renderCodeblocks) {
-      this.#cache.put("BlogPostsWithCodeblock", posts)
-    } else {
-      this.#cache.put("BlogPostsWithoutCodeblock", posts)
-    }
-  }
+interface CacheKey {
+  renderCodeblocks: boolean
+  allowSVGs: boolean
+  websiteURL?: URL
 }
 
 const loader = new PostsLoader()

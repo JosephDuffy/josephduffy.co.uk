@@ -3,6 +3,7 @@ import App, { AppInitialProps } from "next/app"
 import Head from "next/head"
 import Script from "next/script"
 import "../styles/global.css"
+import "highlight.js/styles/a11y-dark.css"
 import { Router } from "next/dist/client/router"
 
 declare global {
