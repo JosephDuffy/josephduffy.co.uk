@@ -18,11 +18,21 @@ const ProjectsPage: NextPage = () => {
       <h2>Magic Go To</h2>
       <p>
         After being frustrated with not being able to link to non-http websites
-        I created <a href="https://magicgo.to">Magic Go To</a>. The feature set
-        is minimal and simple: link to https://magicgo.to/https://example.com
-        and it will redirect to https://example.com. This also works for
-        non-http urls, such as mailto: links. Personally I use this for xcode:
-        links.
+        I created Magic Go To. The feature set was minimal and simple: link to
+        https://magicgo.to/https://example.com and it will redirect to
+        https://example.com. Personally I use this for xcode: links.
+      </p>
+      <p>
+        {" "}
+        This used to be hosted at magicgo.to, but the cost of a .to domain was
+        too high for the utility I gained from it. Maybe I should host it at
+        magicgo.josephduffy.co.uk?
+      </p>
+      <p>
+        The source code is archived at{" "}
+        <a href="https://github.com/JosephDuffy/magicgoto">
+          github.com/JosephDuffy/magicgoto
+        </a>
       </p>
       <h2>Baking Feedback</h2>
       <p>
