@@ -10,7 +10,7 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from "next/types"
-import { Component, Fragment } from "react"
+import { Component, Fragment, type JSX } from "react"
 import { ParsedUrlQuery } from "querystring"
 import styles from "./Post.module.css"
 

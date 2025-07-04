@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Series from "../models/Series"
-import { FunctionComponent } from "react"
+import { FunctionComponent, type JSX } from "react";
 
 interface Props {
   series: Series

@@ -7,6 +7,7 @@ import Card from "../components/Card"
 import { GitHubRepository } from "../models/GitHubRepository"
 import Link from "next/link"
 import { default as entriesLoader } from "../loaders/EntriesLoader"
+import type { JSX } from "react"
 
 interface Props {
   repositories: GitHubRepository[]

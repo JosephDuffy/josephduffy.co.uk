@@ -5,6 +5,7 @@
 GITHUB_ACCESS_TOKEN
 eslint_report.json
 data/**/drafts
+certificates/
 
 ## Static export
 out/

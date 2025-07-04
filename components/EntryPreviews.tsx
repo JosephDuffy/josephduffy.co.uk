@@ -1,4 +1,4 @@
-import { Fragment, Component } from "react"
+import { Fragment, Component, type JSX } from "react";
 import { PossibleEntries } from "../loaders/EntriesLoader"
 import Link from "next/link"
 import EntryPreview from "./EntryPreview"

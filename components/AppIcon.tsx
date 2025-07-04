@@ -1,5 +1,5 @@
 import styles from "./AppIcon.module.css"
-import { Fragment, FunctionComponent } from "react"
+import { Fragment, FunctionComponent, type JSX } from "react";
 
 interface Props {
   appName: string

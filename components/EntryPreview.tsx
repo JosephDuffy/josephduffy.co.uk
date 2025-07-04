@@ -1,4 +1,4 @@
-import { Fragment, Component } from "react"
+import { Fragment, Component, type JSX } from "react";
 import GitHubReleasePreview from "./GitHubReleasePreview"
 import StackOverflowEntryPreview from "./StackOverflowEntryPreview"
 import BlogPostPreview from "./BlogPostPreview"

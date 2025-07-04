@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react"
+import React, { PureComponent, type JSX } from "react";
 import { PrismLight } from "react-syntax-highlighter"
 import swift from "react-syntax-highlighter/dist/cjs/languages/prism/swift"
 import prismStyle from "react-syntax-highlighter/dist/cjs/styles/prism/a11y-dark"

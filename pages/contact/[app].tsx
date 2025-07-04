@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import { NextRouter, withRouter } from "next/dist/client/router"
 import { ExcludeRouterProps } from "next/dist/client/with-router"
 import Head from "next/head"
-import { Component, FormEvent } from "react"
+import { Component, FormEvent, type JSX } from "react";
 import Page from "../../layouts/main"
 import appsLoader from "../../loaders/AppsLoader"
 import HCaptcha from "@hcaptcha/react-hcaptcha"

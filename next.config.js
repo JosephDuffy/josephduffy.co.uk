@@ -1,5 +1,4 @@
 // @ts-check
-const withPWA = require("next-pwa")
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants")
 
 module.exports = (phase) => {
@@ -14,12 +13,11 @@ module.exports = (phase) => {
   /**
    * @type {import('next').NextConfig}
    **/
-  const config = {
+  return {
     poweredByHeader: false,
     reactStrictMode: true,
-    // Allow nginx to compress. This also enables chunked responses, which breaks Swift package collections
+    // Allow reverse proxy to compress. This also enables chunked responses, which breaks Swift package collections
     compress: false,
-    swcMinify: true,
     output: "standalone",
     i18n: {
       locales: ["en-GB"],
@@ -75,6 +73,23 @@ module.exports = (phase) => {
             {
               key: "Cache-Control",
               value: "public, max-age=2592000, no-transform",
+            },
+          ],
+        },
+        {
+          source: "/sw.js",
+          headers: [
+            {
+              key: "Content-Type",
+              value: "application/javascript; charset=utf-8",
+            },
+            {
+              key: "Cache-Control",
+              value: "no-cache, no-store, must-revalidate",
+            },
+            {
+              key: "Content-Security-Policy",
+              value: "default-src 'self'; script-src 'self'",
             },
           ],
         },
@@ -161,8 +176,4 @@ module.exports = (phase) => {
       ]
     },
   }
-
-  return withPWA({
-    dest: "public",
-  })(config)
 }

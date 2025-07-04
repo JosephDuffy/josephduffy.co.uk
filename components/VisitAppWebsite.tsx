@@ -1,5 +1,5 @@
 import styles from "./VisitAppWebsite.module.css"
-import { FunctionComponent } from "react"
+import { FunctionComponent, type JSX } from "react";
 
 interface Props {
   appName: string

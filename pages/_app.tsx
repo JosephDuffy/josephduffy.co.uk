@@ -1,4 +1,4 @@
-import { Fragment } from "react"
+import { Fragment, type JSX } from "react";
 import App, { AppInitialProps } from "next/app"
 import Head from "next/head"
 import Script from "next/script"
