@@ -83,8 +83,8 @@ body {
   -webkit-font-smoothing: antialiased;
   background: var(--primary-background);
   color: var(--primary-label);
-  min-height: 100vh;
   min-height: -webkit-fill-available;
+  min-height: 100vh;
   display: flex;
   font-size: 17px;
 }
@@ -118,6 +118,8 @@ body {
 main {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+  display: flex;
+  flex-direction: column;
 }
 
 a {

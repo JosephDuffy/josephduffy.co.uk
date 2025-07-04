@@ -1,3 +1,7 @@
+.article {
+  flex: 1;
+}
+
 #previous-next-post-links {
   display: flex;
   flex-direction: column;

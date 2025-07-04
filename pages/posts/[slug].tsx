@@ -146,7 +146,7 @@ export default class PostPage extends Component<Props> {
               }}
             ></script>
           </Head>
-          <article>
+          <article className={styles.article}>
             <header>
               <h1>{post.title}</h1>
               <FormattedDate
