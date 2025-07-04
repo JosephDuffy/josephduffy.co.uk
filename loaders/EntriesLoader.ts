@@ -109,15 +109,15 @@ export class EntriesLoader {
     const posts = await postsLoader.getPostsPreviews(
       process.env.NODE_ENV === "development",
     )
-    const gitHubReleases = await gitHubReleasesLoader.getReleases()
-    const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()
-    const stackOverflowEntries = await stackOverflowLoader.getEntries()
+    // const gitHubReleases = await gitHubReleasesLoader.getReleases()
+    // const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()
+    // const stackOverflowEntries = await stackOverflowLoader.getEntries()
     const appReleaseEntries = appsLoader.getAppsReleases()
 
     entries = entries.concat(posts)
-    entries = entries.concat(gitHubReleases)
-    entries = entries.concat(gitHubPullRequests)
-    entries = entries.concat(stackOverflowEntries)
+    // entries = entries.concat(gitHubReleases)
+    // entries = entries.concat(gitHubPullRequests)
+    // entries = entries.concat(stackOverflowEntries)
     entries = entries.concat(appReleaseEntries)
 
     entries = entries.sort((entryA, entryB) => {
