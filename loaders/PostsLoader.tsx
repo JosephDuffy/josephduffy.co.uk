@@ -198,7 +198,9 @@ export class PostsLoader {
             excerptRegex,
             seriesHTML ?? "",
           )
-          let remarkChain = remark()
+          // Without this TypeScript does not like `remarkAlert` or `rehypeRaw`.
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          let remarkChain: any = remark()
 
           if (!websiteURL) {
             // Parse GitHub-style alerts in markdown. Don't do this when a
