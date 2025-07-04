@@ -18,18 +18,17 @@ const PrivacyPage: NextPage = () => {
         of this website seriously.
       </p>
       <h2>Analytics</h2>
-      <p>This website uses Matomo and NGINX logs to gather analytics.</p>
+      <p>This website uses Matomo to gather analytics.</p>
       <h3>Matomo Analytics</h3>
       <p>
         <a href="https://matomo.org/">Matomo</a> is used to gather client-side
         analytics. Matomo is configured to disable cookies and anonymise the
         last 2 bytes of IP addresses.
       </p>
-      <h3>NGINX Logs</h3>
+      <h3>Caddy Logs</h3>
       <p>
-        <a href="https://nginx.org/">NGINX</a> is used to serve the content of
-        this website. NGINX access logs are kept on the server and analysed by{" "}
-        <a href="https://goaccess.io/">GoAccess</a>.
+        <a href="https://caddyserver.com/">Caddy</a> is used to serve the
+        content of this website. Caddy access logs are kept on the server.
       </p>
       <h2>Browsing without Analytics or Logs</h2>
       <p>
@@ -73,7 +72,7 @@ const PrivacyPage: NextPage = () => {
         <a href="http://josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion">
           josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion
         </a>
-        . This service bypasses NGINX and prevents the loading of the Matomo
+        . This service bypasses Caddy and prevents the loading of the Matomo
         script.
       </p>
     </Page>
