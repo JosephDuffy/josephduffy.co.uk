@@ -78,7 +78,6 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  color: var(--bs-body-color);
   background: var(--primary-background);
   color: var(--primary-label);
   min-height: 100vh;
