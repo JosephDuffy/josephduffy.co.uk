@@ -1,8 +1,8 @@
 import { NextPage } from "next"
 import Page from "../layouts/main"
 import Head from "next/head"
-import Markdown from "../components/Markdown"
 import Link from "next/link"
+import CodeBlock from "../components/CodeBlock"
 
 const SwiftPackageCollectionPage: NextPage = () => {
   return (
@@ -26,14 +26,10 @@ const SwiftPackageCollectionPage: NextPage = () => {
         add the certificate to the{" "}
         <code>~/.swiftpm/config/trust-root-certs/</code> directory:
       </p>
-      <Markdown
-        source={`
-\`\`\`shell
-mkdir -p ~/.swiftpm/config/trust-root-certs/
-wget https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -O ~/.swiftpm/config/trust-root-certs/AppleWWDRCAG3.cer
-\`\`\`
-`}
-        renderCodeblocks={true}
+      <CodeBlock
+        language="shell"
+        value={`mkdir -p ~/.swiftpm/config/trust-root-certs/
+wget https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer -O ~/.swiftpm/config/trust-root-certs/AppleWWDRCAG3.cer`}
       />
       <p>
         To learn more about how this collection is generated and signed view the{" "}

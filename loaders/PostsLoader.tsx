@@ -18,12 +18,13 @@ import { remark } from "remark"
 import { remarkAlert } from "remark-github-blockquote-alert"
 import remarkRehype from "remark-rehype"
 import rehypeStringify from "rehype-stringify"
-import rehypeRaw, { Root } from "rehype-raw"
+import rehypeRaw from "rehype-raw"
 import rehypeHighlight from "rehype-highlight"
 import { visit } from "unist-util-visit"
+import { Root as TreeRoot } from "rehype-raw/lib"
 
 function linksAbsolute(options: { baseURL: URL }) {
-  return (tree: Root) =>
+  return (tree: TreeRoot) =>
     visit(tree, "element", (node) => {
       if (
         options.baseURL &&
@@ -173,42 +174,62 @@ export class PostsLoader {
         }
       }
     }
-    // Without this TypeScript does not like `remarkAlert` or `rehypeRaw`.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let remarkChain: any = remark()
 
-    if (!websiteURL) {
-      // Parse GitHub-style alerts in markdown. Don't do this when a
-      // website URL is provided because this is being used for e.g. an
-      // RSS feed, which does not support SVGs.
-      remarkChain = remarkChain.use(remarkAlert)
-    }
+    const remarkChain = (() => {
+      if (websiteURL && renderCodeblocks) {
+        return (
+          remark()
+            // Parse markdown
+            .use(remarkRehype, {
+              allowDangerousHtml: true,
+            })
+            // Highlight code blocks
+            .use(rehypeHighlight)
+            // Re-parse HTML embedded in markdown
+            .use(rehypeRaw)
+            // Make relative links absolute
+            .use(linksAbsolute, {
+              baseURL: websiteURL,
+            })
+            // Convert to HTML
+            .use(rehypeStringify)
+        )
+      } else if (!websiteURL && renderCodeblocks) {
+        return (
+          remark()
+            // Parse GitHub-style alerts in markdown. Don't do this when a
+            // website URL is provided because this is being used for e.g. an
+            // RSS feed, which does not support SVGs.
+            .use(remarkAlert)
+            .use(remarkRehype, {
+              allowDangerousHtml: true,
+            })
+            .use(rehypeHighlight)
+            .use(rehypeRaw)
+            .use(rehypeStringify)
+        )
+      } else if (websiteURL && !renderCodeblocks) {
+        return remark()
+          .use(remarkRehype, {
+            allowDangerousHtml: true,
+          })
+          .use(rehypeRaw)
+          .use(linksAbsolute, {
+            baseURL: websiteURL,
+          })
+          .use(rehypeStringify)
+      } else if (!websiteURL && !renderCodeblocks) {
+        return remark()
+          .use(remarkAlert)
+          .use(remarkRehype, {
+            allowDangerousHtml: true,
+          })
+          .use(rehypeRaw)
+          .use(rehypeStringify)
+      }
 
-    // Parse markdown
-    remarkChain = remarkChain.use(remarkRehype, {
-      allowDangerousHtml: true,
-    })
-
-    if (renderCodeblocks) {
-      // Highlight code blocks
-      remarkChain = remarkChain.use(rehypeHighlight)
-    }
-    remarkChain = remarkChain
-      // Re-parse HTML embedded in markdown
-      .use(rehypeRaw)
-
-    if (websiteURL) {
-      console.log("Using website URL for links:", websiteURL.toString())
-
-      // Make relative links absolute
-      remarkChain = remarkChain.use(linksAbsolute, {
-        baseURL: websiteURL,
-      })
-    }
-
-    remarkChain = remarkChain
-      // Convert to HTML
-      .use(rehypeStringify)
+      throw new Error("Unsupported configuration")
+    })()
 
     const allPosts = await Promise.all(
       parsedPosts.map(async (parsedContent) => {
