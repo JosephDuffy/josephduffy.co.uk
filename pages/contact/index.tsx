@@ -8,18 +8,10 @@ const ContactPage: NextPage = () => {
       <Head>
         <title>Contact - Joseph Duffy</title>
         <meta name="description" content="Methods of contacting Joseph Duffy" />
+        <meta name="robots" content="noindex" />
       </Head>
       <h1>Contact Me</h1>
-      <p>If you wish to contact me you can:</p>
-      <ul>
-        <li>Email &lt;my-name&gt;@me.com</li>
-        <li>
-          <a href="/twitter" title="Joseph Duffy's Twitter">
-            Tweet me
-          </a>{" "}
-          (my DMs are open)
-        </li>
-      </ul>
+      <p>If you wish to contact me you can email me: &lt;my-name&gt;@me.com</p>
     </Page>
   )
 }
