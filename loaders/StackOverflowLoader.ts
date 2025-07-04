@@ -1,5 +1,5 @@
 import { EntryType } from "../models/Entry"
-import fetch from "node-fetch"
+import axios from "axios"
 import { decode as decodeHTMLEntities } from "html-entities"
 import { LoaderEntriesCache } from "./LoaderEntriesCache"
 import {
@@ -196,12 +196,12 @@ export class StackOverflowLoader {
     console.debug(
       `Performing API request to StackExchange API with url: ${url}`,
     )
-    const response = await fetch(url, {
+    const response = await axios(url, {
       headers: {
         "Accept-Encoding": "GZIP",
       },
     })
-    const jsonObject = await response.json()
+    const jsonObject = response.data
 
     if (typeof jsonObject !== "object") {
       throw "Response was not an object"
