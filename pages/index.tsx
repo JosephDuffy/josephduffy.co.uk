@@ -66,11 +66,12 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
           my corner of the internet!
         </p>
       </div>
+      <h2>★ My Favourite Apps</h2>
       <EntriesPreviewsGrid
         entries={favouriteEntries}
         appCampaignName="home-favourites"
       />
-      <h1>Recent Entries</h1>
+      <h2>Recent Entries</h2>
       <EntryPreviews
         entries={entries}
         pageCount={pageCount}
@@ -83,18 +84,8 @@ const Index: NextPage<Props> = ({ entries, favourites, pageCount }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const allEntries = await entriesLoader.getEntries(true)
   const pageEntries = await entriesLoader.getPage(1, true)
   const pageCount = await entriesLoader.getPageCount(true)
-  const hashableByKeyPathBlogPost = allEntries.find((entry) => {
-    return (
-      "slug" in entry &&
-      entry.slug === "HashableByKeyPath-framework-release-1-0-0"
-    )
-  })
-  const hostingDoccArchivesBlogPost = allEntries.find((entry) => {
-    return "slug" in entry && entry.slug === "hosting-docc-archives"
-  })
   const appPreviews = appsLoader.getAppsPreviews()
   const fourSquaresAppPreview = appPreviews.find((app) => {
     return app.slug === "four-squares"
@@ -103,34 +94,33 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return app.slug === "overamped"
   })
 
-  const favourites = [
-    overampedAppPreview,
-    fourSquaresAppPreview,
-    hostingDoccArchivesBlogPost,
-    hashableByKeyPathBlogPost,
-  ].reduce((favourites: Favourite[], favouriteEntry) => {
-    if (favouriteEntry === undefined) {
+  const favourites = [overampedAppPreview, fourSquaresAppPreview].reduce(
+    (favourites: Favourite[], favouriteEntry) => {
+      if (favouriteEntry === undefined) {
+        return favourites
+      }
+
+      const entryExistsOnPage =
+        pageEntries.find((entry) => {
+          return (
+            favouriteEntry.type == entry.type &&
+            favouriteEntry.slug == entry.slug
+          )
+        }) !== undefined
+
+      if (entryExistsOnPage) {
+        favourites.push({
+          type: favouriteEntry.type,
+          slug: favouriteEntry.slug,
+        })
+      } else {
+        favourites.push(favouriteEntry)
+      }
+
       return favourites
-    }
-
-    const entryExistsOnPage =
-      pageEntries.find((entry) => {
-        return (
-          favouriteEntry.type == entry.type && favouriteEntry.slug == entry.slug
-        )
-      }) !== undefined
-
-    if (entryExistsOnPage) {
-      favourites.push({
-        type: favouriteEntry.type,
-        slug: favouriteEntry.slug,
-      })
-    } else {
-      favourites.push(favouriteEntry)
-    }
-
-    return favourites
-  }, [])
+    },
+    [],
+  )
 
   return {
     props: {
