@@ -2,7 +2,6 @@
 title: Self-hosting macOS GitHub Runners
 tags: ["ios", "macos", "devops", "github-actions"]
 date: 2025-07-03T02:12:58Z
-draft: true
 ---
 
 This post explains how to set up an Apple Silicon Mac as a self-hosted runner for use with GitHub Actions. I will focus on setting up [Tartelet](https://github.com/shapehq/tartelet), but I will provide some alternatives at the end.
