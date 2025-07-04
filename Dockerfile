@@ -14,7 +14,7 @@ FROM base AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 ARG BUILD_DATE
 ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
@@ -36,7 +36,7 @@ RUN npm ci
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
@@ -54,9 +54,9 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
 
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG BUILD_DATE
 ENV NEXT_PUBLIC_BUILD_DATE=$BUILD_DATE
