@@ -44,7 +44,6 @@ interface StaticParams extends ParsedUrlQuery {
 export const getStaticProps: GetStaticProps<Props, StaticParams> = async ({
   params,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const page = parseInt(params!.page)
   const pagesCount = await entriesLoader.getPageCount(true)
   const entries = await entriesLoader.getPage(page, true)

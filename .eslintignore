@@ -1,7 +1,0 @@
-node_modules
-.lighthouseci
-.next
-.eslintrc.js
-out
-next.config.js
-public

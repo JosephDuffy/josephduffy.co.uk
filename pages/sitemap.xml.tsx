@@ -20,7 +20,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   res.write(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`)
 
   function addURL(path: string, lastModified: Date | undefined = undefined) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const location = websiteURL!
     location.pathname = path
     res.write("  <url>\n")
@@ -78,5 +77,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 // A page is required to exported to make Next.js happy
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export default function SitemapXML(): void {}

@@ -27,38 +27,46 @@ export class EntriesLoader {
 
   readonly pageSize = 10
 
-  constructor() {
+  constructor(
+    enabledEntryTypes: (
+      | "blog-posts"
+      | "git-hub-releases"
+      | "git-hub-pull-requests"
+      | "stack-overflow"
+      | "apps-releases"
+    )[] = ["blog-posts", "apps-releases"],
+  ) {
     if (process.env["ENTRIES_CACHE_TIMEOUT"] !== undefined) {
       const timeout = parseInt(process.env["ENTRIES_CACHE_TIMEOUT"])
       this.cachedCombinedEntries = new LoaderEntriesCache(
-        this.loadEntries.bind(this, true),
+        this.loadEntries.bind(this, true, enabledEntryTypes),
         "CombinedEntries",
         timeout,
       )
       this.cachedNonCombinedEntries = new LoaderEntriesCache(
-        this.loadEntries.bind(this, true),
+        this.loadEntries.bind(this, true, enabledEntryTypes),
         "NonCombinedEntries",
         timeout,
       )
     } else if (process.env["CACHE_TIMEOUT"] !== undefined) {
       const timeout = parseInt(process.env["CACHE_TIMEOUT"])
       this.cachedCombinedEntries = new LoaderEntriesCache(
-        this.loadEntries.bind(this, true),
+        this.loadEntries.bind(this, true, enabledEntryTypes),
         "CombinedEntries",
         timeout,
       )
       this.cachedNonCombinedEntries = new LoaderEntriesCache(
-        this.loadEntries.bind(this, true),
+        this.loadEntries.bind(this, true, enabledEntryTypes),
         "NonCombinedEntries",
         timeout,
       )
     } else {
       this.cachedCombinedEntries = new LoaderEntriesCache(
-        this.loadEntries.bind(this, true),
+        this.loadEntries.bind(this, true, enabledEntryTypes),
         "CombinedEntries",
       )
       this.cachedNonCombinedEntries = new LoaderEntriesCache(
-        this.loadEntries.bind(this, true),
+        this.loadEntries.bind(this, true, enabledEntryTypes),
         "NonCombinedEntries",
       )
     }
@@ -101,24 +109,47 @@ export class EntriesLoader {
 
   private async loadEntries(
     combineSequencialEntries: boolean,
+    enabledEntryTypes: (
+      | "blog-posts"
+      | "git-hub-releases"
+      | "git-hub-pull-requests"
+      | "stack-overflow"
+      | "apps-releases"
+    )[],
   ): Promise<PossibleEntries[]> {
     console.debug("Loading all entries")
 
     let entries: PossibleEntries[] = []
 
-    const posts = await postsLoader.getPostsPreviews(
-      process.env.NODE_ENV === "development",
-    )
-    // const gitHubReleases = await gitHubReleasesLoader.getReleases()
-    // const gitHubPullRequests = await gitHubPullRequestsLoader.getPullRequests()
-    // const stackOverflowEntries = await stackOverflowLoader.getEntries()
-    const appReleaseEntries = appsLoader.getAppsReleases()
+    if (enabledEntryTypes.includes("blog-posts")) {
+      console.debug("Loading blog posts")
+      const posts = await postsLoader.getPostsPreviews(
+        process.env.NODE_ENV === "development",
+      )
+      entries = entries.concat(posts)
+    }
+    if (enabledEntryTypes.includes("git-hub-releases")) {
+      console.debug("Loading GitHub releases")
+      const gitHubReleases = await gitHubReleasesLoader.getReleases()
+      entries = entries.concat(gitHubReleases)
+    }
+    if (enabledEntryTypes.includes("git-hub-pull-requests")) {
+      console.debug("Loading GitHub pull requests")
+      const gitHubPullRequests =
+        await gitHubPullRequestsLoader.getPullRequests()
+      entries = entries.concat(gitHubPullRequests)
+    }
+    if (enabledEntryTypes.includes("stack-overflow")) {
+      console.debug("Loading Stack Overflow entries")
+      const stackOverflowEntries = await stackOverflowLoader.getEntries()
+      entries = entries.concat(stackOverflowEntries)
+    }
 
-    entries = entries.concat(posts)
-    // entries = entries.concat(gitHubReleases)
-    // entries = entries.concat(gitHubPullRequests)
-    // entries = entries.concat(stackOverflowEntries)
-    entries = entries.concat(appReleaseEntries)
+    if (enabledEntryTypes.includes("apps-releases")) {
+      console.debug("Loading app releases")
+      const appReleaseEntries = appsLoader.getAppsReleases()
+      entries = entries.concat(appReleaseEntries)
+    }
 
     entries = entries.sort((entryA, entryB) => {
       return compareDesc(new Date(entryA.date), new Date(entryB.date))

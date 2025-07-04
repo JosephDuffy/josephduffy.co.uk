@@ -21,5 +21,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 // A page is required to exported to make Next.js happy
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export default function ATOMFeed(): void {}
