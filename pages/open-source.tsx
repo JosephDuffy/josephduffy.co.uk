@@ -6,13 +6,16 @@ import FormattedDate from "../components/FormattedDate"
 import Card from "../components/Card"
 import { GitHubRepository } from "../models/GitHubRepository"
 import Link from "next/link"
+import { default as entriesLoader } from "../loaders/EntriesLoader"
 
 interface Props {
   repositories: GitHubRepository[]
+  containsOpenSourceEntries: boolean
 }
 
 const OpenSourcePage: NextPage<Props> = ({
   repositories,
+  containsOpenSourceEntries,
 }: Props): JSX.Element => {
   return (
     <Page>
@@ -38,14 +41,15 @@ const OpenSourcePage: NextPage<Props> = ({
         </a>{" "}
         also highlights my most popular projects.
       </p>
-      <p>
-        The{" "}
-        <Link href="/tags/open-source" rel="tag">
-          open-source tag
-        </Link>{" "}
-        collects all contributions, releases, and blog posts relating to open
-        source.
-      </p>
+      {containsOpenSourceEntries && (
+        <p>
+          The{" "}
+          <Link href="/tags/open-source" rel="tag">
+            open-source tag
+          </Link>{" "}
+          collects all entries relating to open source.
+        </p>
+      )}
       <p>Below are the open source projects I have contributed to recently.</p>
       <div className="entries">
         {repositories.map((repository) => {
@@ -100,10 +104,15 @@ const OpenSourcePage: NextPage<Props> = ({
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const repositories = await gitHubRepositoryLoader.getRepositories()
+  const allEntries = await entriesLoader.getEntries(false)
+  const containsOpenSourceEntries = allEntries.some((entry) =>
+    entry.tags.includes("open-source"),
+  )
 
   return {
     props: {
       repositories,
+      containsOpenSourceEntries,
     },
     revalidate: 60 * 60, // 1 hour cache
   }
