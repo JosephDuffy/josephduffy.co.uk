@@ -262,7 +262,7 @@ export default class PostPage extends Component<Props> {
             }
 
             .post-content {
-              padding-top: 16px;
+              padding-top: 1rem;
             }
 
             :global(.post-content .info) {
