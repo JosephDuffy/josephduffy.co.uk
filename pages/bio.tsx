@@ -38,10 +38,10 @@ const PrivacyPage: NextPage = () => {
         </thead>
         <tbody>
           <tr>
-            <td>Twitter</td>
+            <td>Mastodon</td>
             <td>
-              <a href="https://twitter.com/Joe_Duffy" rel="me">
-                @Joe_Duffy
+              <a href="https://mastodon.social/@JosephDuffy" rel="me">
+                @JosephDuffy@mastodon.social
               </a>
             </td>
           </tr>
