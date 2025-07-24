@@ -66,6 +66,22 @@ module.exports = (phase) => {
             },
           ],
         },
+        // Prevent indexing of the noanalytics subdomain.
+        {
+          source: "/:path*",
+          has: [
+            {
+              type: "host",
+              value: "noanalytics.josephduffy.co.uk",
+            },
+          ],
+          headers: [
+            {
+              key: "X-Robots-Tag",
+              value: "noindex, nosnippet",
+            },
+          ],
+        },
         {
           source: "/:all*(js|css|png|jpg|jpeg|gif|svg|ico|webp)",
           locale: false,
