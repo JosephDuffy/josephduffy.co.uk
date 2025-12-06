@@ -12,22 +12,25 @@ const gathered: App = {
 Gathered is an app to help you monitor, record, and export information from your iOS device. If you've ever wondered what sensors your device possesses, what information can be determined from them, or what an app can know about your device, then Gathered is for you.
 
 <div class="screenshots">
-  <a href="/images/gathered/screenshots/monitor-tab.png">
-    <img src="/images/gathered/screenshots/monitor-tab.png" width="270" height="464" alt="Monitor over 20 data sources in real time">
+  <a href="/images/gathered/screenshots/en-1-Introduction.png">
+    <img src="/images/gathered/screenshots/en-1-Introduction.png" width="210" height="466" alt="View Sensors and Metadata. Supports over 20 data sources.">
   </a>
-  <a href="/images/gathered/screenshots/record-tab.png">
-    <img src="/images/gathered/screenshots/record-tab.png" width="270" height="464" alt="Record, save, and export all of the data produced by all data sources">
+  <a href="/images/gathered/screenshots/en-2-Record Data.png">
+    <img src="/images/gathered/screenshots/en-2-Record Data.png" width="210" height="466" alt="Record Data. Record as many or as few data sources as needed.">
   </a>
-  <a href="/images/gathered/screenshots/complete-recording.png">
-    <img src="/images/gathered/screenshots/complete-recording.png" width="270" height="464" alt="View, share, and export previous recordings">
+  <a href="/images/gathered/screenshots/en-3-Export.png">
+    <img src="/images/gathered/screenshots/en-3-Export.png" width="210" height="466" alt="Export Recordings. Suppports CSV and JSON.">
   </a>
-  <a href="/images/gathered/screenshots/settings-tab.png">
-    <img src="/images/gathered/screenshots/settings-tab.png" width="270" height="464" alt="Choose how often data should be updated and which data sources to view">
+  <a href="/images/gathered/screenshots/en-4-Data Sources.png">
+    <img src="/images/gathered/screenshots/en-4-Data Sources.png" width="210" height="466" alt="Customise Data Sources. Enable and reorder however you need.">
   </a>
-  <a href="/images/gathered/screenshots/apple-watch-app.png">
-    <img src="/images/gathered/screenshots/apple-watch-app.png" width="270" height="450" alt="View data sources on Apple Watch">
+  <a href="/images/gathered/screenshots/en-5-Copy Values.png">
+    <img src="/images/gathered/screenshots/en-5-Copy Values.png" width="210" height="466" alt="Quickly Copy Values. Copy raw or formatted values.">
   </a>
-</ul>
+  <a href="/images/gathered/screenshots/Apple Watch Ultra 3 Gathered Screenshot.png">
+    <img src="/images/gathered/screenshots/Apple Watch Ultra 3 Gathered Screenshot.png" width="211" height="257" alt="View data sources on Apple Watch">
+  </a>
+</div>
 
 Gathered offers a fast and simple interface to monitor, record, and export all of the data your device offers. All features are offered for free with the option to pay to remove adverts. With Gathered you can:
 
@@ -49,6 +52,7 @@ Gathered features over 20 data sources (where available), including:
 - GPS
 - WiFi
 - Microphone
+- Thermal State
 - Cell Radio
 - Advertising
 - Authentication
@@ -68,6 +72,15 @@ Gathered features over 20 data sources (where available), including:
   downloadURL: "https://apps.apple.com/app/apple-store/id929726748",
   tags: ["gathered"],
   changelogs: [
+    {
+      version: "1.4.0",
+      releaseDate: "2025-12-06",
+      content: `
+Gathered 1.4 brings support for the latest OSes, including fixes and a UI update.
+
+It also provides a new data source: Thermal State.
+`,
+    },
     {
       version: "1.3.0",
       releaseDate: "2018-03-11",
@@ -180,19 +193,23 @@ Various bugs have been destroyed and other small improvements have been made, in
     },
   ],
   privacyPolicy: `
-Gathered contains SDKs that are provided by third parties that collect and record data. There third party SDKs are shown below.
+Gathered uses [TelemetryDeck](https://telemetrydeck.com/) to collect anonymous analytics about app usage. This includes:
 
-## Fabric
+- Which data sources are used
+- When a recording is started and stopped
+- Screen views
+- When settings are modified
 
-Fabric is used to integrate Crashlytics and Answers. Crashlytics is used to collect crashes that occur within the app. Some basic non-user-identifiable information is collected via Answers. For more information visit [Fabric's Privacy and Security page](https://docs.fabric.io/apple/fabric/data-privacy.html).
+This information is used to learn which features to focus my time on. No personally identifiable information is collected.
 
-Gathered 1.3.0 uses the Crashlytics 3.10.1 and Fabric 1.7.5 SDKs.
+- Gathered 1.4.0 uses the TelemetryDeck 2.9.4 SDK.
 
 ## AdMob
 
 AdMob network is used to provide adverts within Gathered. AdMob adverts are provided Google. For more information visit [Google's help page](http://www.google.com/policies/privacy/partners/). Gathered does not share your location with AdMob.
 
-Gathered 1.3.0 uses the AdMob 7.29.0 SDK.
+- Gathered 1.3.0 uses the AdMob 7.29.0 SDK.
+- Gathered 1.4.0 uses the AdMob 12.3.0 SDK.
 `,
 }
 

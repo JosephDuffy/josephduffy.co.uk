@@ -148,6 +148,19 @@ const EntriesPage: NextPage<Props> = ({ app, page }) => {
             height: 100%;
           }
         `}</style>
+        <style jsx global>{`
+          .screenshots {
+            overflow-x: scroll;
+            display: flex;
+            gap: 8px;
+            max-width: 100%;
+            align-items: center;
+          }
+
+          .screenshots img {
+            max-width: revert;
+          }
+        `}</style>
       </Page>
     )
   } else if (page === "privacy") {
