@@ -60,8 +60,18 @@ export default async function handler(
   const hCaptchaSecret = configLoader.hCaptchaSecret
   const mailgunDomain = configLoader.mailgunDomain
 
-  if (!hCaptchaSecret || !mailgun || !mailgunDomain) {
-    respond(500, "Contact form currently unavailable")
+  if (!hCaptchaSecret) {
+    respond(500, "Contact form currently unavailable (hCaptcha)")
+    return
+  }
+
+  if (!mailgun) {
+    respond(500, "Contact form currently unavailable (Mailgun)")
+    return
+  }
+
+  if (!mailgunDomain) {
+    respond(500, "Contact form currently unavailable (Mailgun domain)")
     return
   }
 
