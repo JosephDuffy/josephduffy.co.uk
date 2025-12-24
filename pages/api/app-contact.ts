@@ -164,6 +164,7 @@ export default async function handler(
       subject: emailSubject,
       text: message,
     })
+    console.log(`Sent email via Mailgun.`)
 
     if (wantsJSON) {
       console.log(`${friendlySubject} message sent via API`)
