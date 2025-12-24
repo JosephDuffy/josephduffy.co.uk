@@ -9,6 +9,7 @@ export class ConfigLoader {
     const allowedDomains = [
       "josephduffy.co.uk",
       "noanalytics.josephduffy.co.uk",
+      "contact.josephduffy.co.uk",
       "ipv6.josephduffy.co.uk",
       "josephdepqbvoq7tm7uvynwmsji4354zmd3yp3rrtc245rilvq4ixayd.onion",
       process.env.WEBSITE_DOMAIN, // Used during development
