@@ -254,6 +254,10 @@ details {
   margin-bottom: 1em;
 }
 
+iframe {
+    border: none;
+}
+
 img {
   max-width: 100%;
 }
