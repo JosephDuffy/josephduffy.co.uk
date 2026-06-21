@@ -44,7 +44,7 @@ public struct SitePage<Content: HTML & Sendable>: HTMLDocument, Sendable {
                 a(.href("/bio")) { "Bio" }
             }
             div(.class("copyright")) {
-                "© Joseph Duffy. Blog posts published under"
+                "© Joseph Duffy. Blog posts published under "
                 a(.href("https://creativecommons.org/licenses/by/4.0/")) { "CC-BY-4.0" }
                 ", unless otherwise specified."
             }

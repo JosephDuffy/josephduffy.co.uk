@@ -448,6 +448,7 @@ article .youtube-embed {
     background: var(--tint-color);
     color: var(--primary-background);
     margin-top: 12px;
+    align-items: center;
 }
 
 #footer .copyright,
@@ -457,17 +458,16 @@ article .youtube-embed {
     text-align: center;
 }
 
-#footer .nav {
+#footer nav {
     white-space: nowrap;
     margin: 12px 6px;
 }
 
-#footer .navLink {
+#footer nav a {
     margin: 6px;
 }
 
-#footer .navLink,
-#footer .link {
+#footer a {
     text-decoration: underline;
     color: var(--primary-background);
 }
