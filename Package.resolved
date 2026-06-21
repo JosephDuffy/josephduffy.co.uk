@@ -1,5 +1,5 @@
 {
-  "originHash" : "21368b524ca15932dca0aafe9f335face4a7c2fae0eeb43da51d82c57e5ab868",
+  "originHash" : "14d0488db21557a5c9fb135075792f89cee69cbc6aded4b3b7054dbe009b19cc",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -44,6 +44,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "94e15875da32fb679154920a6ca61b74b3c062bd"
+      }
+    },
+    {
+      "identity" : "fswatcher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/okooo5km/FSWatcher.git",
+      "state" : {
+        "revision" : "9385b6ed1baef2ccbc622f9ed8634193e1b64d78",
+        "version" : "0.3.0"
       }
     },
     {

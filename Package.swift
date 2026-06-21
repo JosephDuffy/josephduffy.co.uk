@@ -27,7 +27,8 @@ let package = Package(
         .package(
             url: "https://github.com/swiftlang/swift-subprocess.git",
             .upToNextMinor(from: "0.4.0")
-        )
+        ),
+        .package(url: "https://github.com/okooo5km/FSWatcher.git", from: "0.3.0"),
     ],
     targets: [
         .target(
@@ -56,6 +57,7 @@ let package = Package(
             name: "Watcher",
             dependencies: [
                 .product(name: "Subprocess", package: "swift-subprocess"),
+                .product(name: "FSWatcher", package: "FSWatcher"),
             ],
         ),
         .testTarget(
