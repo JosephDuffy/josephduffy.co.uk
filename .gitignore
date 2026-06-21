@@ -27,3 +27,8 @@ node_modules/
 /public/sitemap.xml
 /public/sw.js*
 /public/workbox*
+
+# Swift
+
+.build/
+xcuserdata/

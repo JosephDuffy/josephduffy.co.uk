@@ -1,0 +1,26 @@
+{
+  "configurations" : [
+    {
+      "id" : "71DEE887-118E-4BD1-B715-904B1CA44712",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "testInteropMode" : "complete"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ServerTests",
+        "name" : "ServerTests"
+      }
+    }
+  ],
+  "version" : 1
+}
