@@ -117,9 +117,31 @@ public struct YouTubeEmbedRewriter: MarkupRewriter {
             guard let url = embedURL(for: decodedAttributes.youtube) else {
                 return attributes
             }
+            let aspectRatio = decodedAttributes.aspectRatio ?? "16:9"
             let title = (attributes.child(at: 0) as? Text).map { "\($0.string) on YouTube" } ?? "YouTube video player"
+
+            let width: Int
+            let height: Int
+            var classes = ["youtube-embed"]
+
+            switch aspectRatio {
+            case "16:9":
+                width = 560
+                height = 315
+                classes.append("aspect-ratio-16-9")
+            case "4:3":
+                width = 560
+                height = 420
+                classes.append("aspect-ratio-4-3")
+            default:
+                print("Unsupported aspect ratio: \(aspectRatio). Defaulting to 16:9.")
+                width = 560
+                height = 315
+                classes.append("aspect-ratio-16-9")
+            }
+
             return HTMLBlock("""
-                <iframe class="youtube-embed" width="560" height="315" src="\(url.absoluteString)" title="\(title)" allow="fullscreen"></iframe>
+                <iframe class="\(classes.joined(separator: " "))" width="\(width)" height="\(height)" src="\(url.absoluteString)" title="\(title)" allow="fullscreen"></iframe>
                 """)
         } catch {
             print(error)
@@ -151,6 +173,7 @@ public struct YouTubeEmbedRewriter: MarkupRewriter {
 
 private struct YouTubeInlineAttributes: Decodable {
     let youtube: URL
+    let aspectRatio: String?
 }
 
 private struct MarkupURLRewriter: MarkupRewriter {
