@@ -9,6 +9,11 @@ jobs:
   build_image:
     name: Build and Push Image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
     env:
       IMAGE: ghcr.io/josephduffy/josephduffy.co.uk
     steps:
