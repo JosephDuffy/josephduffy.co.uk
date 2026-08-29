@@ -85,6 +85,7 @@ jobs:
     name: Deploy Oracle ARM image
     needs: [build_image]
     permissions:
+      attestations: read
       contents: read
       id-token: write
     uses: JosephDuffy/webserver-deploy/.github/workflows/deploy-image.yml@master
