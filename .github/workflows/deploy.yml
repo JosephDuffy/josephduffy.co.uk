@@ -9,6 +9,8 @@ jobs:
   build_image:
     name: Build and Push Image
     runs-on: ubuntu-latest
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
     permissions:
       contents: read
       packages: write
@@ -78,3 +80,16 @@ jobs:
         env:
           WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+
+  deploy_oracle:
+    name: Deploy Oracle ARM image
+    needs: [build_image]
+    permissions:
+      contents: read
+      id-token: write
+    uses: JosephDuffy/webserver-deploy/.github/workflows/deploy-image.yml@master
+    with:
+      digest: ${{ needs.build_image.outputs.digest }}
+    secrets:
+      TS_CLIENT_ID: ${{ secrets.TS_CLIENT_ID }}
+      TS_AUDIENCE: ${{ secrets.TS_AUDIENCE }}
