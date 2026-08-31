@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Support for building multi-arch images on non-native platforms (e.g. building arm64 images on x86_64 runners).
+      # Enable building arm64 images on x86_64 runners.
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
 
@@ -55,8 +55,63 @@ jobs:
             HCAPTCHA_SITE_KEY=3549990c-5b31-4c18-84b6-e7f57fcde61b
           secrets: |
             GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=nextjs
+          cache-to: type=gha,mode=max,scope=nextjs
+          provenance: mode=max
+          sbom: true
+
+      - name: Attest image
+        uses: actions/attest@v4
+        with:
+          subject-name: ${{ env.IMAGE }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
+
+  build_swift_image:
+    name: Build and Push Swift Image
+    runs-on: ubuntu-latest
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    env:
+      IMAGE: ghcr.io/josephduffy/josephduffy.co.uk-swift
+    steps:
+      - uses: actions/checkout@v7
+
+      # Enable building arm64 images on x86_64 runners.
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: Dockerfile.vapor
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:sha-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=gha,scope=swift
+          cache-to: type=gha,mode=max,scope=swift
           provenance: mode=max
           sbom: true
 
