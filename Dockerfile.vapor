@@ -54,6 +54,8 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q install -y \
       libjemalloc2 \
       ca-certificates \
+      # curl is used for health checks
+      curl \
       tzdata \
       libcurl4 \
       libxml2 \
@@ -71,6 +73,13 @@ ENV SWIFT_BACKTRACE=enable=yes,sanitize=yes,threads=all,images=all,interactive=n
 USER vapor:vapor
 
 EXPOSE 8080
+
+HEALTHCHECK \
+    --interval=30s \
+    --timeout=10s \
+    --start-period=20s \
+    --retries=3 \
+    CMD ["/usr/bin/curl", "--head", "--silent", "--output", "/dev/null", "--show-error", "--fail", "--max-time", "5", "http://localhost:8080/"]
 
 ENTRYPOINT ["./Runner"]
 CMD ["serve", "--env", "production", "--hostname", "0.0.0.0", "--port", "8080"]
