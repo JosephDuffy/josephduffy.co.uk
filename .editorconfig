@@ -10,5 +10,5 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = 100
 
-[*.{js,jsx,ts,tsx,md}]
+[*.{js,jsx,ts,tsx,md,yml}]
 indent_size = 2

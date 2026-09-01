@@ -4,10 +4,11 @@ on:
   push:
     branches:
       - main
+      - feature/swift-rewrite
 
 jobs:
   build_image:
-    name: Build and Push Image
+    name: Build and Push Swift Image
     runs-on: ubuntu-latest
     outputs:
       digest: ${{ steps.build.outputs.digest }}
@@ -17,7 +18,7 @@ jobs:
       attestations: write
       id-token: write
     env:
-      IMAGE: ghcr.io/josephduffy/josephduffy.co.uk
+      IMAGE: ghcr.io/josephduffy/josephduffy.co.uk-swift
     steps:
       - uses: actions/checkout@v7
 
@@ -40,6 +41,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
+          file: Dockerfile.vapor
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
@@ -48,15 +50,8 @@ jobs:
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
-          build-args: |
-            BUILD_DATE=${{ github.event.head_commit.timestamp }}
-            GIT_COMMIT=${{ github.sha }}
-            WEBSITE_URL=https://josephduffy.co.uk/
-            HCAPTCHA_SITE_KEY=3549990c-5b31-4c18-84b6-e7f57fcde61b
-          secrets: |
-            GITHUB_ACCESS_TOKEN=${{ secrets.GITHUB_TOKEN }}
-          cache-from: type=gha,scope=nextjs
-          cache-to: type=gha,mode=max,scope=nextjs
+          cache-from: type=gha,scope=swift
+          cache-to: type=gha,mode=max,scope=swift
           provenance: mode=max
           sbom: true
 
@@ -67,20 +62,6 @@ jobs:
           subject-digest: ${{ steps.build.outputs.digest }}
           push-to-registry: true
 
-  trigger_webhook:
-    # if: ${{ false }} # Webhooks seem to be delivered automatically again.
-    name: Trigger Webhook
-    runs-on: ubuntu-latest
-    needs: [build_image]
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Trigger Webhook
-        run: ./scripts/trigger-update-webhook.sh "josephduffy.co.uk" "$WEBHOOK_SECRET" "$WEBHOOK_URL"
-        env:
-          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-
   deploy_oracle:
     name: Deploy Oracle ARM image
     needs: [build_image]
@@ -90,7 +71,7 @@ jobs:
       id-token: write
     uses: JosephDuffy/webserver-deploy/.github/workflows/deploy-image.yml@master
     with:
-      target: josephduffy-co-uk
+      target: josephduffy-co-uk-swift
       digest: ${{ needs.build_image.outputs.digest }}
     secrets:
       TS_CLIENT_ID: ${{ secrets.TS_CLIENT_ID }}
