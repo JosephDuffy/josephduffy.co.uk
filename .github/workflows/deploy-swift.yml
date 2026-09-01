@@ -159,7 +159,7 @@ jobs:
       id-token: write
     uses: JosephDuffy/webserver-deploy/.github/workflows/deploy-image.yml@master
     with:
-      target: josephduffy.co.uk-swift
+      target: josephduffy-co-uk-swift
       digest: ${{ needs.build_arm64_image.outputs.digest }}
     secrets:
       TS_CLIENT_ID: ${{ secrets.TS_CLIENT_ID }}
