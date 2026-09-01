@@ -11,7 +11,7 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q dist-upgrade -y \
     && apt-get install -y libjemalloc-dev
 
-WORKDIR /build
+WORKDIR /app
 COPY Package.swift ./
 COPY Package.resolved ./
 RUN swift package resolve --force-resolved-versions
@@ -23,7 +23,7 @@ COPY public ./public
 
 RUN mkdir /staging
 
-RUN --mount=type=cache,id=swift-build-${TARGETARCH},target=/build/.build,sharing=locked \
+RUN --mount=type=cache,id=swift-build-${TARGETARCH},target=/app/.build,sharing=locked \
     swift build \
         -c release \
         --product Runner \
@@ -41,10 +41,10 @@ WORKDIR /staging
 # Copy static swift backtracer binary to staging area
 RUN cp "/usr/libexec/swift/linux/swift-backtrace-static" ./
 
-# Copy any resources from the public directory and views directory if the directories exist
+# Copy runtime content into the staging area.
 # Ensure that by default, neither the directory nor any of its contents are writable.
-RUN [ -d /build/public ] && { mv /build/public ./public && chmod -R a-w ./public; } || true
-RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w ./Resources; } || true
+RUN [ -d /app/public ] && { mv /app/public ./public && chmod -R a-w ./public; } || true
+RUN [ -d /app/data ] && { mv /app/data ./data && chmod -R a-w ./data; } || true
 
 FROM debian:bookworm
 
