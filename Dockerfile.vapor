@@ -3,6 +3,8 @@
 
 FROM swift:6.3-bookworm AS build
 
+ARG TARGETARCH
+
 # Install OS updates
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
@@ -21,7 +23,7 @@ COPY public ./public
 
 RUN mkdir /staging
 
-RUN --mount=type=cache,target=/build/.build \
+RUN --mount=type=cache,id=swift-build-${TARGETARCH},target=/build/.build,sharing=locked \
     swift build \
         -c release \
         --product Runner \
