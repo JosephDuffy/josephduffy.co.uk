@@ -4,8 +4,11 @@ import Subprocess
 import os.log
 
 @main
-enum Entrypoint {
+enum Watcher {
     static func main() async throws {
+        #if !Xcode
+        #error("Watcher relies on Xcode to run the scheme. Only run this from Xcode.")
+        #endif
         let projectRoot = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
