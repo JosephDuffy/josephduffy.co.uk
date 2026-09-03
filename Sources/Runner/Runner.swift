@@ -2,18 +2,21 @@ import Server
 import Vapor
 
 @main
-enum Entrypoint {
+enum Runner {
     static func main() async throws {
         var environment = try Environment.detect()
         try LoggingSystem.bootstrap(from: &environment)
         let app = try await Application.make(environment)
+
+        #if Xcode
         let projectRoot = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-        var directory = DirectoryConfiguration(workingDirectory: projectRoot.path())
-        directory.publicDirectory = directory.workingDirectory + "public/"
-        app.directory = directory
+        app.directory = DirectoryConfiguration(workingDirectory: projectRoot.path())
+        #endif
+
+        app.directory.publicDirectory = app.directory.workingDirectory + "public/"
         do {
             try await configure(app)
             try await app.execute()
